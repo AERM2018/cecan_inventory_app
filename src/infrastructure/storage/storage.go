@@ -12,13 +12,18 @@ import (
 	"gorm.io/gorm"
 )
 
-var stringConnection = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", "192.168.0.8", "postgres", "C4s10*2016", "cecan_dev", "5432")
 var (
 	DBInstance *gorm.DB = nil
 	err        error
 )
 
 func Connect() (*gorm.DB, error) {
+	var stringConnection = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", 
+	os.Getenv("CECAN_DB_HOST"), 
+	os.Getenv("CECAN_DB_USER"), 
+	os.Getenv("CECAN_DB_PASSWD"), 
+	os.Getenv("CECAN_DB_NAME"), 
+	"5432") // Get stringConnection with help of the env file
 	if DBInstance == nil {
 		DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{})
 	}
