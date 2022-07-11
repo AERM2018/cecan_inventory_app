@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"cecan_inventory/src/infrastructure/config"
+)
 
 func main() {
-	fmt.Printf("Hello World!")
+	server := config.Server{};
+	server.New();
+	server.ConnectDatabase()
 }
