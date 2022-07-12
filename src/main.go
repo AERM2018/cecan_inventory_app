@@ -11,7 +11,7 @@ func main() {
 	server.ConnectDatabase()
 	server.SetUpRouter()
 	// Init all the routes
-	routes.InitUsersRoutes(server.Router)
+	routes.InitUsersRoutes(server.Router, server.DbPsql)
 	// Start app
 	server.StartListening()
 }

@@ -7,11 +7,14 @@ import (
 )
 
 type UserDataSource struct {
-	psql *gorm.DB
+	DbPsql *gorm.DB
 }
 
-func (dataSrc *UserDataSource) Login() []models.User {
-	var users []models.User
-	dataSrc.psql.Find(&users)
-	return users
+func (dataSrc *UserDataSource) GetUserByEmail(email string) (models.User, error) {
+	var user models.User
+	res := dataSrc.DbPsql.Where(&models.User{Email: email}).First(&user)
+	if res.RowsAffected < 1 {
+		return user, res.Error;
+	}
+	return user, nil
 }
