@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"os"
 	"path"
 	"runtime"
 
@@ -9,22 +10,28 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"
 )
 
 type Server struct {
 	IrisApp *iris.Application
 	DbPsql  *gorm.DB
+	Router  router.Party
+	Port    string
 }
 
 func (server *Server) New() {
 	server.IrisApp = iris.New()
 	_, filename, _, _ := runtime.Caller(0)
+	// load env variables from a .env file
 	envPath := path.Join(path.Dir(filename), "../../../.env")
 	err := godotenv.Load(envPath)
 	if err != nil {
 		panic(err)
 	}
+	// Set port
+	server.Port = os.Getenv("PORT")
 }
 
 func (server *Server) ConnectDatabase() {
@@ -35,6 +42,10 @@ func (server *Server) ConnectDatabase() {
 	}
 	fmt.Println("PSQL online")
 }
-func setUpRoutes(server *Server) {
+func (server *Server) SetUpRouter() {
+	server.Router = server.IrisApp.Party("/api/v1")
+}
 
+func (server *Server) StartListening() {
+	server.IrisApp.Run(iris.Addr(":" + server.Port))
 }
