@@ -10,7 +10,8 @@ import (
 
 func InitUsersRoutes(router router.Party, dbPsql *gorm.DB) {
 	auth := router.Party("/auth")
-	userDataSource := datasources.UserDataSource{DbPsql:dbPsql}
-	controller := controllers.AuthController{ UserDataSource:userDataSource}
+	userDataSource := datasources.UserDataSource{DbPsql: dbPsql}
+	controller := controllers.AuthController{UserDataSource: userDataSource}
 	auth.Post("/login", controller.Login)
+	auth.Post("/signup", controller.SignUp)
 }
