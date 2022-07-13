@@ -1,34 +1,31 @@
 package helpers
 
-import "github.com/kataras/iris/v12"
+import (
+	"cecan_inventory/src/domain/models"
 
-type response struct {
-	StatusCode int
-	Error      error
-	Message    string
-	Data       iris.Map
-}
+	"github.com/kataras/iris/v12"
+)
 
-func PrepareAndSendMessageResponse(c iris.Context,statusCode int, err error, message string) {
+func PrepareAndSendMessageResponse(c iris.Context,response models.Responser){
 	var mapResponse iris.Map
 	var ok bool = true
-	if statusCode > 400{
+	if response.StatusCode > 400{
 		ok = false
-		if statusCode == 500{
+		if response.StatusCode == 500{
 			mapResponse = iris.Map{"ok":ok,"message":"Hable con el administrador."}
 			c.JSON(mapResponse)
 			return
 		}
 	}
-	mapResponse = iris.Map{"ok":ok,"message":message}	
-	c.StatusCode(statusCode)
+	mapResponse = iris.Map{"ok":ok,"message":response.Message}	
+	c.StatusCode(response.StatusCode)
 	c.JSON(mapResponse)
 }
 
-func PrepareAndSendDataResponse(c iris.Context,statusCode int, data iris.Map) {
+func PrepareAndSendDataResponse(c iris.Context,response models.Responser) {
 	var mapResponse iris.Map
 	var ok bool
-	mapResponse = iris.Map{"ok":ok,"data":data}	
-	c.StatusCode(statusCode)
+	mapResponse = iris.Map{"ok":ok,"data":response.Data}	
+	c.StatusCode(response.StatusCode)
 	c.JSON(mapResponse)
 }

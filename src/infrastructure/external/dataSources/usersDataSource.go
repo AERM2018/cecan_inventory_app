@@ -1,7 +1,7 @@
 package datasources
 
 import (
-	"cecan_inventory/src/infrastructure/storage/models"
+	"cecan_inventory/src/domain/models"
 	"errors"
 
 	"gorm.io/gorm"
