@@ -2,14 +2,17 @@ package storage
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path"
 	"runtime"
+	"time"
 
 	"cecan_inventory/src/infrastructure/storage/migrator"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var (
@@ -18,14 +21,23 @@ var (
 )
 
 func Connect() (*gorm.DB, error) {
-	var stringConnection = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s", 
-	os.Getenv("CECAN_DB_HOST"), 
-	os.Getenv("CECAN_DB_USER"), 
-	os.Getenv("CECAN_DB_PASSWD"), 
-	os.Getenv("CECAN_DB_NAME"), 
-	"5432") // Get stringConnection with help of the env file
+	var stringConnection = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s",
+		os.Getenv("CECAN_DB_HOST"),
+		os.Getenv("CECAN_DB_USER"),
+		os.Getenv("CECAN_DB_PASSWD"),
+		os.Getenv("CECAN_DB_NAME"),
+		"5432") // Get stringConnection with help of the env file
 	if DBInstance == nil {
-		DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{})
+		newLogger := logger.New(
+			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+			logger.Config{
+				SlowThreshold:             time.Second, // Slow SQL threshold
+				LogLevel:                  logger.Info, // Log level
+				IgnoreRecordNotFoundError: true,        // Ignore ErrRecordNotFound error for logger
+				Colorful:                  false,       // Disable color
+			},
+		)
+		DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{Logger: newLogger})
 	}
 	if err := Migrate(DBInstance, true); err != nil {
 		return DBInstance, err
@@ -34,15 +46,15 @@ func Connect() (*gorm.DB, error) {
 }
 
 func Migrate(db *gorm.DB, isMigrationUp bool) error {
-	psql, err := db.DB();
-	if err != nil{
-		return nil;
+	psql, err := db.DB()
+	if err != nil {
+		return nil
 	}
-	driver, err := migrator.GetPsqlDriver(psql);
-	if err != nil{
+	driver, err := migrator.GetPsqlDriver(psql)
+	if err != nil {
 		return err
 	}
-	return migrator.Exec(driver,os.Getenv("PSQL_DB_NAME"),getMigrationsPath(), isMigrationUp);
+	return migrator.Exec(driver, os.Getenv("PSQL_DB_NAME"), getMigrationsPath(), isMigrationUp)
 }
 
 func getMigrationsPath() string {

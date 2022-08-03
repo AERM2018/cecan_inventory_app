@@ -4,6 +4,7 @@ import (
 	"cecan_inventory/src/adapters/helpers"
 	"cecan_inventory/src/domain/models"
 	usecases "cecan_inventory/src/domain/useCases"
+	bodyreader "cecan_inventory/src/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/src/infrastructure/external/dataSources"
 
 	"github.com/kataras/iris/v12"
@@ -37,6 +38,38 @@ func (controller MedicinesController) InsertMedicineIntoCatalog(ctx iris.Context
 
 func (controller MedicinesController) GetMedicinesCatalog(ctx iris.Context) {
 	res := controller.Interactor.GetMedicinesCatalog()
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller MedicinesController) UpdateMedicine(ctx iris.Context) {
+	var medicine models.Medicine
+	medicineKey := ctx.Params().GetString("key")
+	bodyreader.ReadBodyAsJson(ctx, &medicine, true)
+	res := controller.Interactor.UpdateMedicine(medicineKey, medicine)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller MedicinesController) DeleteMedicine(ctx iris.Context) {
+	medicineKey := ctx.Params().GetString("key")
+	res := controller.Interactor.DeleteMedicine(medicineKey)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller MedicinesController) ReactivateMedicine(ctx iris.Context) {
+	medicineKey := ctx.Params().GetString("key")
+	res := controller.Interactor.ReactivateMedicine(medicineKey)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return

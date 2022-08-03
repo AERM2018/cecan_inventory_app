@@ -37,9 +37,56 @@ func (interactor MedicinesInteractor) GetMedicinesCatalog() models.Responser {
 		}
 	}
 	return models.Responser{
-		StatusCode: iris.StatusCreated,
+		StatusCode: iris.StatusOK,
 		Data: iris.Map{
 			"medicines": medicinesCatalog,
+		},
+	}
+}
+
+func (interactor MedicinesInteractor) UpdateMedicine(key string, medicine models.Medicine) models.Responser {
+	newKey, err := interactor.MedicinesDataSource.UpdateMedicine(key, medicine)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	medicineUpdated, _ := interactor.MedicinesDataSource.GetMedicineByKey(newKey)
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"medicine": medicineUpdated,
+		},
+	}
+}
+
+func (interactor MedicinesInteractor) DeleteMedicine(key string) models.Responser {
+	err := interactor.MedicinesDataSource.DeleteMedicineByKey(key)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}
+
+func (interactor MedicinesInteractor) ReactivateMedicine(key string) models.Responser {
+	err := interactor.MedicinesDataSource.ReactivateMedicine(key)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	medicineUpdated, _ := interactor.MedicinesDataSource.GetMedicineByKey(key)
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"medicine": medicineUpdated,
 		},
 	}
 }

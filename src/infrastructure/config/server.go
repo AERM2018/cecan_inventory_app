@@ -47,5 +47,5 @@ func (server *Server) SetUpRouter() {
 }
 
 func (server *Server) StartListening() {
-	server.IrisApp.Run(iris.Addr(":" + server.Port))
+	server.IrisApp.Run(iris.Addr(":"+server.Port), iris.WithoutBodyConsumptionOnUnmarshal)
 }

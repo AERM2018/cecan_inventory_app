@@ -6,14 +6,15 @@ import (
 
 	"github.com/go-playground/validator/v10"
 	"github.com/kataras/iris/v12"
+	"gorm.io/gorm"
 )
 
 type Medicine struct {
-	Key       string    `gorm:"primaryKey" json:"key" validate:"required"`
-	Name      string    `json:"name" validate:"required"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `gorm:"index" json:"deleted_at"`
+	Key       string         `gorm:"primaryKey" json:"key" validate:"required"`
+	Name      string         `json:"name" validate:"required"`
+	CreatedAt time.Time      `json:"created_at"`
+	UpdatedAt time.Time      `gorm:"autoUpdateTime:milli" json:"updated_at"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 }
 
 func (medicine Medicine) Validate() (Responser, error) {
