@@ -1,1 +1,1 @@
-ALTER TABLE users ADD deleted_at DATE;
+ALTER TABLE users ADD deleted_at TIMESTAMP;

@@ -6,10 +6,10 @@ CREATE TABLE prescriptions(
     patient_name VARCHAR(200) NOT NULL,
     observations text,
     instructions text,
-    created_at DATE NOT NULL,
-    updated_at DATE NOT NULL,
-    supplied_at DATE NOT NULL,
-    deletd_at DATE,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    supplied_at TIMESTAMP NOT NULL,
+    deletd_at TIMESTAMP,
     CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id),
     CONSTRAINT fk_prescription_status FOREIGN KEY(prescription_status_id) REFERENCES prescriptions_statues(id)
 );

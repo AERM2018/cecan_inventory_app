@@ -5,7 +5,7 @@ CREATE TABLE users(
   surname VARCHAR(100) NOT NULL,
   email VARCHAR(150) NOT NULL UNIQUE,
   password VARCHAR(255) NOT NULL,
-  created_at DATE,
-  updated_at DATE,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP,
   CONSTRAINT fk_roles FOREIGN KEY(role_id) REFERENCES roles(id)
 );

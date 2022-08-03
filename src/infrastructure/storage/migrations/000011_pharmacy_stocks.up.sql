@@ -4,9 +4,9 @@ CREATE TABLE pharmacy_stocks(
     lot_number VARCHAR(100) NOT NULL,
     pieces INT NOT NULL,
     semaforization_color SEMAFORIZATION_COLORS,
-    created_at DATE NOT NULL,
-    expires_at DATE NOT NULL,
-    updated_at DATE NOT NULL,
-    deleted_at DATE,
+    created_at TIMESTAMP NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP,
     CONSTRAINT fk_medicines FOREIGN KEY(medicine_key) REFERENCES medicines(key)
 );  
