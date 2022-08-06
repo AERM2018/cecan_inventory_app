@@ -12,6 +12,7 @@ import (
 
 type DbValidator struct {
 	MedicineDataSrc datasources.MedicinesDataSource
+	PharmacyDataSrc datasources.PharmacyStocksDataSource
 }
 
 func (dbVal DbValidator) IsMedicineInCatalogByKey(ctx iris.Context) {
@@ -64,3 +65,20 @@ func (dbVal DbValidator) IsMedicineWithName(ctx iris.Context) {
 	}
 	ctx.Next()
 }
+
+// func (dbVal DbValidator) AreStocksOfMedicine(ctx iris.Context) {
+// 	var (
+// 		httpRes models.Responser
+// 		numStocks int64
+// 	)
+// 	medicine_key := ctx.Params().GetString("key")
+// 	numStocks, _ = dbVal.PharmacyDataSrc.GetPharmacyStocksByMedicineKey(medicine_key)
+// 	if numStocks > 0 {
+// 		httpRes = models.Responser{
+// 				StatusCode: iris.StatusNotFound,
+// 				Message:    fmt.Sprintf("El medicamento con clave: %v no pudó ser eliminado ya que existen registros en el inventario con fecha de vencimiento", medicineKey),
+// 			}
+// 			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+// 	}
+// 	ctx.Next()
+// }

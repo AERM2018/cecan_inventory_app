@@ -6,6 +6,7 @@ import (
 	usecases "cecan_inventory/src/domain/useCases"
 	bodyreader "cecan_inventory/src/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/src/infrastructure/external/dataSources"
+	structvalidator "cecan_inventory/src/infrastructure/external/structValidator"
 
 	"github.com/kataras/iris/v12"
 )
@@ -23,7 +24,7 @@ func (controller *MedicinesController) New(medicinesDataSource datasources.Medic
 func (controller MedicinesController) InsertMedicineIntoCatalog(ctx iris.Context) {
 	medicine := models.Medicine{}
 	ctx.ReadBody(&medicine)
-	valRes, err := medicine.Validate()
+	valRes, err := structvalidator.ValidateStructFomRequest(medicine)
 	if err != nil {
 		helpers.PrepareAndSendDataResponse(ctx, valRes)
 		return
