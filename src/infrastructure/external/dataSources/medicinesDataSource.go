@@ -29,7 +29,7 @@ func (dataSrc MedicinesDataSource) GetMedicineByKey(key string) (models.Medicine
 
 func (dataSrc MedicinesDataSource) GetMedicinesCatalog() ([]models.Medicine, error) {
 	var medicinesCatalog []models.Medicine
-	res := dataSrc.DbPsql.Find(&medicinesCatalog)
+	res := dataSrc.DbPsql.Omit("created_at", "updated_at", "deletet_at").Find(&medicinesCatalog)
 	if res.Error != nil {
 		return medicinesCatalog, res.Error
 	}
