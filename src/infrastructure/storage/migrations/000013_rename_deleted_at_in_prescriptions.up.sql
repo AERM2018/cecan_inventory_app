@@ -1,0 +1,1 @@
+ALTER TABLE public.prescriptions RENAME COLUMN deletd_at to deleted_at;
