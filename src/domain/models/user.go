@@ -10,15 +10,16 @@ import (
 )
 
 type User struct {
-	Id        string    `gorm:"primaryKey" json:"id"`
-	RoleId    string    `json:"role_id"`
-	Name      string    `json:"name"`
-	Surname   string    `json:"surname"`
-	Email     string    `json:"email"`
-	Password  string    `json:"password"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	DeletedAt time.Time `gorm:"index" json:"deleted_at"`
+	Id        string     `gorm:"primaryKey" json:"id"`
+	RoleId    string     `json:"role_id"`
+	Role      *Role      `gorm:"foreignKey:role_id" json:"role,omitempty"`
+	Name      string     `json:"name"`
+	Surname   string     `json:"surname"`
+	Email     string     `json:"email,omitempty"`
+	Password  string     `json:"password,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	DeletedAt time.Time  `gorm:"index" json:"deleted_at"`
 }
 
 func hashPassword(password string) string {

@@ -14,6 +14,7 @@ func main() {
 	routes.InitUsersRoutes(server.Router, server.DbPsql)
 	routes.InitMedicinesRoutes(server.Router, server.DbPsql)
 	routes.InitPharmacyStocksRoutes(server.Router, server.DbPsql)
+	routes.InitPrescriptionsRoutes(server.Router, server.DbPsql)
 	// Start app
 	server.StartListening()
 }
