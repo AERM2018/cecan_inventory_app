@@ -16,7 +16,8 @@ func InitPharmacyStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	controller := controllers.PharmacyStocksController{}
 	controller.New(pharmacyStocksDataSource, medicinesDataSource)
 
-	pharmacy_inventory.Post("/", controller.InsertStockOfMedicine)
 	pharmacy_inventory.Get("/", controller.GetPharmacyStocks)
+	pharmacy_inventory.Post("/", controller.InsertStockOfMedicine)
+	pharmacy_inventory.Put("/{id:string}", controller.UpdatePharmacyStock)
 
 }

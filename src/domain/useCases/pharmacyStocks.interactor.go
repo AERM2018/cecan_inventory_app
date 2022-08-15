@@ -4,6 +4,7 @@ import (
 	"cecan_inventory/src/domain/models"
 	datasources "cecan_inventory/src/infrastructure/external/dataSources"
 
+	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
 )
 
@@ -57,6 +58,23 @@ func (interactor PharmacyStockInteractor) GetPharmacyStocks() models.Responser {
 		StatusCode: iris.StatusOK,
 		Data: iris.Map{
 			"inventory": medicineStocksDetailed,
+		},
+	}
+}
+
+func (interactor PharmacyStockInteractor) UpdatePharmacyStock(id uuid.UUID, pharmacyStock models.PharmacyStockToUpdate) models.Responser {
+	err := interactor.PharmacyStocksDataSource.UpdatePharmacyStock(id, pharmacyStock)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	pharmacyStockUpdated, _ := interactor.PharmacyStocksDataSource.GetPharmacyStockById(id)
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"stock": pharmacyStockUpdated,
 		},
 	}
 }

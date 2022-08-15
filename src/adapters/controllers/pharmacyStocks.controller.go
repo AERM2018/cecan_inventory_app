@@ -8,6 +8,7 @@ import (
 	datasources "cecan_inventory/src/infrastructure/external/dataSources"
 	structvalidator "cecan_inventory/src/infrastructure/external/structValidator"
 
+	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
 )
 
@@ -39,6 +40,19 @@ func (controller PharmacyStocksController) InsertStockOfMedicine(ctx iris.Contex
 
 func (controller PharmacyStocksController) GetPharmacyStocks(ctx iris.Context) {
 	res := controller.PharmacyStocksInteractor.GetPharmacyStocks()
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller PharmacyStocksController) UpdatePharmacyStock(ctx iris.Context) {
+	var pharmacyStock models.PharmacyStockToUpdate
+	pharmacyStockId := ctx.Params().GetString("id")
+	bodyreader.ReadBodyAsJson(ctx, &pharmacyStock, true)
+	id, _ := uuid.Parse(pharmacyStockId)
+	res := controller.PharmacyStocksInteractor.UpdatePharmacyStock(id, pharmacyStock)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
