@@ -66,7 +66,7 @@ func (interactor AuthInteractor) SignUpUser(user models.User) models.Responser {
 		return models.Responser{
 			StatusCode: iris.StatusBadRequest,
 			Message:    err.Error(),
-			Err:        nil,
+			Err:        err,
 			Data:       nil,
 		}
 	}

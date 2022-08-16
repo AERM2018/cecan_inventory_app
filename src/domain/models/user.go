@@ -10,7 +10,7 @@ import (
 )
 
 type User struct {
-	Id        string     `gorm:"primaryKey" json:"id"`
+	Id        string     `gorm:"primaryKey" json:"id,omitempty"`
 	RoleId    string     `json:"role_id"`
 	Role      *Role      `gorm:"foreignKey:role_id" json:"role,omitempty"`
 	Name      string     `json:"name"`
@@ -36,6 +36,12 @@ func (user User) CheckPassword(password string) bool {
 }
 
 func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
+	var numOfRecord int64
+	dateUnixStr := fmt.Sprint(time.Now().Unix())
+	dateUnixSufix := dateUnixStr[len(dateUnixStr)-3:]
+	tx.Model(User{}).Count(&numOfRecord)
+	numOfRecord += 100
+	user.Id = fmt.Sprintf("CAN%v%v", numOfRecord, dateUnixSufix)
 	user.Password = hashPassword(user.Password)
 	return
 }
