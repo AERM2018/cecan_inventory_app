@@ -24,11 +24,13 @@ type Server struct {
 func (server *Server) New() {
 	server.IrisApp = iris.New()
 	_, filename, _, _ := runtime.Caller(0)
-	// load env variables from a .env file
-	envPath := path.Join(path.Dir(filename), "../../../.env")
-	err := godotenv.Load(envPath)
-	if err != nil {
-		panic(err)
+	if os.Getenv("GO_ENV") != "production" {
+		// load env variables from a .env file
+		envPath := path.Join(path.Dir(filename), "../../../.env")
+		err := godotenv.Load(envPath)
+		if err != nil {
+			panic(err)
+		}
 	}
 	// Set port
 	server.Port = os.Getenv("PORT")
