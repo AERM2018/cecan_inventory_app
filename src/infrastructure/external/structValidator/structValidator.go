@@ -9,7 +9,7 @@ import (
 	"github.com/kataras/iris/v12"
 )
 
-func ValidateStructFomRequest(structToValidate any) (models.Responser, error) {
+func ValidateStructFomRequest(structToValidate interface{}) (models.Responser, error) {
 	customVal := validator.New()
 	err := customVal.Struct(structToValidate)
 	if err != nil {

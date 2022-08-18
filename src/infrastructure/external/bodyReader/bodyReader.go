@@ -8,7 +8,7 @@ import (
 	"github.com/kataras/iris/v12"
 )
 
-func ReadBodyAsJson(ctx iris.Context, dest any, consumeBody bool) {
+func ReadBodyAsJson(ctx iris.Context, dest interface{}, consumeBody bool) {
 	body, _ := io.ReadAll(ctx.Request().Body)
 	json.Unmarshal(body, dest)
 	if !consumeBody {

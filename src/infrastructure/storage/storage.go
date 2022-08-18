@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"cecan_inventory/src/infrastructure/storage/migrator"
+	"cecan_inventory/src/infrastructure/storage/seeds"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -39,10 +40,16 @@ func Connect() (*gorm.DB, error) {
 		)
 		DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{Logger: newLogger})
 	}
-	if err := Migrate(DBInstance, true); err != nil {
+	err := Migrate(DBInstance, true); 
+	for _, seed := range seeds.All() {
+		if err := seed.Run(DBInstance); err != nil {
+			log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
+		}
+	}
+	if err != nil {
 		return DBInstance, err
 	}
-	return DBInstance, err
+	return DBInstance, nil
 }
 
 func Migrate(db *gorm.DB, isMigrationUp bool) error {
