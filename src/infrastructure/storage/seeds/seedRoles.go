@@ -1,7 +1,7 @@
 package seeds
 
 import (
-	"cecan_inventory/src/domain/models"
+	"cecan_inventory/domain/models"
 
 	"gorm.io/gorm"
 )

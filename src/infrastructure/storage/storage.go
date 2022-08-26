@@ -8,8 +8,8 @@ import (
 	"runtime"
 	"time"
 
-	"cecan_inventory/src/infrastructure/storage/migrator"
-	"cecan_inventory/src/infrastructure/storage/seeds"
+	"cecan_inventory/infrastructure/storage/migrator"
+	"cecan_inventory/infrastructure/storage/seeds"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

@@ -1,8 +1,8 @@
 package usecases
 
 import (
-	"cecan_inventory/src/domain/models"
-	datasources "cecan_inventory/src/infrastructure/external/dataSources"
+	"cecan_inventory/domain/models"
+	datasources "cecan_inventory/infrastructure/external/dataSources"
 
 	"github.com/kataras/iris/v12"
 )

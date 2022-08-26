@@ -1,8 +1,8 @@
 package main
 
 import (
-	"cecan_inventory/src/infrastructure/config"
-	"cecan_inventory/src/infrastructure/http/routes"
+	"cecan_inventory/infrastructure/config"
+	"cecan_inventory/infrastructure/http/routes"
 )
 
 func main() {

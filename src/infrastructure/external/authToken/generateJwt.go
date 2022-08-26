@@ -1,7 +1,7 @@
 package authtoken
 
 import (
-	"cecan_inventory/src/domain/models"
+	"cecan_inventory/domain/models"
 	"os"
 	"time"
 

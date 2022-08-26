@@ -6,7 +6,7 @@ import (
 	"path"
 	"runtime"
 
-	"cecan_inventory/src/infrastructure/storage"
+	"cecan_inventory/infrastructure/storage"
 
 	"github.com/joho/godotenv"
 	"github.com/kataras/iris/v12"

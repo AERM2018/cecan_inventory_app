@@ -1,8 +1,8 @@
 package middlewares
 
 import (
-	"cecan_inventory/src/adapters/helpers"
-	"cecan_inventory/src/domain/models"
+	"cecan_inventory/adapters/helpers"
+	"cecan_inventory/domain/models"
 	"fmt"
 	"os"
 	"strings"

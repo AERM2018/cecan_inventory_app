@@ -1,7 +1,7 @@
 package models
 
 import (
-	"cecan_inventory/src/domain/common"
+	"cecan_inventory/domain/common"
 	"fmt"
 	"time"
 

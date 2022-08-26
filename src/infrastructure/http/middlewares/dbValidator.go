@@ -1,10 +1,10 @@
 package middlewares
 
 import (
-	"cecan_inventory/src/adapters/helpers"
-	"cecan_inventory/src/domain/models"
-	bodyreader "cecan_inventory/src/infrastructure/external/bodyReader"
-	datasources "cecan_inventory/src/infrastructure/external/dataSources"
+	"cecan_inventory/adapters/helpers"
+	"cecan_inventory/domain/models"
+	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
+	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"fmt"
 
 	"github.com/kataras/iris/v12"

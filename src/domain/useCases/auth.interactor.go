@@ -1,9 +1,9 @@
 package usecases
 
 import (
-	"cecan_inventory/src/domain/models"
-	authtoken "cecan_inventory/src/infrastructure/external/authToken"
-	datasources "cecan_inventory/src/infrastructure/external/dataSources"
+	"cecan_inventory/domain/models"
+	authtoken "cecan_inventory/infrastructure/external/authToken"
+	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"errors"
 	"os"
 

@@ -1,13 +1,14 @@
 package controllers
 
 import (
-	"cecan_inventory/src/adapters/helpers"
-	"cecan_inventory/src/domain/models"
-	usecases "cecan_inventory/src/domain/useCases"
-	datasources "cecan_inventory/src/infrastructure/external/dataSources"
+	"cecan_inventory/adapters/helpers"
+	"cecan_inventory/domain/models"
+	usecases "cecan_inventory/domain/useCases"
+	datasources "cecan_inventory/infrastructure/external/dataSources"
+
 	"strings"
 
-	iris "github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12"
 )
 
 type AuthController struct {

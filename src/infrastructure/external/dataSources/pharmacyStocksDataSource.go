@@ -1,7 +1,7 @@
 package datasources
 
 import (
-	"cecan_inventory/src/domain/models"
+	"cecan_inventory/domain/models"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"

@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"cecan_inventory/src/adapters/helpers"
-	"cecan_inventory/src/domain/models"
-	usecases "cecan_inventory/src/domain/useCases"
-	bodyreader "cecan_inventory/src/infrastructure/external/bodyReader"
-	datasources "cecan_inventory/src/infrastructure/external/dataSources"
+	"cecan_inventory/adapters/helpers"
+	"cecan_inventory/domain/models"
+	usecases "cecan_inventory/domain/useCases"
+	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
+	datasources "cecan_inventory/infrastructure/external/dataSources"
 
 	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"

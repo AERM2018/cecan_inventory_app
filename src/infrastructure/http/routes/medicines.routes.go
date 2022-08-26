@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"cecan_inventory/src/adapters/controllers"
-	datasources "cecan_inventory/src/infrastructure/external/dataSources"
-	"cecan_inventory/src/infrastructure/http/middlewares"
+	"cecan_inventory/adapters/controllers"
+	datasources "cecan_inventory/infrastructure/external/dataSources"
+	"cecan_inventory/infrastructure/http/middlewares"
 
 	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"

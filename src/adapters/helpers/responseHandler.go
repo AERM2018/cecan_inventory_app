@@ -1,7 +1,7 @@
 package helpers
 
 import (
-	"cecan_inventory/src/domain/models"
+	"cecan_inventory/domain/models"
 	"fmt"
 
 	"github.com/kataras/iris/v12"
