@@ -1,0 +1,27 @@
+version: "3.8"
+volumes:
+  psql:
+services:
+  api-app:
+    restart: on-failure
+    build:
+      context: ../../
+      dockerfile: ./Docker/dev/Dockerfile
+    ports:
+      - 4000:4000
+    env_file:
+      - ../../env/app.env
+    depends_on:
+      - db-app
+    volumes:
+      - ../../src:/usr/src/app
+    tty: true
+    stdin_open: true
+  db-app:
+    image: postgres
+    env_file:
+      - ../../env/postgres.env
+    ports:
+      - 5432:5432
+    volumes:
+      - psql:/var/lib/postgresql/data

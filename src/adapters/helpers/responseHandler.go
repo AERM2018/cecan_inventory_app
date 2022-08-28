@@ -19,7 +19,7 @@ func PrepareAndSendMessageResponse(c iris.Context, response models.Responser) {
 			return
 		}
 	}
-	mapResponse = iris.Map{"ok": ok, "message": response.Message}
+	mapResponse = iris.Map{"ok": ok, "message!": response.Message}
 	c.StopWithJSON(response.StatusCode, mapResponse)
 }
 

@@ -3,12 +3,9 @@ package config
 import (
 	"fmt"
 	"os"
-	"path"
-	"runtime"
 
 	"cecan_inventory/infrastructure/storage"
 
-	"github.com/joho/godotenv"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"
@@ -23,15 +20,16 @@ type Server struct {
 
 func (server *Server) New() {
 	server.IrisApp = iris.New()
-	_, filename, _, _ := runtime.Caller(0)
-	if os.Getenv("GO_ENV") != "production" {
-		// load env variables from a .env file
-		envPath := path.Join(path.Dir(filename), "../../../.env")
-		err := godotenv.Load(envPath)
-		if err != nil {
-			panic(err)
-		}
-	}
+	// pathfile,_ := os.Getwd()
+	// if os.Getenv("GO_ENV") != "production" {
+	// 	// load env variables from a .env file
+	// 	envPath := pathfile + "\\..\\env\\app.env"
+	// 	fmt.Println(envPath)
+	// 	err := godotenv.Load(envPath)
+	// 	if err != nil {
+	// 		panic(err)
+	// 	}
+	// }
 	// Set port
 	server.Port = os.Getenv("PORT")
 }
