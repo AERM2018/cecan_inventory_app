@@ -12,7 +12,7 @@ type Seed struct {
 
 func All() []Seed {
 	return []Seed{
-		{Name: "CreateAdminRole", Run: func(db *gorm.DB) error { return CreateRoles(db, "Admin") }},
+		{Name: "CreateAdminRole", Run: func(db *gorm.DB) error { return CreateRoles(db) }},
 		{Name: "CreateAdminUser", Run: func(db *gorm.DB) error { return CreateAdminUser(db) }},
 		{Name: "CreateMedicines", Run: func(db *gorm.DB) error { return CreateMedicines(db) }},
 	}
