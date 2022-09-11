@@ -25,25 +25,13 @@ func (dbVal DbValidator) IsMedicineInCatalogByKey(ctx iris.Context) {
 		bodyreader.ReadBodyAsJson(ctx, &medicine, false)
 		medicineKey = medicine.Key
 	}
-	isMedicine := dbVal.MedicineDataSrc.DbPsql.Unscoped().First(&medicine, medicineKey).RowsAffected
-	if ctx.Request().Method == "POST" {
-		if isMedicine == 1 {
-			httpRes = models.Responser{
-				StatusCode: iris.StatusNotFound,
-				Message:    fmt.Sprintf("El medicamento con clave: %v ya existe.", medicineKey),
-			}
-			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
-			return
+	isMedicine := dbVal.MedicineDataSrc.DbPsql.Where("key = ?", medicineKey).First(&medicine).RowsAffected
+	if isMedicine == 0 {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("El medicamento con clave: %v no existe.", medicineKey),
 		}
-	} else {
-		if isMedicine == 0 {
-			httpRes = models.Responser{
-				StatusCode: iris.StatusNotFound,
-				Message:    fmt.Sprintf("El medicamento con clave: %v no existe.", medicineKey),
-			}
-			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
-		}
-
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 	}
 	ctx.Next()
 }
@@ -88,11 +76,17 @@ func (dbVal DbValidator) IsMedicineWithKey(ctx iris.Context) {
 	bodyreader.ReadBodyAsJson(ctx, &medicine, false)
 	medicineKey := ctx.Params().GetString("key")
 	if medicine.Key != medicineKey {
+		var resMessage string
 		isMedicineWithKey := dbVal.MedicineDataSrc.DbPsql.Where("key = ?", medicine.Key).Find(&models.Medicine{}).RowsAffected
 		if isMedicineWithKey == 1 {
+			if ctx.Request().Method == "PUT" {
+				resMessage = fmt.Sprintf("No se actualizó el medicamento debido a que ya existe un medicamento con la clave: %v.", medicine.Key)
+			} else {
+				resMessage = fmt.Sprintf("El medicamento con clave: %v ya existe.", medicineKey)
+			}
 			httpRes = models.Responser{
 				StatusCode: iris.StatusBadRequest,
-				Message:    fmt.Sprintf("No se actualizó el medicamento debido a que ya existe un medicamento con la clave: %v.", medicine.Key),
+				Message:    resMessage,
 			}
 			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		}

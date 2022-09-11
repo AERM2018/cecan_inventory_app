@@ -8,7 +8,8 @@ import (
 )
 
 type MedicinesInteractor struct {
-	MedicinesDataSource datasources.MedicinesDataSource
+	MedicinesDataSource      datasources.MedicinesDataSource
+	PharmacyStocksDataSource datasources.PharmacyStocksDataSource
 }
 
 func (interactor MedicinesInteractor) InsertMedicineIntoCatalog(medicine models.Medicine) models.Responser {
@@ -28,6 +29,28 @@ func (interactor MedicinesInteractor) InsertMedicineIntoCatalog(medicine models.
 	}
 }
 
+func (interactor MedicinesInteractor) InsertStockOfMedicine(stock models.PharmacyStock) models.Responser {
+	stockId, errOnInsertion := interactor.PharmacyStocksDataSource.InsertStockOfMedicine(stock)
+	if errOnInsertion != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        errOnInsertion,
+		}
+	}
+	newStock, errOnGetting := interactor.PharmacyStocksDataSource.GetPharmacyStockById(stockId)
+	if errOnGetting != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        errOnGetting,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusCreated,
+		Data: iris.Map{
+			"stock": newStock,
+		},
+	}
+}
 func (interactor MedicinesInteractor) GetMedicinesCatalog(includeDeleted bool) models.Responser {
 	medicinesCatalog, err := interactor.MedicinesDataSource.GetMedicinesCatalog(includeDeleted)
 	if err != nil {

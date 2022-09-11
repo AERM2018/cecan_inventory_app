@@ -13,29 +13,6 @@ type PharmacyStockInteractor struct {
 	MedicinesDataSource      datasources.MedicinesDataSource
 }
 
-func (interactor PharmacyStockInteractor) InsertStockOfMedicine(stock models.PharmacyStock) models.Responser {
-	stockId, errOnInsertion := interactor.PharmacyStocksDataSource.InsertStockOfMedicine(stock)
-	if errOnInsertion != nil {
-		return models.Responser{
-			StatusCode: iris.StatusInternalServerError,
-			Err:        errOnInsertion,
-		}
-	}
-	newStock, errOnGetting := interactor.PharmacyStocksDataSource.GetPharmacyStockById(stockId)
-	if errOnGetting != nil {
-		return models.Responser{
-			StatusCode: iris.StatusInternalServerError,
-			Err:        errOnGetting,
-		}
-	}
-	return models.Responser{
-		StatusCode: iris.StatusCreated,
-		Data: iris.Map{
-			"stock": newStock,
-		},
-	}
-}
-
 func (interactor PharmacyStockInteractor) GetPharmacyStocks() models.Responser {
 	var medicineStocksDetailed []models.PharmacyStocksDetailed
 	medicines, errMedicines := interactor.MedicinesDataSource.GetMedicinesCatalog(true)

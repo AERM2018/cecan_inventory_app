@@ -12,12 +12,14 @@ import (
 func InitMedicinesRoutes(router router.Party, dbPsql *gorm.DB) {
 	medicines := router.Party("/medicines")
 	medicinesDataSource := datasources.MedicinesDataSource{DbPsql: dbPsql}
-	val := middlewares.DbValidator{MedicineDataSrc: medicinesDataSource}
-	controller := controllers.MedicinesController{}
-	controller.New(medicinesDataSource)
+	pharmacyStocksDataSource := datasources.PharmacyStocksDataSource{DbPsql: dbPsql}
+	val := middlewares.DbValidator{MedicineDataSrc: medicinesDataSource, PharmacyDataSrc: pharmacyStocksDataSource}
+	controller := controllers.MedicinesController{MedicinesDataSource: medicinesDataSource, PharmacyStocksDataSource: pharmacyStocksDataSource}
+	controller.New()
 
 	medicines.Get("/", controller.GetMedicinesCatalog)
 	medicines.Post("/", val.IsMedicineInCatalogByKey, val.IsMedicineWithName, controller.InsertMedicineIntoCatalog)
+	medicines.Post("/{key:string}/pharmacy_inventory", val.IsMedicineInCatalogByKey, controller.InsertPharmacyStockOfMedicine)
 	medicines.Put("/{key:string}", val.IsMedicineInCatalogByKey, val.IsMedicineWithName, val.IsMedicineWithKey, controller.UpdateMedicine)
 	medicines.Put("/{key:string}/reactivate", val.IsMedicineInCatalogByKey, val.IsMedicineDeleted, controller.ReactivateMedicine)
 	medicines.Delete("/{key:string}", val.IsMedicineInCatalogByKey, controller.DeleteMedicine)

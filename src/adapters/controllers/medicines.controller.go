@@ -12,13 +12,16 @@ import (
 )
 
 type MedicinesController struct {
-	MedicinesDataSource datasources.MedicinesDataSource
-	Interactor          usecases.MedicinesInteractor
+	MedicinesDataSource      datasources.MedicinesDataSource
+	PharmacyStocksDataSource datasources.PharmacyStocksDataSource
+	Interactor               usecases.MedicinesInteractor
 }
 
-func (controller *MedicinesController) New(medicinesDataSource datasources.MedicinesDataSource) {
-	controller.MedicinesDataSource = medicinesDataSource
-	controller.Interactor = usecases.MedicinesInteractor{MedicinesDataSource: medicinesDataSource}
+func (controller *MedicinesController) New() {
+	controller.Interactor = usecases.MedicinesInteractor{
+		MedicinesDataSource:      controller.MedicinesDataSource,
+		PharmacyStocksDataSource: controller.PharmacyStocksDataSource,
+	}
 }
 
 func (controller MedicinesController) InsertMedicineIntoCatalog(ctx iris.Context) {
@@ -37,8 +40,26 @@ func (controller MedicinesController) InsertMedicineIntoCatalog(ctx iris.Context
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
 
+func (controller MedicinesController) InsertPharmacyStockOfMedicine(ctx iris.Context) {
+	var pharmacyStock models.PharmacyStock
+	bodyreader.ReadBodyAsJson(ctx, &pharmacyStock, true)
+	medicineKey := ctx.Params().GetString("key")
+	pharmacyStock.MedicineKey = medicineKey
+	valRes, err := structvalidator.ValidateStructFomRequest(pharmacyStock)
+	if err != nil {
+		helpers.PrepareAndSendDataResponse(ctx, valRes)
+		return
+	}
+	res := controller.Interactor.InsertStockOfMedicine(pharmacyStock)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
 func (controller MedicinesController) GetMedicinesCatalog(ctx iris.Context) {
-	includeDeleted,_ := ctx.URLParamBool("include_deleted")
+	includeDeleted, _ := ctx.URLParamBool("include_deleted")
 	res := controller.Interactor.GetMedicinesCatalog(includeDeleted)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
