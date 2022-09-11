@@ -26,24 +26,36 @@ func Connect() (*gorm.DB, error) {
 		os.Getenv("CECAN_DB_NAME"),
 		"5432") // Get stringConnection with help of the env file
 	if DBInstance == nil {
-// 		newLogger := logger.New(
-//   log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
-//   logger.Config{
-//     SlowThreshold:              time.Second,   // Slow SQL threshold
-//     LogLevel:                   logger.Silent, // Log level
-//     IgnoreRecordNotFoundError: true,           // Ignore ErrRecordNotFound error for logger
-//     Colorful:                  false,          // Disable color
-//   },
-// )
+		// 		newLogger := logger.New(
+		//   log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+		//   logger.Config{
+		//     SlowThreshold:              time.Second,   // Slow SQL threshold
+		//     LogLevel:                   logger.Silent, // Log level
+		//     IgnoreRecordNotFoundError: true,           // Ignore ErrRecordNotFound error for logger
+		//     Colorful:                  false,          // Disable color
+		//   },
+		// )
 		// DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{Logger: newLogger})
 		DBInstance, err = gorm.Open(postgres.Open(stringConnection))
 	}
-	err := Migrate(DBInstance, true); 
-	for _, seed := range seeds.All() {
-		if err := seed.Run(DBInstance); err != nil {
-			log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
+	err := Migrate(DBInstance, true)
+	if os.Getenv("SEED_APPLIED") == "false" {
+		for _, seed := range seeds.All() {
+			if err := seed.Run(DBInstance); err != nil {
+				log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
+			}
 		}
+		os.Setenv("SEED_APPLIED", "true")
 	}
+	if err != nil {
+		return DBInstance, err
+	}
+	return DBInstance, nil
+}
+
+func PruneData(DBInstance *gorm.DB) (*gorm.DB, error) {
+	fmt.Println("Prunning data...")
+	err := Migrate(DBInstance, false)
 	if err != nil {
 		return DBInstance, err
 	}

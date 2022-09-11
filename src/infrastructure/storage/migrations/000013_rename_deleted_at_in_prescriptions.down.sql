@@ -1,1 +1,1 @@
-ALTER TABLE public.prescriptions RENAME COLUMN deletd_at deleted_at to deletd_at;
+-- ALTER TABLE public.prescriptions RENAME COLUMN deletd_at deleted_at to deletd_at;
