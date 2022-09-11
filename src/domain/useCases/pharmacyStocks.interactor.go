@@ -38,7 +38,7 @@ func (interactor PharmacyStockInteractor) InsertStockOfMedicine(stock models.Pha
 
 func (interactor PharmacyStockInteractor) GetPharmacyStocks() models.Responser {
 	var medicineStocksDetailed []models.PharmacyStocksDetailed
-	medicines, errMedicines := interactor.MedicinesDataSource.GetMedicinesCatalog()
+	medicines, errMedicines := interactor.MedicinesDataSource.GetMedicinesCatalog(true)
 	if errMedicines != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,

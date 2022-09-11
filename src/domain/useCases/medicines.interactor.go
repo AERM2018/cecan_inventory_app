@@ -28,8 +28,8 @@ func (interactor MedicinesInteractor) InsertMedicineIntoCatalog(medicine models.
 	}
 }
 
-func (interactor MedicinesInteractor) GetMedicinesCatalog() models.Responser {
-	medicinesCatalog, err := interactor.MedicinesDataSource.GetMedicinesCatalog()
+func (interactor MedicinesInteractor) GetMedicinesCatalog(includeDeleted bool) models.Responser {
+	medicinesCatalog, err := interactor.MedicinesDataSource.GetMedicinesCatalog(includeDeleted)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,

@@ -38,7 +38,8 @@ func (controller MedicinesController) InsertMedicineIntoCatalog(ctx iris.Context
 }
 
 func (controller MedicinesController) GetMedicinesCatalog(ctx iris.Context) {
-	res := controller.Interactor.GetMedicinesCatalog()
+	includeDeleted,_ := ctx.URLParamBool("include_deleted")
+	res := controller.Interactor.GetMedicinesCatalog(includeDeleted)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
