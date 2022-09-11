@@ -5,7 +5,4 @@ WORKDIR /usr/src/app
 COPY src/go.mod ./
 COPY src/go.sum ./
 RUN go mod download
-EXPOSE 5000
-# COPY src/ .
-RUN go install github.com/cosmtrek/air@latest
-CMD [ "air" ]
+EXPOSE 4000

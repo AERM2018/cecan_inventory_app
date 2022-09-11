@@ -1,16 +1,15 @@
 version: "3.8"
 volumes:
-  psql:
+  psql_test:
 services:
   api-app:
-    restart: always
     build:
       context: ../../
-      dockerfile: ./Docker/dev/Dockerfile
+      dockerfile: ./Docker/test/Dockerfile
     ports:
-      - 5000:5000
+      - 4000:4000
     env_file:
-      - ../../env/app.env
+      - ../../env/app_test.env
     depends_on:
       - db-app
     volumes:
@@ -20,9 +19,8 @@ services:
   db-app:
     image: postgres
     env_file:
-      - ../../env/postgres.env
+      - ../../env/postgres_test.env
     ports:
       - 5432:5432
-    restart: always
     volumes:
-      - psql:/var/lib/postgresql/data
+      - psql_test:/var/lib/postgresql/data
