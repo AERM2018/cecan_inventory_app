@@ -18,7 +18,7 @@ func InitMedicinesRoutes(router router.Party, dbPsql *gorm.DB) {
 
 	medicines.Get("/", controller.GetMedicinesCatalog)
 	medicines.Post("/", val.IsMedicineInCatalogByKey, val.IsMedicineWithName, controller.InsertMedicineIntoCatalog)
-	medicines.Put("/{key:string}", val.IsMedicineInCatalogByKey, val.IsMedicineWithName, controller.UpdateMedicine)
-	medicines.Put("/{key:string}/reactivate", val.IsMedicineInCatalogByKey, controller.ReactivateMedicine)
+	medicines.Put("/{key:string}", val.IsMedicineInCatalogByKey, val.IsMedicineWithName, val.IsMedicineWithKey, controller.UpdateMedicine)
+	medicines.Put("/{key:string}/reactivate", val.IsMedicineInCatalogByKey, val.IsMedicineDeleted, controller.ReactivateMedicine)
 	medicines.Delete("/{key:string}", val.IsMedicineInCatalogByKey, controller.DeleteMedicine)
 }
