@@ -26,6 +26,8 @@ func TestServer(t *testing.T) {
 		"Medicine should be deleted":                                 testDeleteMedicineOk,
 		"Medicine should not be deleted, medicine's not found":       testDeleteMedicineNotFound,
 		"Medicine should not be reactivate, medicine is not deleted": testReactivateMedicineNoDeleted,
+		"Pharmacy stock should be created":                           testCreatePhStockOk,
+		"Pharmacy stock should not be created, medicine no found":    testCreatePhStockMedicineNoFound,
 	}
 	for name, tt := range tests {
 		t.Run(name, tt)
