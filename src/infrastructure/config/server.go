@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"cecan_inventory/infrastructure/http/routes"
 	"cecan_inventory/infrastructure/storage"
 
 	"github.com/kataras/iris/v12"
@@ -18,20 +19,18 @@ type Server struct {
 	Port    string
 }
 
-func (server *Server) New() {
+func (server *Server) New() *iris.Application {
 	server.IrisApp = iris.New()
-	// pathfile,_ := os.Getwd()
-	// if os.Getenv("GO_ENV") != "production" {
-	// 	// load env variables from a .env file
-	// 	envPath := pathfile + "\\..\\env\\app.env"
-	// 	fmt.Println(envPath)
-	// 	err := godotenv.Load(envPath)
-	// 	if err != nil {
-	// 		panic(err)
-	// 	}
-	// }
+	server.ConnectDatabase()
+	server.Router = server.IrisApp.Party("/api/v1")
+	routes.InitUsersRoutes(server.Router, server.DbPsql)
+	routes.InitMedicinesRoutes(server.Router, server.DbPsql)
+	routes.InitPharmacyStocksRoutes(server.Router, server.DbPsql)
+	routes.InitPrescriptionsRoutes(server.Router, server.DbPsql)
 	// Set port
 	server.Port = os.Getenv("PORT")
+
+	return server.IrisApp
 }
 
 func (server *Server) ConnectDatabase() {
@@ -42,6 +41,7 @@ func (server *Server) ConnectDatabase() {
 	}
 	fmt.Println("PSQL online")
 }
+
 func (server *Server) SetUpRouter() {
 	server.Router = server.IrisApp.Party("/api/v1")
 }

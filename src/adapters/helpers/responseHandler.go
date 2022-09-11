@@ -10,7 +10,9 @@ import (
 func PrepareAndSendMessageResponse(c iris.Context, response models.Responser) {
 	var mapResponse iris.Map
 	var ok bool = true
-	if response.StatusCode > 400 {
+	var tag = "message"
+	if response.StatusCode >= 400 {
+		tag = "error"
 		ok = false
 		if response.StatusCode == 500 {
 			mapResponse = iris.Map{"ok": ok, "message": "Hable con el administrador.!"}
@@ -19,7 +21,7 @@ func PrepareAndSendMessageResponse(c iris.Context, response models.Responser) {
 			return
 		}
 	}
-	mapResponse = iris.Map{"ok": ok, "message!": response.Message}
+	mapResponse = iris.Map{"ok": ok, tag: response.Message}
 	c.StopWithJSON(response.StatusCode, mapResponse)
 }
 
