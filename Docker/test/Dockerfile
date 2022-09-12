@@ -5,4 +5,4 @@ WORKDIR /usr/src/app
 COPY src/go.mod ./
 COPY src/go.sum ./
 RUN go mod download
-EXPOSE 4000
+EXPOSE $PORT

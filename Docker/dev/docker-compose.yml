@@ -7,10 +7,10 @@ services:
     build:
       context: ../../
       dockerfile: ./Docker/dev/Dockerfile
-    ports:
-      - 5000:5000
     env_file:
-      - ../../env/app.env
+      - ./.env
+    ports:
+      - ${PORT}:${PORT}
     depends_on:
       - db-app
     volumes:
@@ -20,7 +20,7 @@ services:
   db-app:
     image: postgres
     env_file:
-      - ../../env/postgres.env
+      - ./.postgres.env
     ports:
       - 5432:5432
     restart: always

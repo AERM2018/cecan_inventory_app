@@ -1,2 +1,2 @@
-env/
+Docker/*/*.env
 src/tmp
