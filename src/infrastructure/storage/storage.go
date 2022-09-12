@@ -39,13 +39,10 @@ func Connect() (*gorm.DB, error) {
 		DBInstance, err = gorm.Open(postgres.Open(stringConnection))
 	}
 	err := Migrate(DBInstance, true)
-	if os.Getenv("SEED_APPLIED") == "false" {
-		for _, seed := range seeds.All() {
-			if err := seed.Run(DBInstance); err != nil {
-				log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
-			}
+	for _, seed := range seeds.All() {
+		if err := seed.Run(DBInstance); err != nil {
+			log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
 		}
-		os.Setenv("SEED_APPLIED", "true")
 	}
 	if err != nil {
 		return DBInstance, err
