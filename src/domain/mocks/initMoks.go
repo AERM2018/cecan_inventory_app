@@ -2,22 +2,31 @@ package mocks
 
 import (
 	"cecan_inventory/domain/models"
+	"fmt"
 	"strconv"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/icrowley/fake"
 )
 
 func GetRolesMock() []models.Role {
-	return []models.Role{
-		{Name: "Medico"},
-		{Name: "Farmacia"},
-		{Name: "Almacén"},
-		{Name: "Estandar"},
-		{Name: "Ingeniero"},
-		{Name: "Auditor"},
-		{Name: "Admin"},
+	rolesMocksAsMap := []map[string]string{
+		{"id": "7d3f3faa-39e2-4b3c-aaa8-8ca60fa090b4", "name": "Medico"},
+		{"id": "6648c302-f487-491d-be57-5f90bbe380c7", "name": "Farmacia"},
+		{"id": "5b4e7720-b663-474b-841d-aed481907908", "name": "Almacén"},
+		{"id": "6542908e-41ca-4230-8b45-985be3392b5d", "name": "Estandar"},
+		{"id": "097305e0-c4a3-4fd6-a929-49cd1aca5e90", "name": "Ingeniero"},
+		{"id": "e2660b8f-404c-4baa-b7f5-34e98c602046", "name": "Auditor"},
+		{"id": "3c9c3b1c-80c5-43a0-9276-4f88b67a7ac7", "name": "Admin"},
 	}
+	var rolesMocks []models.Role
+	for _, roleMockAsMap := range rolesMocksAsMap {
+		idAsUuid, _ := uuid.FromBytes([]byte(roleMockAsMap["id"]))
+		fmt.Println(roleMockAsMap["name"])
+		rolesMocks = append(rolesMocks, models.Role{Id: &idAsUuid, Name: roleMockAsMap["name"]})
+	}
+	return rolesMocks
 }
 
 func GetUserMockSeed(rolId string) models.User {

@@ -18,7 +18,8 @@ var user = mocks.GetUserMock("", 10)
 func testOkAuth(t *testing.T) {
 	server := config.Server{}
 	app := server.New()
-	credentials := models.AccessCredentials{Email: user.Email, Password: user.Password}
+	userMockSeed := mocks.GetUserMockSeed("")
+	credentials := models.AccessCredentials{Email: userMockSeed.Email, Password: userMockSeed.Password}
 	e := httptest.New(t, app)
 	res := e.
 		POST("/api/v1/auth/login").
