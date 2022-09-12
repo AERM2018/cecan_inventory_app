@@ -36,7 +36,7 @@ func testCreateMedicineRepeated(t *testing.T) {
 	res := e.
 		POST("/api/v1/medicines").
 		WithJSON(medicineRepeated).
-		Expect().Status(httptest.StatusNotFound)
+		Expect().Status(httptest.StatusBadRequest)
 	res.
 		JSON().
 		Object().

@@ -2,21 +2,30 @@ package test
 
 import (
 	"cecan_inventory/infrastructure/config"
-	"cecan_inventory/infrastructure/storage"
 	"testing"
 )
 
 func teardown() {
 	server := config.Server{}
 	server.New()
-	storage.PruneData(server.DbPsql)
+	// storage.PruneData(server.DbPsql)
 }
 func TestServer(t *testing.T) {
 	tests := map[string]func(t *testing.T){
+		// Login
 		"Login should be failed, not found":                          testNotFoundAuth,
 		"Login should be ok":                                         testOkAuth,
 		"Login should be failed, email's not found":                  testEmailNotFoundAuth,
 		"Login should be failed, password's wrong":                   testPasswordWrongAuth,
+		"Sign up should be ok":                                       testSignUpOk,
+		"Sign up should not be done, wrong role":                     testSignUpRoleWrong,
+		"Sign up should not be done, user not valid":                 testSignUpUserWrong,
+		"Sign up should not be done, email already in use":           testSignUpEmailUsed,
+		"Sign up should not be done, password is short":              testSignUpSmallPassword,
+		"Sign up should not be done, email is not valid":             testSignUpEmailNotValid,
+		"Token should be refreshed":                                  testRefreshTokenOk,
+		"Token should not be refreshed, token is missing":            testRefreshTokenNoAuthHeader,
+		"Token should not be refreshed, token is invalid":            testRefreshTokenWithInvalidToken,
 		"Medicine should be created":                                 testCreateMedicineOk,
 		"Medicine should not be created, it already exists":          testCreateMedicineRepeated,
 		"Medicine should not be created, name repeated":              testCreateMedicineNameRepeated,

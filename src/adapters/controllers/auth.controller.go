@@ -5,6 +5,7 @@ import (
 	"cecan_inventory/domain/models"
 	usecases "cecan_inventory/domain/useCases"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
+	structvalidator "cecan_inventory/infrastructure/external/structValidator"
 
 	"strings"
 
@@ -35,6 +36,11 @@ func (controller AuthController) Login(ctx iris.Context) {
 func (controller AuthController) SignUp(ctx iris.Context) {
 	var newUser models.User
 	ctx.ReadBody(&newUser)
+	valRes, err := structvalidator.ValidateStructFomRequest(newUser)
+	if err != nil {
+		helpers.PrepareAndSendDataResponse(ctx, valRes)
+		return
+	}
 	res := controller.Interator.SignUpUser(newUser)
 	if res.Err != nil {
 		helpers.PrepareAndSendMessageResponse(ctx, res)

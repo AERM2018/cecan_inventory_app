@@ -20,12 +20,21 @@ func GetRolesMock() []models.Role {
 	}
 }
 
-func GetUserMock(rolId string) models.User {
+func GetUserMockSeed(rolId string) models.User {
 	return models.User{
 		RoleId:   rolId,
 		Password: "Qwerty*123",
 		Name:     "CECAN ADMIN",
 		Email:    "admin@cecan.com",
+	}
+}
+
+func GetUserMock(rolId string, minPassLen int) models.User {
+	return models.User{
+		RoleId:   rolId,
+		Password: fake.Password(minPassLen, minPassLen, true, true, false),
+		Name:     fake.MaleFirstName(),
+		Email:    fake.EmailAddress(),
 	}
 }
 

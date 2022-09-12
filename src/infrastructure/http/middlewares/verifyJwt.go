@@ -3,7 +3,6 @@ package middlewares
 import (
 	"cecan_inventory/adapters/helpers"
 	"cecan_inventory/domain/models"
-	"fmt"
 	"os"
 	"strings"
 
@@ -12,8 +11,10 @@ import (
 )
 
 func VerifyJWT(ctx iris.Context) {
-	token := strings.Split(ctx.GetHeader("Authorization"), " ")[1]
-	fmt.Println(token)
+	var token string
+	if ctx.GetHeader("Authorization") != "" {
+		token = strings.Split(ctx.GetHeader("Authorization"), " ")[1]
+	}
 	_, err := jwt.Verify(jwt.HS256, []byte(os.Getenv("JWTSECRET")), []byte(token))
 	if err != nil {
 		res := models.Responser{

@@ -11,7 +11,7 @@ func CreateMedicines(db *gorm.DB) error {
 	if os.Getenv("GO_ENV") == "TEST" {
 		medicines := mocks.GetMedicineMockSeed()
 		for _, medicine := range medicines {
-			db.Create(&medicine)
+			db.FirstOrCreate(&medicine, medicine)
 		}
 	}
 

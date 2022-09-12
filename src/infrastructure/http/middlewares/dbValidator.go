@@ -13,6 +13,42 @@ import (
 type DbValidator struct {
 	MedicineDataSrc datasources.MedicinesDataSource
 	PharmacyDataSrc datasources.PharmacyStocksDataSource
+	RoleDataSource  datasources.RolesDataSource
+	UserDataSource  datasources.UserDataSource
+}
+
+func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+		user    models.User
+	)
+	bodyreader.ReadBodyAsJson(ctx, &user, false)
+	_, err := dbVal.RoleDataSource.GetRoleById(user.RoleId)
+	if err != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("El rol con id: %v no existe.", user.RoleId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsEmail(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+		user    models.User
+	)
+	bodyreader.ReadBodyAsJson(ctx, &user, false)
+	_, err := dbVal.UserDataSource.GetUserByEmail(user.Email)
+	if err == nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    fmt.Sprintf("El email %v ya está siendo usado por otro usuario.", user.Email),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+	}
+	ctx.Next()
 }
 
 func (dbVal DbValidator) IsMedicineInCatalogByKey(ctx iris.Context) {
@@ -25,7 +61,7 @@ func (dbVal DbValidator) IsMedicineInCatalogByKey(ctx iris.Context) {
 		bodyreader.ReadBodyAsJson(ctx, &medicine, false)
 		medicineKey = medicine.Key
 	}
-	isMedicine := dbVal.MedicineDataSrc.DbPsql.Where("key = ?", medicineKey).First(&medicine).RowsAffected
+	isMedicine := dbVal.MedicineDataSrc.DbPsql.Unscoped().Where("key = ?", medicineKey).First(&medicine).RowsAffected
 	if isMedicine == 0 {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusNotFound,
@@ -82,7 +118,7 @@ func (dbVal DbValidator) IsMedicineWithKey(ctx iris.Context) {
 			if ctx.Request().Method == "PUT" {
 				resMessage = fmt.Sprintf("No se actualizó el medicamento debido a que ya existe un medicamento con la clave: %v.", medicine.Key)
 			} else {
-				resMessage = fmt.Sprintf("El medicamento con clave: %v ya existe.", medicineKey)
+				resMessage = fmt.Sprintf("El medicamento con clave: %v ya existe.", medicine.Key)
 			}
 			httpRes = models.Responser{
 				StatusCode: iris.StatusBadRequest,

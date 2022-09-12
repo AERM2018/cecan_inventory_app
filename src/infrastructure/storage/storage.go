@@ -8,9 +8,11 @@ import (
 	"os"
 	"path"
 	"runtime"
+	"time"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var (
@@ -26,17 +28,17 @@ func Connect() (*gorm.DB, error) {
 		os.Getenv("CECAN_DB_NAME"),
 		"5432") // Get stringConnection with help of the env file
 	if DBInstance == nil {
-		// 		newLogger := logger.New(
-		//   log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
-		//   logger.Config{
-		//     SlowThreshold:              time.Second,   // Slow SQL threshold
-		//     LogLevel:                   logger.Silent, // Log level
-		//     IgnoreRecordNotFoundError: true,           // Ignore ErrRecordNotFound error for logger
-		//     Colorful:                  false,          // Disable color
-		//   },
-		// )
-		// DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{Logger: newLogger})
-		DBInstance, err = gorm.Open(postgres.Open(stringConnection))
+		newLogger := logger.New(
+			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
+			logger.Config{
+				SlowThreshold:             time.Second,   // Slow SQL threshold
+				LogLevel:                  logger.Silent, // Log level
+				IgnoreRecordNotFoundError: true,          // Ignore ErrRecordNotFound error for logger
+				Colorful:                  false,         // Disable color
+			},
+		)
+		DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{Logger: newLogger})
+		// DBInstance, err = gorm.Open(postgres.Open(stringConnection))
 	}
 	err := Migrate(DBInstance, true)
 	for _, seed := range seeds.All() {

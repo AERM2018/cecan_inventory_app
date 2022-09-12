@@ -15,8 +15,8 @@ type User struct {
 	Role      *Role      `gorm:"foreignKey:role_id" json:"role,omitempty"`
 	Name      string     `json:"name"`
 	Surname   string     `json:"surname"`
-	Email     string     `json:"email,omitempty"`
-	Password  string     `json:"password,omitempty"`
+	Email     string     `json:"email,omitempty" validate:"required,email"`
+	Password  string     `json:"password,omitempty" validate:"required,min=8"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	DeletedAt time.Time  `gorm:"index" json:"deleted_at"`

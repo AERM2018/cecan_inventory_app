@@ -15,7 +15,7 @@ func CreateAdminUser(db *gorm.DB) error {
 	db.Where("name = ?", "Admin").First(&role)
 	db.Model(&models.User{}).Where("name = ?", "CECAN ADMIN").Count(&adminUserCount)
 	if adminUserCount == 0 {
-		adminUser := mocks.GetUserMock(role.Id.String())
+		adminUser := mocks.GetUserMockSeed(role.Id.String())
 		return db.Create(&adminUser).Error
 	}
 	return nil
