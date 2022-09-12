@@ -2,7 +2,6 @@ package mocks
 
 import (
 	"cecan_inventory/domain/models"
-	"fmt"
 	"strconv"
 	"time"
 
@@ -22,8 +21,7 @@ func GetRolesMock() []models.Role {
 	}
 	var rolesMocks []models.Role
 	for _, roleMockAsMap := range rolesMocksAsMap {
-		idAsUuid, _ := uuid.FromBytes([]byte(roleMockAsMap["id"]))
-		fmt.Println(roleMockAsMap["name"])
+		idAsUuid, _ := uuid.Parse(roleMockAsMap["id"])
 		rolesMocks = append(rolesMocks, models.Role{Id: &idAsUuid, Name: roleMockAsMap["name"]})
 	}
 	return rolesMocks
