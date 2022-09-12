@@ -13,7 +13,10 @@ require (
 	gorm.io/gorm v1.23.7
 )
 
-require github.com/go-playground/validator/v10 v10.11.0
+require (
+	github.com/go-playground/validator/v10 v10.11.0
+	github.com/icrowley/fake v0.0.0-20220625154756-3c7517006344
+)
 
 require (
 	github.com/BurntSushi/toml v1.1.0 // indirect
@@ -36,7 +39,6 @@ require (
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/icrowley/fake v0.0.0-20220625154756-3c7517006344 // indirect
 	github.com/imkira/go-interpol v1.1.0 // indirect
 	github.com/iris-contrib/httpexpect/v2 v2.3.1 // indirect
 	github.com/iris-contrib/jade v1.1.4 // indirect

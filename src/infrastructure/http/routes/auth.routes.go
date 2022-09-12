@@ -12,9 +12,11 @@ import (
 func InitUsersRoutes(router router.Party, dbPsql *gorm.DB) {
 	auth := router.Party("/auth")
 	userDataSource := datasources.UserDataSource{DbPsql: dbPsql}
+	roleDataSource := datasources.RolesDataSource{DbPsql: dbPsql}
 	controller := controllers.AuthController{}
 	controller.New(userDataSource)
+	val := middlewares.DbValidator{RoleDataSource: roleDataSource, UserDataSource: userDataSource}
 	auth.Post("/login", controller.Login)
-	auth.Post("/signup", controller.SignUp)
+	auth.Post("/signup", val.IsRoleId, val.IsEmail, controller.SignUp)
 	auth.Post("/renew", middlewares.VerifyJWT, controller.RenewToken)
 }
