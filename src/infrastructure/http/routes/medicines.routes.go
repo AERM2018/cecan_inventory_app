@@ -16,7 +16,10 @@ func InitMedicinesRoutes(router router.Party, dbPsql *gorm.DB) {
 	val := middlewares.DbValidator{MedicineDataSrc: medicinesDataSource, PharmacyDataSrc: pharmacyStocksDataSource}
 	controller := controllers.MedicinesController{MedicinesDataSource: medicinesDataSource, PharmacyStocksDataSource: pharmacyStocksDataSource}
 	controller.New()
-
+	// Use middlewares for all the routes
+	medicines.Use(middlewares.VerifyJWT)
+	medicines.Use(val.CanUserDoAction("Farmacia"))
+	// Enpoints definition by HTTP method
 	medicines.Get("/", controller.GetMedicinesCatalog)
 	medicines.Post("/", val.IsMedicineWithKey, val.IsMedicineWithName, controller.InsertMedicineIntoCatalog)
 	medicines.Post("/{key:string}/pharmacy_inventory", val.IsMedicineInCatalogByKey, controller.InsertPharmacyStockOfMedicine)
