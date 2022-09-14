@@ -15,7 +15,7 @@ func InitUsersRoutes(router router.Party, dbPsql *gorm.DB) {
 	roleDataSource := datasources.RolesDataSource{DbPsql: dbPsql}
 	controller := controllers.AuthController{}
 	controller.New(userDataSource)
-	val := middlewares.DbValidator{RoleDataSource: roleDataSource, UserDataSource: userDataSource}
+	val := middlewares.DbValidator{RolesDataSource: roleDataSource, UserDataSource: userDataSource}
 	auth.Post("/login", controller.Login)
 	auth.Post("/signup", val.IsRoleId, val.IsEmail, controller.SignUp)
 	auth.Post("/renew", middlewares.VerifyJWT, controller.RenewToken)

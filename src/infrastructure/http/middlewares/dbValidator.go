@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"cecan_inventory/adapters/helpers"
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
@@ -13,7 +14,7 @@ import (
 type DbValidator struct {
 	MedicineDataSrc datasources.MedicinesDataSource
 	PharmacyDataSrc datasources.PharmacyStocksDataSource
-	RoleDataSource  datasources.RolesDataSource
+	RolesDataSource datasources.RolesDataSource
 	UserDataSource  datasources.UserDataSource
 }
 
@@ -23,7 +24,7 @@ func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
 		user    models.User
 	)
 	bodyreader.ReadBodyAsJson(ctx, &user, false)
-	_, err := dbVal.RoleDataSource.GetRoleById(user.RoleId)
+	_, err := dbVal.RolesDataSource.GetRoleById(user.RoleId)
 	if err != nil {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusNotFound,
@@ -34,6 +35,22 @@ func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
 	ctx.Next()
 }
 
+func (dbVal DbValidator) CanUserDoAction(roleNamesAllowed ...string) func(ctx iris.Context) {
+	return func(ctx iris.Context) {
+		var httpRes models.Responser
+		// This is just for testing, include Admin role in all request
+		roleNamesAllowed = append(roleNamesAllowed, "Admin")
+		roleName := fmt.Sprintf("%v", ctx.Values().Get("roleName"))
+		if !common.FindElementInSlice(roleName, roleNamesAllowed) {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusForbidden,
+				Message:    "Acción denegada, no cuenta con los permisos necesarios.",
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		}
+		ctx.Next()
+	}
+}
 func (dbVal DbValidator) IsEmail(ctx iris.Context) {
 	var (
 		httpRes models.Responser
