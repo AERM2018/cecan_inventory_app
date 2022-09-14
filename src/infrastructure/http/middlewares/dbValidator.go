@@ -8,6 +8,7 @@ import (
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
 )
 
@@ -157,6 +158,24 @@ func (dbVal DbValidator) IsMedicineDeleted(ctx iris.Context) {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusBadRequest,
 			Message:    fmt.Sprintf("El medicamento con clave: %v no se reactivó debido a que no ha sido eliminado antes.", medicineKey),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsPharmacyStockUsed(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+	)
+	pharmacyStockId := ctx.Params().GetString("id")
+	pharmacyStockUuid, _ := uuid.Parse(pharmacyStockId)
+	isStockUsed, _ := dbVal.PharmacyDataSrc.IsStockUsed(pharmacyStockUuid)
+	if isStockUsed {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    "No se puede eliminar un stock de farmacia cuando ha sido utilizado.",
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return

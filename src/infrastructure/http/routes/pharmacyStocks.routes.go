@@ -22,5 +22,6 @@ func InitPharmacyStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	pharmacyInventory.Use(middlewares.VerifyJWT)
 	pharmacyInventory.Get("/", controller.GetPharmacyStocks)
 	pharmacyInventory.Put("/{id:string}", val.CanUserDoAction("Farmacia"), controller.UpdatePharmacyStock)
+	pharmacyInventory.Delete("/{id:string}", val.CanUserDoAction("Farmacia"), val.IsPharmacyStockUsed, controller.DeletePharmacyStock)
 
 }

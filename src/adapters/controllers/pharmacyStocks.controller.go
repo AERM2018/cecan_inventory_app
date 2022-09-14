@@ -45,3 +45,14 @@ func (controller PharmacyStocksController) UpdatePharmacyStock(ctx iris.Context)
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller PharmacyStocksController) DeletePharmacyStock(ctx iris.Context) {
+	pharmacyStockId := ctx.Params().GetString("id")
+	pharmacyStockUuid, _ := uuid.Parse(pharmacyStockId)
+	res := controller.PharmacyStocksInteractor.DeletePharmacyStock(pharmacyStockUuid, true)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

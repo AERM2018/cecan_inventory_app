@@ -55,3 +55,16 @@ func (interactor PharmacyStockInteractor) UpdatePharmacyStock(id uuid.UUID, phar
 		},
 	}
 }
+
+func (interactor PharmacyStockInteractor) DeletePharmacyStock(id uuid.UUID, isPermanent bool) models.Responser {
+	err := interactor.PharmacyStocksDataSource.DeletePharmacyStock(id, isPermanent)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}

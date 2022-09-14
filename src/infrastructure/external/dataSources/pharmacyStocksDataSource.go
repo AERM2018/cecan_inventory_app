@@ -44,3 +44,25 @@ func (dataSrc PharmacyStocksDataSource) UpdatePharmacyStock(id uuid.UUID, pharma
 	}
 	return nil
 }
+
+func (dataSrc PharmacyStocksDataSource) DeletePharmacyStock(id uuid.UUID, isPermanent bool) error {
+	pointerDb := dataSrc.DbPsql
+	if isPermanent {
+		pointerDb = pointerDb.Unscoped()
+	}
+	res := pointerDb.Where("id = ?", id).Delete(&models.PharmacyStock{})
+	if res.Error != nil {
+		return res.Error
+	}
+	return nil
+}
+
+func (dataSrc PharmacyStocksDataSource) IsStockUsed(id uuid.UUID) (bool, error) {
+	var pharmacyStock models.PharmacyStock
+	res := dataSrc.DbPsql.First(&pharmacyStock)
+	if res.Error != nil {
+		return false, res.Error
+	}
+	isStockUsed := pharmacyStock.Pieces_used > 0 && pharmacyStock.CreatedAt.Unix() != pharmacyStock.UpdatedAt.Unix()
+	return isStockUsed, nil
+}

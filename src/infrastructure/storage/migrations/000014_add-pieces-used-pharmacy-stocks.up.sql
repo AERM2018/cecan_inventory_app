@@ -1,0 +1,1 @@
+ALTER TABLE pharmacy_stocks ADD COLUMN pieces_used INT NOT NULL DEFAULT 0;
