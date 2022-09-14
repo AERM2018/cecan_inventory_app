@@ -13,7 +13,7 @@ func InitPharmacyStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	pharmacyInventory := router.Party("/pharmacy_inventory")
 	pharmacyStocksDataSource := datasources.PharmacyStocksDataSource{DbPsql: dbPsql}
 	medicinesDataSource := datasources.MedicinesDataSource{DbPsql: dbPsql}
-	// val := middlewares.DbValidator{PharmacyDataSrc: pharmacyStocksDataSource, MedicineDataSrc: medicinesDataSource}
+	val := middlewares.DbValidator{PharmacyDataSrc: pharmacyStocksDataSource, MedicineDataSrc: medicinesDataSource}
 	controller := controllers.PharmacyStocksController{
 		PharmacyStocksDataSource: pharmacyStocksDataSource,
 		MedicineDataSource:       medicinesDataSource,
@@ -21,6 +21,6 @@ func InitPharmacyStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	controller.New()
 	pharmacyInventory.Use(middlewares.VerifyJWT)
 	pharmacyInventory.Get("/", controller.GetPharmacyStocks)
-	pharmacyInventory.Put("/{id:string}", controller.UpdatePharmacyStock)
+	pharmacyInventory.Put("/{id:string}", val.CanUserDoAction("Farmacia"), controller.UpdatePharmacyStock)
 
 }

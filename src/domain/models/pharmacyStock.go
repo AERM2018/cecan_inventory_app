@@ -2,7 +2,6 @@ package models
 
 import (
 	"cecan_inventory/domain/common"
-	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -44,6 +43,7 @@ type (
 		Pieces              int16               `json:"pieces"`
 		SemaforizationColor SemaforizationColor `json:"semaforization_color,omitempty"`
 		ExpiresAt           time.Time           `json:"expires_at"`
+		UpdatedAt           *time.Time          `gorm:"autoUpdateTime:milli" json:"updated_at,omitempty"`
 	}
 )
 
@@ -66,7 +66,6 @@ func (pharmacyStocksDetailed *PharmacyStocksDetailed) CountAndCategorizePieces()
 }
 
 func (pharmacyStockToUpdate *PharmacyStockToUpdate) BeforeUpdate(tx *gorm.DB) (err error) {
-	fmt.Println(SemaforizationColor(common.GetSemaforizationColorFromDate(pharmacyStockToUpdate.ExpiresAt)))
 	pharmacyStockToUpdate.SemaforizationColor = SemaforizationColor(common.GetSemaforizationColorFromDate(pharmacyStockToUpdate.ExpiresAt))
 	return
 }
