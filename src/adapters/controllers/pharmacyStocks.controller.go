@@ -13,12 +13,15 @@ import (
 
 type PharmacyStocksController struct {
 	PharmacyStocksDataSource datasources.PharmacyStocksDataSource
+	MedicineDataSource       datasources.MedicinesDataSource
 	PharmacyStocksInteractor usecases.PharmacyStockInteractor
 }
 
-func (controller *PharmacyStocksController) New(pharmacyStocksDataSource datasources.PharmacyStocksDataSource, medicineDataSource datasources.MedicinesDataSource) {
-	controller.PharmacyStocksDataSource = pharmacyStocksDataSource
-	controller.PharmacyStocksInteractor = usecases.PharmacyStockInteractor{PharmacyStocksDataSource: pharmacyStocksDataSource, MedicinesDataSource: medicineDataSource}
+func (controller *PharmacyStocksController) New() {
+	controller.PharmacyStocksInteractor = usecases.PharmacyStockInteractor{
+		PharmacyStocksDataSource: controller.PharmacyStocksDataSource,
+		MedicinesDataSource:      controller.MedicineDataSource,
+	}
 }
 
 func (controller PharmacyStocksController) GetPharmacyStocks(ctx iris.Context) {
