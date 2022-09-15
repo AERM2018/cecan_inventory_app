@@ -7,6 +7,7 @@ import (
 	"cecan_inventory/infrastructure/http/routes"
 	"cecan_inventory/infrastructure/storage"
 
+	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"
@@ -43,6 +44,14 @@ func (server *Server) ConnectDatabase() {
 	fmt.Println("PSQL online")
 }
 
+func (server *Server) setUpMiddlewares() {
+	crs := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+	})
+	server.IrisApp.Use(crs)
+	server.IrisApp.AllowMethods(iris.MethodOptions)
+}
 func (server *Server) SetUpRouter() {
 	server.Router = server.IrisApp.Party("/api/v1")
 }
