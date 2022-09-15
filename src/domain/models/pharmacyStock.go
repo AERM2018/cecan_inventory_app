@@ -22,12 +22,12 @@ type (
 		MedicineKey         string              `gorm:"foreignKey:medicine_key;references:key" json:"medicine_key" validate:"required"`
 		Medicine            *Medicine           `gorm:"foreignKey:MedicineKey" json:"medicine,omitempty"`
 		LotNumber           string              `json:"lot_number" validate:"required"`
-		Pieces              int16               `json:"pieces" validate:"required"`
+		Pieces              int16               `json:"pieces" validate:"required,gt=0"`
 		Pieces_used         int16               `json:"pieces_used"`
 		SemaforizationColor SemaforizationColor `json:"semaforization_color"`
 		CreatedAt           *time.Time          `json:"created_at,omitempty"`
 		UpdatedAt           *time.Time          `gorm:"autoUpdateTime:milli" json:"updated_at,omitempty"`
-		ExpiresAt           time.Time           `json:"expires_at" validate:"required"`
+		ExpiresAt           time.Time           `json:"expires_at" validate:"required,gttoday"`
 		DeletedAt           gorm.DeletedAt      `gorm:"index" json:"deleted_at"`
 	}
 

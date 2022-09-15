@@ -7,6 +7,7 @@ import (
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"fmt"
+	"strings"
 
 	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
@@ -151,13 +152,24 @@ func (dbVal DbValidator) IsMedicineWithKey(ctx iris.Context) {
 func (dbVal DbValidator) IsMedicineDeleted(ctx iris.Context) {
 	var (
 		httpRes models.Responser
+		isError bool
+		me      models.Medicine
 	)
 	medicineKey := ctx.Params().GetString("key")
-	IsMedicineDeleted := dbVal.MedicineDataSrc.DbPsql.Where("key = ?", medicineKey).Find(&models.Medicine{}).RowsAffected
-	if IsMedicineDeleted != 0 {
+	reqPath := ctx.Path()
+	IsMedicineDeleted := dbVal.MedicineDataSrc.DbPsql.Where("key = ?", medicineKey).First(&me).RowsAffected
+	var message string
+	if strings.Contains(reqPath, "pharmacy_inventory") && ctx.Request().Method == "POST" && IsMedicineDeleted == 0 {
+		isError = true
+		message = fmt.Sprintf("No se pudó ingresar el stock a farmacia del medicamento con clave: %v debido a que esta inactivo, activelo y vuelvalo a intentar.", medicineKey)
+	} else if strings.Contains(reqPath, "reactivate") && ctx.Request().Method == "PUT" && IsMedicineDeleted != 0 {
+		isError = true
+		message = fmt.Sprintf("El medicamento con clave: %v no se reactivó debido a que no ha sido eliminado antes.", medicineKey)
+	}
+	if isError {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusBadRequest,
-			Message:    fmt.Sprintf("El medicamento con clave: %v no se reactivó debido a que no ha sido eliminado antes.", medicineKey),
+			Message:    message,
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return

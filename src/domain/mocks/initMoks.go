@@ -2,12 +2,18 @@ package mocks
 
 import (
 	"cecan_inventory/domain/models"
+	authtoken "cecan_inventory/infrastructure/external/authToken"
 	"strconv"
 	"time"
 
 	"github.com/google/uuid"
 	"github.com/icrowley/fake"
 )
+
+func GetTokenMock(claims models.AuthClaims) string {
+	token, _ := authtoken.GenerateJWT(claims)
+	return token
+}
 
 func GetRolesMock() []models.Role {
 	rolesMocksAsMap := []map[string]string{
@@ -64,10 +70,12 @@ func GetMedicineMockSeed() []models.Medicine {
 	}
 }
 
-func GetPharmacyStockMock() models.PharmacyStock {
-	medicine := GetMedicineMockSeed()[0]
+func GetPharmacyStockMock(medicine models.Medicine) models.PharmacyStock {
+	if (medicine == models.Medicine{}) {
+		medicine = GetMedicineMockSeed()[0]
+	}
 	fakePieces, _ := strconv.Atoi(fake.DigitsN(2))
-	fakeDate := time.Date(fake.Year(2022, 2023), time.Month(fake.MonthNum()), fake.Day(), 0, 0, 0, 0, time.UTC)
+	fakeDate := time.Date(fake.Year(2023, 2024), time.Month(fake.MonthNum()), fake.Day(), 0, 0, 0, 0, time.UTC)
 	return models.PharmacyStock{
 		MedicineKey: medicine.Key,
 		LotNumber:   fake.DigitsN(9),

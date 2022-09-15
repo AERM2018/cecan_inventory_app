@@ -22,7 +22,7 @@ func InitMedicinesRoutes(router router.Party, dbPsql *gorm.DB) {
 	// Enpoints definition by HTTP method
 	medicines.Get("/", controller.GetMedicinesCatalog)
 	medicines.Post("/", val.IsMedicineWithKey, val.IsMedicineWithName, controller.InsertMedicineIntoCatalog)
-	medicines.Post("/{key:string}/pharmacy_inventory", val.IsMedicineInCatalogByKey, controller.InsertPharmacyStockOfMedicine)
+	medicines.Post("/{key:string}/pharmacy_inventory", val.IsMedicineInCatalogByKey, val.IsMedicineDeleted, controller.InsertPharmacyStockOfMedicine)
 	medicines.Put("/{key:string}", val.IsMedicineInCatalogByKey, val.IsMedicineWithName, val.IsMedicineWithKey, controller.UpdateMedicine)
 	medicines.Put("/{key:string}/reactivate", val.IsMedicineInCatalogByKey, val.IsMedicineDeleted, controller.ReactivateMedicine)
 	medicines.Delete("/{key:string}", val.IsMedicineInCatalogByKey, controller.DeleteMedicine)
