@@ -7,6 +7,7 @@ import (
 	"cecan_inventory/infrastructure/http/routes"
 	"cecan_inventory/infrastructure/storage"
 
+	"github.com/iris-contrib/middleware/cors"
 	"github.com/kataras/iris/v12"
 	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"
@@ -22,6 +23,7 @@ type Server struct {
 func (server *Server) New() *iris.Application {
 	server.IrisApp = iris.New()
 	server.ConnectDatabase()
+	server.setUpMiddlewares()
 	server.Router = server.IrisApp.Party("/api/v1")
 	routes.InitUsersRoutes(server.Router, server.DbPsql)
 	routes.InitMedicinesRoutes(server.Router, server.DbPsql)
@@ -43,6 +45,14 @@ func (server *Server) ConnectDatabase() {
 	fmt.Println("PSQL online")
 }
 
+func (server *Server) setUpMiddlewares() {
+	crs := cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+	})
+	server.IrisApp.Use(crs)
+	server.IrisApp.AllowMethods(iris.MethodOptions)
+}
 func (server *Server) SetUpRouter() {
 	server.Router = server.IrisApp.Party("/api/v1")
 }
