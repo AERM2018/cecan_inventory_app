@@ -16,7 +16,8 @@ var preDefinedlength = 3 // two added when seed are run and one aded during test
 func testCreateMedicineOk(t *testing.T) {
 	medicine = mocks.GetMedicineMock()
 	medineMockCreatedByTestKey = medicine.Key
-	res := HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.
 		POST("/api/v1/medicines").
 		WithJSON(medicine).
 		Expect().Status(httptest.StatusCreated)
@@ -26,7 +27,8 @@ func testCreateMedicineOk(t *testing.T) {
 
 func testCreateMedicineRepeated(t *testing.T) {
 	medicineRepeated := mocks.GetMedicineMockSeed()[0]
-	res := HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.
 		POST("/api/v1/medicines").
 		WithJSON(medicineRepeated).
 		Expect().Status(httptest.StatusBadRequest)
@@ -41,7 +43,8 @@ func testCreateMedicineRepeated(t *testing.T) {
 func testCreateMedicineNameRepeated(t *testing.T) {
 	medicine = mocks.GetMedicineMock()
 	medicine.Name = mocks.GetMedicineMockSeed()[0].Name
-	res := HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.
 		POST("/api/v1/medicines").
 		WithJSON(medicine).
 		Expect().Status(httptest.StatusBadRequest)
@@ -57,7 +60,8 @@ func testCreateMedicineNameRepeated(t *testing.T) {
 
 // START ----- Get medicines test templates
 func testGetMedicineCatalogOk(t *testing.T) {
-	res := HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.
 		GET("/api/v1/medicines").
 		Expect().Status(httptest.StatusOK)
 	res.
@@ -80,7 +84,8 @@ func testUpdateMedicineKeyRepeated(t *testing.T) {
 	medicine = mocks.GetMedicineMockSeed()[0]
 	keyToUpdate := medicine.Key
 	medicine.Key = mocks.GetMedicineMockSeed()[1].Key
-	res := HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.
 		PUT(fmt.Sprintf("/api/v1/medicines/%s", keyToUpdate)).
 		WithJSON(medicine).
 		Expect().Status(httptest.StatusBadRequest)
@@ -95,7 +100,8 @@ func testUpdateMedicineNameRepeated(t *testing.T) {
 	medicine = mocks.GetMedicineMockSeed()[0]
 	keyToUpdate := medicine.Key
 	medicine.Name = mocks.GetMedicineMockSeed()[1].Name
-	res := HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.
 		PUT(fmt.Sprintf("/api/v1/medicines/%s", keyToUpdate)).
 		WithJSON(medicine).
 		Expect().Status(httptest.StatusBadRequest)
@@ -114,11 +120,12 @@ func testUpdateMedicineNameRepeated(t *testing.T) {
 
 func testDeleteMedicineOk(t *testing.T) {
 	keyToDelete := mocks.GetMedicineMockSeed()[0].Key
-	HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	httpTester.
 		DELETE(fmt.Sprintf("/api/v1/medicines/%s", keyToDelete)).
 		Expect().Status(httptest.StatusNoContent)
 
-	res := HttpTester.
+	res := httpTester.
 		PUT(fmt.Sprintf("/api/v1/medicines/%s/reactivate", keyToDelete)).
 		Expect().Status(httptest.StatusOK)
 	res.
@@ -132,7 +139,8 @@ func testDeleteMedicineOk(t *testing.T) {
 
 func testDeleteMedicineNotFound(t *testing.T) {
 	keyToDelete := mocks.GetMedicineMock().Key
-	res := HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.
 		DELETE(fmt.Sprintf("/api/v1/medicines/%s", keyToDelete)).
 		Expect().Status(httptest.StatusNotFound)
 	res.
@@ -145,7 +153,8 @@ func testDeleteMedicineNotFound(t *testing.T) {
 
 func testReactivateMedicineNoDeleted(t *testing.T) {
 	keyToReactivate := mocks.GetMedicineMockSeed()[0].Key
-	res := HttpTester.
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.
 		PUT(fmt.Sprintf("/api/v1/medicines/%s/reactivate", keyToReactivate)).
 		Expect().Status(httptest.StatusBadRequest)
 	res.

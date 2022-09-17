@@ -6,19 +6,16 @@ import (
 	"testing"
 
 	"github.com/kataras/iris/v12"
-	"github.com/kataras/iris/v12/httptest"
 )
 
 var (
-	server     config.Server
-	irisApp    *iris.Application
-	HttpTester *httptest.Expect
+	server  config.Server
+	IrisApp *iris.Application
 )
 
 func initServerTester(t *testing.T) {
 	server = config.Server{}
-	irisApp = server.New()
-	HttpTester = httptest.New(t, irisApp)
+	IrisApp = server.New()
 
 }
 func teardown() {

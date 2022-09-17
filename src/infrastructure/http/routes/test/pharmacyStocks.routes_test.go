@@ -16,7 +16,8 @@ var token = mocks.GetTokenMock(tokenClaims)
 // START create pharmacy stock test cases
 func testCreatePhStockOk(t *testing.T) {
 	pharmacyStock := mocks.GetPharmacyStockMock(models.Medicine{})
-	res := HttpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", pharmacyStock.MedicineKey)).
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", pharmacyStock.MedicineKey)).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		WithJSON(pharmacyStock).
 		Expect().Status(httptest.StatusCreated)
@@ -27,7 +28,8 @@ func testCreatePhStockOk(t *testing.T) {
 func testCreatePhStockMedicineNoFound(t *testing.T) {
 	medicineMockSeed := mocks.GetMedicineMock()
 	pharmacyStock := mocks.GetPharmacyStockMock(medicineMockSeed)
-	res := HttpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", medicineMockSeed.Key)).
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", medicineMockSeed.Key)).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		WithJSON(pharmacyStock).
 		Expect().Status(httptest.StatusNotFound)
@@ -39,16 +41,17 @@ func testCreatePhStockMedicineInactive(t *testing.T) {
 	medicineMockSeed := mocks.GetMedicineMockSeed()[0]
 	pharmacyStock := mocks.GetPharmacyStockMock(medicineMockSeed)
 	// Delete medicine to make it inactive
-	HttpTester.DELETE(fmt.Sprintf("/api/v1/medicines/%v", medicineMockSeed.Key)).WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).Expect().Status(httptest.StatusNoContent)
+	httpTester := httptest.New(t, IrisApp)
+	httpTester.DELETE(fmt.Sprintf("/api/v1/medicines/%v", medicineMockSeed.Key)).WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).Expect().Status(httptest.StatusNoContent)
 	// Insert stock with an inactive medicine
-	res := HttpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", medicineMockSeed.Key)).
+	res := httpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", medicineMockSeed.Key)).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		WithJSON(pharmacyStock).
 		Expect().Status(httptest.StatusBadRequest)
 
 	res.JSON().Object().Value("error").Equal(fmt.Sprintf("No se pudó ingresar el stock a farmacia del medicamento con clave: %v debido a que esta inactivo, activelo y vuelvalo a intentar.", medicineMockSeed.Key))
 	// reactivate medicine
-	HttpTester.PUT(fmt.Sprintf("/api/v1/medicines/%v/reactivate", medicineMockSeed.Key)).WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).Expect().Status(httptest.StatusOK)
+	httpTester.PUT(fmt.Sprintf("/api/v1/medicines/%v/reactivate", medicineMockSeed.Key)).WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).Expect().Status(httptest.StatusOK)
 }
 
 func testCreatePhStockWrongRole(t *testing.T) {
@@ -57,7 +60,8 @@ func testCreatePhStockWrongRole(t *testing.T) {
 	claimsWrongRole := tokenClaims
 	claimsWrongRole.Role = "Medico"
 	newToken := mocks.GetTokenMock(claimsWrongRole)
-	res := HttpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", medicineMockSeed.Key)).
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", medicineMockSeed.Key)).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", newToken)).
 		WithJSON(pharmacyStock).
 		Expect().Status(httptest.StatusForbidden)
@@ -71,7 +75,8 @@ func testCreatePhStockWrongFields(t *testing.T) {
 	pharmacyStock.Pieces = 0
 	pharmacyStock.ExpiresAt = time.Now().Add(-time.Hour * 48)
 	pharmacyStock.LotNumber = ""
-	res := HttpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", medicineMockSeed.Key)).
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.POST(fmt.Sprintf("/api/v1/medicines/%v/pharmacy_inventory", medicineMockSeed.Key)).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		WithJSON(pharmacyStock).
 		Expect().Status(httptest.StatusBadRequest)
@@ -94,7 +99,8 @@ func testUpdatePhStockOk(t *testing.T) {
 		Pieces:      newStock.Pieces,
 		ExpiresAt:   newStock.ExpiresAt,
 	}
-	res := HttpTester.PUT(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", newStock.Id)).
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.PUT(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", newStock.Id)).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		WithJSON(stockToUpdate).
 		Expect().Status(httptest.StatusOK)
@@ -116,7 +122,8 @@ func testUpdatePhStockNotFound(t *testing.T) {
 		Pieces:      newStock.Pieces,
 		ExpiresAt:   newStock.ExpiresAt,
 	}
-	res := HttpTester.PUT(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", pharmacyStock.Id)).
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.PUT(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", pharmacyStock.Id)).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		WithJSON(stockToUpdate).
 		Expect().Status(httptest.StatusNotFound)
