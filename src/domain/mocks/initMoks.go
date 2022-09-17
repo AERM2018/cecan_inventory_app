@@ -3,7 +3,9 @@ package mocks
 import (
 	"cecan_inventory/domain/models"
 	authtoken "cecan_inventory/infrastructure/external/authToken"
+	"fmt"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -38,16 +40,19 @@ func GetUserMockSeed(rolId string) models.User {
 		RoleId:   rolId,
 		Password: "Qwerty*123",
 		Name:     "CECAN ADMIN",
+		Surname:  "super",
 		Email:    "admin@cecan.com",
 	}
 }
 
 func GetUserMock(rolId string, minPassLen int) models.User {
+	fakeEmail, _, _ := strings.Cut(fake.EmailAddress(), "@")
 	return models.User{
 		RoleId:   rolId,
 		Password: fake.Password(minPassLen, minPassLen, true, true, false),
 		Name:     fake.MaleFirstName(),
-		Email:    fake.EmailAddress(),
+		Surname:  fake.MaleLastName(),
+		Email:    fmt.Sprintf("%v@cecan.com", fakeEmail),
 	}
 }
 

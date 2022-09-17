@@ -15,8 +15,8 @@ func ValidateUser(mapObject interface{}, omitedFields ...string) error {
 			validation.Key("name", validation.Required),
 			validation.Key("surname", validation.Required),
 			validation.Key("email", validation.Required, is.Email),
-			validation.Key("password", validation.Required),
-		))
+			validation.Key("password", validation.Required, validation.Length(8, 50)),
+		).AllowExtraKeys())
 }
 
 func ValidateMedicine(mapObject interface{}, omitedFields ...string) error {
@@ -24,7 +24,7 @@ func ValidateMedicine(mapObject interface{}, omitedFields ...string) error {
 		validation.Map(
 			validation.Key("key", validation.Required, validation.Length(9, 9)),
 			validation.Key("name", validation.Required),
-		))
+		).AllowExtraKeys())
 }
 
 func ValidatePharmacyStock(mapObject interface{}, omitedFields ...string) error {
