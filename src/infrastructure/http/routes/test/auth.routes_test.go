@@ -3,7 +3,6 @@ package test
 import (
 	"cecan_inventory/domain/mocks"
 	"cecan_inventory/domain/models"
-	"cecan_inventory/infrastructure/config"
 	authtoken "cecan_inventory/infrastructure/external/authToken"
 	"fmt"
 	"testing"
@@ -16,12 +15,9 @@ import (
 var user = mocks.GetUserMock("", 10)
 
 func testOkAuth(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	userMockSeed := mocks.GetUserMockSeed("")
 	credentials := models.AccessCredentials{Email: userMockSeed.Email, Password: userMockSeed.Password}
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/login").
 		WithJSON(credentials).
 		Expect().Status(httptest.StatusOK)
@@ -32,11 +28,8 @@ func testOkAuth(t *testing.T) {
 }
 
 func testNotFoundAuth(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	credentials := models.AccessCredentials{Email: fake.EmailAddress(), Password: fake.Password(8, 10, true, true, false)}
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/login").
 		WithJSON(credentials).
 		Expect().Status(httptest.StatusNotFound)
@@ -45,11 +38,8 @@ func testNotFoundAuth(t *testing.T) {
 }
 
 func testEmailNotFoundAuth(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	credentials := models.AccessCredentials{Email: fake.EmailAddress(), Password: user.Password}
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/login").
 		WithJSON(credentials).
 		Expect().Status(httptest.StatusNotFound)
@@ -58,11 +48,8 @@ func testEmailNotFoundAuth(t *testing.T) {
 }
 
 func testPasswordWrongAuth(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	credentials := models.AccessCredentials{Email: user.Email, Password: fake.Password(8, 10, true, true, false)}
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/login").
 		WithJSON(credentials).
 		Expect().Status(httptest.StatusNotFound)
@@ -73,13 +60,10 @@ func testPasswordWrongAuth(t *testing.T) {
 // START test sign up
 
 func testSignUpOk(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	var role models.Role
 	server.DbPsql.First(&role)
 	user = mocks.GetUserMock(role.Id.String(), 10)
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/signup").
 		WithJSON(user).
 		Expect().Status(httptest.StatusOK)
@@ -88,11 +72,8 @@ func testSignUpOk(t *testing.T) {
 }
 
 func testSignUpRoleWrong(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	user = mocks.GetUserMock(uuid.NewString(), 10)
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/signup").
 		WithJSON(user).
 		Expect().Status(httptest.StatusNotFound)
@@ -101,11 +82,8 @@ func testSignUpRoleWrong(t *testing.T) {
 }
 
 func testSignUpUserWrong(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	user = mocks.GetUserMock("", 10)
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/signup").
 		WithJSON(user).
 		Expect().Status(httptest.StatusBadRequest)
@@ -114,11 +92,8 @@ func testSignUpUserWrong(t *testing.T) {
 }
 
 func testSignUpEmailUsed(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	user = mocks.GetUserMockSeed("")
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/signup").
 		WithJSON(user).
 		Expect().Status(httptest.StatusBadRequest)
@@ -127,13 +102,10 @@ func testSignUpEmailUsed(t *testing.T) {
 }
 
 func testSignUpSmallPassword(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	var role models.Role
 	server.DbPsql.First(&role)
 	user = mocks.GetUserMock(role.Id.String(), 5)
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/signup").
 		WithJSON(user).
 		Expect().Status(httptest.StatusBadRequest)
@@ -142,14 +114,11 @@ func testSignUpSmallPassword(t *testing.T) {
 }
 
 func testSignUpEmailNotValid(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
 	var role models.Role
 	server.DbPsql.First(&role)
 	user = mocks.GetUserMock(role.Id.String(), 9)
 	user.Email = "xxxxxx.com"
-	e := httptest.New(t, app)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/signup").
 		WithJSON(user).
 		Expect().Status(httptest.StatusBadRequest)
@@ -161,15 +130,12 @@ func testSignUpEmailNotValid(t *testing.T) {
 
 // START test refresh token
 func testRefreshTokenOk(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
-	e := httptest.New(t, app)
 	var role models.Role
 	server.DbPsql.First(&role)
 	user = mocks.GetUserMockSeed(role.Id.String())
 	claims := models.AuthClaims{Id: user.Id, Role: role.Id.String(), FullName: user.Name + user.Surname}
 	token, _ := authtoken.GenerateJWT(claims)
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/renew").
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusOK)
@@ -178,13 +144,10 @@ func testRefreshTokenOk(t *testing.T) {
 }
 
 func testRefreshTokenNoAuthHeader(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
-	e := httptest.New(t, app)
 	var role models.Role
 	server.DbPsql.First(&role)
 	user = mocks.GetUserMockSeed(role.Id.String())
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/renew").
 		Expect().Status(httptest.StatusUnauthorized)
 
@@ -192,16 +155,13 @@ func testRefreshTokenNoAuthHeader(t *testing.T) {
 }
 
 func testRefreshTokenWithInvalidToken(t *testing.T) {
-	server := config.Server{}
-	app := server.New()
-	e := httptest.New(t, app)
 	var role models.Role
 	server.DbPsql.First(&role)
 	user = mocks.GetUserMockSeed(role.Id.String())
 	claims := models.AuthClaims{Id: user.Id, Role: role.Id.String(), FullName: user.Name + user.Surname}
 	token, _ := authtoken.GenerateJWT(claims)
 	token += "a"
-	res := e.
+	res := HttpTester.
 		POST("/api/v1/auth/renew").
 		Expect().Status(httptest.StatusUnauthorized)
 

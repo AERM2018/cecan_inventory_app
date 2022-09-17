@@ -46,7 +46,7 @@ func Connect() (*gorm.DB, error) {
 			log.Fatalf("Running seed '%s', failed with error: %s", seed.Name, err)
 		}
 	}
-	if err != nil {
+	if err != nil && err.Error() != "no change" {
 		return DBInstance, err
 	}
 	return DBInstance, nil

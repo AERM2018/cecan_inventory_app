@@ -40,7 +40,7 @@ func (server *Server) ConnectDatabase() {
 	var errPsql error
 	server.DbPsql, errPsql = storage.Connect()
 	if errPsql != nil {
-		fmt.Println(errPsql)
+		panic(errPsql)
 	}
 	fmt.Println("PSQL online")
 }

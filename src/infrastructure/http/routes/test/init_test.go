@@ -4,14 +4,29 @@ import (
 	"cecan_inventory/infrastructure/config"
 	"cecan_inventory/infrastructure/storage"
 	"testing"
+
+	"github.com/kataras/iris/v12"
+	"github.com/kataras/iris/v12/httptest"
 )
 
+var (
+	server     config.Server
+	irisApp    *iris.Application
+	HttpTester *httptest.Expect
+)
+
+func initServerTester(t *testing.T) {
+	server = config.Server{}
+	irisApp = server.New()
+	HttpTester = httptest.New(t, irisApp)
+
+}
 func teardown() {
-	server := config.Server{}
-	server.New()
 	storage.PruneData(server.DbPsql)
 }
 func TestServer(t *testing.T) {
+	initServerTester(t)
+
 	tests := map[string]func(t *testing.T){
 		"Login should be failed, not found":                                  testNotFoundAuth,
 		"Login should be ok":                                                 testOkAuth,
@@ -45,5 +60,6 @@ func TestServer(t *testing.T) {
 	for name, tt := range tests {
 		t.Run(name, tt)
 	}
+
 	teardown()
 }
