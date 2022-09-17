@@ -1,6 +1,8 @@
 package test
 
 import (
+	"cecan_inventory/domain/mocks"
+	"cecan_inventory/domain/models"
 	"cecan_inventory/infrastructure/config"
 	"cecan_inventory/infrastructure/storage"
 	"testing"
@@ -9,8 +11,10 @@ import (
 )
 
 var (
-	server  config.Server
-	IrisApp *iris.Application
+	server      config.Server
+	IrisApp     *iris.Application
+	tokenClaims = models.AuthClaims{Id: "CAN102212", Role: "Admin", FullName: "CECAN ADMIN"}
+	token       = mocks.GetTokenMock(tokenClaims)
 )
 
 func initServerTester(t *testing.T) {

@@ -20,6 +20,7 @@ func testCreateMedicineOk(t *testing.T) {
 	res := httpTester.
 		POST("/api/v1/medicines").
 		WithJSON(medicine).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusCreated)
 	res.JSON().Object().ContainsKey("data")
 	res.JSON().Object().Value("data").Object().ContainsKey("medicine")
@@ -31,6 +32,7 @@ func testCreateMedicineRepeated(t *testing.T) {
 	res := httpTester.
 		POST("/api/v1/medicines").
 		WithJSON(medicineRepeated).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusBadRequest)
 	res.
 		JSON().
@@ -47,6 +49,7 @@ func testCreateMedicineNameRepeated(t *testing.T) {
 	res := httpTester.
 		POST("/api/v1/medicines").
 		WithJSON(medicine).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusBadRequest)
 	res.
 		JSON().
@@ -63,6 +66,7 @@ func testGetMedicineCatalogOk(t *testing.T) {
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		GET("/api/v1/medicines").
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusOK)
 	res.
 		JSON().
@@ -88,6 +92,7 @@ func testUpdateMedicineKeyRepeated(t *testing.T) {
 	res := httpTester.
 		PUT(fmt.Sprintf("/api/v1/medicines/%s", keyToUpdate)).
 		WithJSON(medicine).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusBadRequest)
 	res.
 		JSON().
@@ -104,6 +109,7 @@ func testUpdateMedicineNameRepeated(t *testing.T) {
 	res := httpTester.
 		PUT(fmt.Sprintf("/api/v1/medicines/%s", keyToUpdate)).
 		WithJSON(medicine).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusBadRequest)
 	res.
 		JSON().
@@ -123,10 +129,12 @@ func testDeleteMedicineOk(t *testing.T) {
 	httpTester := httptest.New(t, IrisApp)
 	httpTester.
 		DELETE(fmt.Sprintf("/api/v1/medicines/%s", keyToDelete)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusNoContent)
 
 	res := httpTester.
 		PUT(fmt.Sprintf("/api/v1/medicines/%s/reactivate", keyToDelete)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusOK)
 	res.
 		JSON().
@@ -142,6 +150,7 @@ func testDeleteMedicineNotFound(t *testing.T) {
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		DELETE(fmt.Sprintf("/api/v1/medicines/%s", keyToDelete)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusNotFound)
 	res.
 		JSON().
@@ -156,6 +165,7 @@ func testReactivateMedicineNoDeleted(t *testing.T) {
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		PUT(fmt.Sprintf("/api/v1/medicines/%s/reactivate", keyToReactivate)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		Expect().Status(httptest.StatusBadRequest)
 	res.
 		JSON().

@@ -10,9 +10,6 @@ import (
 	"github.com/kataras/iris/v12/httptest"
 )
 
-var tokenClaims = models.AuthClaims{Id: "CAN102212", Role: "Admin", FullName: "CECAN ADMIN"}
-var token = mocks.GetTokenMock(tokenClaims)
-
 // START create pharmacy stock test cases
 func testCreatePhStockOk(t *testing.T) {
 	pharmacyStock := mocks.GetPharmacyStockMock(models.Medicine{})
