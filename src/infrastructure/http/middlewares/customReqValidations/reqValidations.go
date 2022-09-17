@@ -38,5 +38,5 @@ func ValidatePharmacyStock(mapObject interface{}, omitedFields ...string) error 
 		delete(rules, key)
 	}
 	return validation.Validate(mapObject,
-		validation.Map(maps.Values(rules)...))
+		validation.Map(maps.Values(rules)...).AllowExtraKeys())
 }

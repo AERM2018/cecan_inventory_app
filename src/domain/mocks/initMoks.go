@@ -92,7 +92,9 @@ func GetPharmacyStockMock(medicine models.Medicine) models.PharmacyStock {
 func GetPharmacyStockMockSeed() models.PharmacyStock {
 	fakePieces, _ := strconv.Atoi(fake.DigitsN(2))
 	fakeDate := time.Date(fake.Year(2023, 2024), time.Month(fake.MonthNum()), fake.Day(), 0, 0, 0, 0, time.UTC)
+	fakeUuid, _ := uuid.Parse("a79bd281-5325-4d1e-bc8d-c3b265daf101")
 	return models.PharmacyStock{
+		Id:          fakeUuid,
 		MedicineKey: GetMedicineMockSeed()[0].Key,
 		LotNumber:   fake.DigitsN(9),
 		Pieces:      int16(fakePieces),
