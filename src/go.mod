@@ -8,14 +8,20 @@ require (
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/kataras/iris/v12 v12.2.0-beta4
 	golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d
-	golang.org/x/sys v0.0.0-20220712014510-0a85c31ab51e // indirect
+	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
 	gorm.io/driver/postgres v1.3.8
 	gorm.io/gorm v1.23.7
 )
 
 require (
-	github.com/go-playground/validator/v10 v10.11.0
+	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/icrowley/fake v0.0.0-20220625154756-3c7517006344
+)
+
+require (
+	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
+	github.com/kr/pretty v0.3.0 // indirect
+	github.com/rogpeppe/go-internal v1.8.0 // indirect
 )
 
 require (
@@ -31,9 +37,6 @@ require (
 	github.com/eknkc/amber v0.0.0-20171010120322-cdade1c07385 // indirect
 	github.com/fatih/structs v1.1.0 // indirect
 	github.com/flosch/pongo2/v4 v4.0.2 // indirect
-	github.com/go-playground/locales v0.14.0 // indirect
-	github.com/go-playground/universal-translator v0.18.0 // indirect
-	github.com/golang-jwt/jwt/v4 v4.4.2 // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
@@ -44,7 +47,6 @@ require (
 	github.com/iris-contrib/httpexpect/v2 v2.3.1 // indirect
 	github.com/iris-contrib/jade v1.1.4 // indirect
 	github.com/iris-contrib/middleware/cors v0.0.0-20220815101939-754509eb4d57
-	github.com/iris-contrib/middleware/jwt v0.0.0-20220815101939-754509eb4d57 // indirect
 	github.com/iris-contrib/schema v0.0.6 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.12.1 // indirect
@@ -64,7 +66,6 @@ require (
 	github.com/kataras/sitemap v0.0.5 // indirect
 	github.com/kataras/tunnel v0.0.4 // indirect
 	github.com/klauspost/compress v1.15.8 // indirect
-	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/lib/pq v1.10.2 // indirect
 	github.com/mailgun/raymond/v2 v2.0.46 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
@@ -90,6 +91,7 @@ require (
 	github.com/yudai/gojsondiff v1.0.0 // indirect
 	github.com/yudai/golcs v0.0.0-20170316035057-ecda9a501e82 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
+	golang.org/x/exp v0.0.0-20220916125017-b168a2c6b86b
 	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20220411224347-583f2d630306 // indirect

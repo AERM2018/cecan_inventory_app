@@ -6,7 +6,6 @@ import (
 	usecases "cecan_inventory/domain/useCases"
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
-	structvalidator "cecan_inventory/infrastructure/external/structValidator"
 
 	"github.com/kataras/iris/v12"
 )
@@ -27,11 +26,6 @@ func (controller *MedicinesController) New() {
 func (controller MedicinesController) InsertMedicineIntoCatalog(ctx iris.Context) {
 	medicine := models.Medicine{}
 	ctx.ReadBody(&medicine)
-	valRes, err := structvalidator.ValidateStructFomRequest(medicine)
-	if err != nil {
-		helpers.PrepareAndSendDataResponse(ctx, valRes)
-		return
-	}
 	res := controller.Interactor.InsertMedicineIntoCatalog(medicine)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
@@ -45,11 +39,6 @@ func (controller MedicinesController) InsertPharmacyStockOfMedicine(ctx iris.Con
 	bodyreader.ReadBodyAsJson(ctx, &pharmacyStock, true)
 	medicineKey := ctx.Params().GetString("key")
 	pharmacyStock.MedicineKey = medicineKey
-	valRes, err := structvalidator.ValidateStructFomRequest(pharmacyStock)
-	if err != nil {
-		helpers.PrepareAndSendDataResponse(ctx, valRes)
-		return
-	}
 	res := controller.Interactor.InsertStockOfMedicine(pharmacyStock)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
