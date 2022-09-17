@@ -72,13 +72,25 @@ func (dbVal DbValidator) IsEmail(ctx iris.Context) {
 
 func (dbVal DbValidator) IsMedicineInCatalogByKey(ctx iris.Context) {
 	var (
-		httpRes  models.Responser
-		medicine models.Medicine
+		httpRes               models.Responser
+		medicine              models.Medicine
+		pharmacyStockToUpdate models.PharmacyStockToUpdate
+		medicineKey           string
 	)
-	medicineKey := ctx.Params().GetString("key")
-	if medicineKey == "" { // Get medicine key from body when it's not found in the url
-		bodyreader.ReadBodyAsJson(ctx, &medicine, false)
-		medicineKey = medicine.Key
+	routePath := ctx.Path()
+	if strings.Contains(routePath, "pharmacy_inventory") {
+		if ctx.Request().Method == "PUT" {
+			bodyreader.ReadBodyAsJson(ctx, &pharmacyStockToUpdate, false)
+			medicineKey = pharmacyStockToUpdate.MedicineKey
+		} else if ctx.Request().Method == "POST" {
+			medicineKey = ctx.Params().GetString("key")
+		}
+	} else {
+		medicineKey = ctx.Params().GetString("key")
+		if medicineKey == "" { // Get medicine key from body when it's not found in the url
+			bodyreader.ReadBodyAsJson(ctx, &medicine, false)
+			medicineKey = medicine.Key
+		}
 	}
 	isMedicine := dbVal.MedicineDataSrc.DbPsql.Unscoped().Where("key = ?", medicineKey).First(&medicine).RowsAffected
 	if isMedicine == 0 {
@@ -188,6 +200,22 @@ func (dbVal DbValidator) IsPharmacyStockUsed(ctx iris.Context) {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusBadRequest,
 			Message:    "No se puede eliminar un stock de farmacia cuando ha sido utilizado.",
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsPharmacyStockById(ctx iris.Context) {
+	var httpRes models.Responser
+	pharmacyStockId := ctx.Params().GetString("id")
+	pharmacyStockUuid, _ := uuid.Parse(pharmacyStockId)
+	_, err := dbVal.PharmacyDataSrc.GetPharmacyStockById(pharmacyStockUuid)
+	if err != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    fmt.Sprintf("El stock de farmacia con id: %v no existe.", pharmacyStockId),
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return

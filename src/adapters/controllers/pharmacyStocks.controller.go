@@ -36,8 +36,8 @@ func (controller PharmacyStocksController) GetPharmacyStocks(ctx iris.Context) {
 func (controller PharmacyStocksController) UpdatePharmacyStock(ctx iris.Context) {
 	var pharmacyStock models.PharmacyStockToUpdate
 	pharmacyStockId := ctx.Params().GetString("id")
-	bodyreader.ReadBodyAsJson(ctx, &pharmacyStock, true)
 	id, _ := uuid.Parse(pharmacyStockId)
+	bodyreader.ReadBodyAsJson(ctx, &pharmacyStock, true)
 	res := controller.PharmacyStocksInteractor.UpdatePharmacyStock(id, pharmacyStock)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)

@@ -40,6 +40,7 @@ func TestServer(t *testing.T) {
 		"Pharmacy stock should not be created, medicine is inactive":         testCreatePhStockMedicineInactive,
 		"Pharmacy stock should not be created, user doesn't have rigth role": testCreatePhStockWrongRole,
 		"Pharmacy stock should not be created, fail struct validation":       testCreatePhStockWrongFields,
+		"Pharmacy stock should be updated":                                   testUpdatePhStockOk,
 	}
 	for name, tt := range tests {
 		t.Run(name, tt)

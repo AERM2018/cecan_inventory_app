@@ -83,3 +83,14 @@ func GetPharmacyStockMock(medicine models.Medicine) models.PharmacyStock {
 		ExpiresAt:   fakeDate,
 	}
 }
+
+func GetPharmacyStockMockSeed() models.PharmacyStock {
+	fakePieces, _ := strconv.Atoi(fake.DigitsN(2))
+	fakeDate := time.Date(fake.Year(2023, 2024), time.Month(fake.MonthNum()), fake.Day(), 0, 0, 0, 0, time.UTC)
+	return models.PharmacyStock{
+		MedicineKey: GetMedicineMockSeed()[0].Key,
+		LotNumber:   fake.DigitsN(9),
+		Pieces:      int16(fakePieces),
+		ExpiresAt:   fakeDate,
+	}
+}

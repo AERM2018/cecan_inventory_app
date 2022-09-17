@@ -100,3 +100,53 @@ func testCreatePhStockWrongFields(t *testing.T) {
 }
 
 // END create pharmacy stock test cases
+
+// START update pharmacy stock test cases
+func testUpdatePhStockOk(t *testing.T) {
+	var pharmacyStock models.PharmacyStock
+	server := config.Server{}
+	app := server.New()
+	e := httptest.New(t, app)
+	server.DbPsql.Joins("Medicine").First(&pharmacyStock)
+	newStock := mocks.GetPharmacyStockMock(*pharmacyStock.Medicine)
+	stockToUpdate := models.PharmacyStockToUpdate{
+		MedicineKey: pharmacyStock.MedicineKey,
+		LotNumber:   newStock.LotNumber,
+		Pieces:      newStock.Pieces,
+		ExpiresAt:   newStock.ExpiresAt,
+	}
+	res := e.PUT(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", pharmacyStock.Id)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
+		WithJSON(stockToUpdate).
+		Expect().Status(httptest.StatusOK)
+
+	phStockInResponse := res.JSON().Object().Value("data").Object().Value("stock").Object()
+	phStockInResponse.Value("medicine_key").Equal(stockToUpdate.MedicineKey)
+	phStockInResponse.Value("lot_number").Equal(stockToUpdate.LotNumber)
+	phStockInResponse.Value("pieces").Equal(stockToUpdate.Pieces)
+	phStockInResponse.Value("expires_at").Equal(stockToUpdate.ExpiresAt)
+}
+
+func testUpdatePhStockNotFound(t *testing.T) {
+	var pharmacyStock models.PharmacyStock
+	server := config.Server{}
+	app := server.New()
+	e := httptest.New(t, app)
+	server.DbPsql.Joins("Medicine").First(&pharmacyStock)
+	newStock := mocks.GetPharmacyStockMock(*pharmacyStock.Medicine)
+	stockToUpdate := models.PharmacyStockToUpdate{
+		MedicineKey: pharmacyStock.MedicineKey,
+		LotNumber:   newStock.LotNumber,
+		Pieces:      newStock.Pieces,
+		ExpiresAt:   newStock.ExpiresAt,
+	}
+	res := e.PUT(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", pharmacyStock.Id)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
+		WithJSON(stockToUpdate).
+		Expect().Status(httptest.StatusNotFound)
+
+	res.JSON().Object().Value("error")
+
+}
+
+// END update pharmacy stock test cases

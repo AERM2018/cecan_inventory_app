@@ -39,11 +39,11 @@ type (
 	}
 
 	PharmacyStockToUpdate struct {
-		MedicineKey         string              `json:"medicine_key"`
-		LotNumber           string              `json:"lot_number"`
-		Pieces              int16               `json:"pieces"`
+		MedicineKey         string              `json:"medicine_key" validate:"required"`
+		LotNumber           string              `json:"lot_number" validate:"required"`
+		Pieces              int16               `json:"pieces" validate:"required"`
 		SemaforizationColor SemaforizationColor `json:"semaforization_color,omitempty"`
-		ExpiresAt           time.Time           `json:"expires_at"`
+		ExpiresAt           time.Time           `json:"expires_at" validate:"gttoday"`
 		UpdatedAt           *time.Time          `gorm:"autoUpdateTime:milli" json:"updated_at,omitempty"`
 	}
 )
