@@ -10,7 +10,12 @@ import (
 
 func CreatePharmacyStock(db *gorm.DB) error {
 	if os.Getenv("GO_ENV") == "TEST" {
-		return db.FirstOrCreate(&models.PharmacyStock{}, mocks.GetPharmacyStockMockSeed()).Error
+		pharmacyStocks := mocks.GetPharmacyStockMockSeed()
+		for _, stock := range pharmacyStocks {
+			if err := db.FirstOrCreate(&models.PharmacyStock{}, stock).Error; err != nil {
+				return err
+			}
+		}
 	}
 	return nil
 }

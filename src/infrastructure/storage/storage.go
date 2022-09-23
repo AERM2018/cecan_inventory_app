@@ -26,7 +26,7 @@ func Connect() (*gorm.DB, error) {
 		os.Getenv("CECAN_DB_USER"),
 		os.Getenv("CECAN_DB_PASSWD"),
 		os.Getenv("CECAN_DB_NAME"),
-		"5432") // Get stringConnection with help of the env file
+		os.Getenv("CECAN_DB_PORT")) // Get stringConnection with help of the env file
 	if DBInstance == nil {
 		newLogger := logger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer

@@ -2,6 +2,7 @@ package datasources
 
 import (
 	"cecan_inventory/domain/models"
+	"errors"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -22,7 +23,7 @@ func (dataSrc PharmacyStocksDataSource) InsertStockOfMedicine(pharmacyStock mode
 func (dataSrc PharmacyStocksDataSource) GetPharmacyStockById(id uuid.UUID) (models.PharmacyStock, error) {
 	var pharmacyStock models.PharmacyStock
 	res := dataSrc.DbPsql.First(&pharmacyStock, "id = ?", id)
-	if res.Error != nil {
+	if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 		return pharmacyStock, res.Error
 	}
 	return pharmacyStock, nil
@@ -59,10 +60,10 @@ func (dataSrc PharmacyStocksDataSource) DeletePharmacyStock(id uuid.UUID, isPerm
 
 func (dataSrc PharmacyStocksDataSource) IsStockUsed(id uuid.UUID) (bool, error) {
 	var pharmacyStock models.PharmacyStock
-	res := dataSrc.DbPsql.First(&pharmacyStock)
+	res := dataSrc.DbPsql.Where("id = ?", id).First(&pharmacyStock)
 	if res.Error != nil {
 		return false, res.Error
 	}
-	isStockUsed := pharmacyStock.Pieces_used > 0 && pharmacyStock.CreatedAt.Unix() != pharmacyStock.UpdatedAt.Unix()
+	isStockUsed := pharmacyStock.Pieces_used > 0 || pharmacyStock.CreatedAt.Unix() != pharmacyStock.UpdatedAt.Unix()
 	return isStockUsed, nil
 }

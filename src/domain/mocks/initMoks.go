@@ -82,6 +82,7 @@ func GetPharmacyStockMock(medicine models.Medicine) models.PharmacyStock {
 	fakePieces, _ := strconv.Atoi(fake.DigitsN(2))
 	fakeDate := time.Date(fake.Year(2023, 2024), time.Month(fake.MonthNum()), fake.Day(), 0, 0, 0, 0, time.UTC)
 	return models.PharmacyStock{
+		Id:          uuid.New(),
 		MedicineKey: medicine.Key,
 		LotNumber:   fake.DigitsN(9),
 		Pieces:      int16(fakePieces),
@@ -89,15 +90,26 @@ func GetPharmacyStockMock(medicine models.Medicine) models.PharmacyStock {
 	}
 }
 
-func GetPharmacyStockMockSeed() models.PharmacyStock {
-	fakePieces, _ := strconv.Atoi(fake.DigitsN(2))
-	fakeDate := time.Date(fake.Year(2023, 2024), time.Month(fake.MonthNum()), fake.Day(), 0, 0, 0, 0, time.UTC)
-	fakeUuid, _ := uuid.Parse("a79bd281-5325-4d1e-bc8d-c3b265daf101")
-	return models.PharmacyStock{
-		Id:          fakeUuid,
-		MedicineKey: GetMedicineMockSeed()[0].Key,
-		LotNumber:   fake.DigitsN(9),
-		Pieces:      int16(fakePieces),
-		ExpiresAt:   fakeDate,
+func GetPharmacyStockMockSeed() []models.PharmacyStock {
+	pointer := 0
+	fakeUuids := []string{"15af71ce-1183-498c-a744-bbbc4d181010", "1646b651-4545-4f88-851d-f61e780c8d8a"}
+	pharmacyStocksMocksSeed := make([]models.PharmacyStock, 0)
+	for pointer < 2 {
+		fakePieces, _ := strconv.Atoi(fake.DigitsN(2))
+		fakeDate := time.Date(fake.Year(2023, 2024), time.Month(fake.MonthNum()), fake.Day(), 0, 0, 0, 0, time.UTC)
+		uuidParsed, _ := uuid.Parse(fakeUuids[pointer])
+		pharmacyStockMock := models.PharmacyStock{
+			Id:          uuidParsed,
+			MedicineKey: GetMedicineMockSeed()[0].Key,
+			LotNumber:   fake.DigitsN(9),
+			Pieces:      int16(fakePieces),
+			ExpiresAt:   fakeDate,
+		}
+		pharmacyStocksMocksSeed = append(pharmacyStocksMocksSeed, pharmacyStockMock)
+		pointer += 1
 	}
+	// Changes pieces used to the last pharmacy stock for testing pursposes
+	pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces_used = 2
+	pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces -= pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces_used
+	return pharmacyStocksMocksSeed
 }

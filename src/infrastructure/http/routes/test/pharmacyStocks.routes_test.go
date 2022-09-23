@@ -3,6 +3,7 @@ package test
 import (
 	"cecan_inventory/domain/mocks"
 	"cecan_inventory/domain/models"
+	"cecan_inventory/infrastructure/storage/seeds"
 	"fmt"
 	"testing"
 	"time"
@@ -89,7 +90,7 @@ func testCreatePhStockWrongFields(t *testing.T) {
 
 // START update pharmacy stock test cases
 func testUpdatePhStockOk(t *testing.T) {
-	newStock := mocks.GetPharmacyStockMockSeed()
+	newStock := mocks.GetPharmacyStockMockSeed()[0]
 	stockToUpdate := models.PharmacyStockToUpdate{
 		MedicineKey: newStock.MedicineKey,
 		LotNumber:   newStock.LotNumber,
@@ -130,3 +131,46 @@ func testUpdatePhStockNotFound(t *testing.T) {
 }
 
 // END update pharmacy stock test cases
+
+// STRAT delete pharmacy stock test cases
+func testDeletePhStockOk(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	pharmacyStock := mocks.GetPharmacyStockMockSeed()[0]
+	httpTester.DELETE(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", pharmacyStock.Id)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
+		Expect().Status(httptest.StatusNoContent)
+
+	seeds.CreatePharmacyStock(server.DbPsql)
+}
+
+func testDeletePhStockWrongRole(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	wrongRoleUser := models.AuthClaims{Id: "CECAN100121", Role: "Medico", FullName: "CECAN TEST"}
+	wrongRoleToken := mocks.GetTokenMock(wrongRoleUser)
+	pharmacyStock := mocks.GetPharmacyStockMockSeed()[0]
+	httpTester.DELETE(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", pharmacyStock.Id)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", wrongRoleToken)).
+		Expect().Status(httptest.StatusForbidden)
+}
+
+func testDeletePhStockNotFound(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	pharmacyStock := mocks.GetPharmacyStockMock(mocks.GetMedicineMockSeed()[0])
+	res := httpTester.DELETE(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", pharmacyStock.Id)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
+		Expect().Status(httptest.StatusBadRequest)
+
+	res.JSON().Object().Value("error").Equal(fmt.Sprintf("El stock de farmacia con id: %v no existe.", pharmacyStock.Id))
+}
+
+func testDeletePhStockUsed(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	pharmacyStock := mocks.GetPharmacyStockMockSeed()[1]
+	res := httpTester.DELETE(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", pharmacyStock.Id)).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
+		Expect().Status(httptest.StatusBadRequest)
+
+	res.JSON().Object().Value("error").Equal("No se puede eliminar un stock de farmacia cuando ha sido utilizado.")
+}
+
+// END delete pharmacy stock test cases

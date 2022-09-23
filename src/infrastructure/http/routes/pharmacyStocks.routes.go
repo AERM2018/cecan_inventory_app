@@ -31,6 +31,6 @@ func InitPharmacyStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 		val.CanUserDoAction("Farmacia"), val.IsPharmacyStockById, val.IsMedicineInCatalogByKey,
 		controller.UpdatePharmacyStock)
 
-	pharmacyInventory.Delete("/{id:string}", val.CanUserDoAction("Farmacia"), val.IsPharmacyStockUsed, controller.DeletePharmacyStock)
+	pharmacyInventory.Delete("/{id:string}", val.CanUserDoAction("Farmacia"), val.IsPharmacyStockById, val.IsPharmacyStockUsed, controller.DeletePharmacyStock)
 
 }
