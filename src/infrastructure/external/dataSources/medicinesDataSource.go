@@ -27,13 +27,17 @@ func (dataSrc MedicinesDataSource) GetMedicineByKey(key string) (models.Medicine
 	return medicineFound, nil
 }
 
-func (dataSrc MedicinesDataSource) GetMedicinesCatalog(includeDeleted bool) ([]models.Medicine, error) {
+func (dataSrc MedicinesDataSource) GetMedicinesCatalog(medicineKey string, includeDeleted bool) ([]models.Medicine, error) {
 	var medicinesCatalog []models.Medicine
 	res := dataSrc.DbPsql.Omit("created_at", "updated_at", "deletet_at")
 	if includeDeleted {
 		res = res.Unscoped()
 	}
-	res = res.Find(&medicinesCatalog)
+	if medicineKey != "" {
+		res = res.Where("key = ?", medicineKey).First(&medicinesCatalog)
+	} else {
+		res = res.Find(&medicinesCatalog)
+	}
 	if res.Error != nil {
 		return medicinesCatalog, res.Error
 	}

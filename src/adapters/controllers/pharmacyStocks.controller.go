@@ -25,7 +25,8 @@ func (controller *PharmacyStocksController) New() {
 }
 
 func (controller PharmacyStocksController) GetPharmacyStocks(ctx iris.Context) {
-	res := controller.PharmacyStocksInteractor.GetPharmacyStocks()
+	medicineKey := ctx.URLParam("medicine_key")
+	res := controller.PharmacyStocksInteractor.GetPharmacyStocks(medicineKey)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return

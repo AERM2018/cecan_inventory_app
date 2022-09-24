@@ -11,6 +11,39 @@ import (
 	"github.com/kataras/iris/v12/httptest"
 )
 
+// START get pharmacy inventory test cases
+func testGetPharmacyStocksOk(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	res := httpTester.GET("/api/v1/pharmacy_inventory").
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
+		Expect().Status(httptest.StatusOK)
+	jsonObj := res.JSON().Object().Value("data")
+	pharmacyStockObj := jsonObj.Object().Value("inventory").Array().Element(0)
+	pharmacyStockObj.Object().Value("medicine").Schema(models.Medicine{})
+	pharmacyStockObj.Object().Value("pieces_by_semaforization_color")
+	pharmacyStockObj.Object().Value("stocks").Array().Length().Ge(0)
+	pharmacyStockObj.Object().Value("total_pieces").NotNull()
+}
+
+func testGetPharmacyStockOfMedicine(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	medicine := mocks.GetMedicineMockSeed()[0]
+	res := httpTester.GET("/api/v1/pharmacy_inventory").
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
+		WithQuery("medicine_key", medicine.Key).
+		Expect().Status(httptest.StatusOK)
+
+	jsonObj := res.JSON().Object().Value("data")
+	jsonObj.Object().Value("inventory").Array().Length().Equal(1)
+	pharmacyStockObj := jsonObj.Object().Value("inventory").Array().Element(0)
+	pharmacyStockObj.Object().Value("medicine").Schema(models.Medicine{})
+	pharmacyStockObj.Object().Value("pieces_by_semaforization_color")
+	pharmacyStockObj.Object().Value("stocks").Array().Length().Ge(0)
+	pharmacyStockObj.Object().Value("total_pieces").NotNull()
+}
+
+// END get pharmacy inventory test cases
+
 // START create pharmacy stock test cases
 func testCreatePhStockOk(t *testing.T) {
 	pharmacyStock := mocks.GetPharmacyStockMock(models.Medicine{})

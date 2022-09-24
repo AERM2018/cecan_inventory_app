@@ -13,9 +13,9 @@ type PharmacyStockInteractor struct {
 	MedicinesDataSource      datasources.MedicinesDataSource
 }
 
-func (interactor PharmacyStockInteractor) GetPharmacyStocks() models.Responser {
+func (interactor PharmacyStockInteractor) GetPharmacyStocks(medicineKey string) models.Responser {
 	var medicineStocksDetailed []models.PharmacyStocksDetailed
-	medicines, errMedicines := interactor.MedicinesDataSource.GetMedicinesCatalog(true)
+	medicines, errMedicines := interactor.MedicinesDataSource.GetMedicinesCatalog(medicineKey, true)
 	if errMedicines != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
