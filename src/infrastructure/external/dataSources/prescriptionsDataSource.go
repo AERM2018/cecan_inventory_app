@@ -67,6 +67,23 @@ func (dataSrc PrescriptionsDataSource) GetPrescriptionById(id uuid.UUID) (models
 	return prescription, nil
 }
 
+func (dataSrc PrescriptionsDataSource) GetPrescriptions(userId string) ([]models.PrescriptionDetialed, error) {
+	var prescriptions []models.PrescriptionDetialed
+	dbQuery := dataSrc.DbPsql.Model(models.Prescription{}).Preload("PrescriptionStatus", func(db *gorm.DB) *gorm.DB {
+		return db.Omit("created_at", "updated_at", "deleted_at")
+	}).Preload("User", func(db *gorm.DB) *gorm.DB {
+		return db.Omit("password", "email", "created_at", "updated_at", "deleted_at")
+	}).Preload("User.Role")
+	if userId != "" {
+		dbQuery = dbQuery.Where("user_id = ?", userId)
+	}
+	dbQuery.Find(&prescriptions)
+	if dbQuery.Error != nil {
+		return prescriptions, dbQuery.Error
+	}
+	return prescriptions, nil
+}
+
 func (dataSrc PrescriptionsDataSource) PutMedicineIntoPrescription(medicineForPrescription models.PrescriptionsMedicines, prescriptionId uuid.UUID) error {
 	prescriptionsMedicines := models.PrescriptionsMedicines{MedicineKey: medicineForPrescription.MedicineKey, Pieces: medicineForPrescription.Pieces, PrescriptionId: prescriptionId}
 	res := dataSrc.DbPsql.Create(&prescriptionsMedicines)

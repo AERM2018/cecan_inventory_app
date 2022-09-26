@@ -33,6 +33,16 @@ func (controller PrescriptionsController) CreatePrescription(ctx iris.Context) {
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
 
+func (controller PrescriptionsController) GetPrescriptions(ctx iris.Context) {
+	userId := ctx.URLParamDefault("user_id", "")
+	res := controller.PrescriptionsInteractor.GetPrescriptions(userId)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
 func (controller PrescriptionsController) GetPrescriptionById(ctx iris.Context) {
 	idString := ctx.Params().GetString("id")
 	id, _ := uuid.Parse(idString)

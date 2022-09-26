@@ -36,6 +36,20 @@ func (interactor PrescriptionInteractor) CreatePrescription(prescriptionRequest 
 	}
 }
 
+func (interactor PrescriptionInteractor) GetPrescriptions(userId string) models.Responser {
+	prescriptions, err := interactor.PrescriptionsDataSource.GetPrescriptions(userId)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data:       iris.Map{"prescriptions": prescriptions},
+	}
+}
+
 func (interactor PrescriptionInteractor) GetPrescriptionById(id uuid.UUID) models.Responser {
 	prescription, err := interactor.PrescriptionsDataSource.GetPrescriptionById(id)
 	if err != nil {
