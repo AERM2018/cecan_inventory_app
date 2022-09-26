@@ -59,7 +59,3 @@ func (prescription *Prescription) BeforeCreate(tx *gorm.DB) (err error) {
 	prescription.PrescriptionStatusId = prescriptionStatus.Id
 	return
 }
-
-// func (prescriptionDetailed PrescriptionDetialed) ToJSON() (string, error) {
-// 	medicines := make()
-// }

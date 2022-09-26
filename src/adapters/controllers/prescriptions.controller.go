@@ -16,14 +16,15 @@ type PrescriptionsController struct {
 	PrescriptionsInteractor usecases.PrescriptionInteractor
 }
 
-func (controller *PrescriptionsController) New(prescriptionsDataSource datasources.PrescriptionsDataSource) {
-	controller.PrescriptionsDataSource = prescriptionsDataSource
-	controller.PrescriptionsInteractor = usecases.PrescriptionInteractor{PrescriptionsDataSource: prescriptionsDataSource}
+func (controller *PrescriptionsController) New() {
+	controller.PrescriptionsInteractor = usecases.PrescriptionInteractor{
+		PrescriptionsDataSource: controller.PrescriptionsDataSource}
 }
 
 func (controller PrescriptionsController) CreatePrescription(ctx iris.Context) {
 	var prescriptionRequest models.PrescriptionDetialed
 	bodyreader.ReadBodyAsJson(ctx, &prescriptionRequest, true)
+	prescriptionRequest.UserId = ctx.Values().GetString("userId")
 	res := controller.PrescriptionsInteractor.CreatePrescription(prescriptionRequest)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)

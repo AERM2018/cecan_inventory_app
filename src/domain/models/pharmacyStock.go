@@ -32,10 +32,19 @@ type (
 	}
 
 	PharmacyStocksDetailed struct {
-		Medicine                    Medicine        `json:"medicine"`
-		Stocks                      []PharmacyStock `json:"stocks"`
-		PiecesBySemaforizationColor map[string]int  `json:"pieces_by_semaforization_color"`
-		TotalPieces                 int16           `json:"total_pieces"`
+		Medicine                    Medicine                `json:"medicine"`
+		Stocks                      []PharmacyStocksDetails `json:"stocks"`
+		PiecesBySemaforizationColor map[string]int          `json:"pieces_by_semaforization_color"`
+		TotalPieces                 int16                   `json:"total_pieces"`
+	}
+
+	PharmacyStocksDetails struct {
+		Id                  uuid.UUID           `json:"id"`
+		Pieces              int16               `json:"pieces"`
+		PiecesUsed          int16               `json:"pieces_used"`
+		PiecesLeft          int16               `json:"pieces_left"`
+		ExpiresAt           time.Time           `json:"expires_at"`
+		SemaforizationColor SemaforizationColor `json:"semaforization_color"`
 	}
 
 	PharmacyStockToUpdate struct {

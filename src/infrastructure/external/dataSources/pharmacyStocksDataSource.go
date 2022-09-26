@@ -3,6 +3,7 @@ package datasources
 import (
 	"cecan_inventory/domain/models"
 	"errors"
+	"fmt"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -29,9 +30,9 @@ func (dataSrc PharmacyStocksDataSource) GetPharmacyStockById(id uuid.UUID) (mode
 	return pharmacyStock, nil
 }
 
-func (dataSrc PharmacyStocksDataSource) GetPharmacyStocksByMedicineKey(medicineKey string) ([]models.PharmacyStock, error) {
-	var pharmacyStocks []models.PharmacyStock
-	res := dataSrc.DbPsql.Where("medicine_key = ?", medicineKey).Omit("created_at", "updated_at", "deleted_at").Find(&pharmacyStocks)
+func (dataSrc PharmacyStocksDataSource) GetPharmacyStocksByMedicineKey(medicineKey string) ([]models.PharmacyStocksDetails, error) {
+	var pharmacyStocks []models.PharmacyStocksDetails
+	res := dataSrc.DbPsql.Raw(fmt.Sprintf("SELECT * FROM public.get_pharmacy_stocks_sorted('%v');", medicineKey)).Scan(&pharmacyStocks)
 	if res.Error != nil {
 		return pharmacyStocks, res.Error
 	}

@@ -19,15 +19,13 @@ func (interactor PrescriptionInteractor) CreatePrescription(prescriptionRequest 
 		Observations: prescriptionRequest.Observations,
 		Instructions: prescriptionRequest.Instructions,
 	}
-	prescriptionId, err := interactor.PrescriptionsDataSource.CreatePrescription(prescriptionNoMedicines)
+	prescriptionId, err := interactor.PrescriptionsDataSource.CreatePrescription(prescriptionNoMedicines, prescriptionRequest.Medicines)
 	if err != nil {
 		return models.Responser{
-			StatusCode: iris.StatusInternalServerError,
+			StatusCode: iris.StatusBadRequest,
 			Err:        err,
+			Message:    err.Error(),
 		}
-	}
-	for _, medicineForPrescription := range prescriptionRequest.Medicines {
-		interactor.PrescriptionsDataSource.PutMedicineIntoPrescription(medicineForPrescription, prescriptionId)
 	}
 	prescriptionFound, _ := interactor.PrescriptionsDataSource.GetPrescriptionById(prescriptionId)
 	return models.Responser{

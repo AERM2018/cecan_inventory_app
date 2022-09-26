@@ -14,10 +14,11 @@ import (
 )
 
 type DbValidator struct {
-	MedicineDataSrc datasources.MedicinesDataSource
-	PharmacyDataSrc datasources.PharmacyStocksDataSource
-	RolesDataSource datasources.RolesDataSource
-	UserDataSource  datasources.UserDataSource
+	MedicineDataSrc        datasources.MedicinesDataSource
+	PharmacyDataSrc        datasources.PharmacyStocksDataSource
+	RolesDataSource        datasources.RolesDataSource
+	UserDataSource         datasources.UserDataSource
+	PrescriptionDataSource datasources.PrescriptionsDataSource
 }
 
 func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
