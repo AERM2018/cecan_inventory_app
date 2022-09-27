@@ -53,3 +53,15 @@ func (controller PrescriptionsController) GetPrescriptionById(ctx iris.Context) 
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller PrescriptionsController) UpdatePrescription(ctx iris.Context) {
+	var prescriptionRequest models.PrescriptionDetialed
+	id := ctx.Params().GetString("id")
+	bodyreader.ReadBodyAsJson(ctx, &prescriptionRequest, true)
+	res := controller.PrescriptionsInteractor.UpdatePrescription(id, prescriptionRequest)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

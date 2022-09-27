@@ -33,7 +33,7 @@ func (dataSrc PrescriptionsDataSource) CreatePrescription(prescription models.Pr
 			}
 		}
 		// Reserve the medicine specified
-		reservationError := tx.Exec(fmt.Sprintf("Call public.reserve_medicines_for_prescription('%v');", prescription.Id)).Error
+		reservationError := tx.Exec(fmt.Sprintf("Call public.reserve_medicines_for_prescription('%v','crear');", prescription.Id)).Error
 		if reservationError != nil {
 			var customError string
 			_, customError, _ = strings.Cut(reservationError.Error(), "ERROR: ")
@@ -89,6 +89,43 @@ func (dataSrc PrescriptionsDataSource) PutMedicineIntoPrescription(medicineForPr
 	res := dataSrc.DbPsql.Create(&prescriptionsMedicines)
 	if res.Error != nil {
 		return res.Error
+	}
+	return nil
+}
+
+func (dataSrc PrescriptionsDataSource) UpdatePrescription(id string, prescription models.Prescription, medicines []models.PrescriptionsMedicines) error {
+	isErrInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
+		// Create prescription and get id
+		createError := tx.Model(&models.Prescription{}).Where("id= ?", id).Updates(&prescription).Error
+		if createError != nil {
+			return errors.New("No se pudo actualizar la receta, verifique los datos y vuelvalo a intentar.")
+		}
+		// Specify the amount of medicine needed for the prescription
+		for _, medicineForPrescription := range medicines {
+			prescriptionsMedicines := models.PrescriptionsMedicines{
+				Pieces: medicineForPrescription.Pieces}
+			prescriptionMedicineError := tx.
+				Model(&models.PrescriptionsMedicines{}).
+				Where("medicine_key = ? AND prescription_id = ?", medicineForPrescription.MedicineKey, id).
+				Updates(&prescriptionsMedicines).Error
+			if prescriptionMedicineError != nil {
+				return errors.New("No se pudo actualizar la receta debido a que no se pudo asignar los medicamentos a la misma.")
+			}
+		}
+		// Reserve the medicine specified
+		reservationError := tx.Exec(fmt.Sprintf("Call public.reserve_medicines_for_prescription('%v','actualizar');", id)).Error
+		if reservationError != nil {
+			var customError string
+			_, customError, _ = strings.Cut(reservationError.Error(), "ERROR: ")
+			customError, _, _ = strings.Cut(customError, " (SQLSTATE P0001)")
+			customError += "."
+			return errors.New(customError)
+
+		}
+		return nil
+	})
+	if isErrInTransaction != nil {
+		return isErrInTransaction
 	}
 	return nil
 }

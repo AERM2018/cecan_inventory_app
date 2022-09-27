@@ -27,4 +27,5 @@ func InitPrescriptionsRoutes(router router.Party, dbPsql *gorm.DB) {
 	prescriptions.Get("/", val.CanUserDoAction("Medico"), controller.GetPrescriptions)
 	prescriptions.Get("/{id:string}", val.CanUserDoAction("Medico", "Farmacia"), controller.GetPrescriptionById)
 	prescriptions.Post("/", val.CanUserDoAction("Medico"), controller.CreatePrescription)
+	prescriptions.Put("/{id:string}", val.CanUserDoAction("Medico"), controller.UpdatePrescription)
 }

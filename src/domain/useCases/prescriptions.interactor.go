@@ -63,3 +63,28 @@ func (interactor PrescriptionInteractor) GetPrescriptionById(id uuid.UUID) model
 		Data:       iris.Map{"prescription": prescription},
 	}
 }
+
+func (interactor PrescriptionInteractor) UpdatePrescription(id string, prescriptionRequest models.PrescriptionDetialed) models.Responser {
+	prescriptionNoMedicines := models.Prescription{
+		UserId:       prescriptionRequest.UserId,
+		PatientName:  prescriptionRequest.PatientName,
+		Observations: prescriptionRequest.Observations,
+		Instructions: prescriptionRequest.Instructions,
+	}
+	uuidFromString, _ := uuid.Parse(id)
+	err := interactor.PrescriptionsDataSource.UpdatePrescription(id, prescriptionNoMedicines, prescriptionRequest.Medicines)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Err:        err,
+			Message:    err.Error(),
+		}
+	}
+	prescriptionFound, _ := interactor.PrescriptionsDataSource.GetPrescriptionById(uuidFromString)
+	return models.Responser{
+		StatusCode: iris.StatusCreated,
+		Data: iris.Map{
+			"prescription": prescriptionFound,
+		},
+	}
+}

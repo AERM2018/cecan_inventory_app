@@ -13,6 +13,7 @@ type PrescriptionsMedicines struct {
 	MedicineKey    string         `gorm:"foreignKey:medicine_key" json:"medicine_key"`
 	Medicine       Medicine       `json:"medicine"`
 	Pieces         int16          `json:"pieces"`
+	PiecesReserved int16          `json:"pieces_reserved"`
 	PiecesSupplied int16          `json:"pieces_supplied"`
 	CreatedAt      *time.Time     `json:"created_at,omitempty"`
 	UpdatedAt      *time.Time     `json:"updated_at,omitempty"`
