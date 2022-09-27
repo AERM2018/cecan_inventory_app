@@ -1,1 +1,0 @@
-ALTER TABLE prescriptions_medicines DROP COLUMN pieces_reserved;

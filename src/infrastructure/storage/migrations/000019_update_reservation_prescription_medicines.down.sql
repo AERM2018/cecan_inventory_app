@@ -1,1 +1,0 @@
-DROP PROCEDURE public.reserve_medicines_for_prescription(prescrip_id uuid, reason character varying);

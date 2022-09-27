@@ -1,1 +1,1 @@
-DROP PROCEDURE public.reserve_medicines_for_prescription(prescrip_id uuid);
+DROP PROCEDURE public.reserve_medicines_to_prescription(prescrip_id uuid, reason character varying)

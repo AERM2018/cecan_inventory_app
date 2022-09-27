@@ -17,7 +17,8 @@ AS $function$
 			phs.expires_at,
 			phs.semaforization_color
 		from pharmacy_stocks phs
-		where phs.medicine_key = med_key and phs.semaforization_color::text = color) order by expires_at asc;
+		where (phs.medicine_key = med_key and phs.semaforization_color::text = color) and phs.pieces_left > 0) 
+		order by expires_at asc, create_at asc;
 	END;
 $function$
 ;
