@@ -22,9 +22,6 @@ AS $procedure$
 					if(pieces_needed <= 0) then
 						EXIT;
 					end if;
-					if(stock.pieces_left = 0) then
-						continue;
-					end if;
 					if stock.pieces_left >= pieces_needed then
 						update pharmacy_stocks 
 							set pieces_used = stock.pieces_used + pieces_needed

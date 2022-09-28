@@ -3,8 +3,6 @@ package datasources
 import (
 	"cecan_inventory/domain/models"
 	"errors"
-	"fmt"
-	"strings"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -31,16 +29,6 @@ func (dataSrc PrescriptionsDataSource) CreatePrescription(prescription models.Pr
 			if prescriptionMedicineError != nil {
 				return errors.New("No se pudo crear la receta debido a que no se pudo asignar los medicamentos a la misma.")
 			}
-		}
-		// Reserve the medicine specified
-		reservationError := tx.Exec(fmt.Sprintf("Call public.reserve_medicines_for_prescription('%v','crear');", prescription.Id)).Error
-		if reservationError != nil {
-			var customError string
-			_, customError, _ = strings.Cut(reservationError.Error(), "ERROR: ")
-			customError, _, _ = strings.Cut(customError, " (SQLSTATE P0001)")
-			customError += "."
-			return errors.New(customError)
-
 		}
 		return nil
 	})
@@ -95,12 +83,12 @@ func (dataSrc PrescriptionsDataSource) PutMedicineIntoPrescription(medicineForPr
 
 func (dataSrc PrescriptionsDataSource) UpdatePrescription(id string, prescription models.Prescription, medicines []models.PrescriptionsMedicines) error {
 	isErrInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
-		// Create prescription and get id
+		// Update prescription and get id
 		createError := tx.Model(&models.Prescription{}).Where("id= ?", id).Updates(&prescription).Error
 		if createError != nil {
 			return errors.New("No se pudo actualizar la receta, verifique los datos y vuelvalo a intentar.")
 		}
-		// Specify the amount of medicine needed for the prescription
+		// Specify the amount of medicine needed for the prescription that will be updated
 		for _, medicineForPrescription := range medicines {
 			prescriptionsMedicines := models.PrescriptionsMedicines{
 				Pieces: medicineForPrescription.Pieces}
@@ -111,16 +99,6 @@ func (dataSrc PrescriptionsDataSource) UpdatePrescription(id string, prescriptio
 			if prescriptionMedicineError != nil {
 				return errors.New("No se pudo actualizar la receta debido a que no se pudo asignar los medicamentos a la misma.")
 			}
-		}
-		// Reserve the medicine specified
-		reservationError := tx.Exec(fmt.Sprintf("Call public.reserve_medicines_for_prescription('%v','actualizar');", id)).Error
-		if reservationError != nil {
-			var customError string
-			_, customError, _ = strings.Cut(reservationError.Error(), "ERROR: ")
-			customError, _, _ = strings.Cut(customError, " (SQLSTATE P0001)")
-			customError += "."
-			return errors.New(customError)
-
 		}
 		return nil
 	})
