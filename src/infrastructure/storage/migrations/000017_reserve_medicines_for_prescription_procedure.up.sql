@@ -5,14 +5,14 @@ AS $procedure$
 	declare stock record;
 	declare pieces_needed integer;
 	BEGIN
-		for prescription_medicine in select id,medicine_key, m."name" as medicine_name, pieces, pieces_reserved
+		for prescription_medicine in select id,medicine_key, m."name" as medicine_name, pieces
 					from prescriptions_medicines
 					left join medicines m
 					on prescriptions_medicines.medicine_key = m."key" 
 					where prescription_id = prescrip_id
 		loop	
 			
-		pieces_needed := prescription_medicine.pieces - prescription_medicine.pieces_reserved;
+		pieces_needed := prescription_medicine.pieces;
 				for stock in select * from public.get_pharmacy_stocks_sorted(prescription_medicine.medicine_key,'green') 
 						union all
 						select * from public.get_pharmacy_stocks_sorted(prescription_medicine.medicine_key,'ambar')

@@ -89,6 +89,21 @@ func (interactor PrescriptionInteractor) UpdatePrescription(id string, prescript
 	}
 }
 
+func (interactor PrescriptionInteractor) CompletePrescription(id string, prescription models.PrescriptionToComplete) models.Responser {
+	err := interactor.PrescriptionsDataSource.CompletePrescription(id, prescription)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Err:        err,
+			Message:    err.Error(),
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Message:    "La prescripción se completó satisfactoriamente.",
+	}
+}
+
 func (interactor PrescriptionInteractor) DeletePrescription(id string) models.Responser {
 	err := interactor.PrescriptionsDataSource.DeletePrescription(id)
 	if err != nil {

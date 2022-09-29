@@ -3,7 +3,9 @@ package datasources
 import (
 	"cecan_inventory/domain/models"
 	"errors"
+	"fmt"
 	"strings"
+	"time"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -139,4 +141,48 @@ func (dataSrc PrescriptionsDataSource) IsSamePrescriptionCreator(id string, user
 	var prescription models.Prescription
 	dataSrc.DbPsql.Where("id = ?", id).First(&prescription)
 	return strings.ToLower(prescription.UserId) == strings.ToLower(userId)
+}
+
+func (dataSrc PrescriptionsDataSource) CompletePrescription(id string, prescription models.PrescriptionToComplete) error {
+	prescription.PrescriptionStatusId = dataSrc.GetPrescriptionStatus("Completada")
+	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
+		// Take and reserver the medicines stocks for the prescription
+		errUpdatingStocks := dataSrc.DbPsql.Exec(fmt.Sprintf("Call public.reserve_medicines_to_prescription('%v','actualizar')", id)).Error
+		if errUpdatingStocks != nil {
+			return errUpdatingStocks
+		}
+		// Update the records of amount of medicines supplied
+		for _, medicine := range prescription.Medicines {
+			errUpdating := tx.
+				Table("prescriptions_medicines").
+				Where("prescription_id = ? and medicine_key = ?", id, medicine.MedicineKey).
+				Updates(medicine).Error
+			if errUpdating != nil {
+				return errUpdating
+			}
+		}
+		suppliedAt := time.Now()
+		errUpdatingInfo := tx.
+			Model(&models.Prescription{}).
+			Where("id = ?", id).
+			Updates(&models.Prescription{
+				Observations:         prescription.Observations,
+				PrescriptionStatusId: prescription.PrescriptionStatusId,
+				SuppliedAt:           &suppliedAt,
+			}).Error
+		if errUpdatingInfo != nil {
+			return errUpdatingInfo
+		}
+		return nil
+	})
+	if errInTransaction != nil {
+		return errInTransaction
+	}
+	return nil
+}
+
+func (dataSrc PrescriptionsDataSource) GetPrescriptionStatus(name string) uuid.UUID {
+	var status models.PrescriptionsStatues
+	dataSrc.DbPsql.Where("name = ?", name).First(&status)
+	return status.Id
 }

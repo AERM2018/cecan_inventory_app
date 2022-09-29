@@ -66,6 +66,18 @@ func (controller PrescriptionsController) UpdatePrescription(ctx iris.Context) {
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
 
+func (controller PrescriptionsController) CompletePrescription(ctx iris.Context) {
+	var prescription models.PrescriptionToComplete
+	bodyreader.ReadBodyAsJson(ctx, &prescription, true)
+	id := ctx.Params().GetString("id")
+	res := controller.PrescriptionsInteractor.CompletePrescription(id, prescription)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendMessageResponse(ctx, res)
+}
+
 func (controller PrescriptionsController) DeletePrescription(ctx iris.Context) {
 	id := ctx.Params().GetString("id")
 	res := controller.PrescriptionsInteractor.DeletePrescription(id)

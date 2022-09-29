@@ -24,22 +24,35 @@ func InitPrescriptionsRoutes(router router.Party, dbPsql *gorm.DB) {
 	controller.New()
 
 	prescriptions.Use(middlewares.VerifyJWT)
+
 	prescriptions.Get("/",
-		val.CanUserDoAction("Medico"),
+		val.CanUserDoAction("Medico", "Farmacia"),
 		controller.GetPrescriptions)
+
 	prescriptions.Get("/{id:string}",
 		val.CanUserDoAction("Medico", "Farmacia"),
 		controller.GetPrescriptionById)
-	prescriptions.Post("/", val.CanUserDoAction("Medico"), controller.CreatePrescription)
+
+	prescriptions.Post("/",
+		val.CanUserDoAction("Medico"),
+		controller.CreatePrescription)
+
 	prescriptions.Put("/{id:string}",
+		val.IsPrescriptionById,
 		val.IsSamePrescriptionCreator,
 		val.CanUserDoAction("Medico"),
-		val.IsPrescriptionById,
 		controller.UpdatePrescription)
-	prescriptions.Delete("/{id:string}",
-		val.IsSamePrescriptionCreator,
-		val.CanUserDoAction("Medico"),
+
+	prescriptions.Put("/{id:string}/complete",
 		val.IsPrescriptionById,
+		val.IsSamePrescriptionCreator,
+		val.CanUserDoAction("Farmacia"),
+		controller.CompletePrescription)
+
+	prescriptions.Delete("/{id:string}",
+		val.IsPrescriptionById,
+		val.CanUserDoAction("Medico"),
+		val.IsSamePrescriptionCreator,
 		val.IsPrescriptionDeterminedStatus("pendiente"),
 		controller.DeletePrescription)
 }

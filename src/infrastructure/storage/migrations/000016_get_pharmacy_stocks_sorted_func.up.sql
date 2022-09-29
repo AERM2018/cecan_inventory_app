@@ -9,16 +9,18 @@ CREATE OR REPLACE FUNCTION public.get_pharmacy_stocks_sorted(med_key character v
 	LANGUAGE plpgsql
 AS $function$
 	BEGIN
-		return query (select
-			phs.id,
-			phs.pieces,
-			phs.pieces_used,
-			-phs.pieces_used + phs.pieces as pieces_left,
-			phs.expires_at,
-			phs.semaforization_color
-		from pharmacy_stocks phs
-		where (phs.medicine_key = med_key and phs.semaforization_color::text = color) and phs.pieces_left > 0) 
-		order by expires_at asc, create_at asc;
+		return query (select * from ( select
+				phs.id,
+				phs.pieces,
+				phs.pieces_used,
+				-phs.pieces_used + phs.pieces as pieces_left,
+				phs.expires_at,
+				phs.semaforization_color
+			from pharmacy_stocks phs
+			where (phs.medicine_key = med_key and phs.semaforization_color::text = color)
+			order by expires_at asc, created_at asc) result
+		where result.pieces_left > 0)
+		;
 	END;
 $function$
 ;

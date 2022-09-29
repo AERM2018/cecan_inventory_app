@@ -27,7 +27,7 @@ type (
 		UserId               string                   `json:"user_id"`
 		User                 *User                    `gorm:"foreignKey:user_id" json:"user,omitempty"`
 		PrescriptionStatusId uuid.UUID                `json:"prescription_status_id"`
-		PrescriptionStatus   *Prescriptions_statues   `gorm:"foreignKey:prescription_status_id" json:"prescription_status,omitempty"`
+		PrescriptionStatus   *PrescriptionsStatues    `gorm:"foreignKey:prescription_status_id" json:"prescription_status,omitempty"`
 		Medicines            []PrescriptionsMedicines `gorm:"foreignKey:prescription_id" json:"medicines,omitempty"`
 		Folio                int32                    `json:"folio"`
 		PatientName          string                   `json:"patient_name"`
@@ -39,9 +39,11 @@ type (
 		DeletedAt            gorm.DeletedAt           `json:"deleted_at,omitempty"`
 	}
 
-	PrescriptionsMedicinesReq struct {
-		MedicineKey string `json:"medicine_key"`
-		Pieces      int16  `json:"pieces"`
+	PrescriptionToComplete struct {
+		Observations         string                             `json:"observations"`
+		PrescriptionStatusId uuid.UUID                          `json:"prescription_status_id"`
+		SuppliedAt           time.Time                          `json:"supplied_at"`
+		Medicines            []PrescriptionsMedicinesToComplete `json:"medicines"`
 	}
 )
 
@@ -49,13 +51,13 @@ func (prescription *Prescription) BeforeCreate(tx *gorm.DB) (err error) {
 	// Assing the next folio to the prescription
 	var (
 		lastPrescription   Prescription
-		prescriptionStatus Prescriptions_statues
+		prescriptionStatus PrescriptionsStatues
 	)
 	tx.Model(&Prescription{}).Order("folio DESC").First(&lastPrescription)
 	prescription.Folio = lastPrescription.Folio + 1
 	// Assing default prescription status
 
-	tx.Model(&Prescriptions_statues{}).Where("name = ?", "Pendiente").First(&prescriptionStatus)
+	tx.Model(&PrescriptionsStatues{}).Where("name = ?", "Pendiente").First(&prescriptionStatus)
 	prescription.PrescriptionStatusId = prescriptionStatus.Id
 	return
 }
