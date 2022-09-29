@@ -224,6 +224,54 @@ func (dbVal DbValidator) IsPharmacyStockById(ctx iris.Context) {
 	ctx.Next()
 }
 
+func (dbVal DbValidator) IsPrescriptionDeterminedStatus(status string) func(ctx iris.Context) {
+	return func(ctx iris.Context) {
+		var httpRes models.Responser
+		prescriptionId := ctx.Params().GetString("id")
+		if !dbVal.PrescriptionDataSource.IsPrescriptionDeterminedStatus(prescriptionId, status) {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    fmt.Sprintf("No se pudó completar la acción, la receta no tiene un estado: %v", status),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+		ctx.Next()
+	}
+}
+
+func (dbVal DbValidator) IsPrescriptionById(ctx iris.Context) {
+	var httpRes models.Responser
+	prescriptionId := ctx.Params().GetString("id")
+	idUuid, _ := uuid.Parse(prescriptionId)
+	_, err := dbVal.PrescriptionDataSource.GetPrescriptionById(idUuid)
+	if err != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("La receta con id: %v no existe.", prescriptionId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsSamePrescriptionCreator(ctx iris.Context) {
+	var httpRes models.Responser
+	prescriptionId := ctx.Params().GetString("id")
+	creatorUserId := ctx.Values().GetString("userId")
+	isSameCreator := dbVal.PrescriptionDataSource.IsSamePrescriptionCreator(prescriptionId, creatorUserId)
+	if !isSameCreator {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusForbidden,
+			Message:    "Solo el creador de la receta está permitido a actualizarla/borrarla.",
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
 // func (dbVal DbValidator) AreStocksOfMedicine(ctx iris.Context) {
 // 	var (
 // 		httpRes models.Responser

@@ -3,6 +3,7 @@ package datasources
 import (
 	"cecan_inventory/domain/models"
 	"errors"
+	"strings"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -106,4 +107,36 @@ func (dataSrc PrescriptionsDataSource) UpdatePrescription(id string, prescriptio
 		return isErrInTransaction
 	}
 	return nil
+}
+
+func (dataSrc PrescriptionsDataSource) DeletePrescription(id string) error {
+	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
+		// Destroy medicine assosiated with prescription
+		errInMedicines := tx.Where("prescription_id = ?", id).Unscoped().Delete(&models.PrescriptionsMedicines{}).Error
+		if errInMedicines != nil {
+			return errors.New("No se pudó remover las medicinas correspondientes a la receta.")
+		}
+		// Delete prescription object
+		errInPrescription := tx.Where("id = ?", id).Unscoped().Delete(&models.Prescription{}).Error
+		if errInPrescription != nil {
+			return errors.New("No se pudó elimar los datos de la receta.")
+		}
+		return nil
+	})
+	if errInTransaction != nil {
+		return errInTransaction
+	}
+	return nil
+}
+
+func (dataSrc PrescriptionsDataSource) IsPrescriptionDeterminedStatus(id string, status string) bool {
+	var prescription models.PrescriptionDetialed
+	dataSrc.DbPsql.Table("prescriptions").Where("prescriptions.id = ?", id).Joins("PrescriptionStatus").First(&prescription)
+	return strings.ToLower(prescription.PrescriptionStatus.Name) == strings.ToLower(status)
+}
+
+func (dataSrc PrescriptionsDataSource) IsSamePrescriptionCreator(id string, userId string) bool {
+	var prescription models.Prescription
+	dataSrc.DbPsql.Where("id = ?", id).First(&prescription)
+	return strings.ToLower(prescription.UserId) == strings.ToLower(userId)
 }

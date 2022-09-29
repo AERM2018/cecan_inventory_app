@@ -88,3 +88,17 @@ func (interactor PrescriptionInteractor) UpdatePrescription(id string, prescript
 		},
 	}
 }
+
+func (interactor PrescriptionInteractor) DeletePrescription(id string) models.Responser {
+	err := interactor.PrescriptionsDataSource.DeletePrescription(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Err:        err,
+			Message:    err.Error(),
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}

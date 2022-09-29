@@ -65,3 +65,13 @@ func (controller PrescriptionsController) UpdatePrescription(ctx iris.Context) {
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller PrescriptionsController) DeletePrescription(ctx iris.Context) {
+	id := ctx.Params().GetString("id")
+	res := controller.PrescriptionsInteractor.DeletePrescription(id)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
