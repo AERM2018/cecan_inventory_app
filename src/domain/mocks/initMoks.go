@@ -1,6 +1,7 @@
 package mocks
 
 import (
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
 	authtoken "cecan_inventory/infrastructure/external/authToken"
 	"fmt"
@@ -17,8 +18,8 @@ func GetTokenMock(claims models.AuthClaims) string {
 	return token
 }
 
-func GetRolesMock() []models.Role {
-	rolesMocksAsMap := []map[string]string{
+func GetRolesMock(name string) []models.Role {
+	rolesMocksMap := []map[string]string{
 		{"id": "7d3f3faa-39e2-4b3c-aaa8-8ca60fa090b4", "name": "Medico"},
 		{"id": "6648c302-f487-491d-be57-5f90bbe380c7", "name": "Farmacia"},
 		{"id": "5b4e7720-b663-474b-841d-aed481907908", "name": "Almacén"},
@@ -28,7 +29,17 @@ func GetRolesMock() []models.Role {
 		{"id": "3c9c3b1c-80c5-43a0-9276-4f88b67a7ac7", "name": "Admin"},
 	}
 	var rolesMocks []models.Role
-	for _, roleMockAsMap := range rolesMocksAsMap {
+	var rolesFinalMap []map[string]string
+	if name == "" {
+		rolesFinalMap = rolesMocksMap
+	} else {
+		rolesFound := common.FilterSlice(rolesMocksMap, func(i interface{}) bool {
+			parsed := i.(map[string]string)
+			return strings.ToLower(parsed["name"]) == strings.ToLower(name)
+		})
+		rolesFinalMap = rolesFound.([]map[string]string)
+	}
+	for _, roleMockAsMap := range rolesFinalMap {
 		idAsUuid, _ := uuid.Parse(roleMockAsMap["id"])
 		rolesMocks = append(rolesMocks, models.Role{Id: &idAsUuid, Name: roleMockAsMap["name"]})
 	}
@@ -112,4 +123,29 @@ func GetPharmacyStockMockSeed() []models.PharmacyStock {
 	pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces_used = 2
 	pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces -= pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces_used
 	return pharmacyStocksMocksSeed
+}
+
+func GetPrescriptionMockSeed() []models.PrescriptionDetialed {
+	pointer := 0
+	fakeUuids := []string{"237aa448-3e83-4af0-ae24-e1b1138f6fec", "f64cc4d4-9c33-4a97-a981-7539b74fc07b"}
+	prescriptionsMocksSeed := make([]models.PrescriptionDetialed, 0)
+	for pointer < 2 {
+		fakePieces, _ := strconv.Atoi(fake.DigitsN(1))
+		uuidParsed, _ := uuid.Parse(fakeUuids[pointer])
+		prescriptionMock := models.PrescriptionDetialed{
+			Id:           uuidParsed,
+			UserId:       GetUserMock(GetRolesMock("medico")[0].Id.String(), 10).Id,
+			PatientName:  fake.FullName(),
+			Instructions: fake.Paragraph(),
+			Medicines: []models.PrescriptionsMedicines{
+				{
+					MedicineKey: GetMedicineMockSeed()[0].Key,
+					Pieces:      int16(fakePieces),
+				},
+			},
+		}
+		prescriptionsMocksSeed = append(prescriptionsMocksSeed, prescriptionMock)
+		pointer += 1
+	}
+	return prescriptionsMocksSeed
 }
