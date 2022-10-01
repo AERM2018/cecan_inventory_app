@@ -4,6 +4,7 @@ import (
 	"cecan_inventory/adapters/controllers"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"cecan_inventory/infrastructure/http/middlewares"
+	customreqvalidations "cecan_inventory/infrastructure/http/middlewares/customReqValidations"
 
 	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"
@@ -35,6 +36,7 @@ func InitPrescriptionsRoutes(router router.Party, dbPsql *gorm.DB) {
 
 	prescriptions.Post("/",
 		val.CanUserDoAction("Medico"),
+		middlewares.ValidateRequest(customreqvalidations.ValidatePrescription),
 		controller.CreatePrescription)
 
 	prescriptions.Put("/{id:string}",

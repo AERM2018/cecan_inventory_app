@@ -31,8 +31,16 @@ func initServerTester(t *testing.T) {
 	adminUser := userFounds.([]models.User)[0]
 	tokenClaims = models.AuthClaims{Id: adminUser.Id, Role: adminUser.Role.Name, FullName: adminUser.Name + adminUser.Surname}
 	token = mocks.GetTokenMock(tokenClaims)
-
 }
+
+func getUserByRoleName(name string) models.User {
+	usersFound := common.FilterSlice(userMocks, func(i interface{}) bool {
+		parsed := i.(models.User)
+		return strings.ToLower(parsed.Role.Name) == strings.ToLower(name)
+	})
+	return usersFound.([]models.User)[0]
+}
+
 func teardown() {
 	storage.PruneData(server.DbPsql)
 }
@@ -76,6 +84,9 @@ func TestServer(t *testing.T) {
 		"Pharmacy stock should not be deleted, stock doesnp't exist": testDeletePhStockNotFound,
 		"Pharmacy stock should not be deleted, it's already in use":  testDeletePhStockUsed,
 		"Prescription should be created":                             testCreatePrescriptionOk,
+		"Prescription should not be created, wrong role":             testCreatePrescriptionWrongRole,
+		"Prescription should not be created, medicine not found":     testCreatePrescriptionMedicineNotFound,
+		"Prescription should not be created, info's missing":         testCreatePrescriptionBadStruct,
 	}
 	for name, tt := range tests {
 		t.Run(name, tt)
