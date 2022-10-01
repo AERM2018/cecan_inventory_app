@@ -149,3 +149,21 @@ func GetPrescriptionMockSeed() []models.PrescriptionDetialed {
 	}
 	return prescriptionsMocksSeed
 }
+
+func GetPrescriptionMock() models.PrescriptionDetialed {
+	fakePieces, _ := strconv.Atoi(fake.DigitsN(1))
+	uuidParsed := uuid.New()
+	prescriptionMock := models.PrescriptionDetialed{
+		Id:           uuidParsed,
+		UserId:       GetUserMock(GetRolesMock("medico")[0].Id.String(), 10).Id,
+		PatientName:  fake.FullName(),
+		Instructions: fake.Paragraph(),
+		Medicines: []models.PrescriptionsMedicines{
+			{
+				MedicineKey: GetMedicineMockSeed()[0].Key,
+				Pieces:      int16(fakePieces),
+			},
+		},
+	}
+	return prescriptionMock
+}
