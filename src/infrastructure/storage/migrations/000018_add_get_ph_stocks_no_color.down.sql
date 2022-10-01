@@ -1,0 +1,1 @@
+DROP FUNCTION public.get_pharmacy_stocks_sorted_no_color(med_key character varying)

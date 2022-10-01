@@ -22,7 +22,7 @@ func InitPharmacyStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	}
 	controller.New()
 	// Use middlewares for all the routes
-	// pharmacyInventory.Use(middlewares.VerifyJWT)
+	pharmacyInventory.Use(middlewares.VerifyJWT)
 	// Enpoints definition by HTTP method
 	// Apply custom validations to the requests' body
 	pharmacyInventory.Get("/", controller.GetPharmacyStocks)

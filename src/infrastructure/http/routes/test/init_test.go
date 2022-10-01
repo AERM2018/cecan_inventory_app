@@ -1,10 +1,12 @@
 package test
 
 import (
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/mocks"
 	"cecan_inventory/domain/models"
 	"cecan_inventory/infrastructure/config"
 	"cecan_inventory/infrastructure/storage"
+	"strings"
 	"testing"
 
 	"github.com/kataras/iris/v12"
@@ -13,13 +15,22 @@ import (
 var (
 	server      config.Server
 	IrisApp     *iris.Application
-	tokenClaims = models.AuthClaims{Id: "CAN102212", Role: "Admin", FullName: "CECAN ADMIN"}
-	token       = mocks.GetTokenMock(tokenClaims)
+	token       string
+	tokenClaims models.AuthClaims
+	userMocks   []models.User
 )
 
 func initServerTester(t *testing.T) {
 	server = config.Server{}
 	IrisApp = server.New()
+	server.DbPsql.Joins("Role").Find(&userMocks)
+	userFounds := common.FilterSlice(userMocks, func(i interface{}) bool {
+		parsed := i.(models.User)
+		return strings.ToLower(parsed.Role.Name) == strings.ToLower("Admin")
+	})
+	adminUser := userFounds.([]models.User)[0]
+	tokenClaims = models.AuthClaims{Id: adminUser.Id, Role: adminUser.Role.Name, FullName: adminUser.Name + adminUser.Surname}
+	token = mocks.GetTokenMock(tokenClaims)
 
 }
 func teardown() {
@@ -64,6 +75,7 @@ func TestServer(t *testing.T) {
 		"Pharmacy stock should not be deleted, wrong role":           testDeletePhStockWrongRole,
 		"Pharmacy stock should not be deleted, stock doesnp't exist": testDeletePhStockNotFound,
 		"Pharmacy stock should not be deleted, it's already in use":  testDeletePhStockUsed,
+		"Prescription should be created":                             testCreatePrescriptionOk,
 	}
 	for name, tt := range tests {
 		t.Run(name, tt)

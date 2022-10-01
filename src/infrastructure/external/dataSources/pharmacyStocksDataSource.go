@@ -32,9 +32,12 @@ func (dataSrc PharmacyStocksDataSource) GetPharmacyStockById(id uuid.UUID) (mode
 
 func (dataSrc PharmacyStocksDataSource) GetPharmacyStocksByMedicineKey(medicineKey string) ([]models.PharmacyStocksDetails, error) {
 	var pharmacyStocks []models.PharmacyStocksDetails
-	res := dataSrc.DbPsql.Raw(fmt.Sprintf("SELECT * FROM public.get_pharmacy_stocks_sorted('%v');", medicineKey)).Scan(&pharmacyStocks)
+	res := dataSrc.DbPsql.Raw(fmt.Sprintf("SELECT * FROM public.get_pharmacy_stocks_sorted_no_color('%v');", medicineKey)).Scan(&pharmacyStocks)
 	if res.Error != nil {
 		return pharmacyStocks, res.Error
+	}
+	if len(pharmacyStocks) == 0 {
+		return make([]models.PharmacyStocksDetails, 0), nil
 	}
 	return pharmacyStocks, nil
 }
