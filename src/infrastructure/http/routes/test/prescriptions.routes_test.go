@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/icrowley/fake"
 	"github.com/kataras/iris/v12/httptest"
 )
 
@@ -100,3 +101,103 @@ func testGetPrescriptionByUserId(t *testing.T) {
 		val.Object().Value("user_id").Equal(doctorUser.Id)
 	}
 }
+
+// END get prescriptions test cases
+
+// START update prescription test cases
+func testUpdateBasicInfoFromPrescription(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	// Change token info, set doctor user info
+	doctorUser := getUserByRoleName("medico")
+	doctorUserClaims := models.AuthClaims{Id: doctorUser.Id, Role: doctorUser.Role.Name, FullName: doctorUser.Name + doctorUser.Surname}
+	doctorToken := mocks.GetTokenMock(doctorUserClaims)
+	// Generate fake description and patient name
+	prescription := mocks.GetPrescriptionMockSeed()[0]
+	fakeInstructions := mocks.GetPrescriptionMock().Instructions
+	fakePatientName := mocks.GetPrescriptionMock().PatientName
+	prescription.Instructions = fakeInstructions
+	prescription.PatientName = fakePatientName
+	res := httpTester.PUT("/api/v1/prescriptions/{id}").
+		WithPath("id", prescription.Id).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", doctorToken)).
+		WithJSON(prescription).
+		Expect().Status(httptest.StatusOK)
+	jsonObj := res.JSON().Object().Value("data").Object().Value("prescription")
+	jsonObj.Object().Value("instructions").Equal(fakeInstructions)
+	jsonObj.Object().Value("patient_name").Equal(fakePatientName)
+}
+
+func testUpdatePrescriptionNoCreatorUser(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	// Change token info, set doctor user info
+	doctorUser := mocks.GetUserMockSeed(mocks.GetRolesMock("medico")[0].Id.String())
+	doctorUserClaims := models.AuthClaims{Id: doctorUser.Id, Role: "medico", FullName: doctorUser.Name + doctorUser.Surname}
+	doctorToken := mocks.GetTokenMock(doctorUserClaims)
+	// Generate fake description and patient name
+	prescription := mocks.GetPrescriptionMockSeed()[0]
+	fakeInstructions := mocks.GetPrescriptionMock().Instructions
+	prescription.Instructions = fakeInstructions
+	res := httpTester.PUT("/api/v1/prescriptions/{id}").
+		WithPath("id", prescription.Id).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", doctorToken)).
+		WithJSON(prescription).
+		Expect().Status(httptest.StatusForbidden)
+	res.JSON().Object().Value("error").Equal("Solo el creador de la receta está permitido a actualizarla/borrarla.")
+}
+
+func testUpdateMedicinesFromPrescription(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	// Change token info, set doctor user info
+	doctorUser := getUserByRoleName("medico")
+	doctorUserClaims := models.AuthClaims{Id: doctorUser.Id, Role: doctorUser.Role.Name, FullName: doctorUser.Name + doctorUser.Surname}
+	doctorToken := mocks.GetTokenMock(doctorUserClaims)
+	// Generate fake description and patient name
+	prescription := mocks.GetPrescriptionMockSeed()[0]
+	medicineQtyUpdated := prescription.Medicines[0].Pieces + 2
+	prescription.Medicines[0].Pieces = medicineQtyUpdated
+	res := httpTester.PUT("/api/v1/prescriptions/{id}").
+		WithPath("id", prescription.Id).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", doctorToken)).
+		WithJSON(prescription).
+		Expect().Status(httptest.StatusOK)
+	jsonObj := res.JSON().Object().Value("data").Object().Value("prescription")
+	jsonObj.Object().Value("medicines").Array().First().Object().Value("pieces").Equal(medicineQtyUpdated)
+}
+
+func testCompletePrescription(t *testing.T) {
+	var medicineSuppliment []models.PrescriptionsMedicinesToComplete
+	httpTester := httptest.New(t, IrisApp)
+	prescription := mocks.GetPrescriptionMockSeed()[0]
+	// Change token info, set doctor user info
+	pharmacyUser := getUserByRoleName("farmacia")
+	PharmacyUserClaims := models.AuthClaims{Id: pharmacyUser.Id, Role: pharmacyUser.Role.Name, FullName: pharmacyUser.Name + pharmacyUser.Surname}
+	pharmacyToken := mocks.GetTokenMock(PharmacyUserClaims)
+	// Supplie medicine from prescription
+	for _, medicine := range prescription.Medicines {
+		medicineSuppliment = append(
+			medicineSuppliment,
+			models.PrescriptionsMedicinesToComplete{
+				MedicineKey:    medicine.MedicineKey,
+				PiecesSupplied: medicine.Pieces,
+			})
+	}
+	supplimentOfPrescription := models.PrescriptionToComplete{
+		Observations: fake.Paragraph(),
+		Medicines:    medicineSuppliment,
+	}
+	res := httpTester.PUT("/api/v1/prescriptions/{id}/complete").
+		WithPath("id", prescription.Id).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", pharmacyToken)).
+		WithJSON(supplimentOfPrescription).
+		Expect().Status(httptest.StatusOK)
+	jsonObj := res.JSON().Object().Value("data").Object().Value("prescription")
+	jsonObj.Object().Schema(models.PrescriptionDetialed{})
+	jsonObj.Object().Value("prescription_status").Object().Value("name").Equal("Completada")
+	prescriptionMedicines := jsonObj.Object().Value("medicines").Array().Iter()
+
+	for i, medicine := range prescriptionMedicines {
+		medicine.Object().Value("pieces_supplied").Number().Equal(medicineSuppliment[i].PiecesSupplied)
+	}
+}
+
+// END update prescription test cases

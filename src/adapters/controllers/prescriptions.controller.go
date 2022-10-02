@@ -75,7 +75,7 @@ func (controller PrescriptionsController) CompletePrescription(ctx iris.Context)
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
 	}
-	helpers.PrepareAndSendMessageResponse(ctx, res)
+	helpers.PrepareAndSendDataResponse(ctx, res)
 }
 
 func (controller PrescriptionsController) DeletePrescription(ctx iris.Context) {

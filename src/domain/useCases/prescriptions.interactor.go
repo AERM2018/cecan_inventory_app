@@ -82,7 +82,7 @@ func (interactor PrescriptionInteractor) UpdatePrescription(id string, prescript
 	}
 	prescriptionFound, _ := interactor.PrescriptionsDataSource.GetPrescriptionById(uuidFromString)
 	return models.Responser{
-		StatusCode: iris.StatusCreated,
+		StatusCode: iris.StatusOK,
 		Data: iris.Map{
 			"prescription": prescriptionFound,
 		},
@@ -98,9 +98,13 @@ func (interactor PrescriptionInteractor) CompletePrescription(id string, prescri
 			Message:    err.Error(),
 		}
 	}
+	uuidFromString, _ := uuid.Parse(id)
+	prescriptionFound, _ := interactor.PrescriptionsDataSource.GetPrescriptionById(uuidFromString)
 	return models.Responser{
 		StatusCode: iris.StatusOK,
-		Message:    "La prescripción se completó satisfactoriamente.",
+		Data: iris.Map{
+			"prescription": prescriptionFound,
+		},
 	}
 }
 

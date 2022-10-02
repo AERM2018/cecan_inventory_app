@@ -48,7 +48,6 @@ func InitPrescriptionsRoutes(router router.Party, dbPsql *gorm.DB) {
 
 	prescriptions.Put("/{id:string}/complete",
 		val.IsPrescriptionById,
-		val.IsSamePrescriptionCreator,
 		val.CanUserDoAction("Farmacia"),
 		controller.CompletePrescription)
 
