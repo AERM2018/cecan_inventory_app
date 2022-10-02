@@ -139,8 +139,9 @@ func GetPrescriptionMockSeed() []models.PrescriptionDetialed {
 			Instructions: fake.Paragraph(),
 			Medicines: []models.PrescriptionsMedicines{
 				{
-					MedicineKey: GetMedicineMockSeed()[0].Key,
-					Pieces:      int16(fakePieces),
+					PrescriptionId: uuidParsed,
+					MedicineKey:    GetMedicineMockSeed()[0].Key,
+					Pieces:         int16(fakePieces),
 				},
 			},
 		}

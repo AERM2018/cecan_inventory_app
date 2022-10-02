@@ -87,6 +87,9 @@ func TestServer(t *testing.T) {
 		"Prescription should not be created, wrong role":             testCreatePrescriptionWrongRole,
 		"Prescription should not be created, medicine not found":     testCreatePrescriptionMedicineNotFound,
 		"Prescription should not be created, info's missing":         testCreatePrescriptionBadStruct,
+		"Prescriptions should retrieved":                             testGetPrescriptionsOk,
+		"Prescription by id should  retrieved":                       testGetPrescriptionById,
+		"Prescriptions of doctor should  retrieved":                  testGetPrescriptionByUserId,
 	}
 	for name, tt := range tests {
 		t.Run(name, tt)
