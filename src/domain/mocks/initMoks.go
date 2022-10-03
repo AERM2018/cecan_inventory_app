@@ -119,6 +119,7 @@ func GetPharmacyStockMockSeed() []models.PharmacyStock {
 		pharmacyStocksMocksSeed = append(pharmacyStocksMocksSeed, pharmacyStockMock)
 		pointer += 1
 	}
+	pharmacyStocksMocksSeed[0].ExpiresAt = time.Now().UTC().Add(time.Hour * 24)
 	// Changes pieces used to the last pharmacy stock for testing pursposes
 	pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces_used = 2
 	pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces -= pharmacyStocksMocksSeed[len(pharmacyStocksMocksSeed)-1].Pieces_used

@@ -235,7 +235,7 @@ func testDeletePrescriptionNoPendingStatus(t *testing.T) {
 
 func testDeletePrescriptionNoSameCreator(t *testing.T) {
 	httpTester := httptest.New(t, IrisApp)
-	prescription := mocks.GetPrescriptionMockSeed()[1]
+	prescription := mocks.GetPrescriptionMockSeed()[0]
 	res := httpTester.DELETE("/api/v1/prescriptions/{id}").
 		WithPath("id", prescription.Id).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).

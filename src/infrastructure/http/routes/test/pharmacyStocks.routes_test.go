@@ -123,7 +123,8 @@ func testCreatePhStockWrongFields(t *testing.T) {
 
 // START update pharmacy stock test cases
 func testUpdatePhStockOk(t *testing.T) {
-	newStock := mocks.GetPharmacyStockMockSeed()[0]
+	stock := mocks.GetPharmacyStockMockSeed()[1]
+	newStock := mocks.GetPharmacyStockMock(mocks.GetMedicineMockSeed()[0])
 	stockToUpdate := models.PharmacyStockToUpdate{
 		MedicineKey: newStock.MedicineKey,
 		LotNumber:   newStock.LotNumber,
@@ -131,7 +132,7 @@ func testUpdatePhStockOk(t *testing.T) {
 		ExpiresAt:   newStock.ExpiresAt,
 	}
 	httpTester := httptest.New(t, IrisApp)
-	res := httpTester.PUT(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", newStock.Id)).
+	res := httpTester.PUT(fmt.Sprintf("/api/v1/pharmacy_inventory/%v", stock.Id)).
 		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
 		WithJSON(stockToUpdate).
 		Expect().Status(httptest.StatusOK)
