@@ -201,6 +201,28 @@ func testCompletePrescription(t *testing.T) {
 }
 
 // TODO: Update a prescription adding a medicine to the prescription medicines list
+func testUpdatePrescriptionAddMedicine(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	// Change token info, set doctor user info
+	doctorUser := getUserByRoleName("medico")
+	doctorUserClaims := models.AuthClaims{Id: doctorUser.Id, Role: doctorUser.Role.Name, FullName: doctorUser.Name + doctorUser.Surname}
+	doctorToken := mocks.GetTokenMock(doctorUserClaims)
+	// Generate fake description and patient name
+	prescription := mocks.GetPrescriptionMockSeed()[0]
+	medicineListUpdated := append(prescription.Medicines, models.PrescriptionsMedicines{
+		MedicineKey: mocks.GetMedicineMockSeed()[1].Key,
+		Pieces:      1,
+	})
+	prescription.Medicines = medicineListUpdated
+	res := httpTester.PUT("/api/v1/prescriptions/{id}").
+		WithPath("id", prescription.Id).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", doctorToken)).
+		WithJSON(prescription).
+		Expect().Status(httptest.StatusOK)
+	jsonObj := res.JSON().Object().Value("data").Object().Value("prescription")
+	jsonObj.Object().Value("medicines").Array().Length().Equal(len(medicineListUpdated))
+}
+
 // END update prescription test cases
 
 // START delete prescription test cases

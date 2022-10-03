@@ -9,7 +9,7 @@ import (
 
 func CreatePrescriptionStatues(db *gorm.DB) error {
 	for _, prescriptionStatus := range mocks.GetPrescriptionStatuesMockSeed() {
-		err := db.Create(&models.PrescriptionsStatues{Id: prescriptionStatus.Id, Name: prescriptionStatus.Name}).Error
+		err := db.FirstOrCreate(&models.PrescriptionsStatues{}, models.PrescriptionsStatues{Id: prescriptionStatus.Id, Name: prescriptionStatus.Name}).Error
 		if err != nil {
 			return err
 		}

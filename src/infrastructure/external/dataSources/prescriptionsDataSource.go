@@ -84,6 +84,14 @@ func (dataSrc PrescriptionsDataSource) PutMedicineIntoPrescription(medicineForPr
 	return nil
 }
 
+func (dataSrc PrescriptionsDataSource) RemoveMedicineFromPrescription(medicineKey string, prescriptionId uuid.UUID) error {
+	res := dataSrc.DbPsql.Where("medicine_key = ? AND prescription_id = ?", medicineKey, prescriptionId).Delete(&models.PrescriptionsMedicines{})
+	if res.Error != nil {
+		return res.Error
+	}
+	return nil
+}
+
 func (dataSrc PrescriptionsDataSource) UpdatePrescription(id string, prescription models.Prescription, medicines []models.PrescriptionsMedicines) error {
 	isErrInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
 		// Update prescription and get id
@@ -179,6 +187,12 @@ func (dataSrc PrescriptionsDataSource) CompletePrescription(id string, prescript
 		return errInTransaction
 	}
 	return nil
+}
+
+func (dataSrc PrescriptionsDataSource) IsMedicineInPrescription(id string, medicineKey string) bool {
+	var prescriptionMedicine models.PrescriptionsStatues
+	errNotFound := dataSrc.DbPsql.Where("prescription_id = ? AND medicine_key = ?", id, medicineKey).First(&prescriptionMedicine).Error
+	return errors.Is(errNotFound, gorm.ErrRecordNotFound)
 }
 
 func (dataSrc PrescriptionsDataSource) GetPrescriptionStatus(name string) uuid.UUID {

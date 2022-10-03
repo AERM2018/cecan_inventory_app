@@ -98,6 +98,7 @@ func TestServer(t *testing.T) {
 		"Prescription should be updated, info changed":                     testUpdateBasicInfoFromPrescription,
 		"Prescription should not be updated, not prescription's creator":   testUpdatePrescriptionNoCreatorUser,
 		"Prescription should be updated, medicine quantity changed":        testUpdateMedicinesFromPrescription,
+		"Prescription should be updated, medicine's added":                 testUpdatePrescriptionAddMedicine,
 		"Prescription should be completed, medicine spplied":               testCompletePrescription,
 		"Prescription should be deleted":                                   testDeletePrescriptionOk,
 		"Prescription should not be deleted, no pending status":            testDeletePrescriptionNoPendingStatus,

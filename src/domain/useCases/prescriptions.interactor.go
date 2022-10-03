@@ -65,6 +65,7 @@ func (interactor PrescriptionInteractor) GetPrescriptionById(id uuid.UUID) model
 }
 
 func (interactor PrescriptionInteractor) UpdatePrescription(id string, prescriptionRequest models.PrescriptionDetialed) models.Responser {
+	var oldPrescription models.PrescriptionDetialed
 	prescriptionNoMedicines := models.Prescription{
 		UserId:       prescriptionRequest.UserId,
 		PatientName:  prescriptionRequest.PatientName,
@@ -72,6 +73,17 @@ func (interactor PrescriptionInteractor) UpdatePrescription(id string, prescript
 		Instructions: prescriptionRequest.Instructions,
 	}
 	uuidFromString, _ := uuid.Parse(id)
+	// Get prescription to compare medicines list to the one received
+	oldPrescription, _ = interactor.PrescriptionsDataSource.GetPrescriptionById(uuidFromString)
+	// Get prescription medicine list differences (INSERT AND DELETE)
+	medicinesToInsert, medicinesToDelete := prescriptionRequest.FilterMedicineFromPrescription(oldPrescription.Medicines)
+	for _, prescriptionMedicine := range medicinesToInsert {
+		interactor.PrescriptionsDataSource.PutMedicineIntoPrescription(prescriptionMedicine, uuidFromString)
+	}
+	for _, prescriptionMedicine := range medicinesToDelete {
+		interactor.PrescriptionsDataSource.RemoveMedicineFromPrescription(prescriptionMedicine.MedicineKey, oldPrescription.Id)
+	}
+	// Update prescription info and medicines quantities which had changed
 	err := interactor.PrescriptionsDataSource.UpdatePrescription(id, prescriptionNoMedicines, prescriptionRequest.Medicines)
 	if err != nil {
 		return models.Responser{
@@ -80,6 +92,7 @@ func (interactor PrescriptionInteractor) UpdatePrescription(id string, prescript
 			Message:    err.Error(),
 		}
 	}
+	// Consult prescription updated
 	prescriptionFound, _ := interactor.PrescriptionsDataSource.GetPrescriptionById(uuidFromString)
 	return models.Responser{
 		StatusCode: iris.StatusOK,
