@@ -43,7 +43,7 @@ func (dbVal DbValidator) CanUserDoAction(roleNamesAllowed ...string) func(ctx ir
 		var httpRes models.Responser
 		// This is just for testing, include Admin role in all request
 		roleNamesAllowed = append(roleNamesAllowed, "Admin")
-		roleName := fmt.Sprintf("%v", ctx.Values().Get("roleName"))
+		roleName := ctx.Values().GetString("roleName")
 		if !common.FindElementInSlice(roleName, roleNamesAllowed) {
 			httpRes = models.Responser{
 				StatusCode: iris.StatusForbidden,
