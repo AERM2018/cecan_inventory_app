@@ -6,6 +6,7 @@ import (
 	"cecan_inventory/domain/models"
 	"cecan_inventory/infrastructure/config"
 	"cecan_inventory/infrastructure/storage"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -38,6 +39,9 @@ func getUserByRoleName(name string) models.User {
 		parsed := i.(models.User)
 		return strings.ToLower(parsed.Role.Name) == strings.ToLower(name)
 	})
+	if len(usersFound.([]models.User)) == 0 {
+		panic(fmt.Sprintf("Usuario con rol %v, no existe", name))
+	}
 	return usersFound.([]models.User)[0]
 }
 
@@ -46,6 +50,7 @@ func teardown() {
 }
 func TestServer(t *testing.T) {
 	initServerTester(t)
+	defer teardown()
 
 	tests := map[string]func(t *testing.T){
 		"Login should be failed, not found":                                  testNotFoundAuth,
@@ -79,25 +84,27 @@ func TestServer(t *testing.T) {
 		"Pharmacy stock should not be created, fail struct validation":       testCreatePhStockWrongFields,
 		"Pharmacy stock should be updated":                                   testUpdatePhStockOk,
 		// "Pharmacy stock should not be updated, medicine not found":           testUpdatePhStockNotFound,
-		"Pharmacy stock should deleted":                                  testDeletePhStockOk,
-		"Pharmacy stock should not be deleted, wrong role":               testDeletePhStockWrongRole,
-		"Pharmacy stock should not be deleted, stock doesnp't exist":     testDeletePhStockNotFound,
-		"Pharmacy stock should not be deleted, it's already in use":      testDeletePhStockUsed,
-		"Prescription should be created":                                 testCreatePrescriptionOk,
-		"Prescription should not be created, wrong role":                 testCreatePrescriptionWrongRole,
-		"Prescription should not be created, medicine not found":         testCreatePrescriptionMedicineNotFound,
-		"Prescription should not be created, info's missing":             testCreatePrescriptionBadStruct,
-		"Prescriptions should be retrieved":                              testGetPrescriptionsOk,
-		"Prescription by id should be retrieved":                         testGetPrescriptionById,
-		"Prescriptions of doctor should be retrieved":                    testGetPrescriptionByUserId,
-		"Prescription should be updated, info changed":                   testUpdateBasicInfoFromPrescription,
-		"Prescription should not be updated, not prescription's creator": testUpdatePrescriptionNoCreatorUser,
-		"Prescription should be updated, medicine quantity changed":      testUpdateMedicinesFromPrescription,
-		"Prescription should be completed, medicine spplied":             testCompletePrescription,
+		"Pharmacy stock should deleted":                                    testDeletePhStockOk,
+		"Pharmacy stock should not be deleted, wrong role":                 testDeletePhStockWrongRole,
+		"Pharmacy stock should not be deleted, stock doesnp't exist":       testDeletePhStockNotFound,
+		"Pharmacy stock should not be deleted, it's already in use":        testDeletePhStockUsed,
+		"Prescription should be created":                                   testCreatePrescriptionOk,
+		"Prescription should not be created, wrong role":                   testCreatePrescriptionWrongRole,
+		"Prescription should not be created, medicine not found":           testCreatePrescriptionMedicineNotFound,
+		"Prescription should not be created, info's missing":               testCreatePrescriptionBadStruct,
+		"Prescriptions should be retrieved":                                testGetPrescriptionsOk,
+		"Prescription by id should be retrieved":                           testGetPrescriptionById,
+		"Prescriptions of doctor should be retrieved":                      testGetPrescriptionByUserId,
+		"Prescription should be updated, info changed":                     testUpdateBasicInfoFromPrescription,
+		"Prescription should not be updated, not prescription's creator":   testUpdatePrescriptionNoCreatorUser,
+		"Prescription should be updated, medicine quantity changed":        testUpdateMedicinesFromPrescription,
+		"Prescription should be completed, medicine spplied":               testCompletePrescription,
+		"Prescription should be deleted":                                   testDeletePrescriptionOk,
+		"Prescription should not be deleted, no pending status":            testDeletePrescriptionNoPendingStatus,
+		"Prescription should not be deleted, no same prescription creator": testDeletePrescriptionNoSameCreator,
 	}
 	for name, tt := range tests {
 		t.Run(name, tt)
 	}
 
-	teardown()
 }

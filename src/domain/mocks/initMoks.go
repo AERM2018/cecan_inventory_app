@@ -125,11 +125,33 @@ func GetPharmacyStockMockSeed() []models.PharmacyStock {
 	return pharmacyStocksMocksSeed
 }
 
+func GetPrescriptionStatuesMockSeed() []models.PrescriptionsStatues {
+	prescriptionStatues := make([]models.PrescriptionsStatues, 0)
+	mapStatues := []map[string]string{
+		{
+			"id":   "6f328cc7-3662-4d6f-912a-34449c241019",
+			"name": "Pendiente",
+		},
+		{
+			"id":   "8036632b-d5aa-4cf7-81ed-b4abbbd90482",
+			"name": "Completada",
+		},
+	}
+	for _, prescriptionStatus := range mapStatues {
+		uuidParsed, _ := uuid.Parse(prescriptionStatus["id"])
+		status := models.PrescriptionsStatues{
+			Id:   uuidParsed,
+			Name: prescriptionStatus["name"],
+		}
+		prescriptionStatues = append(prescriptionStatues, status)
+	}
+	return prescriptionStatues
+}
 func GetPrescriptionMockSeed() []models.PrescriptionDetialed {
 	pointer := 0
-	fakeUuids := []string{"237aa448-3e83-4af0-ae24-e1b1138f6fec", "f64cc4d4-9c33-4a97-a981-7539b74fc07b"}
+	fakeUuids := []string{"237aa448-3e83-4af0-ae24-e1b1138f6fec", "f64cc4d4-9c33-4a97-a981-7539b74fc07b", "5db2f10a-d692-483b-8ba6-3ea48d2f00c6"}
 	prescriptionsMocksSeed := make([]models.PrescriptionDetialed, 0)
-	for pointer < 2 {
+	for pointer < 3 {
 		fakePieces, _ := strconv.Atoi(fake.DigitsN(1))
 		uuidParsed, _ := uuid.Parse(fakeUuids[pointer])
 		prescriptionMock := models.PrescriptionDetialed{
@@ -147,6 +169,14 @@ func GetPrescriptionMockSeed() []models.PrescriptionDetialed {
 		}
 		prescriptionsMocksSeed = append(prescriptionsMocksSeed, prescriptionMock)
 		pointer += 1
+	}
+	// Set the last prescription as completed
+	isStatus, status := common.FindInSlice(GetPrescriptionStatuesMockSeed(), func(i interface{}) bool {
+		parsed := i.(models.PrescriptionsStatues)
+		return strings.ToLower(parsed.Name) == "completada"
+	})
+	if isStatus {
+		prescriptionsMocksSeed[len(prescriptionsMocksSeed)-1].PrescriptionStatusId = status.([]models.PrescriptionsStatues)[0].Id
 	}
 	return prescriptionsMocksSeed
 }

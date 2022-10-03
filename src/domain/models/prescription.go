@@ -57,7 +57,9 @@ func (prescription *Prescription) BeforeCreate(tx *gorm.DB) (err error) {
 	prescription.Folio = lastPrescription.Folio + 1
 	// Assing default prescription status
 
-	tx.Model(&PrescriptionsStatues{}).Where("name = ?", "Pendiente").First(&prescriptionStatus)
-	prescription.PrescriptionStatusId = prescriptionStatus.Id
+	if prescription.PrescriptionStatusId == uuid.Nil {
+		tx.Model(&PrescriptionsStatues{}).Where("name = ?", "Pendiente").First(&prescriptionStatus)
+		prescription.PrescriptionStatusId = prescriptionStatus.Id
+	}
 	return
 }

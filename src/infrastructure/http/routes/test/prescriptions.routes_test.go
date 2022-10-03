@@ -200,4 +200,48 @@ func testCompletePrescription(t *testing.T) {
 	}
 }
 
+// TODO: Update a prescription adding a medicine to the prescription medicines list
 // END update prescription test cases
+
+// START delete prescription test cases
+
+func testDeletePrescriptionOk(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	prescription := mocks.GetPrescriptionMockSeed()[1]
+	// Change token info, set doctor user info
+	doctorUser := getUserByRoleName("medico")
+	doctorUserClaims := models.AuthClaims{Id: doctorUser.Id, Role: doctorUser.Role.Name, FullName: doctorUser.Name + doctorUser.Surname}
+	doctorToken := mocks.GetTokenMock(doctorUserClaims)
+	httpTester.DELETE("/api/v1/prescriptions/{id}").
+		WithPath("id", prescription.Id).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", doctorToken)).
+		Expect().Status(httptest.StatusNoContent)
+}
+
+func testDeletePrescriptionNoPendingStatus(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	prescription := mocks.GetPrescriptionMockSeed()[2]
+	// Change token info, set doctor user info
+	doctorUser := getUserByRoleName("medico")
+	doctorUserClaims := models.AuthClaims{Id: doctorUser.Id, Role: doctorUser.Role.Name, FullName: doctorUser.Name + doctorUser.Surname}
+	doctorToken := mocks.GetTokenMock(doctorUserClaims)
+	res := httpTester.DELETE("/api/v1/prescriptions/{id}").
+		WithPath("id", prescription.Id).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", doctorToken)).
+		Expect().Status(httptest.StatusBadRequest)
+
+	res.JSON().Object().Value("error").Equal("No se pudó completar la acción, la receta no tiene un estado: pendiente")
+}
+
+func testDeletePrescriptionNoSameCreator(t *testing.T) {
+	httpTester := httptest.New(t, IrisApp)
+	prescription := mocks.GetPrescriptionMockSeed()[1]
+	res := httpTester.DELETE("/api/v1/prescriptions/{id}").
+		WithPath("id", prescription.Id).
+		WithHeader("Authorization", fmt.Sprintf("Bearer %v", token)).
+		Expect().Status(httptest.StatusForbidden)
+
+	res.JSON().Object().Value("error").Equal("Solo el creador de la receta está permitido a actualizarla/borrarla.")
+}
+
+// END delete prescription test cases

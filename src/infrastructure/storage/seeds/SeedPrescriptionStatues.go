@@ -1,15 +1,15 @@
 package seeds
 
 import (
+	"cecan_inventory/domain/mocks"
 	"cecan_inventory/domain/models"
 
 	"gorm.io/gorm"
 )
 
 func CreatePrescriptionStatues(db *gorm.DB) error {
-	prescriptionStatusNames := []string{"Pendiente", "Completada"}
-	for _, statusName := range prescriptionStatusNames {
-		err := db.Create(&models.PrescriptionsStatues{Name: statusName}).Error
+	for _, prescriptionStatus := range mocks.GetPrescriptionStatuesMockSeed() {
+		err := db.Create(&models.PrescriptionsStatues{Id: prescriptionStatus.Id, Name: prescriptionStatus.Name}).Error
 		if err != nil {
 			return err
 		}
