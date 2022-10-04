@@ -199,3 +199,24 @@ func GetPrescriptionMock() models.PrescriptionDetialed {
 	}
 	return prescriptionMock
 }
+
+func GetStorehouseUtiltiesMockSeed() []models.StorehouseUtilityCategory {
+	pointer := 0
+	mapStorehouseUtilityCategories := []map[string]string{
+		{"id": "ff0b0d3a-d013-4946-9cc2-285a16861ec1", "name": "Material medico"},
+		{"id": "52fc404c-dd25-4d51-9e93-adbc4329f6d0", "name": "Material de limpieza"},
+	}
+	storehouseUtilityCategoriesMockSeed := make([]models.StorehouseUtilityCategory, 0)
+	for pointer < len(mapStorehouseUtilityCategories) {
+		for _, storehouseUtilityCategory := range mapStorehouseUtilityCategories {
+			uuidParsed, _ := uuid.Parse(storehouseUtilityCategory["id"])
+			status := models.StorehouseUtilityCategory{
+				Id:   uuidParsed,
+				Name: storehouseUtilityCategory["name"],
+			}
+			storehouseUtilityCategoriesMockSeed = append(storehouseUtilityCategoriesMockSeed, status)
+		}
+		pointer += 1
+	}
+	return storehouseUtilityCategoriesMockSeed
+}

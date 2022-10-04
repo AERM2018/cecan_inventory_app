@@ -1,1 +1,1 @@
-DROP TABLE storehouse_utilities_categories;
+DROP TABLE storehouse_utility_categories;

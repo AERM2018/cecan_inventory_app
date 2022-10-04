@@ -7,5 +7,5 @@ CREATE TABLE storehouse_utilities(
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
     deleted_at TIMESTAMP,
-    CONSTRAINT fk_storehouse_category FOREIGN KEY(storehouse_utilities_category_id) REFERENCES storehouse_utilities_categories(id)
+    CONSTRAINT fk_storehouse_category FOREIGN KEY(storehouse_utilities_category_id) REFERENCES storehouse_utility_categories(id)
 );
