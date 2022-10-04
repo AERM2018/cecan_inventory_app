@@ -14,10 +14,11 @@ import (
 )
 
 type DbValidator struct {
-	MedicineDataSrc datasources.MedicinesDataSource
-	PharmacyDataSrc datasources.PharmacyStocksDataSource
-	RolesDataSource datasources.RolesDataSource
-	UserDataSource  datasources.UserDataSource
+	MedicineDataSrc        datasources.MedicinesDataSource
+	PharmacyDataSrc        datasources.PharmacyStocksDataSource
+	RolesDataSource        datasources.RolesDataSource
+	UserDataSource         datasources.UserDataSource
+	PrescriptionDataSource datasources.PrescriptionsDataSource
 }
 
 func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
@@ -42,7 +43,7 @@ func (dbVal DbValidator) CanUserDoAction(roleNamesAllowed ...string) func(ctx ir
 		var httpRes models.Responser
 		// This is just for testing, include Admin role in all request
 		roleNamesAllowed = append(roleNamesAllowed, "Admin")
-		roleName := fmt.Sprintf("%v", ctx.Values().Get("roleName"))
+		roleName := ctx.Values().GetString("roleName")
 		if !common.FindElementInSlice(roleName, roleNamesAllowed) {
 			httpRes = models.Responser{
 				StatusCode: iris.StatusForbidden,
@@ -216,6 +217,54 @@ func (dbVal DbValidator) IsPharmacyStockById(ctx iris.Context) {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusBadRequest,
 			Message:    fmt.Sprintf("El stock de farmacia con id: %v no existe.", pharmacyStockId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsPrescriptionDeterminedStatus(status string) func(ctx iris.Context) {
+	return func(ctx iris.Context) {
+		var httpRes models.Responser
+		prescriptionId := ctx.Params().GetString("id")
+		if !dbVal.PrescriptionDataSource.IsPrescriptionDeterminedStatus(prescriptionId, status) {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    fmt.Sprintf("No se pudó completar la acción, la receta no tiene un estado: %v", status),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+		ctx.Next()
+	}
+}
+
+func (dbVal DbValidator) IsPrescriptionById(ctx iris.Context) {
+	var httpRes models.Responser
+	prescriptionId := ctx.Params().GetString("id")
+	idUuid, _ := uuid.Parse(prescriptionId)
+	_, err := dbVal.PrescriptionDataSource.GetPrescriptionById(idUuid)
+	if err != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("La receta con id: %v no existe.", prescriptionId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsSamePrescriptionCreator(ctx iris.Context) {
+	var httpRes models.Responser
+	prescriptionId := ctx.Params().GetString("id")
+	creatorUserId := ctx.Values().GetString("userId")
+	isSameCreator := dbVal.PrescriptionDataSource.IsSamePrescriptionCreator(prescriptionId, creatorUserId)
+	if !isSameCreator {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusForbidden,
+			Message:    "Solo el creador de la receta está permitido a actualizarla/borrarla.",
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return

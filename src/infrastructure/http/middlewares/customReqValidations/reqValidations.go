@@ -40,3 +40,12 @@ func ValidatePharmacyStock(mapObject interface{}, omitedFields ...string) error 
 	return validation.Validate(mapObject,
 		validation.Map(maps.Values(rules)...).AllowExtraKeys())
 }
+
+func ValidatePrescription(mapObject interface{}, ommitFields ...string) error {
+	return validation.Validate(mapObject,
+		validation.Map(
+			validation.Key("patient_name", validation.Required),
+			validation.Key("instructions", validation.Required),
+			validation.Key("medicines", validation.Length(0, 100)),
+		).AllowExtraKeys())
+}

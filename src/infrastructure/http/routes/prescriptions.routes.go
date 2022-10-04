@@ -3,6 +3,8 @@ package routes
 import (
 	"cecan_inventory/adapters/controllers"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
+	"cecan_inventory/infrastructure/http/middlewares"
+	customreqvalidations "cecan_inventory/infrastructure/http/middlewares/customReqValidations"
 
 	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"
@@ -11,9 +13,48 @@ import (
 func InitPrescriptionsRoutes(router router.Party, dbPsql *gorm.DB) {
 	prescriptions := router.Party("/prescriptions")
 	prescriptionsDataSource := datasources.PrescriptionsDataSource{DbPsql: dbPsql}
-	controller := controllers.PrescriptionsController{}
-	controller.New(prescriptionsDataSource)
+	pharmacyStocksDataSource := datasources.PharmacyStocksDataSource{DbPsql: dbPsql}
+	roleDataSource := datasources.RolesDataSource{DbPsql: dbPsql}
+	val := middlewares.DbValidator{
+		RolesDataSource:        roleDataSource,
+		PrescriptionDataSource: prescriptionsDataSource,
+		PharmacyDataSrc:        pharmacyStocksDataSource,
+	}
+	controller := controllers.PrescriptionsController{
+		PrescriptionsDataSource: prescriptionsDataSource}
+	controller.New()
 
-	prescriptions.Post("/", controller.CreatePrescription)
-	prescriptions.Get("/{id:string}", controller.GetPrescriptionById)
+	prescriptions.Use(middlewares.VerifyJWT)
+
+	prescriptions.Get("/",
+		val.CanUserDoAction("Medico", "Farmacia"),
+		controller.GetPrescriptions)
+
+	prescriptions.Get("/{id:string}",
+		val.CanUserDoAction("Medico", "Farmacia"),
+		val.IsPrescriptionById,
+		controller.GetPrescriptionById)
+
+	prescriptions.Post("/",
+		val.CanUserDoAction("Medico"),
+		middlewares.ValidateRequest(customreqvalidations.ValidatePrescription),
+		controller.CreatePrescription)
+
+	prescriptions.Put("/{id:string}",
+		val.IsPrescriptionById,
+		val.IsSamePrescriptionCreator,
+		val.CanUserDoAction("Medico"),
+		controller.UpdatePrescription)
+
+	prescriptions.Put("/{id:string}/complete",
+		val.IsPrescriptionById,
+		val.CanUserDoAction("Farmacia"),
+		controller.CompletePrescription)
+
+	prescriptions.Delete("/{id:string}",
+		val.IsPrescriptionById,
+		val.CanUserDoAction("Medico"),
+		val.IsSamePrescriptionCreator,
+		val.IsPrescriptionDeterminedStatus("pendiente"),
+		controller.DeletePrescription)
 }

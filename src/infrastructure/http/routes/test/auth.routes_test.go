@@ -64,7 +64,7 @@ func testPasswordWrongAuth(t *testing.T) {
 // START test sign up
 
 func testSignUpOk(t *testing.T) {
-	user = mocks.GetUserMock(mocks.GetRolesMock()[0].Id.String(), 10)
+	user = mocks.GetUserMock(mocks.GetRolesMock("admin")[0].Id.String(), 10)
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		POST("/api/v1/auth/signup").
@@ -97,7 +97,7 @@ func testSignUpUserWrong(t *testing.T) {
 }
 
 func testSignUpEmailUsed(t *testing.T) {
-	user = mocks.GetUserMockSeed(mocks.GetRolesMock()[0].Id.String())
+	user = mocks.GetUserMockSeed(mocks.GetRolesMock("admin")[0].Id.String())
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		POST("/api/v1/auth/signup").

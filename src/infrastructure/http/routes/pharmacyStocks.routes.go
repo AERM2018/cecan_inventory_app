@@ -12,6 +12,7 @@ import (
 
 func InitPharmacyStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	pharmacyInventory := router.Party("/pharmacy_inventory")
+
 	pharmacyStocksDataSource := datasources.PharmacyStocksDataSource{DbPsql: dbPsql}
 	medicinesDataSource := datasources.MedicinesDataSource{DbPsql: dbPsql}
 	val := middlewares.DbValidator{PharmacyDataSrc: pharmacyStocksDataSource, MedicineDataSrc: medicinesDataSource}
@@ -25,6 +26,7 @@ func InitPharmacyStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	// Enpoints definition by HTTP method
 	// Apply custom validations to the requests' body
 	pharmacyInventory.Get("/", controller.GetPharmacyStocks)
+	// pharmacyInventory.Get("/", websocket.Handler(websocketServer))
 
 	pharmacyInventory.Put("/{id:string}",
 		middlewares.ValidateRequest(customreqvalidations.ValidatePharmacyStock),

@@ -29,5 +29,6 @@ func VerifyJWT(ctx iris.Context) {
 	}
 	verifiedToken.Claims(&claims)
 	ctx.Values().Set("roleName", claims.Role)
+	ctx.Values().Set("userId", claims.Id)
 	ctx.Next()
 }

@@ -7,8 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
-type Prescriptions_statues struct {
-	Id        uuid.UUID      `gorm:"primaryKey" json:"id,omitempty"`
+type PrescriptionsStatues struct {
+	Id        uuid.UUID      `gorm:"primaryKey;default:'uuid_generate_v4()';primaryKey" json:"id,omitempty"`
 	Name      string         `json:"name,omitempty"`
 	CreatedAt *time.Time     `json:"created_at,omitempty"`
 	UpdatedAt *time.Time     `json:"updated_at,omitempty"`

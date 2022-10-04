@@ -7,7 +7,7 @@ import (
 )
 
 func CreateRoles(db *gorm.DB) error {
-	for _, rol := range mocks.GetRolesMock() {
+	for _, rol := range mocks.GetRolesMock("") {
 		err := db.FirstOrCreate(&rol, rol).Error
 		if err != nil {
 			return err
