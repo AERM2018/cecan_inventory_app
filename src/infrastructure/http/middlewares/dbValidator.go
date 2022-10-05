@@ -14,11 +14,12 @@ import (
 )
 
 type DbValidator struct {
-	MedicineDataSrc        datasources.MedicinesDataSource
-	PharmacyDataSrc        datasources.PharmacyStocksDataSource
-	RolesDataSource        datasources.RolesDataSource
-	UserDataSource         datasources.UserDataSource
-	PrescriptionDataSource datasources.PrescriptionsDataSource
+	MedicineDataSrc             datasources.MedicinesDataSource
+	PharmacyDataSrc             datasources.PharmacyStocksDataSource
+	RolesDataSource             datasources.RolesDataSource
+	UserDataSource              datasources.UserDataSource
+	PrescriptionDataSource      datasources.PrescriptionsDataSource
+	StorehouseUtilityDataSource datasources.StorehouseUtilitiesDataSource
 }
 
 func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
@@ -265,6 +266,24 @@ func (dbVal DbValidator) IsSamePrescriptionCreator(ctx iris.Context) {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusForbidden,
 			Message:    "Solo el creador de la receta está permitido a actualizarla/borrarla.",
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsStorehouseUtilityWithKey(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+		utility models.StorehouseUtility
+	)
+	bodyreader.ReadBodyAsJson(ctx, &utility, false)
+	_, errNotFound := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utility.Key)
+	if errNotFound == nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    fmt.Sprintf("Un elemento con clave: %v ya existe en almacen.", utility.Key),
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return

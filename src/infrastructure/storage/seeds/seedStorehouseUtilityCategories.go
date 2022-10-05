@@ -7,8 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func CreateStorehouseUtilitiesCategories(db *gorm.DB) error {
-	for _, storehouseUtilityCategory := range mocks.GetStorehouseUtiltiesMockSeed() {
+func CreateStorehouseUtilityCategories(db *gorm.DB) error {
+	for _, storehouseUtilityCategory := range mocks.GetStorehouseUtiltyCategoriesMockSeed() {
 		err := db.FirstOrCreate(&models.StorehouseUtilityCategory{}, storehouseUtilityCategory).Error
 		if err != nil {
 			return err
