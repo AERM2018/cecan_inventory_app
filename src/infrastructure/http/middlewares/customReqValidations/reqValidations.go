@@ -49,3 +49,15 @@ func ValidatePrescription(mapObject interface{}, ommitFields ...string) error {
 			validation.Key("medicines", validation.Length(0, 100)),
 		).AllowExtraKeys())
 }
+
+func ValidateStorehouseUtility(mapObject interface{}, ommitFields ...string) error {
+	return validation.Validate(mapObject,
+		validation.Map(
+			validation.Key("key", validation.Required),
+			validation.Key("generic_name", validation.Required),
+			validation.Key("storehouse_utility_category_id", validation.Required),
+			validation.Key("storehouse_utility_presentation_id", validation.Required),
+			validation.Key("storehouse_utility_unit_id", validation.Required),
+			validation.Key("quantity_per_unit", validation.Required.Error("The quantity per unit must be grater than 0")),
+		).AllowExtraKeys())
+}
