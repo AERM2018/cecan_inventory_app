@@ -18,6 +18,25 @@ func (dataSrc StorehouseUtilitiesDataSource) CreateStorehouseUtility(utility mod
 	return nil
 }
 
+func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities() ([]models.StorehouseUtilityDetailed, error) {
+	storehouseUtilities := make([]models.StorehouseUtilityDetailed, 0)
+	err := dataSrc.DbPsql.Model(&models.StorehouseUtility{}).
+		Preload("StorehouseUtilityPresentation", func(db *gorm.DB) *gorm.DB {
+			return db.Omit("created_at", "updated_at", "deleted_at")
+		}).
+		Preload("StorehouseUtilityUnit", func(db *gorm.DB) *gorm.DB {
+			return db.Omit("created_at", "updated_at", "deleted_at")
+		}).
+		Preload("StorehouseUtilityCategory", func(db *gorm.DB) *gorm.DB {
+			return db.Omit("created_at", "updated_at", "deleted_at")
+		}).
+		Find(&storehouseUtilities).Error
+	if err != nil {
+		return storehouseUtilities, err
+	}
+	return storehouseUtilities, nil
+}
+
 func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilityByKey(key string) (models.StorehouseUtilityDetailed, error) {
 	var utilityDetailed models.StorehouseUtilityDetailed
 	err := dataSrc.DbPsql.Model(&models.StorehouseUtility{}).

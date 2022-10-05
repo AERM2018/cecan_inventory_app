@@ -21,13 +21,19 @@ func InitStorehouseUtilitiesRoutes(router router.Party, dbPsql *gorm.DB) {
 	}
 	storehouseUtilities.Use(middlewares.VerifyJWT)
 	// Enpoints definition by HTTP methods
+	// GET
 	storehouseUtilities.Get("/categories", storehouseUtilitesController.GetStorehouseUtilityCategories)
 	storehouseUtilities.Get("/presentations", storehouseUtilitesController.GetStorehouseUtilityPresentations)
 	storehouseUtilities.Get("/units", storehouseUtilitesController.GetStorehouseUtilityUnits)
+	storehouseUtilities.Get("/", storehouseUtilitesController.GetStorehouseUtilities)
+	storehouseUtilities.Get("/{key:string}", storehouseUtilitesController.GetStorehouseUtility)
+	// POST
 	storehouseUtilities.Post("/",
 		val.CanUserDoAction("Almacen"),
 		val.IsStorehouseUtilityWithKey,
 		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseUtility),
 		storehouseUtilitesController.CreateStorehouseUtility,
 	)
+	// PUT
+
 }

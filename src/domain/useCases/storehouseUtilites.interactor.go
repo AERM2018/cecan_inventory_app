@@ -38,6 +38,38 @@ func (interactor StorehouseUtilitiesInteractor) CreateStorehouseUtility(utility 
 	}
 }
 
+func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilities() models.Responser {
+	storehouseUtilities, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilities()
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"storehouse_utilities": storehouseUtilities,
+		},
+	}
+}
+
+func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilityByKey(key string) models.Responser {
+	storehouseUtility, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilityByKey(key)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"storehouse_utility": storehouseUtility,
+		},
+	}
+}
+
 func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilityCategories() models.Responser {
 	storehouseUtiliyCategories, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilityCategories()
 	if err != nil {

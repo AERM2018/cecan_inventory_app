@@ -32,6 +32,25 @@ func (controller StorehouseUtilitiesController) CreateStorehouseUtility(ctx iris
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
 
+func (controller StorehouseUtilitiesController) GetStorehouseUtilities(ctx iris.Context) {
+	res := controller.Interactor.GetStorehouseUtilities()
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller StorehouseUtilitiesController) GetStorehouseUtility(ctx iris.Context) {
+	storehouseUtilityKey := ctx.Params().GetStringDefault("key", "")
+	res := controller.Interactor.GetStorehouseUtilityByKey(storehouseUtilityKey)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
 func (controller StorehouseUtilitiesController) GetStorehouseUtilityCategories(ctx iris.Context) {
 	res := controller.Interactor.GetStorehouseUtilityCategories()
 	if res.StatusCode > 300 {
