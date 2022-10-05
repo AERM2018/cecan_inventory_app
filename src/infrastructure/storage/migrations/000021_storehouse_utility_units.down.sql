@@ -1,0 +1,1 @@
+DROP TABLE storehouse_utility_units;
