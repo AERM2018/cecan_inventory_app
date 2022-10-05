@@ -13,7 +13,10 @@ type UserDataSource struct {
 
 func (dataSrc UserDataSource) GetUserByEmail(email string) (models.User, error) {
 	var user models.User
-	res := dataSrc.DbPsql.Where(&models.User{Email: email}).First(&user)
+	res := dataSrc.DbPsql.
+		Joins("Role").
+		Omit("updated_at", "deleted_at").
+		Where(&models.User{Email: email}).First(&user)
 	if res.RowsAffected < 1 {
 		return user, res.Error
 	}

@@ -15,7 +15,7 @@ func PrepareAndSendMessageResponse(c iris.Context, response models.Responser) {
 		tag = "error"
 		ok = false
 		if response.StatusCode == 500 {
-			mapResponse = iris.Map{"ok": ok, "message": "Hable con el administrador.!"}
+			mapResponse = iris.Map{"ok": ok, "message": "Hable con el administrador!"}
 			fmt.Printf("Error: %v", response.Err)
 			c.StopWithJSON(response.StatusCode, mapResponse)
 			return
