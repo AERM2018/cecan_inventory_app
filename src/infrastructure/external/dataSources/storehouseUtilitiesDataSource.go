@@ -59,6 +59,17 @@ func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilityByKey(key strin
 	return utilityDetailed, nil
 }
 
+func (dataSrc StorehouseUtilitiesDataSource) UpdateStorehouseUtility(key string, utility models.StorehouseUtility) (string, error) {
+	err := dataSrc.DbPsql.
+		Model(&models.StorehouseUtility{}).
+		Where("key = ?", key).
+		Updates(&utility).Error
+	if err != nil {
+		return "", err
+	}
+	return utility.Key, nil
+}
+
 func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilityCategories() ([]models.StorehouseUtilityCategory, error) {
 	storehouseUtilityCategories := make([]models.StorehouseUtilityCategory, 0)
 	err := dataSrc.DbPsql.Find(&storehouseUtilityCategories).Error

@@ -274,36 +274,53 @@ func (dbVal DbValidator) IsSamePrescriptionCreator(ctx iris.Context) {
 }
 
 func (dbVal DbValidator) IsStorehouseUtilityWithKey(ctx iris.Context) {
+	// If it's found, avoid repeatition
 	var (
 		httpRes models.Responser
 		utility models.StorehouseUtility
 	)
 	bodyreader.ReadBodyAsJson(ctx, &utility, false)
-	_, errNotFound := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utility.Key)
-	if errNotFound == nil {
+	utilityKey := ctx.Params().GetString("key")
+	if utility.Key != utilityKey {
+		var resMessage string
+		_, err := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utility.Key)
+		if err == nil {
+			if ctx.Request().Method == "PUT" {
+				resMessage = fmt.Sprintf("No se actualizó el elemento de almacen debido a que ya existe un elemento con la clave: %v.", utility.Key)
+			} else {
+				resMessage = fmt.Sprintf("El elemento de almacen con clave: %v ya existe.", utility.Key)
+			}
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    resMessage,
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		}
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) FindStorehouseUtilityByKey(ctx iris.Context) {
+	// Look for it to know if the key specified exist in order to alterate
+	var (
+		httpRes    models.Responser
+		utility    models.StorehouseUtility
+		utilityKey string
+	)
+	if ctx.Method() == "PUT" || ctx.Method() == "DELETE" {
+		utilityKey = ctx.Params().GetString("key")
+	} else {
+		bodyreader.ReadBodyAsJson(ctx, &utility, false)
+		utilityKey = utility.Key
+	}
+	_, errNotFound := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utilityKey)
+	if errNotFound != nil {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusBadRequest,
-			Message:    fmt.Sprintf("Un elemento con clave: %v ya existe en almacen.", utility.Key),
+			Message:    fmt.Sprintf("Un elemento con clave: %v no existe en almacen.", utilityKey),
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return
 	}
 	ctx.Next()
 }
-
-// func (dbVal DbValidator) AreStocksOfMedicine(ctx iris.Context) {
-// 	var (
-// 		httpRes models.Responser
-// 		numStocks int64
-// 	)
-// 	medicine_key := ctx.Params().GetString("key")
-// 	numStocks, _ = dbVal.PharmacyDataSrc.GetPharmacyStocksByMedicineKey(medicine_key)
-// 	if numStocks > 0 {
-// 		httpRes = models.Responser{
-// 				StatusCode: iris.StatusNotFound,
-// 				Message:    fmt.Sprintf("El medicamento con clave: %v no pudó ser eliminado ya que existen registros en el inventario con fecha de vencimiento", medicineKey),
-// 			}
-// 			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
-// 	}
-// 	ctx.Next()
-// }

@@ -35,5 +35,10 @@ func InitStorehouseUtilitiesRoutes(router router.Party, dbPsql *gorm.DB) {
 		storehouseUtilitesController.CreateStorehouseUtility,
 	)
 	// PUT
-
+	storehouseUtilities.Put("/{key:string}",
+		val.CanUserDoAction("Almacen"),
+		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseUtility),
+		val.FindStorehouseUtilityByKey,
+		val.IsStorehouseUtilityWithKey,
+		storehouseUtilitesController.UpdateStorehouseUtility)
 }
