@@ -327,3 +327,30 @@ func (dbVal DbValidator) FindStorehouseUtilityByKey(ctx iris.Context) {
 	}
 	ctx.Next()
 }
+
+func (dbVal DbValidator) IsStorehouseUtilityDeleted(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+		isError bool
+	)
+	utilityKey := ctx.Params().GetString("key")
+	reqPath := ctx.Path()
+	isUtilityDeleted, _ := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utilityKey)
+	var message string
+	// if strings.Contains(reqPath, "pharmacy_inventory") && ctx.Request().Method == "POST" && isUtilityDeleted == 0 {
+	// 	isError = true
+	// 	message = fmt.Sprintf("No se pudó ingresar el stock a farmacia del medicamento con clave: %v debido a que esta inactivo, activelo y vuelvalo a intentar.", utilityKey)
+	if strings.Contains(reqPath, "reactivate") && ctx.Request().Method == "PUT" && !isUtilityDeleted.DeletedAt.Valid {
+		isError = true
+		message = fmt.Sprintf("El elemento de almacen con clave: %v no se reactivó debido a que no ha sido eliminado antes.", utilityKey)
+	}
+	if isError {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    message,
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}

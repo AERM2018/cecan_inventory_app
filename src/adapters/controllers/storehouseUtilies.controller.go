@@ -63,6 +63,15 @@ func (controller StorehouseUtilitiesController) UpdateStorehouseUtility(ctx iris
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
 
+func (controller StorehouseUtilitiesController) ReactivateStorehouseUtility(ctx iris.Context) {
+	storehouseUtilityKey := ctx.Params().GetStringDefault("key", "")
+	res := controller.Interactor.ReactivateStorehouseUtility(storehouseUtilityKey)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
 func (controller StorehouseUtilitiesController) DeleteStorehouseUtility(ctx iris.Context) {
 	storehouseUtilityKey := ctx.Params().GetStringDefault("key", "")
 	res := controller.Interactor.DeleteStorehouseUtility(storehouseUtilityKey)

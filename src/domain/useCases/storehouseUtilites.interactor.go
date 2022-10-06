@@ -78,6 +78,30 @@ func (interactor StorehouseUtilitiesInteractor) UpdateStorehouseUtility(key stri
 	}
 }
 
+func (interactor StorehouseUtilitiesInteractor) ReactivateStorehouseUtility(key string) models.Responser {
+
+	err := interactor.StorehouseUtilitiesDataSource.ReactivateStorehouseUtility(key)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	storehouseUtility, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilityByKey(key)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"storehouse_utilities": storehouseUtility,
+		},
+	}
+}
+
 func (interactor StorehouseUtilitiesInteractor) DeleteStorehouseUtility(key string) models.Responser {
 	err := interactor.StorehouseUtilitiesDataSource.DeleteStorehouseUtility(key)
 	if err != nil {

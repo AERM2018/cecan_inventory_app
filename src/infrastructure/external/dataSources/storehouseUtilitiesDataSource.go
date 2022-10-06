@@ -74,6 +74,19 @@ func (dataSrc StorehouseUtilitiesDataSource) UpdateStorehouseUtility(key string,
 	return utility.Key, nil
 }
 
+func (dataSrc StorehouseUtilitiesDataSource) ReactivateStorehouseUtility(key string) error {
+	err := dataSrc.DbPsql.
+		Model(&models.StorehouseUtility{}).
+		Unscoped().
+		Where("key = ?", key).
+		Update("deleted_at", nil).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (dataSrc StorehouseUtilitiesDataSource) DeleteStorehouseUtility(key string) error {
 	err := dataSrc.DbPsql.
 		Where("key = ?", key).
