@@ -41,4 +41,10 @@ func InitStorehouseUtilitiesRoutes(router router.Party, dbPsql *gorm.DB) {
 		val.FindStorehouseUtilityByKey,
 		val.IsStorehouseUtilityWithKey,
 		storehouseUtilitesController.UpdateStorehouseUtility)
+	// DELETE
+	storehouseUtilities.Delete("/{key:string}",
+		val.CanUserDoAction("Almacen"),
+		val.FindStorehouseUtilityByKey,
+		storehouseUtilitesController.DeleteStorehouseUtility,
+	)
 }

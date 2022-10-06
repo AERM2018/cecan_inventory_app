@@ -18,9 +18,13 @@ func (dataSrc StorehouseUtilitiesDataSource) CreateStorehouseUtility(utility mod
 	return nil
 }
 
-func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities() ([]models.StorehouseUtilityDetailed, error) {
+func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities(includeDeleted bool) ([]models.StorehouseUtilityDetailed, error) {
 	storehouseUtilities := make([]models.StorehouseUtilityDetailed, 0)
-	err := dataSrc.DbPsql.Model(&models.StorehouseUtility{}).
+	dbPointer := dataSrc.DbPsql.Model(&models.StorehouseUtility{})
+	if includeDeleted {
+		dbPointer = dbPointer.Unscoped()
+	}
+	err := dbPointer.
 		Preload("StorehouseUtilityPresentation", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
@@ -39,7 +43,7 @@ func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities() ([]models.
 
 func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilityByKey(key string) (models.StorehouseUtilityDetailed, error) {
 	var utilityDetailed models.StorehouseUtilityDetailed
-	err := dataSrc.DbPsql.Model(&models.StorehouseUtility{}).
+	err := dataSrc.DbPsql.Unscoped().Model(&models.StorehouseUtility{}).
 		Preload("StorehouseUtilityPresentation", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
@@ -68,6 +72,17 @@ func (dataSrc StorehouseUtilitiesDataSource) UpdateStorehouseUtility(key string,
 		return "", err
 	}
 	return utility.Key, nil
+}
+
+func (dataSrc StorehouseUtilitiesDataSource) DeleteStorehouseUtility(key string) error {
+	err := dataSrc.DbPsql.
+		Where("key = ?", key).
+		Delete(&models.StorehouseUtility{}).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilityCategories() ([]models.StorehouseUtilityCategory, error) {

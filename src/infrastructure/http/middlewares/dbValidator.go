@@ -283,12 +283,15 @@ func (dbVal DbValidator) IsStorehouseUtilityWithKey(ctx iris.Context) {
 	utilityKey := ctx.Params().GetString("key")
 	if utility.Key != utilityKey {
 		var resMessage string
-		_, err := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utility.Key)
+		storehouseUtility, err := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utility.Key)
 		if err == nil {
 			if ctx.Request().Method == "PUT" {
 				resMessage = fmt.Sprintf("No se actualizó el elemento de almacen debido a que ya existe un elemento con la clave: %v.", utility.Key)
 			} else {
 				resMessage = fmt.Sprintf("El elemento de almacen con clave: %v ya existe.", utility.Key)
+			}
+			if storehouseUtility.DeletedAt.Valid {
+				resMessage += " (DESABILITADO)"
 			}
 			httpRes = models.Responser{
 				StatusCode: iris.StatusBadRequest,

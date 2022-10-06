@@ -38,9 +38,9 @@ func (interactor StorehouseUtilitiesInteractor) CreateStorehouseUtility(utility 
 	}
 }
 
-func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilities() models.Responser {
+func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilities(includeDeleted bool) models.Responser {
 
-	storehouseUtilities, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilities()
+	storehouseUtilities, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilities(includeDeleted)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
@@ -77,6 +77,20 @@ func (interactor StorehouseUtilitiesInteractor) UpdateStorehouseUtility(key stri
 		},
 	}
 }
+
+func (interactor StorehouseUtilitiesInteractor) DeleteStorehouseUtility(key string) models.Responser {
+	err := interactor.StorehouseUtilitiesDataSource.DeleteStorehouseUtility(key)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}
+
 func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilityByKey(key string) models.Responser {
 	storehouseUtility, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilityByKey(key)
 	if err != nil {

@@ -33,7 +33,8 @@ func (controller StorehouseUtilitiesController) CreateStorehouseUtility(ctx iris
 }
 
 func (controller StorehouseUtilitiesController) GetStorehouseUtilities(ctx iris.Context) {
-	res := controller.Interactor.GetStorehouseUtilities()
+	includeDeleted, _ := ctx.URLParamBool("include_deleted")
+	res := controller.Interactor.GetStorehouseUtilities(includeDeleted)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
@@ -56,6 +57,15 @@ func (controller StorehouseUtilitiesController) UpdateStorehouseUtility(ctx iris
 	storehouseUtilityKey := ctx.Params().GetStringDefault("key", "")
 	bodyreader.ReadBodyAsJson(ctx, &storehouseUtility, true)
 	res := controller.Interactor.UpdateStorehouseUtility(storehouseUtilityKey, storehouseUtility)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller StorehouseUtilitiesController) DeleteStorehouseUtility(ctx iris.Context) {
+	storehouseUtilityKey := ctx.Params().GetStringDefault("key", "")
+	res := controller.Interactor.DeleteStorehouseUtility(storehouseUtilityKey)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 	}
