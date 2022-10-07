@@ -33,3 +33,12 @@ func (controller StorehouseStocksController) CreateStorehouseStock(ctx iris.Cont
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller StorehouseStocksController) GetStorehouseInventory(ctx iris.Context) {
+	res := controller.Interactor.GetStorehouseInventory()
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

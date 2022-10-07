@@ -22,6 +22,8 @@ func InitStorehouseStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	// Use middlewares for all the routes
 	storehouseStocks.Use(middlewares.VerifyJWT)
 	// Enpoints definition by HTTP methods
+	// GET
+	storehouseStocks.Get("/", storehouseStocksController.GetStorehouseInventory)
 	// POST
 	storehouseStocks.Post("/", storehouseStocksController.CreateStorehouseStock)
 

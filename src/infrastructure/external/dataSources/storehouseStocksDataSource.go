@@ -18,3 +18,25 @@ func (dataSrc StorehouseStocksDataSource) CreateStorehouseStock(stock models.Sto
 	}
 	return stock.Id, nil
 }
+
+func (dataSrc StorehouseStocksDataSource) GetStorehouseStocksByUtiltyKey(key string) ([]models.StorehouseStock, error) {
+	storehouseStocks := make([]models.StorehouseStock, 0)
+	err := dataSrc.DbPsql.
+		Where("storehouse_utility_key = ?", key).
+		Find(&storehouseStocks).Error
+	if err != nil {
+		return storehouseStocks, err
+	}
+	return storehouseStocks, nil
+}
+
+func (dataSrc StorehouseStocksDataSource) GetStorehouseStockById(id string) (models.StorehouseStock, error) {
+	var stock models.StorehouseStock
+	err := dataSrc.DbPsql.
+		Where("id = ?", id).
+		First(&stock).Error
+	if err != nil {
+		return stock, err
+	}
+	return stock, nil
+}
