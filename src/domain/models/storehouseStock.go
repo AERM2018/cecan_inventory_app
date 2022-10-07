@@ -15,6 +15,9 @@ type (
 		QuantityParsedUsed       float32    `json:"quantity_parsed_used"`
 		QuantityPresentation     float32    `json:"quantity_presentation"`
 		QuantityPresentationUsed float32    `json:"quantity_presentation_used"`
+		LotNumber                string     `json:"lot_number"`
+		CatalogNumber            string     `json:"catalog_number"`
+		ExpiresAt                *time.Time `json:"expires_at"`
 		CreatedAt                *time.Time `json:"created_at,omitempty"`
 		UpdatedAt                *time.Time `gorm:"autoUpdateTime:milli" json:"updated_at,omitempty"`
 	}

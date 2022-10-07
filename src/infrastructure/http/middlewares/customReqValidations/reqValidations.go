@@ -66,6 +66,9 @@ func ValidateStorehouseStock(mapObject interface{}, omitedFields ...string) erro
 	rules := map[string]*validation.KeyRules{
 		"storehouse_utility_key": validation.Key("storehouse_utility_key", validation.Required.Error("storehouse utility key is required")),
 		"quantity_presentation":  validation.Key("quantity_presentation", validation.Required.Error("must be more than 0")),
+		"lot_number":             validation.Key("lot_number", validation.Required),
+		"catalog_number":         validation.Key("catalog_number", validation.Required),
+		"expires_at":             validation.Key("expires_at", validation.Required, validation.Date(time.RFC3339Nano).Min(time.Now()).Error("the date must be greater than today")),
 	}
 	for _, key := range omitedFields {
 		delete(rules, key)

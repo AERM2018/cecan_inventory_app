@@ -12,7 +12,14 @@ type StorehouseStocksDataSource struct {
 }
 
 func (dataSrc StorehouseStocksDataSource) CreateStorehouseStock(stock models.StorehouseStock) (uuid.UUID, error) {
-	err := dataSrc.DbPsql.Select("storehouse_utility_key", "quantity_presentation", "quantity_parsed").Create(&stock).Error
+	err := dataSrc.DbPsql.Select(
+		"storehouse_utility_key",
+		"quantity_presentation",
+		"quantity_parsed",
+		"lot_number",
+		"catalog_number",
+		"expires_at",
+	).Create(&stock).Error
 	if err != nil {
 		return uuid.Nil, err
 	}
@@ -43,7 +50,15 @@ func (dataSrc StorehouseStocksDataSource) GetStorehouseStockById(id string) (mod
 
 func (dataSrc StorehouseStocksDataSource) UpdateStorehouseStock(id string, stock models.StorehouseStock) error {
 	err := dataSrc.DbPsql.
-		Select("quantity_parsed", "quantity_presentation", "updated_at", "storehouse_utility_key").
+		Select(
+			"quantity_parsed",
+			"quantity_presentation",
+			"updated_at",
+			"storehouse_utility_key",
+			"lot_number",
+			"catalog_number",
+			"expires_at",
+		).
 		Where("id = ?", id).
 		Updates(&stock).Error
 	if err != nil {
