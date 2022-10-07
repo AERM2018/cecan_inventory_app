@@ -40,3 +40,22 @@ func (dataSrc StorehouseStocksDataSource) GetStorehouseStockById(id string) (mod
 	}
 	return stock, nil
 }
+
+func (dataSrc StorehouseStocksDataSource) UpdateStorehouseStock(id string, stock models.StorehouseStock) error {
+	err := dataSrc.DbPsql.
+		Select("quantity_parsed", "quantity_presentation", "updated_at", "storehouse_utility_key").
+		Where("id = ?", id).
+		Updates(&stock).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (dataSrc StorehouseStocksDataSource) IsStockUsed(id string) bool {
+	var stock models.StorehouseStock
+	dataSrc.DbPsql.
+		Where("id = ?", id).
+		Find(&stock)
+	return stock.QuantityParsedUsed != 0 && stock.QuantityPresentationUsed != 0
+}

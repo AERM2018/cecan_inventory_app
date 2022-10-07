@@ -53,3 +53,26 @@ func (interactor StorehouseStocksInteractor) GetStorehouseInventory() models.Res
 		},
 	}
 }
+
+func (interactor StorehouseStocksInteractor) UpdateStorehouseStock(id string, stock models.StorehouseStock) models.Responser {
+	err := interactor.StorehouseStocksDataSource.UpdateStorehouseStock(id, stock)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	stockUpdated, err := interactor.StorehouseStocksDataSource.GetStorehouseStockById(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"stock": stockUpdated,
+		},
+	}
+}

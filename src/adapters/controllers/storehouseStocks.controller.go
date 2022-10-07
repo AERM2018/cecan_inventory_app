@@ -42,3 +42,15 @@ func (controller StorehouseStocksController) GetStorehouseInventory(ctx iris.Con
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller StorehouseStocksController) UpdateStorehouseStock(ctx iris.Context) {
+	var stock models.StorehouseStock
+	storehouseStockId := ctx.Params().GetStringDefault("id", "")
+	bodyreader.ReadBodyAsJson(ctx, &stock, true)
+	res := controller.Interactor.UpdateStorehouseStock(storehouseStockId, stock)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

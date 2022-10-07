@@ -355,3 +355,43 @@ func (dbVal DbValidator) IsStorehouseUtilityDeleted(ctx iris.Context) {
 	}
 	ctx.Next()
 }
+
+func (dbVal DbValidator) FindStorehouseStockById(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+	)
+	storehouseStockId := ctx.Params().GetString("id")
+	_, err := dbVal.StorehouseStocksDataSource.GetStorehouseStockById(storehouseStockId)
+	if err != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("El stock con id: %v no existe.", storehouseStockId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsStorehouseStockUsed(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+		action  string
+	)
+	storehouseStockId := ctx.Params().GetString("id")
+	isStockUsed := dbVal.StorehouseStocksDataSource.IsStockUsed(storehouseStockId)
+	if isStockUsed {
+		if ctx.Method() == "PUT" {
+			action = "actualizar"
+		} else {
+			action = "eliminar"
+		}
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    fmt.Sprintf("No se puede %v un stock de almacen cuando ha sido utilizado.", action),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}

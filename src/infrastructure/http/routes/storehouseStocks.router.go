@@ -18,6 +18,10 @@ func InitStorehouseStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 		StorehouseUtilitiesDataSource: storehouseUtilitiesDataSource,
 	}
 
+	val := middlewares.DbValidator{
+		StorehouseStocksDataSource: storehouseStocksDataSource,
+	}
+
 	storehouseStocksController.New()
 	// Use middlewares for all the routes
 	storehouseStocks.Use(middlewares.VerifyJWT)
@@ -26,5 +30,10 @@ func InitStorehouseStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseStocks.Get("/", storehouseStocksController.GetStorehouseInventory)
 	// POST
 	storehouseStocks.Post("/", storehouseStocksController.CreateStorehouseStock)
+	// PUT
+	storehouseStocks.Put("/",
+		val.FindStorehouseStockById,
+		val.IsStorehouseStockUsed,
+		storehouseStocksController.UpdateStorehouseStock)
 
 }
