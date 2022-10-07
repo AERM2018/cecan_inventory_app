@@ -20,6 +20,7 @@ type DbValidator struct {
 	UserDataSource              datasources.UserDataSource
 	PrescriptionDataSource      datasources.PrescriptionsDataSource
 	StorehouseUtilityDataSource datasources.StorehouseUtilitiesDataSource
+	StorehouseStocksDataSource  datasources.StorehouseStocksDataSource
 }
 
 func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
