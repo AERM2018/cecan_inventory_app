@@ -12,22 +12,6 @@ type StorehouseStocksInteractor struct {
 	StorehouseUtilitiesDataSource datasources.StorehouseUtilitiesDataSource
 }
 
-func (interactor StorehouseStocksInteractor) CreateStorehouseStock(stock models.StorehouseStock) models.Responser {
-	stockId, err := interactor.StorehouseStocksDataSource.CreateStorehouseStock(stock)
-	if err != nil {
-		return models.Responser{
-			StatusCode: iris.StatusInternalServerError,
-			Err:        err,
-		}
-	}
-	return models.Responser{
-		StatusCode: iris.StatusCreated,
-		Data: iris.Map{
-			"id": stockId,
-		},
-	}
-}
-
 func (interactor StorehouseStocksInteractor) GetStorehouseInventory() models.Responser {
 	storehouseInventory := make([]models.StorehouseUtilityStocksDetailed, 0)
 	// Get utilities from storehouse catalog
@@ -74,5 +58,18 @@ func (interactor StorehouseStocksInteractor) UpdateStorehouseStock(id string, st
 		Data: iris.Map{
 			"stock": stockUpdated,
 		},
+	}
+}
+
+func (interactor StorehouseStocksInteractor) DeleteStorehouseStock(id string) models.Responser {
+	err := interactor.StorehouseStocksDataSource.DeleteStorehouseStock(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
 	}
 }

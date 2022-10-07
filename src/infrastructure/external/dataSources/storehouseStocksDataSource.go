@@ -52,6 +52,16 @@ func (dataSrc StorehouseStocksDataSource) UpdateStorehouseStock(id string, stock
 	return nil
 }
 
+func (dataSrc StorehouseStocksDataSource) DeleteStorehouseStock(id string) error {
+	err := dataSrc.DbPsql.
+		Where("id = ?", id).
+		Delete(&models.StorehouseStock{}).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (dataSrc StorehouseStocksDataSource) IsStockUsed(id string) bool {
 	var stock models.StorehouseStock
 	dataSrc.DbPsql.

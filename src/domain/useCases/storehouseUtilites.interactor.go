@@ -9,6 +9,7 @@ import (
 
 type StorehouseUtilitiesInteractor struct {
 	StorehouseUtilitiesDataSource datasources.StorehouseUtilitiesDataSource
+	StorehouseStocksDataSource    datasources.StorehouseStocksDataSource
 }
 
 func (interactor StorehouseUtilitiesInteractor) CreateStorehouseUtility(utility models.StorehouseUtility) models.Responser {
@@ -34,6 +35,30 @@ func (interactor StorehouseUtilitiesInteractor) CreateStorehouseUtility(utility 
 		StatusCode: iris.StatusCreated,
 		Data: iris.Map{
 			"storehouse_utility": storehouseUtility,
+		},
+	}
+}
+
+func (interactor StorehouseUtilitiesInteractor) CreateStorehouseUtilityStock(storehouseUtilityKey string, stock models.StorehouseStock) models.Responser {
+	stock.StorehouseUtilityKey = storehouseUtilityKey
+	stockId, err := interactor.StorehouseStocksDataSource.CreateStorehouseStock(stock)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	storehouseStock, err := interactor.StorehouseStocksDataSource.GetStorehouseStockById(stockId.String())
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusCreated,
+		Data: iris.Map{
+			"stock": storehouseStock,
 		},
 	}
 }

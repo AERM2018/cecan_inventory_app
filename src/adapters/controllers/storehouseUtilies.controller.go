@@ -12,12 +12,14 @@ import (
 
 type StorehouseUtilitiesController struct {
 	StorehouseUtilitiesDataSource datasources.StorehouseUtilitiesDataSource
+	StorehouseStocksDataSource    datasources.StorehouseStocksDataSource
 	Interactor                    usecases.StorehouseUtilitiesInteractor
 }
 
 func (controller *StorehouseUtilitiesController) New() {
 	controller.Interactor = usecases.StorehouseUtilitiesInteractor{
 		StorehouseUtilitiesDataSource: controller.StorehouseUtilitiesDataSource,
+		StorehouseStocksDataSource:    controller.StorehouseStocksDataSource,
 	}
 }
 
@@ -25,6 +27,18 @@ func (controller StorehouseUtilitiesController) CreateStorehouseUtility(ctx iris
 	var storehouseUtility models.StorehouseUtility
 	bodyreader.ReadBodyAsJson(ctx, &storehouseUtility, true)
 	res := controller.Interactor.CreateStorehouseUtility(storehouseUtility)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller StorehouseUtilitiesController) CreateStorehouseUtilityStock(ctx iris.Context) {
+	var stock models.StorehouseStock
+	storehouseUtilityKey := ctx.Params().GetStringDefault("key", "")
+	bodyreader.ReadBodyAsJson(ctx, &stock, true)
+	res := controller.Interactor.CreateStorehouseUtilityStock(storehouseUtilityKey, stock)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return

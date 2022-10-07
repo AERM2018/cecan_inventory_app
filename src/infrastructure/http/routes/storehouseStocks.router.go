@@ -28,12 +28,15 @@ func InitStorehouseStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	// Enpoints definition by HTTP methods
 	// GET
 	storehouseStocks.Get("/", storehouseStocksController.GetStorehouseInventory)
-	// POST
-	storehouseStocks.Post("/", storehouseStocksController.CreateStorehouseStock)
 	// PUT
-	storehouseStocks.Put("/",
+	storehouseStocks.Put("/{id:string}",
 		val.FindStorehouseStockById,
 		val.IsStorehouseStockUsed,
 		storehouseStocksController.UpdateStorehouseStock)
-
+	// DELETE
+	storehouseStocks.Delete("/{id:string}",
+		val.CanUserDoAction("Almacen"),
+		val.FindStorehouseStockById,
+		storehouseStocksController.DeleteStorehouseStock,
+	)
 }

@@ -23,17 +23,6 @@ func (controller *StorehouseStocksController) New() {
 	}
 }
 
-func (controller StorehouseStocksController) CreateStorehouseStock(ctx iris.Context) {
-	var stock models.StorehouseStock
-	bodyreader.ReadBodyAsJson(ctx, &stock, true)
-	res := controller.Interactor.CreateStorehouseStock(stock)
-	if res.StatusCode > 300 {
-		helpers.PrepareAndSendMessageResponse(ctx, res)
-		return
-	}
-	helpers.PrepareAndSendDataResponse(ctx, res)
-}
-
 func (controller StorehouseStocksController) GetStorehouseInventory(ctx iris.Context) {
 	res := controller.Interactor.GetStorehouseInventory()
 	if res.StatusCode > 300 {
@@ -48,6 +37,16 @@ func (controller StorehouseStocksController) UpdateStorehouseStock(ctx iris.Cont
 	storehouseStockId := ctx.Params().GetStringDefault("id", "")
 	bodyreader.ReadBodyAsJson(ctx, &stock, true)
 	res := controller.Interactor.UpdateStorehouseStock(storehouseStockId, stock)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller StorehouseStocksController) DeleteStorehouseStock(ctx iris.Context) {
+	storehouseStockId := ctx.Params().GetStringDefault("id", "")
+	res := controller.Interactor.DeleteStorehouseStock(storehouseStockId)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return

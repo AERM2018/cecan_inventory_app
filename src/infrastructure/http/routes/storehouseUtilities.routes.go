@@ -13,7 +13,11 @@ import (
 func InitStorehouseUtilitiesRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseUtilities := router.Party("/storehouse_utilities")
 	storehouseUtilitiesDataSource := datasources.StorehouseUtilitiesDataSource{DbPsql: dbPsql}
-	storehouseUtilitesController := controllers.StorehouseUtilitiesController{StorehouseUtilitiesDataSource: storehouseUtilitiesDataSource}
+	storehouseStocksDataSource := datasources.StorehouseStocksDataSource{DbPsql: dbPsql}
+	storehouseUtilitesController := controllers.StorehouseUtilitiesController{
+		StorehouseUtilitiesDataSource: storehouseUtilitiesDataSource,
+		StorehouseStocksDataSource:    storehouseStocksDataSource,
+	}
 	storehouseUtilitesController.New()
 	// Declare dbvalidator and pass the correspond data source
 	val := middlewares.DbValidator{
@@ -33,6 +37,11 @@ func InitStorehouseUtilitiesRoutes(router router.Party, dbPsql *gorm.DB) {
 		val.IsStorehouseUtilityWithKey,
 		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseUtility),
 		storehouseUtilitesController.CreateStorehouseUtility,
+	)
+	storehouseUtilities.Post("/{key:string}/storehouse_inventory",
+		val.CanUserDoAction("Almacen"),
+		val.IsStorehouseUtilityWithKey,
+		storehouseUtilitesController.CreateStorehouseUtilityStock,
 	)
 	// PUT
 	storehouseUtilities.Put("/{key:string}",
