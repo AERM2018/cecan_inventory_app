@@ -61,3 +61,15 @@ func ValidateStorehouseUtility(mapObject interface{}, ommitFields ...string) err
 			validation.Key("quantity_per_unit", validation.Required.Error("The quantity per unit must be grater than 0")),
 		).AllowExtraKeys())
 }
+
+func ValidateStorehouseStock(mapObject interface{}, omitedFields ...string) error {
+	rules := map[string]*validation.KeyRules{
+		"storehouse_utility_key": validation.Key("storehouse_utility_key", validation.Required.Error("storehouse utility key is required")),
+		"quantity_presentation":  validation.Key("quantity_presentation", validation.Required.Error("must be more than 0")),
+	}
+	for _, key := range omitedFields {
+		delete(rules, key)
+	}
+	return validation.Validate(mapObject,
+		validation.Map(maps.Values(rules)...).AllowExtraKeys())
+}

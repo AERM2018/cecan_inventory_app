@@ -4,6 +4,7 @@ import (
 	"cecan_inventory/adapters/controllers"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"cecan_inventory/infrastructure/http/middlewares"
+	customreqvalidations "cecan_inventory/infrastructure/http/middlewares/customReqValidations"
 
 	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"
@@ -30,6 +31,8 @@ func InitStorehouseStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseStocks.Get("/", storehouseStocksController.GetStorehouseInventory)
 	// PUT
 	storehouseStocks.Put("/{id:string}",
+		val.CanUserDoAction("Almacen"),
+		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseStock),
 		val.FindStorehouseStockById,
 		val.IsStorehouseStockUsed,
 		storehouseStocksController.UpdateStorehouseStock)
@@ -37,6 +40,7 @@ func InitStorehouseStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseStocks.Delete("/{id:string}",
 		val.CanUserDoAction("Almacen"),
 		val.FindStorehouseStockById,
+		val.IsStorehouseStockUsed,
 		storehouseStocksController.DeleteStorehouseStock,
 	)
 }
