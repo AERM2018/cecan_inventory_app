@@ -33,3 +33,22 @@ func (controller StorehouseRequestsController) CreateStorehouseRequest(ctx iris.
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller StorehouseRequestsController) GetStorehouseRequests(ctx iris.Context) {
+	res := controller.interactor.GetStorehouseRequests()
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller StorehouseRequestsController) GetStorehouseRequestById(ctx iris.Context) {
+	storehouseRequetId := ctx.Params().GetStringDefault("id", "")
+	res := controller.interactor.GetStorehouseRequestById(storehouseRequetId)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

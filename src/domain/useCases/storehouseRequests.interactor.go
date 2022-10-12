@@ -12,6 +12,38 @@ type StorehouseRequestsInteractor struct {
 	StorehouseRequestDataSource datasources.StorehouseRequestsDataSource
 }
 
+func (interactor StorehouseRequestsInteractor) GetStorehouseRequests() models.Responser {
+	storehouseRequests, err := interactor.StorehouseRequestDataSource.GetStorehouseRequests()
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"requests": storehouseRequests,
+		},
+	}
+}
+
+func (interactor StorehouseRequestsInteractor) GetStorehouseRequestById(id string) models.Responser {
+	storehouseRequests, err := interactor.StorehouseRequestDataSource.GetStorehouseRequestById(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"request": storehouseRequests,
+		},
+	}
+}
+
 func (interactor StorehouseRequestsInteractor) CreateStorehouseRequest(storehouseRequest models.StorehouseRequestDetailed) models.Responser {
 	storehouseRequestNoUtilities := models.StorehouseRequest{
 		UserId: storehouseRequest.UserId,

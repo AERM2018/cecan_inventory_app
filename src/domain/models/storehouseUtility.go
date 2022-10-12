@@ -9,31 +9,31 @@ import (
 
 type (
 	StorehouseUtility struct {
-		Key                             string         `gorm:"primaryKey" json:"key"`
-		GenericName                     string         `json:"generic_name"`
-		StorehouseUtilityPresentationId uuid.UUID      `json:"storehouse_utility_presentation_id"`
-		StorehouseUtilityUnitId         uuid.UUID      `json:"storehouse_utility_unit_id"`
-		QuantityPerUnit                 float32        `json:"quantity_per_unit"`
-		Description                     string         `json:"description"`
-		StorehouseUtilityCategoryId     uuid.UUID      `json:"storehouse_utility_category_id"`
-		CreatedAt                       *time.Time     `json:"created_at,omitempty"`
-		UpdatedAt                       *time.Time     `json:"updated_at,omitempty"`
-		DeletedAt                       gorm.DeletedAt `json:"deleted_at,omitempty"`
+		Key             string         `gorm:"primaryKey" json:"key"`
+		GenericName     string         `json:"generic_name"`
+		PresentationId  uuid.UUID      `gorm:"column:storehouse_utility_presentation_id" json:"presentation_id"`
+		UnitId          uuid.UUID      `gorm:"column:storehouse_utility_unit_id" json:"unit_id"`
+		CategoryId      uuid.UUID      `gorm:"column:storehouse_utility_category_id" json:"category_id"`
+		QuantityPerUnit float32        `json:"quantity_per_unit"`
+		Description     string         `json:"description"`
+		CreatedAt       *time.Time     `json:"created_at,omitempty"`
+		UpdatedAt       *time.Time     `json:"updated_at,omitempty"`
+		DeletedAt       gorm.DeletedAt `json:"deleted_at,omitempty"`
 	}
 
 	StorehouseUtilityDetailed struct {
-		Key                             string                        `gorm:"primaryKey" json:"key"`
-		GenericName                     string                        `json:"generic_name"`
-		StorehouseUtilityUnitId         uuid.UUID                     `gorm:"foreignKey:storehouse_utility_unit_id" json:"storehouse_utility_unit_id"`
-		StorehouseUtilityUnit           StorehouseUtilityUnit         `json:"storehouse_utility_unit"`
-		StorehouseUtilityPresentationId uuid.UUID                     `gorm:"foreignKey:storehouse_utility_presentation_id" json:"storehouse_utility_presentation_id"`
-		StorehouseUtilityPresentation   StorehouseUtilityPresentation `json:"storehouse_utility_presentation"`
-		QuantityPerUnit                 float32                       `json:"quantity_per_unit"`
-		Description                     string                        `json:"description"`
-		StorehouseUtilityCategoryId     uuid.UUID                     `gorm:"foreignKey:storehouse_utility_category_id" json:"storehouse_utility_category_id"`
-		StorehouseUtilityCategory       StorehouseUtilityCategory     `json:"storehouse_utility_category"`
-		CreatedAt                       *time.Time                    `json:"created_at,omitempty"`
-		UpdatedAt                       *time.Time                    `json:"updated_at,omitempty"`
-		DeletedAt                       gorm.DeletedAt                `json:"deleted_at,omitempty"`
+		Key             string                        `gorm:"primaryKey" json:"key"`
+		GenericName     string                        `json:"generic_name"`
+		UnitId          uuid.UUID                     `gorm:"column:storehouse_utility_unit_id;foreignKey:storehouse_utility_unit_id" json:"unit_id"`
+		Unit            StorehouseUtilityUnit         `json:"unit"`
+		PresentationId  uuid.UUID                     `gorm:"column:storehouse_utility_presentation_id;foreignKey:storehouse_utility_presentation_id" json:"presentation_id"`
+		Presentation    StorehouseUtilityPresentation `json:"presentation"`
+		CategoryId      uuid.UUID                     `gorm:"column:storehouse_utility_category_id;foreignKey:storehouse_utility_category_id" json:"category_id"`
+		Category        StorehouseUtilityCategory     `json:"category"`
+		QuantityPerUnit float32                       `json:"quantity_per_unit"`
+		Description     string                        `json:"description"`
+		CreatedAt       *time.Time                    `json:"created_at,omitempty"`
+		UpdatedAt       *time.Time                    `json:"updated_at,omitempty"`
+		DeletedAt       gorm.DeletedAt                `json:"deleted_at,omitempty"`
 	}
 )

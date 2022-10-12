@@ -13,6 +13,24 @@ type StorehouseRequestsDataSource struct {
 	DbPsql *gorm.DB
 }
 
+func (dataSrc StorehouseRequestsDataSource) GetStorehouseRequests() ([]models.StorehouseRequestDetailed, error) {
+	storehouseRequests := make([]models.StorehouseRequestDetailed, 0)
+	err := dataSrc.DbPsql.
+		Table("storehouse_requests").
+		Preload("User", func(tx *gorm.DB) *gorm.DB {
+			return tx.Select("id", "name", "surname", "role_id")
+		}).
+		Preload("User.Role").
+		Preload("Status", func(tx *gorm.DB) *gorm.DB {
+			return tx.Omit("created_at", "updated_at")
+		}).
+		Find(&storehouseRequests).Error
+	if err != nil {
+		return storehouseRequests, err
+	}
+	return storehouseRequests, nil
+}
+
 func (dataSrc StorehouseRequestsDataSource) GetStorehouseRequestById(id string) (models.StorehouseRequestDetailed, error) {
 	storehouseRequest := models.StorehouseRequestDetailed{}
 	err := dataSrc.DbPsql.
@@ -63,4 +81,14 @@ func (dataSrc StorehouseRequestsDataSource) CreateStorehouseRequest(requestInfo 
 		return uuid.Nil, errInTransaction
 	}
 	return requestInfo.Id, nil
+}
+
+func (dataSrc StorehouseRequestsDataSource) PutUtilityIntoRequest(storehouseRequestUtilty models.StorehouseUtilitiesStorehouseRequests) error {
+	err := dataSrc.DbPsql.
+		Create(&storehouseRequestUtilty).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
 }
