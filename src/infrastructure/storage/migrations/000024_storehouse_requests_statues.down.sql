@@ -1,1 +1,1 @@
-DROP TABLE storehouse_requests_statues;
+DROP TABLE storehouse_request_statuses;
