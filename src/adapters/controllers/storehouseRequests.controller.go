@@ -67,3 +67,13 @@ func (controller StorehouseRequestsController) UpdateStorehouseRequest(ctx iris.
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller StorehouseRequestsController) DeleteStorehouseRequest(ctx iris.Context) {
+	storehouseRequetId := ctx.Params().GetStringDefault("id", "")
+	res := controller.interactor.DeleteStorehouseRequest(storehouseRequetId)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

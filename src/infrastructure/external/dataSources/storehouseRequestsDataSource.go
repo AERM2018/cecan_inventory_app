@@ -149,3 +149,28 @@ func (dataSrc StorehouseRequestsDataSource) UpdateStorehouseRequest(id string, r
 	}
 	return requestInfo.Id, nil
 }
+
+func (dataSrc StorehouseRequestsDataSource) DeleteStorehouseRequest(id string) error {
+	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
+
+		errDeletingUtilities := tx.
+			Where("storehouse_request_id = ?", id).
+			Delete(&models.StorehouseUtilitiesStorehouseRequests{}).
+			Error
+		if errDeletingUtilities != nil {
+			return errors.New("No se pudo desasignar los elementos de almacen de la solicitud.")
+		}
+		errDeletingRequest := tx.
+			Where("id = ?", id).
+			Delete(&models.StorehouseRequest{}).
+			Error
+		if errDeletingRequest != nil {
+			return errors.New("No se pudo la solicitud, intentelo de nuevo.")
+		}
+		return nil
+	})
+	if errInTransaction != nil {
+		return errInTransaction
+	}
+	return nil
+}

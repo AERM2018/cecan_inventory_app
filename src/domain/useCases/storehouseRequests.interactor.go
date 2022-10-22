@@ -99,3 +99,16 @@ func (interacor StorehouseRequestsInteractor) UpdateStorehouseRequest(id string,
 		},
 	}
 }
+
+func (interactor StorehouseRequestsInteractor) DeleteStorehouseRequest(id string) models.Responser {
+	err := interactor.StorehouseRequestDataSource.DeleteStorehouseRequest(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}
