@@ -44,13 +44,13 @@ func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities(includeDelet
 func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilityByKey(key string) (models.StorehouseUtilityDetailed, error) {
 	var utilityDetailed models.StorehouseUtilityDetailed
 	err := dataSrc.DbPsql.Unscoped().Model(&models.StorehouseUtility{}).
-		Preload("StorehouseUtilityPresentation", func(db *gorm.DB) *gorm.DB {
+		Preload("Presentation", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
-		Preload("StorehouseUtilityUnit", func(db *gorm.DB) *gorm.DB {
+		Preload("Unit", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
-		Preload("StorehouseUtilityCategory", func(db *gorm.DB) *gorm.DB {
+		Preload("Category", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
 		Where("key = ?", key).

@@ -52,8 +52,9 @@ func (interactor StorehouseRequestsInteractor) CreateStorehouseRequest(storehous
 	storehouseRequestId, errCreating := interactor.StorehouseRequestDataSource.CreateStorehouseRequest(storehouseRequestNoUtilities, storehouseRequest.Utilities)
 	if errCreating != nil {
 		return models.Responser{
-			StatusCode: iris.StatusInternalServerError,
+			StatusCode: iris.StatusBadRequest,
 			Err:        errCreating,
+			Message:    errCreating.Error(),
 		}
 	}
 	storehouseRequest, errGetting := interactor.StorehouseRequestDataSource.GetStorehouseRequestById(storehouseRequestId.String())

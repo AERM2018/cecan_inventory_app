@@ -4,6 +4,7 @@ import (
 	"cecan_inventory/adapters/controllers"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"cecan_inventory/infrastructure/http/middlewares"
+	customreqvalidations "cecan_inventory/infrastructure/http/middlewares/customReqValidations"
 
 	"github.com/kataras/iris/v12/core/router"
 	"gorm.io/gorm"
@@ -12,14 +13,35 @@ import (
 func InitStorehouseRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseRequests := router.Party("/storehouse/requests")
 	storehouseRequestsDataSource := datasources.StorehouseRequestsDataSource{DbPsql: dbPsql}
+	storehouseUtilitiesDataSource := datasources.StorehouseUtilitiesDataSource{DbPsql: dbPsql}
 	storehouseRequestsController := controllers.StorehouseRequestsController{
+		StorehouseRequestsDataSource: storehouseRequestsDataSource,
+	}
+	val := middlewares.DbValidator{
+		StorehouseUtilityDataSource:  storehouseUtilitiesDataSource,
 		StorehouseRequestsDataSource: storehouseRequestsDataSource,
 	}
 	storehouseRequestsController.New()
 	storehouseRequests.Use(middlewares.VerifyJWT)
 	storehouseRequests.Get("/", storehouseRequestsController.GetStorehouseRequests)
 	storehouseRequests.Get("/{id:string}", storehouseRequestsController.GetStorehouseRequestById)
-	storehouseRequests.Post("/", storehouseRequestsController.CreateStorehouseRequest)
-	storehouseRequests.Put("/{id:string}", storehouseRequestsController.UpdateStorehouseRequest)
-	storehouseRequests.Delete("/{id:string}", storehouseRequestsController.DeleteStorehouseRequest)
+
+	storehouseRequests.Post("/",
+		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest),
+		val.AreStorehouseRequestItemsValid,
+		storehouseRequestsController.CreateStorehouseRequest)
+
+	storehouseRequests.Put("/{id:string}",
+		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest),
+		val.IsStorehouseRequest,
+		val.IsSameRequestCreator,
+		val.IsRequestDeterminedStatus("Pendiente"),
+		val.AreStorehouseRequestItemsValid,
+		storehouseRequestsController.UpdateStorehouseRequest)
+
+	storehouseRequests.Delete("/{id:string}",
+		val.IsStorehouseRequest,
+		val.IsSameRequestCreator,
+		val.IsRequestDeterminedStatus("Pendiente"),
+		storehouseRequestsController.DeleteStorehouseRequest)
 }

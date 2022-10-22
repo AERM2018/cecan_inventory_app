@@ -76,3 +76,13 @@ func ValidateStorehouseStock(mapObject interface{}, omitedFields ...string) erro
 	return validation.Validate(mapObject,
 		validation.Map(maps.Values(rules)...).AllowExtraKeys())
 }
+
+func ValidateStorehouseRequest(mapObject interface{}, omitedFields ...string) error {
+	return validation.Validate(mapObject,
+		validation.Map(
+			validation.Key("utilities", validation.Required, validation.Each(validation.Map(
+				validation.Key("key", validation.Required),
+				validation.Key("pieces", validation.Required),
+			))),
+		).AllowExtraKeys())
+}

@@ -14,13 +14,14 @@ import (
 )
 
 type DbValidator struct {
-	MedicineDataSrc             datasources.MedicinesDataSource
-	PharmacyDataSrc             datasources.PharmacyStocksDataSource
-	RolesDataSource             datasources.RolesDataSource
-	UserDataSource              datasources.UserDataSource
-	PrescriptionDataSource      datasources.PrescriptionsDataSource
-	StorehouseUtilityDataSource datasources.StorehouseUtilitiesDataSource
-	StorehouseStocksDataSource  datasources.StorehouseStocksDataSource
+	MedicineDataSrc              datasources.MedicinesDataSource
+	PharmacyDataSrc              datasources.PharmacyStocksDataSource
+	RolesDataSource              datasources.RolesDataSource
+	UserDataSource               datasources.UserDataSource
+	PrescriptionDataSource       datasources.PrescriptionsDataSource
+	StorehouseUtilityDataSource  datasources.StorehouseUtilitiesDataSource
+	StorehouseStocksDataSource   datasources.StorehouseStocksDataSource
+	StorehouseRequestsDataSource datasources.StorehouseRequestsDataSource
 }
 
 func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
@@ -392,6 +393,80 @@ func (dbVal DbValidator) IsStorehouseStockUsed(ctx iris.Context) {
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsStorehouseRequest(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+	)
+	storehouseRequestId := ctx.Params().GetString("id")
+	_, errNotFound := dbVal.StorehouseRequestsDataSource.GetStorehouseRequestById(storehouseRequestId)
+	if errNotFound != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusForbidden,
+			Message:    fmt.Sprintf("La solicitud con id: %v no existe.", storehouseRequestId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsSameRequestCreator(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+	)
+	storehouseRequestId := ctx.Params().GetString("id")
+	userId := ctx.Values().GetString("userId")
+	isSameCreator := dbVal.StorehouseRequestsDataSource.IsSameRequestCreator(storehouseRequestId, userId)
+	if !isSameCreator {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusForbidden,
+			Message:    "Solo el creador de la solicitud puede modificiarla/eliminarla",
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsRequestDeterminedStatus(status string) func(ctx iris.Context) {
+	return func(ctx iris.Context) {
+		var (
+			httpRes models.Responser
+		)
+		storehouseRequestId := ctx.Params().GetString("id")
+		IsDeterminedStatus := dbVal.StorehouseRequestsDataSource.IsRequestDeterminedStatus(storehouseRequestId, status)
+		if !IsDeterminedStatus {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    fmt.Sprintf("No se pudó completar la acción, la solicitid no tiene un estado: %v", status),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+		ctx.Next()
+	}
+}
+
+func (dbVal DbValidator) AreStorehouseRequestItemsValid(ctx iris.Context) {
+	var (
+		httpRes           models.Responser
+		storehouseRequest models.StorehouseRequestDetailed
+	)
+	bodyreader.ReadBodyAsJson(ctx, &storehouseRequest, false)
+	for _, requestUtility := range storehouseRequest.Utilities {
+		utility, errNotFound := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(requestUtility.UtilityKey)
+		if errNotFound != nil || utility.DeletedAt.Valid {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusNotFound,
+				Message:    fmt.Sprintf("El elemento de almacen con clave: %v no existe o se encuentra deshabilitado.", requestUtility.UtilityKey),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
 	}
 	ctx.Next()
 }

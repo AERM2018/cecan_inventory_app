@@ -4,6 +4,7 @@ import (
 	"cecan_inventory/domain/models"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -173,4 +174,22 @@ func (dataSrc StorehouseRequestsDataSource) DeleteStorehouseRequest(id string) e
 		return errInTransaction
 	}
 	return nil
+}
+
+func (dataSrc StorehouseRequestsDataSource) IsSameRequestCreator(id string, userId string) bool {
+	var storehouseRequest models.StorehouseRequest
+	dataSrc.DbPsql.
+		Where("id = ?", id).
+		Take(&storehouseRequest)
+	return strings.ToLower(storehouseRequest.UserId) == strings.ToLower(userId)
+}
+
+func (dataSrc StorehouseRequestsDataSource) IsRequestDeterminedStatus(id string, status string) bool {
+	var storehouseRequest models.StorehouseRequestDetailed
+	dataSrc.DbPsql.
+		Table("storehouse_requests").
+		Where("id = ?", id).
+		Preload("Status").
+		Take(&storehouseRequest)
+	return strings.ToLower(storehouseRequest.Status.Name) == strings.ToLower(status)
 }
