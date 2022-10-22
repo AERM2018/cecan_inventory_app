@@ -1,0 +1,2 @@
+ALTER TABLE storehouse_utilities_storehouse_requests RENAME COLUMN pieces_requested to pieces;
+ALTER TABLE storehouse_utilities_storehouse_requests RENAME COLUMN pieces_given to pieces_supplied;

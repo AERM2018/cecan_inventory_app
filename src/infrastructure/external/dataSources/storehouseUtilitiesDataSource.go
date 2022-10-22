@@ -25,13 +25,13 @@ func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities(includeDelet
 		dbPointer = dbPointer.Unscoped()
 	}
 	err := dbPointer.
-		Preload("StorehouseUtilityPresentation", func(db *gorm.DB) *gorm.DB {
+		Preload("Presentation", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
-		Preload("StorehouseUtilityUnit", func(db *gorm.DB) *gorm.DB {
+		Preload("Unit", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
-		Preload("StorehouseUtilityCategory", func(db *gorm.DB) *gorm.DB {
+		Preload("Category", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
 		Find(&storehouseUtilities).Error

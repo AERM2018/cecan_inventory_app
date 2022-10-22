@@ -7,6 +7,7 @@ import (
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 
+	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
 )
 
@@ -46,6 +47,20 @@ func (controller StorehouseRequestsController) GetStorehouseRequests(ctx iris.Co
 func (controller StorehouseRequestsController) GetStorehouseRequestById(ctx iris.Context) {
 	storehouseRequetId := ctx.Params().GetStringDefault("id", "")
 	res := controller.interactor.GetStorehouseRequestById(storehouseRequetId)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller StorehouseRequestsController) UpdateStorehouseRequest(ctx iris.Context) {
+	var storehouseRequest models.StorehouseRequestDetailed
+	storehouseRequetId := ctx.Params().GetStringDefault("id", "")
+	uuidFromString, _ := uuid.Parse(storehouseRequetId)
+	bodyreader.ReadBodyAsJson(ctx, &storehouseRequest, true)
+	storehouseRequest.Id = uuidFromString
+	res := controller.interactor.UpdateStorehouseRequest(storehouseRequetId, storehouseRequest)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return

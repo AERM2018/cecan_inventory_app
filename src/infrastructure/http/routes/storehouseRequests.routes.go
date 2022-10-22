@@ -20,4 +20,5 @@ func InitStorehouseRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseRequests.Get("/", storehouseRequestsController.GetStorehouseRequests)
 	storehouseRequests.Get("/{id:string}", storehouseRequestsController.GetStorehouseRequestById)
 	storehouseRequests.Post("/", storehouseRequestsController.CreateStorehouseRequest)
+	storehouseRequests.Put("/{id:string}", storehouseRequestsController.UpdateStorehouseRequest)
 }
