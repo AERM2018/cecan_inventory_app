@@ -78,11 +78,16 @@ func ValidateStorehouseStock(mapObject interface{}, omitedFields ...string) erro
 }
 
 func ValidateStorehouseRequest(mapObject interface{}, omitedFields ...string) error {
+	utilityRules := map[string]*validation.KeyRules{
+		"key":             validation.Key("key", validation.Required),
+		"pieces":          validation.Key("pieces", validation.Required),
+		"pieces_supplied": validation.Key("pieces_supplied", validation.Required),
+	}
+	for _, key := range omitedFields {
+		delete(utilityRules, key)
+	}
 	return validation.Validate(mapObject,
 		validation.Map(
-			validation.Key("utilities", validation.Required, validation.Each(validation.Map(
-				validation.Key("key", validation.Required),
-				validation.Key("pieces", validation.Required),
-			))),
+			validation.Key("utilities", validation.Required, validation.Each(validation.Map(maps.Values(utilityRules)...))),
 		).AllowExtraKeys())
 }

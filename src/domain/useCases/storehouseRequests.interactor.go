@@ -101,6 +101,20 @@ func (interacor StorehouseRequestsInteractor) UpdateStorehouseRequest(id string,
 	}
 }
 
+func (interactor StorehouseRequestsInteractor) SupplyStorehouseRequest(id string, utilities []models.StorehouseUtilitiesStorehouseRequests) models.Responser {
+	err := interactor.StorehouseRequestDataSource.SupplyStorehouseRequest(id, utilities)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Err:        err,
+			Message:    err.Error(),
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Message:    "Los elementos de almacen fueron suministrados correctamente.",
+	}
+}
 func (interactor StorehouseRequestsInteractor) DeleteStorehouseRequest(id string) models.Responser {
 	err := interactor.StorehouseRequestDataSource.DeleteStorehouseRequest(id)
 	if err != nil {

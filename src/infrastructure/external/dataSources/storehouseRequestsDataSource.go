@@ -184,12 +184,58 @@ func (dataSrc StorehouseRequestsDataSource) IsSameRequestCreator(id string, user
 	return strings.ToLower(storehouseRequest.UserId) == strings.ToLower(userId)
 }
 
-func (dataSrc StorehouseRequestsDataSource) IsRequestDeterminedStatus(id string, status string) bool {
+func (dataSrc StorehouseRequestsDataSource) IsRequestDeterminedStatus(id string, statuses []string) bool {
 	var storehouseRequest models.StorehouseRequestDetailed
 	dataSrc.DbPsql.
 		Table("storehouse_requests").
-		Where("id = ?", id).
-		Preload("Status").
+		Joins("Status", dataSrc.DbPsql.Where("name in (?)", statuses).Model(&models.StorehouseRequestStatus{})).
+		Where("storehouse_requests.id = ?", id).
 		Take(&storehouseRequest)
-	return strings.ToLower(storehouseRequest.Status.Name) == strings.ToLower(status)
+	return uuid.Nil != storehouseRequest.Status.Id
+}
+
+func (dataSrc StorehouseRequestsDataSource) SupplyStorehouseRequest(id string, utilities []models.StorehouseUtilitiesStorehouseRequests) error {
+	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
+		var (
+			storehouseRequestUtilityUpdated models.StorehouseUtilitiesStorehouseRequests
+			storehouseRequestStatus         models.StorehouseRequestStatus
+		)
+		isCompleted := true
+
+		for _, utilityRequestReference := range utilities {
+			err := tx.Exec(fmt.Sprintf("Call public.reserve_utility_to_request('%v','%v',%v);", id, utilityRequestReference.UtilityKey, utilityRequestReference.PiecesSupplied)).Error
+			if err != nil {
+				return err
+			}
+			// Check if the total quantity requested was supplied already
+			// The request status depends on the quantity supplied
+			// If at least one element was not supplied totally, the status will be incomplited
+			tx.Where("storehouse_request_id = ? AND storehouse_utility_key = ?", id, utilityRequestReference.UtilityKey).Take(&storehouseRequestUtilityUpdated)
+			if storehouseRequestUtilityUpdated.Pieces != storehouseRequestUtilityUpdated.PiecesSupplied {
+				isCompleted = false
+			}
+		}
+		if isCompleted {
+			tx.Where("name = ?", "Completada").Take(&storehouseRequestStatus)
+		} else {
+			tx.Where("name = ?", "Incompleta").Take(&storehouseRequestStatus)
+		}
+		errUpdatingStatus := tx.
+			Table("storehouse_requests").
+			Where("id = ?", id).
+			Update("storehouse_request_status_id", storehouseRequestStatus.Id).
+			Error
+		if errUpdatingStatus != nil {
+			return errors.New("No se pudo actualizar el estado de la solictud de almacen.")
+		}
+		return nil
+	})
+	if errInTransaction != nil {
+		errorMsg := ""
+		_, errorMsg, _ = strings.Cut(errInTransaction.Error(), ":")
+		errorMsg, _, _ = strings.Cut(errorMsg, "(SQLSTATE")
+		errorMsg = strings.Trim(errorMsg, " ")
+		return errors.New(errorMsg)
+	}
+	return nil
 }

@@ -1,0 +1,1 @@
+DROP FUNCTION public.get_storehouse_stocks_sorted(uti_key character varying);

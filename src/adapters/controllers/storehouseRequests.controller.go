@@ -68,6 +68,18 @@ func (controller StorehouseRequestsController) UpdateStorehouseRequest(ctx iris.
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
 
+func (controller StorehouseRequestsController) CompleteStorehouseRequest(ctx iris.Context) {
+	var storehouseRequest models.StorehouseRequestDetailed
+	storehouseRequetId := ctx.Params().GetStringDefault("id", "")
+	bodyreader.ReadBodyAsJson(ctx, &storehouseRequest, true)
+	res := controller.interactor.SupplyStorehouseRequest(storehouseRequetId, storehouseRequest.Utilities)
+	if res.StatusCode >= 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendMessageResponse(ctx, res)
+}
+
 func (controller StorehouseRequestsController) DeleteStorehouseRequest(ctx iris.Context) {
 	storehouseRequetId := ctx.Params().GetStringDefault("id", "")
 	res := controller.interactor.DeleteStorehouseRequest(storehouseRequetId)

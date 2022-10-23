@@ -432,17 +432,17 @@ func (dbVal DbValidator) IsSameRequestCreator(ctx iris.Context) {
 	ctx.Next()
 }
 
-func (dbVal DbValidator) IsRequestDeterminedStatus(status string) func(ctx iris.Context) {
+func (dbVal DbValidator) IsRequestDeterminedStatus(statuses ...string) func(ctx iris.Context) {
 	return func(ctx iris.Context) {
 		var (
 			httpRes models.Responser
 		)
 		storehouseRequestId := ctx.Params().GetString("id")
-		IsDeterminedStatus := dbVal.StorehouseRequestsDataSource.IsRequestDeterminedStatus(storehouseRequestId, status)
+		IsDeterminedStatus := dbVal.StorehouseRequestsDataSource.IsRequestDeterminedStatus(storehouseRequestId, statuses)
 		if !IsDeterminedStatus {
 			httpRes = models.Responser{
 				StatusCode: iris.StatusBadRequest,
-				Message:    fmt.Sprintf("No se pudó completar la acción, la solicitid no tiene un estado: %v", status),
+				Message:    fmt.Sprintf("No se pudó completar la acción, la solicitid no tiene un estado: %v", strings.Join(statuses, "/")),
 			}
 			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 			return

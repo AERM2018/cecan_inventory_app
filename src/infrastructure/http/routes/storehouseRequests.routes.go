@@ -32,12 +32,19 @@ func InitStorehouseRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 		storehouseRequestsController.CreateStorehouseRequest)
 
 	storehouseRequests.Put("/{id:string}",
-		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest),
+		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest, "pieces_supplied"),
 		val.IsStorehouseRequest,
 		val.IsSameRequestCreator,
 		val.IsRequestDeterminedStatus("Pendiente"),
 		val.AreStorehouseRequestItemsValid,
 		storehouseRequestsController.UpdateStorehouseRequest)
+
+	storehouseRequests.Put("/{id:string}",
+		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest, "pieces"),
+		val.CanUserDoAction("Almacen"),
+		val.IsStorehouseRequest,
+		val.IsRequestDeterminedStatus("Pendiente", "Incompleta"),
+		storehouseRequestsController.CompleteStorehouseRequest)
 
 	storehouseRequests.Delete("/{id:string}",
 		val.IsStorehouseRequest,
