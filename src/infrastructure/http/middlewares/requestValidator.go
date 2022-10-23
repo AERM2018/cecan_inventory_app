@@ -15,6 +15,13 @@ func ValidateRequest(validator func(mapObject interface{}, omitedFields ...strin
 		bodyreader.ReadBodyAsJson(ctx, &intialStruct, false)
 		validatorError := validator(intialStruct, strings.Join(omitedFields, ","))
 		if validatorError != nil {
+			if validatorError.Error() == "only a map can be validated" {
+				helpers.PrepareAndSendMessageResponse(ctx, models.Responser{
+					StatusCode: iris.StatusBadRequest,
+					Message:    "Verify the json send is well-formed!",
+				})
+				return
+			}
 			helpers.PrepareAndSendDataResponse(ctx, parseErrorToStruct(validatorError))
 			return
 		}

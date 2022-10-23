@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/kataras/iris/v12"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -46,13 +45,7 @@ func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
-func (user User) ToJSON() iris.Map {
-	return iris.Map{
-		"id":      user.Id,
-		"role_id": user.RoleId,
-		"name":    user.Name,
-		"surname": user.Surname,
-		"email":   user.Email,
-	}
-
+func (user *User) WithoutPassword() User {
+	user.Password = ""
+	return *user
 }

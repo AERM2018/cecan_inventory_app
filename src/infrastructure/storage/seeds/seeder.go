@@ -19,5 +19,8 @@ func All() []Seed {
 		{Name: "CreateMedicines", Run: func(db *gorm.DB) error { return CreateMedicines(db) }},
 		{Name: "CreatePharmacyStock", Run: func(db *gorm.DB) error { return CreatePharmacyStock(db) }},
 		{Name: "CreatePrescriptions", Run: func(db *gorm.DB) error { return CreatePrescriptions(db) }},
+		{Name: "CreateStorehouseUtilityCategories", Run: func(db *gorm.DB) error { return CreateStorehouseUtilityCategories(db) }},
+		{Name: "CreateStorehouseUtilityPresentations", Run: func(db *gorm.DB) error { return CreateStorehouseUtilityPresentations(db) }},
+		{Name: "CreateStorehouseUtilityUnits", Run: func(db *gorm.DB) error { return CreateStorehouseUtilityUnits(db) }},
 	}
 }

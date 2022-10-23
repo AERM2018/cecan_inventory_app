@@ -199,3 +199,66 @@ func GetPrescriptionMock() models.PrescriptionDetialed {
 	}
 	return prescriptionMock
 }
+
+func GetStorehouseUtiltyCategoriesMockSeed() []models.StorehouseUtilityCategory {
+	pointer := 0
+	mapStorehouseUtilityCategories := []map[string]string{
+		{"id": "ff0b0d3a-d013-4946-9cc2-285a16861ec1", "name": "Material medico"},
+		{"id": "52fc404c-dd25-4d51-9e93-adbc4329f6d0", "name": "Material de limpieza"},
+	}
+	storehouseUtilityCategoriesMockSeed := make([]models.StorehouseUtilityCategory, 0)
+	for pointer < len(mapStorehouseUtilityCategories) {
+		for _, storehouseUtilityCategory := range mapStorehouseUtilityCategories {
+			uuidParsed, _ := uuid.Parse(storehouseUtilityCategory["id"])
+			status := models.StorehouseUtilityCategory{
+				Id:   uuidParsed,
+				Name: storehouseUtilityCategory["name"],
+			}
+			storehouseUtilityCategoriesMockSeed = append(storehouseUtilityCategoriesMockSeed, status)
+		}
+		pointer += 1
+	}
+	return storehouseUtilityCategoriesMockSeed
+}
+
+func GetStorehouseUtiltyPresentationsMockSeed() []models.StorehouseUtilityPresentation {
+	pointer := 0
+	mapStorehouseUtilityPresentations := []map[string]string{
+		{"id": "88f6e5d7-f836-4079-bfb0-9e4199a248e2", "name": "Botella"},
+		{"id": "0b17934b-967a-4f2f-92dc-a0632f1f19ed", "name": "Caja"},
+	}
+	storehouseUtilityPresentationsMockSeed := make([]models.StorehouseUtilityPresentation, 0)
+	for pointer < len(mapStorehouseUtilityPresentations) {
+		for _, storehouseUtilityPresentation := range mapStorehouseUtilityPresentations {
+			uuidParsed, _ := uuid.Parse(storehouseUtilityPresentation["id"])
+			presentation := models.StorehouseUtilityPresentation{
+				Id:   uuidParsed,
+				Name: storehouseUtilityPresentation["name"],
+			}
+			storehouseUtilityPresentationsMockSeed = append(storehouseUtilityPresentationsMockSeed, presentation)
+		}
+		pointer += 1
+	}
+	return storehouseUtilityPresentationsMockSeed
+}
+
+func GetStorehouseUtiltyUnitsMockSeed() []models.StorehouseUtilityUnit {
+	pointer := 0
+	mapStorehouseUtilityUnits := []map[string]string{
+		{"id": "f528523e-89ac-41e5-8567-ede21ab37f13", "name": "Litro(s)"},
+		{"id": "a569159b-e4af-4072-ab65-a4e39d8b0f07", "name": "Pieza(s)"},
+	}
+	storehouseUtilityUnitsMockSeed := make([]models.StorehouseUtilityUnit, 0)
+	for pointer < len(mapStorehouseUtilityUnits) {
+		for _, storehouseUtilityUnit := range mapStorehouseUtilityUnits {
+			uuidParsed, _ := uuid.Parse(storehouseUtilityUnit["id"])
+			presentation := models.StorehouseUtilityUnit{
+				Id:   uuidParsed,
+				Name: storehouseUtilityUnit["name"],
+			}
+			storehouseUtilityUnitsMockSeed = append(storehouseUtilityUnitsMockSeed, presentation)
+		}
+		pointer += 1
+	}
+	return storehouseUtilityUnitsMockSeed
+}

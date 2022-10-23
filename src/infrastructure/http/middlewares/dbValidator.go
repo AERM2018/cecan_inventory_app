@@ -14,11 +14,14 @@ import (
 )
 
 type DbValidator struct {
-	MedicineDataSrc        datasources.MedicinesDataSource
-	PharmacyDataSrc        datasources.PharmacyStocksDataSource
-	RolesDataSource        datasources.RolesDataSource
-	UserDataSource         datasources.UserDataSource
-	PrescriptionDataSource datasources.PrescriptionsDataSource
+	MedicineDataSrc              datasources.MedicinesDataSource
+	PharmacyDataSrc              datasources.PharmacyStocksDataSource
+	RolesDataSource              datasources.RolesDataSource
+	UserDataSource               datasources.UserDataSource
+	PrescriptionDataSource       datasources.PrescriptionsDataSource
+	StorehouseUtilityDataSource  datasources.StorehouseUtilitiesDataSource
+	StorehouseStocksDataSource   datasources.StorehouseStocksDataSource
+	StorehouseRequestsDataSource datasources.StorehouseRequestsDataSource
 }
 
 func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
@@ -272,19 +275,198 @@ func (dbVal DbValidator) IsSamePrescriptionCreator(ctx iris.Context) {
 	ctx.Next()
 }
 
-// func (dbVal DbValidator) AreStocksOfMedicine(ctx iris.Context) {
-// 	var (
-// 		httpRes models.Responser
-// 		numStocks int64
-// 	)
-// 	medicine_key := ctx.Params().GetString("key")
-// 	numStocks, _ = dbVal.PharmacyDataSrc.GetPharmacyStocksByMedicineKey(medicine_key)
-// 	if numStocks > 0 {
-// 		httpRes = models.Responser{
-// 				StatusCode: iris.StatusNotFound,
-// 				Message:    fmt.Sprintf("El medicamento con clave: %v no pudó ser eliminado ya que existen registros en el inventario con fecha de vencimiento", medicineKey),
-// 			}
-// 			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
-// 	}
-// 	ctx.Next()
-// }
+func (dbVal DbValidator) IsStorehouseUtilityWithKey(ctx iris.Context) {
+	// If it's found, avoid repeatition
+	var (
+		httpRes models.Responser
+		utility models.StorehouseUtility
+	)
+	bodyreader.ReadBodyAsJson(ctx, &utility, false)
+	utilityKey := ctx.Params().GetString("key")
+	if utility.Key != utilityKey {
+		var resMessage string
+		storehouseUtility, err := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utility.Key)
+		if err == nil {
+			if ctx.Request().Method == "PUT" {
+				resMessage = fmt.Sprintf("No se actualizó el elemento de almacen debido a que ya existe un elemento con la clave: %v.", utility.Key)
+			} else {
+				resMessage = fmt.Sprintf("El elemento de almacen con clave: %v ya existe.", utility.Key)
+			}
+			if storehouseUtility.DeletedAt.Valid {
+				resMessage += " (DESABILITADO)"
+			}
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    resMessage,
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		}
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) FindStorehouseUtilityByKey(ctx iris.Context) {
+	// Look for it to know if the key specified exist in order to alterate
+	var (
+		httpRes    models.Responser
+		utility    models.StorehouseUtility
+		utilityKey string
+	)
+	if ctx.Method() == "PUT" || ctx.Method() == "DELETE" {
+		utilityKey = ctx.Params().GetString("key")
+	} else {
+		bodyreader.ReadBodyAsJson(ctx, &utility, false)
+		utilityKey = utility.Key
+	}
+	_, errNotFound := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utilityKey)
+	if errNotFound != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    fmt.Sprintf("Un elemento con clave: %v no existe en almacen.", utilityKey),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsStorehouseUtilityDeleted(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+		isError bool
+	)
+	utilityKey := ctx.Params().GetString("key")
+	reqPath := ctx.Path()
+	isUtilityDeleted, _ := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(utilityKey)
+	var message string
+	// if strings.Contains(reqPath, "pharmacy_inventory") && ctx.Request().Method == "POST" && isUtilityDeleted == 0 {
+	// 	isError = true
+	// 	message = fmt.Sprintf("No se pudó ingresar el stock a farmacia del medicamento con clave: %v debido a que esta inactivo, activelo y vuelvalo a intentar.", utilityKey)
+	if strings.Contains(reqPath, "reactivate") && ctx.Request().Method == "PUT" && !isUtilityDeleted.DeletedAt.Valid {
+		isError = true
+		message = fmt.Sprintf("El elemento de almacen con clave: %v no se reactivó debido a que no ha sido eliminado antes.", utilityKey)
+	}
+	if isError {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    message,
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) FindStorehouseStockById(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+	)
+	storehouseStockId := ctx.Params().GetString("id")
+	_, err := dbVal.StorehouseStocksDataSource.GetStorehouseStockById(storehouseStockId)
+	if err != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("El stock con id: %v no existe.", storehouseStockId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsStorehouseStockUsed(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+		action  string
+	)
+	storehouseStockId := ctx.Params().GetString("id")
+	isStockUsed := dbVal.StorehouseStocksDataSource.IsStockUsed(storehouseStockId)
+	if isStockUsed {
+		if ctx.Method() == "PUT" {
+			action = "actualizar"
+		} else {
+			action = "eliminar"
+		}
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    fmt.Sprintf("No se puede %v un stock de almacen cuando ha sido utilizado.", action),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsStorehouseRequest(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+	)
+	storehouseRequestId := ctx.Params().GetString("id")
+	_, errNotFound := dbVal.StorehouseRequestsDataSource.GetStorehouseRequestById(storehouseRequestId)
+	if errNotFound != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusForbidden,
+			Message:    fmt.Sprintf("La solicitud con id: %v no existe.", storehouseRequestId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsSameRequestCreator(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+	)
+	storehouseRequestId := ctx.Params().GetString("id")
+	userId := ctx.Values().GetString("userId")
+	isSameCreator := dbVal.StorehouseRequestsDataSource.IsSameRequestCreator(storehouseRequestId, userId)
+	if !isSameCreator {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusForbidden,
+			Message:    "Solo el creador de la solicitud puede modificiarla/eliminarla",
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsRequestDeterminedStatus(statuses ...string) func(ctx iris.Context) {
+	return func(ctx iris.Context) {
+		var (
+			httpRes models.Responser
+		)
+		storehouseRequestId := ctx.Params().GetString("id")
+		IsDeterminedStatus := dbVal.StorehouseRequestsDataSource.IsRequestDeterminedStatus(storehouseRequestId, statuses)
+		if !IsDeterminedStatus {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    fmt.Sprintf("No se pudó completar la acción, la solicitid no tiene un estado: %v", strings.Join(statuses, "/")),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+		ctx.Next()
+	}
+}
+
+func (dbVal DbValidator) AreStorehouseRequestItemsValid(ctx iris.Context) {
+	var (
+		httpRes           models.Responser
+		storehouseRequest models.StorehouseRequestDetailed
+	)
+	bodyreader.ReadBodyAsJson(ctx, &storehouseRequest, false)
+	for _, requestUtility := range storehouseRequest.Utilities {
+		utility, errNotFound := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(requestUtility.UtilityKey)
+		if errNotFound != nil || utility.DeletedAt.Valid {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusNotFound,
+				Message:    fmt.Sprintf("El elemento de almacen con clave: %v no existe o se encuentra deshabilitado.", requestUtility.UtilityKey),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+	}
+	ctx.Next()
+}

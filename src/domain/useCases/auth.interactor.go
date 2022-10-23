@@ -41,7 +41,7 @@ func (interacor AuthInteractor) LoginUser(credentials models.AccessCredentials) 
 	// Generate jwt token
 	claims := models.AuthClaims{
 		Id:       user.Id,
-		Role:     "Admin",
+		Role:     user.Role.Name,
 		FullName: user.Name + " " + user.Surname}
 	token, err := authtoken.GenerateJWT(claims)
 	if err != nil {
@@ -56,7 +56,7 @@ func (interacor AuthInteractor) LoginUser(credentials models.AccessCredentials) 
 		StatusCode: iris.StatusOK,
 		Message:    "",
 		Err:        nil,
-		Data:       iris.Map{"user": user.ToJSON(), "token": token},
+		Data:       iris.Map{"user": user.WithoutPassword(), "token": token},
 	}
 }
 
@@ -74,7 +74,7 @@ func (interactor AuthInteractor) SignUpUser(user models.User) models.Responser {
 		StatusCode: iris.StatusOK,
 		Message:    "",
 		Err:        nil,
-		Data:       iris.Map{"user": newUserRecord.ToJSON()},
+		Data:       iris.Map{"user": newUserRecord.WithoutPassword()},
 	}
 }
 
