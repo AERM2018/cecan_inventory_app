@@ -262,3 +262,23 @@ func GetStorehouseUtiltyUnitsMockSeed() []models.StorehouseUtilityUnit {
 	}
 	return storehouseUtilityUnitsMockSeed
 }
+
+func GetStorehouseRequestStatuses() []models.StorehouseRequestStatus {
+	pointer := 0
+	mapStorehouseRequestStatuses := []map[string]string{
+		{"id": "8d60d759-55e3-474e-9b13-bd41c720ef2b", "name": "Pendiente"},
+		{"id": "4920d64d-7c5c-4fb0-ad52-c00141a298b9", "name": "Completada"},
+	}
+	storehouseRequestStatusesMockSeed := make([]models.StorehouseRequestStatus, 0)
+	for pointer < len(mapStorehouseRequestStatuses) {
+		newUuid, _ := uuid.Parse(mapStorehouseRequestStatuses[pointer]["id"])
+		storehouseRequestStatusesMockSeed = append(
+			storehouseRequestStatusesMockSeed,
+			models.StorehouseRequestStatus{
+				Id:   newUuid,
+				Name: mapStorehouseRequestStatuses[pointer]["name"],
+			})
+		pointer += 1
+	}
+	return storehouseRequestStatusesMockSeed
+}

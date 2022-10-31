@@ -38,6 +38,9 @@ func Connect() (*gorm.DB, error) {
 			},
 		)
 		DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{Logger: newLogger})
+		if err != nil {
+			panic(fmt.Sprintf("Connection to the DB couldn't be established:%v", err.Error()))
+		}
 		// DBInstance, err = gorm.Open(postgres.Open(stringConnection))
 	}
 	err := Migrate(DBInstance, true)
