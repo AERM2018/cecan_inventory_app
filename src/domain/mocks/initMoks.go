@@ -4,7 +4,11 @@ import (
 	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
 	authtoken "cecan_inventory/infrastructure/external/authToken"
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"path"
 	"strconv"
 	"strings"
 	"time"
@@ -281,4 +285,50 @@ func GetStorehouseRequestStatuses() []models.StorehouseRequestStatus {
 		pointer += 1
 	}
 	return storehouseRequestStatusesMockSeed
+}
+
+func GetDepartmentsMockSeed() []models.Department {
+	var departmentsJson map[string]any
+	departments := make([]models.Department, 0)
+	wdPath, _ := os.Getwd()
+	departmentsBytes, err := ioutil.ReadFile(path.Join(wdPath, "domain", "mocks", "departments_seed.json")) // Read json file
+	if err != nil {
+		panic(err)
+	}
+	json.Unmarshal(departmentsBytes, &departmentsJson)             // Fill map object with data from json file
+	descriptions := departmentsJson["departments"].([]interface{}) // Take departments attribute from json
+	for _, description := range descriptions {
+		departmentsAsMap := description.(map[string]interface{})
+		newUuid, _ := uuid.Parse(departmentsAsMap["id"].(string))
+		departments = append(departments, models.Department{
+			Id:                newUuid,
+			Name:              fmt.Sprintf("%v", departmentsAsMap["name"]),
+			FloorNumber:       fmt.Sprintf("%v", departmentsAsMap["floor_number"]),
+			ResponsibleUserId: nil,
+		})
+	}
+	return departments
+}
+
+func GetFixedAssetsDescriptionsMockSeed() []models.FixedAssetDescription {
+	var descriptionsJson map[string]any
+	fixedAssetDescriptions := make([]models.FixedAssetDescription, 0)
+	wdPath, _ := os.Getwd()
+	descriptionsBytes, err := ioutil.ReadFile(path.Join(wdPath, "domain", "mocks", "descripciones_seed.json")) // Read json file
+	if err != nil {
+		panic(err)
+	}
+	json.Unmarshal(descriptionsBytes, &descriptionsJson)              // Fill map object with data from json file
+	descriptions := descriptionsJson["descripciones"].([]interface{}) // Take descriptions attribute from json
+	for _, description := range descriptions {
+		descriptionAsMap := description.(map[string]interface{})
+		newUuid, _ := uuid.Parse(descriptionAsMap["id"].(string))
+		fixedAssetDescriptions = append(fixedAssetDescriptions, models.FixedAssetDescription{
+			Id:          newUuid,
+			Description: fmt.Sprintf("%v", descriptionAsMap["descripcion"]),
+			Brand:       fmt.Sprintf("%v", descriptionAsMap["marca"]),
+			Model:       fmt.Sprintf("%v", descriptionAsMap["modelo"]),
+		})
+	}
+	return fixedAssetDescriptions
 }

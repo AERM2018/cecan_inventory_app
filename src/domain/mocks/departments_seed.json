@@ -1,0 +1,469 @@
+{
+    "departments": [
+        {
+            "id": "8a0b3a3b-1145-4ccc-8a1a-2acad7fa5d00",
+            "name": "SERVICIOS DE INGENIERIA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "4a8427a7-10df-4302-84d4-5abb746abad0",
+            "name": "FARMACIA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "87ef1995-5c9a-4342-a185-a032b3c1d99a",
+            "name": "JEFATURA DE ENFERMERIA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "f327d2f7-0b84-4e77-a3d6-b111d23c0ec0",
+            "name": "ADMISION",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "b092738a-3ccd-467f-b145-053b91a045f8",
+            "name": "TRABAJO SOCIAL",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "4ad4f5f8-fcff-40ec-bf6f-fc550cb3fd9a",
+            "name": "ATENCION CONTINUA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "4d3bacfd-f3cb-4dfb-9115-5836908686d2",
+            "name": "RECURSOS HUMANOS",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "95c8503f-e8ad-4ed4-a9f5-4d0f2fe936a5",
+            "name": "CONSULTORIO 1 CE",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "55de35b0-2dad-4464-ad6b-093c909ba3b4",
+            "name": "ESTADISTICA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "15c3b0fe-011e-4a60-9755-5cbf8f295d45",
+            "name": "CONSULTORIO 2 CE",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "c8cc294c-3c13-490e-b795-98ca2afd4f5f",
+            "name": "CONSULTORIO 3 CE",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "ad7beff7-8c0d-4300-951d-7e1d497e9ba0",
+            "name": "CUIDADOS PALEATIVOS",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "6f551fe4-340d-441f-ab82-e9c36574905a",
+            "name": "BRAQUITERAPIA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "d2a5e71e-5a94-4540-8773-2c92cd7474c9",
+            "name": "BOMBA DE COBALTO",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "ed0b483d-7779-46c2-93eb-58c85d6bab11",
+            "name": "SALA DE CONTROL RT",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "b717ef1b-c784-4fa9-9ef0-6411b2de38db",
+            "name": "CONTROL DE ENFERMERIA BRAQUITERAPIA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "0180b48a-fd1f-453f-8651-3cded9204f4e",
+            "name": "TERAPIA SUPERFICIAL",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "818712d5-e6f5-4bea-af23-528db54f91a4",
+            "name": "LAVANDERIA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "9cfe076b-357d-46e6-b5e3-80fcb23d0ea2",
+            "name": "AREAS COMUNES CONSULTA EXTERNA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "b2d7ecd9-2040-4033-b86a-46447064d5c3",
+            "name": "AREAS COMUNES ENTRADA PRINCIPAL",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "4db44e4a-6169-4932-86ff-f7b1179f5f61",
+            "name": "RECEPCION",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "eb79327e-a8ce-4de3-af3f-f9da044fcbcf",
+            "name": "ARCHIVO",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "01b09927-098d-45a6-89cc-b9551ccae1d3",
+            "name": "ANEXO JEFATURA DE ENFERMERIA",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "3e6fd45c-9c77-41a1-8c3a-366f60b52b4d",
+            "name": "SUG",
+            "floor_number": "PLANTA BAJA"
+        },
+        {
+            "id": "517e9cb6-b8b1-4969-9548-aee61ced20c1",
+            "name": "H.P.CONTROL ENFERMERAS",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "44485646-a7d8-47fd-99f3-6719903ceace",
+            "name": "H.P. PASILLO",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "a91f9b24-0a85-4f38-b31b-8a4277600ee7",
+            "name": "H.P. SEPTICO",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "c16d41a9-68a7-4025-8f94-d8ed2d020c7e",
+            "name": "H.P. BAÑO PERSONAL",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "3928f952-2309-4424-ad03-73daa741558a",
+            "name": "H.P. PREPARACION DE SOLUCIONES ",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "ac30bdfe-8d5b-48b3-a3a8-a10418645484",
+            "name": "H.P. A1 Y A2",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "3b53fea9-8805-4c25-a437-d367b438f22a",
+            "name": "H.P.A1 Y A2",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "5fea843d-4d76-4c2e-9bb8-8428c7d5788f",
+            "name": "H.P. A3 Y A4",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "1dc0d873-d80b-4969-a081-458110534157",
+            "name": "H.P. 101 Y 102",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "fea7f131-31fc-4a01-8d7f-b05fcc3351e1",
+            "name": "H.P.101 Y 102",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "45935354-2f3f-47af-864d-15267fe0c3fa",
+            "name": "H.P. 103 Y 104",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "c6e26567-4880-4f13-8150-671ead2778f3",
+            "name": "H.P. 105 Y 106",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "7ff328ea-3082-4816-9f39-0cbec3d80e3d",
+            "name": "H.P. 107 Y 108",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "ba28c9c6-2853-48e7-89e6-4e0e047392d3",
+            "name": "CIRUGÍA PEDIATRICA/CLINICA DE LINFEDEMA",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "eebeab56-97f0-417e-b6ec-c5f75d2da14b",
+            "name": "PSICOLOGIA",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "54552cd8-cc99-44db-b445-69a89c6e5b8c",
+            "name": "ONCOLOGIA PEDIATRICA/CLINICA DE CATETER",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "629cba61-e42d-41d7-9005-714044e42fb4",
+            "name": "PROCEDIMIENTOS",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "a38fbc51-ebcf-42ac-89ca-310e524f17b4",
+            "name": "CONTABILIDAD Y ADQUISICION",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "042ee127-2203-417f-99fc-f03befcddb10",
+            "name": "SALA DE JUNTAS",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "2213cee7-0698-4e6f-84d3-e0c746014336",
+            "name": "ADMINISTRACION",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "026bf602-ac75-4d15-93bc-41337dc7474c",
+            "name": "AREAS COMUNES",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "c8bda7f5-b4c7-4a46-aa6f-ac0246417f25",
+            "name": "CONSULTORIO HEMATOLOGIA PEDIATRICA",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "a99d010e-a25f-4d8d-aebb-3501c1deef55",
+            "name": "SECRETARIA DIRECCION",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "be6822cd-065a-40a2-974c-334c2bd1a55d",
+            "name": "OFICINA INSABI",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "77e74a72-716f-4459-a82d-2c7579894777",
+            "name": "DESCANSO DE MEDICOS",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "3b07315c-5bf2-4240-94d7-6261532638f9",
+            "name": "DIRECCION",
+            "floor_number": "PRIMER PISO"
+        },
+        {
+            "id": "228d1140-f4fe-4980-a6b8-a436ec2d3012",
+            "name": "ULTRASONIDO",
+            "floor_number": "SEGUNDO PISO"
+        },
+        {
+            "id": "eaf28f94-ddf2-41f9-9f71-b1d7436e5527",
+            "name": "MASTOGRAFIA",
+            "floor_number": "SEGUNDO PISO"
+        },
+        {
+            "id": "815eaaa4-c89a-442e-9a98-08e2491fd173",
+            "name": "HOSPITALIZACION ADULTOS",
+            "floor_number": "SEGUNDO PISO"
+        },
+        {
+            "id": "fff5b703-a8b9-4a9a-99fb-a38891e88213",
+            "name": "H.P.CONTROL ENFERMERAS",
+            "floor_number": "SEGUNDO PISO"
+        },
+        {
+            "id": "684c1b07-b040-4fa7-986b-5737f8c12a93",
+            "name": "QUIROFANO",
+            "floor_number": "SEGUNDO PISO"
+        },
+        {
+            "id": "b31da5f5-06a5-4d62-9430-ab1f2a0e885d",
+            "name": "AREAS COMUNES SEGUNDO PISO",
+            "floor_number": "SEGUNDO PISO"
+        },
+        {
+            "id": "a5ca1173-01e8-4141-973d-9741bb0f5729",
+            "name": "QUIMIOTERAPIA",
+            "floor_number": "SEGUNDO PISO"
+        },
+        {
+            "id": "1b793216-ee36-4c40-8427-471336046188",
+            "name": "ALMACEN",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "8eca7cd2-7360-4acf-869d-ae8127504443",
+            "name": "INMUNOHISTOQUIMICA",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "430ca607-8af5-45d4-b35f-6e339f673a56",
+            "name": "AULA DE ENSEÑANZA",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "38427fe9-6ddf-4b5b-b7a4-b8b12b2bff61",
+            "name": "CALIDAD",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "e6d14093-a40b-42a0-98d0-5aa797a41598",
+            "name": "COORDINACION DE ENSEÑANZA",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "f0a1981c-798d-4d2b-bdb2-d08733f8efdb",
+            "name": "ARCHIVO",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "b82ec10b-778f-46ac-baf7-26e5f68518bf",
+            "name": "JEFATURA DE ENFERMERIA ",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "e6eb2873-d829-4fa6-8a22-20ab5730f5f2",
+            "name": "CITOMETRIA",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "f6862d5c-325e-4a2c-881d-956b44d9258d",
+            "name": "AREAS COMUNES TERCER PISO",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "9b94fed0-d8df-406a-b0a6-07ea2ea1ce27",
+            "name": "COCINA",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "e0ed5e4c-7777-4b05-b1df-4ace47a638f2",
+            "name": "OFICINA NUTRICION",
+            "floor_number": "TERCER PISO"
+        },
+        {
+            "id": "7159f6e6-d578-4ec6-ae5c-ff17e7a601ee",
+            "name": "BRAQUITERAPIA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "ee9daee7-611b-4e9c-946a-f2c45779dc96",
+            "name": "BRAQUITERAPIA (TOMOTERAPIA)",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "8416df32-2a4b-481f-926b-962fd3947f9b",
+            "name": "CUARTO DE MAQUINAS",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "81b818c7-b630-4005-9e86-22d52891b30c",
+            "name": "RESONANCIA MAGNETICA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "c2d4d3fd-8303-454f-8319-e66f68a33faa",
+            "name": "CONTROL DE BRAQUITERAPIA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "6367bb2a-8bb8-43f7-9609-2a58d9b66b67",
+            "name": "PLANEACION Y CONTROL TOMOTHERAPY",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "f403244d-dd55-4b7d-aa6a-4d72e082543e",
+            "name": "CONTROL TOMOGRAFIA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "be30e985-67e1-43a3-9d3f-a146f20c987c",
+            "name": "RECEPCION",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "46385b08-cb0f-4df8-87d0-2aeb9a60d486",
+            "name": "BAÑOS RECEPCION",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "80a56d21-1528-4cd8-89b1-8260cf6767b2",
+            "name": "VESTIDOR BRAQUITERAPIA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "2e9c75e7-0d1c-4777-917e-52d5511db7c9",
+            "name": "VESTIDOR TOMOTERAPIA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "51c101da-6caa-45ec-8076-95015d02a661",
+            "name": "TOMOTERAPIA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "59701b43-b51f-4800-9dff-0cfa1872219c",
+            "name": "CUARTO DE MAQUINAS TOMOGRAFO",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "f8d88a41-f3bb-4478-9577-358d8dd22833",
+            "name": "VESTIDOR 1",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "8f6c5054-7384-4ae4-a4c2-9ee6bc52d675",
+            "name": "CONTROL DE ENFERMERAS",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "ea45c3dc-3f2b-4da0-b35f-677bed67db4a",
+            "name": "TOMOGRAFIA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "326108f6-6e53-4b87-8ae9-bce50cd312be",
+            "name": "OFICINA FISICA MEDICA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "d8e0670d-dbaa-4069-bb44-5872d83c5dcd",
+            "name": "CONSULTORIO 2",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "b6d7a6f0-fc0f-4d86-b2c1-23ed51aa8666",
+            "name": "SEPTICO",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "80ce5ca1-d68e-4ffa-b2d1-f12aba52a462",
+            "name": "SITE",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "fb0367f8-f5fe-463e-bad7-7b8b4928928c",
+            "name": "CUARTO DOSIMETRIA",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "7d05cc6e-072b-4555-aa81-ff2801bcfbdb",
+            "name": "AREAS COMUNES",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "eb79cbfd-0c9b-46e6-8f73-58050aca53a5",
+            "name": "CONSULTORIO 1",
+            "floor_number": "TOMOTERAPIA"
+        },
+        {
+            "id": "b656bb77-915d-4a03-a7bb-7786eb13c5f8",
+            "name": "OFICINA FISICA MEDICA",
+            "floor_number": "PLANTA BAJA "
+        },
+        {
+            "id": "93f52909-b780-4260-b1c1-4b3b5ae2b755",
+            "name": "CUARTO OBSCURO(BRAQUITERAPIA)",
+            "floor_number": "PLANTA BAJA "
+        }
+    ]
+}
