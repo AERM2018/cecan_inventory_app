@@ -1,0 +1,1 @@
+DROP TABLE fixed_asset_descriptions;
