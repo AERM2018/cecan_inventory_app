@@ -5,5 +5,6 @@ CREATE TABLE departments(
     floor_number VARCHAR(30) NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP NOT NULL,
+    deleted_at TIMESTAMP,
     CONSTRAINT fk_responsible_user FOREIGN KEY(responsible_user_id) REFERENCES users(id)
 );

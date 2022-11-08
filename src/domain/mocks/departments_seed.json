@@ -458,12 +458,12 @@
         {
             "id": "b656bb77-915d-4a03-a7bb-7786eb13c5f8",
             "name": "OFICINA FISICA MEDICA",
-            "floor_number": "PLANTA BAJA "
+            "floor_number": "PLANTA BAJA"
         },
         {
             "id": "93f52909-b780-4260-b1c1-4b3b5ae2b755",
             "name": "CUARTO OBSCURO(BRAQUITERAPIA)",
-            "floor_number": "PLANTA BAJA "
+            "floor_number": "PLANTA BAJA"
         }
     ]
 }
