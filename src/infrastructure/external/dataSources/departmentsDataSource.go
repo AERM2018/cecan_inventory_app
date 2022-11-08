@@ -47,3 +47,15 @@ func (dataSrc DepartmentDataSource) GetDepartmentById(id string) (models.Departm
 	}
 	return department, nil
 }
+
+func (dataSrc DepartmentDataSource) UpdateDepartment(id string, department models.Department) error {
+	err := dataSrc.DbPsql.
+		Omit("id", "created_at", "responsible_user_id").
+		Where("id = ?", id).
+		Updates(&department).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

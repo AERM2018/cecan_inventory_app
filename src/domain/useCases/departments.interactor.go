@@ -72,3 +72,20 @@ func (interactor DepartmentsInteractor) GetDepartmentById(id string) models.Resp
 		},
 	}
 }
+
+func (interactor DepartmentsInteractor) UpdateDepartment(id string, department models.Department) models.Responser {
+	err := interactor.DepartmentsDataSource.UpdateDepartment(id, department)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	departmentFound, _ := interactor.DepartmentsDataSource.GetDepartmentById(id)
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"department": departmentFound,
+		},
+	}
+}

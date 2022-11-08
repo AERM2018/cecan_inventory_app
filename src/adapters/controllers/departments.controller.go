@@ -41,3 +41,14 @@ func (controller DepartmentsController) CreateDepartment(ctx iris.Context) {
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller DepartmentsController) UpdateDepartment(ctx iris.Context) {
+	var department models.Department
+	bodyreader.ReadBodyAsJson(ctx, &department, true)
+	id := ctx.Params().GetStringDefault("id", "")
+	res := controller.DepartmentsInteractor.UpdateDepartment(id, department)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
