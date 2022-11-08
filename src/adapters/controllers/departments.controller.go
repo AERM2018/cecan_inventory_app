@@ -52,3 +52,13 @@ func (controller DepartmentsController) UpdateDepartment(ctx iris.Context) {
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller DepartmentsController) AssingResponsibleToDepartment(ctx iris.Context) {
+	id := ctx.Params().GetStringDefault("id", "")
+	userId := ctx.Params().GetStringDefault("userId", "")
+	res := controller.DepartmentsInteractor.AssingResponsibleToDepartment(id, userId)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

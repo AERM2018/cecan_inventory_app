@@ -59,3 +59,15 @@ func (dataSrc DepartmentDataSource) UpdateDepartment(id string, department model
 	}
 	return nil
 }
+
+func (dataSrc DepartmentDataSource) AssingResponsibleToDepartment(id string, userId string) error {
+	err := dataSrc.DbPsql.
+		Model(&models.Department{}).
+		Where("id = ?", id).
+		Update("responsible_user_id", userId).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

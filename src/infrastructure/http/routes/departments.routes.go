@@ -16,4 +16,5 @@ func InitDepartmentsRoutes(router router.Party, dbPsql *gorm.DB) {
 	departments.Get("/", departmentsController.GetDepartments)
 	departments.Post("/", departmentsController.CreateDepartment)
 	departments.Put("/{id:string}", departmentsController.UpdateDepartment)
+	departments.Put("/{id:string}/users/{userId:string}", departmentsController.AssingResponsibleToDepartment)
 }

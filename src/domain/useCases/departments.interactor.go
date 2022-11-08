@@ -89,3 +89,20 @@ func (interactor DepartmentsInteractor) UpdateDepartment(id string, department m
 		},
 	}
 }
+
+func (interactor DepartmentsInteractor) AssingResponsibleToDepartment(id string, userId string) models.Responser {
+	err := interactor.DepartmentsDataSource.AssingResponsibleToDepartment(id, userId)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	departmentFound, _ := interactor.DepartmentsDataSource.GetDepartmentById(id)
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"department": departmentFound,
+		},
+	}
+}
