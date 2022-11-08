@@ -106,3 +106,35 @@ func (interactor DepartmentsInteractor) AssingResponsibleToDepartment(id string,
 		},
 	}
 }
+
+func (interactor DepartmentsInteractor) ReactivateDepartment(id string) models.Responser {
+	fmt.Println(id)
+	err := interactor.DepartmentsDataSource.ReactivateDepartment(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	departmentFound, _ := interactor.DepartmentsDataSource.GetDepartmentById(id)
+	fmt.Println(departmentFound)
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"department": departmentFound,
+		},
+	}
+}
+
+func (interactor DepartmentsInteractor) DeleteDepartment(id string) models.Responser {
+	err := interactor.DepartmentsDataSource.DeleteDepartment(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}

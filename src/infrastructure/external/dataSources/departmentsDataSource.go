@@ -71,3 +71,40 @@ func (dataSrc DepartmentDataSource) AssingResponsibleToDepartment(id string, use
 	}
 	return nil
 }
+
+func (dataSrc DepartmentDataSource) ReactivateDepartment(id string) error {
+	err := dataSrc.DbPsql.
+		Table("departments").
+		Where("id = ?", id).
+		Update("deleted_at", nil).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (dataSrc DepartmentDataSource) DeleteDepartment(id string) error {
+	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
+		errUpdating := tx.
+			Model(&models.Department{}).
+			Where("id = ?", id).
+			Update("responsible_user_id", nil).
+			Error
+		if errUpdating != nil {
+			return errUpdating
+		}
+		errDeleting := tx.
+			Where("id = ?", id).
+			Delete(&models.Department{}).
+			Error
+		if errDeleting != nil {
+			return errDeleting
+		}
+		return nil
+	})
+	if errInTransaction != nil {
+		return errInTransaction
+	}
+	return nil
+}

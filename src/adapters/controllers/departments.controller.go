@@ -62,3 +62,21 @@ func (controller DepartmentsController) AssingResponsibleToDepartment(ctx iris.C
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller DepartmentsController) ReactivateDepartment(ctx iris.Context) {
+	id := ctx.Params().GetStringDefault("id", "")
+	res := controller.DepartmentsInteractor.ReactivateDepartment(id)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller DepartmentsController) DeleteDepartment(ctx iris.Context) {
+	id := ctx.Params().GetStringDefault("id", "")
+	res := controller.DepartmentsInteractor.DeleteDepartment(id)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
