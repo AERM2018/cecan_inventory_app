@@ -13,5 +13,6 @@ func InitDepartmentsRoutes(router router.Party, dbPsql *gorm.DB) {
 	departmentsDataSource := datasources.DepartmentDataSource{DbPsql: dbPsql}
 	departmentsController := controllers.DepartmentsController{DepartmentsDataSource: departmentsDataSource}
 	departmentsController.New()
+	departments.Get("/", departmentsController.GetDepartments)
 	departments.Post("/", departmentsController.CreateDepartment)
 }

@@ -21,6 +21,17 @@ func (controller *DepartmentsController) New() {
 	}
 }
 
+func (controller DepartmentsController) GetDepartments(ctx iris.Context) {
+	includeDeleted, _ := ctx.URLParamBool("include_deleted")
+	limit := ctx.URLParamIntDefault("limit", 10)
+	offset := ctx.URLParamIntDefault("offset", 0)
+	res := controller.DepartmentsInteractor.GetDepartments(includeDeleted, limit, offset)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
 func (controller DepartmentsController) CreateDepartment(ctx iris.Context) {
 	var department models.Department
 	bodyreader.ReadBodyAsJson(ctx, &department, true)

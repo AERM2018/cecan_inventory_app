@@ -28,3 +28,47 @@ func (interactor DepartmentsInteractor) CreateDepartment(department models.Depar
 		},
 	}
 }
+
+func (interactor DepartmentsInteractor) GetDepartments(includeDeleted bool, limit int, offset int) models.Responser {
+	departments, err := interactor.DepartmentsDataSource.GetDepartments(includeDeleted, limit, offset)
+	var headers []map[string]interface{}
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	// Add header with the query params limit and offset set depending on the page
+	if len(departments) == limit {
+		headers = append(headers, map[string]interface{}{
+			"name":  "next_page",
+			"value": fmt.Sprintf("http://localhost:4000/api/v1/departments?limit=%v&offset=%v", limit, offset+limit),
+		})
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"departments": departments,
+		},
+		Headers: headers,
+		ExtraInfo: []map[string]interface{}{
+			{"page": (offset / limit) + 1},
+		},
+	}
+}
+
+func (interactor DepartmentsInteractor) GetDepartmentById(id string) models.Responser {
+	departments, err := interactor.DepartmentsDataSource.GetDepartmentById(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"departments": departments,
+		},
+	}
+}

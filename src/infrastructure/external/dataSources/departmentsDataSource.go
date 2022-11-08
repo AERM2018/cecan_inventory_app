@@ -20,6 +20,17 @@ func (dataSrc DepartmentDataSource) CreateDepartment(department models.Departmen
 	return department.Id, nil
 }
 
+func (dataSrc DepartmentDataSource) GetDepartments(includeDeleted bool, limit int, offset int) ([]models.Department, error) {
+	var departments = make([]models.Department, 0)
+	err := dataSrc.DbPsql.Raw(
+		fmt.Sprintf("SELECT * FROM get_departments_ordered_by_floor(%v,%v,%v);", includeDeleted, limit, offset),
+	).Scan(&departments).Error
+	if err != nil {
+		return departments, err
+	}
+	return departments, nil
+}
+
 func (dataSrc DepartmentDataSource) GetDepartmentById(id string) (models.DepartmentDetailed, error) {
 	var department models.DepartmentDetailed
 	err := dataSrc.DbPsql.

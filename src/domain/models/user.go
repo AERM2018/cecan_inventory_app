@@ -14,6 +14,7 @@ type User struct {
 	Role      *Role      `gorm:"foreignKey:role_id" json:"role,omitempty"`
 	Name      string     `json:"name"`
 	Surname   string     `json:"surname"`
+	FullName  string     `json:"full_name,omitempty"`
 	Email     string     `json:"email,omitempty" validate:"required,email"`
 	Password  string     `json:"password,omitempty" validate:"required,min=8"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -48,4 +49,9 @@ func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
 func (user *User) WithoutPassword() User {
 	user.Password = ""
 	return *user
+}
+
+func (user *User) AfterFind(tx *gorm.DB) error {
+	user.FullName = user.Name + " " + user.Surname
+	return nil
 }
