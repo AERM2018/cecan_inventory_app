@@ -34,6 +34,7 @@ func (server *Server) New() *iris.Application {
 	routes.InitStorehouseStocksRoutes(server.Router, server.DbPsql)
 	routes.InitStorehouseRequestsRoutes(server.Router, server.DbPsql)
 	routes.InitDepartmentsRoutes(server.Router, server.DbPsql)
+	routes.InitFixedAssetDescriptionsRoutes(server.Router, server.DbPsql)
 	// Set port
 	server.Port = os.Getenv("PORT")
 
