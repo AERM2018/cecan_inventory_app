@@ -64,3 +64,11 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssetByKey(key string) (models.Fixe
 	return fixedAsset, nil
 
 }
+
+func (dataSrc FixedAssetsDataSource) CreateFixedAsset(fixedAsset models.FixedAsset) (string, error) {
+	err := dataSrc.DbPsql.Omit("description", "brand", "model").Create(&fixedAsset).Error
+	if err != nil {
+		return "", err
+	}
+	return fixedAsset.Key, nil
+}

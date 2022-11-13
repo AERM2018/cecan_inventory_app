@@ -28,3 +28,28 @@ func (interactor FixedAssetsInteractor) GetFixedAssets(filters models.FixedAsset
 		},
 	}
 }
+
+func (interactor FixedAssetsInteractor) CreateFixedAsset(fixedAsset models.FixedAsset) models.Responser {
+	fixedAssetDescription := models.FixedAssetDescription{
+		Description: strings.ToUpper(fixedAsset.Description),
+		Brand:       strings.ToUpper(fixedAsset.Brand),
+		Model:       strings.ToUpper(fixedAsset.Model),
+	}
+	isSimilarFound, similarDescriptionId := interactor.FixedAssetDescriptionsDataSource.GetSimilarFixedAssetDescriptions(fixedAssetDescription)
+	if !isSimilarFound {
+		fixedAssetDescription.Id, _ = interactor.FixedAssetDescriptionsDataSource.CreateFixedAssetDescription(fixedAssetDescription)
+	} else {
+		fixedAssetDescription.Id = similarDescriptionId
+	}
+	fixedAsset.FixedAssetDescriptionId = &fixedAssetDescription.Id
+	_, err := interactor.FixedAssetsDataSource.CreateFixedAsset(fixedAsset)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}
