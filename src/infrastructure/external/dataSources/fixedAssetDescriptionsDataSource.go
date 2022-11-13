@@ -26,3 +26,23 @@ func (dataSrc FixedAssetDescriptionDataSource) GetFixedAssetDescriptions(express
 	}
 	return fixedAssetDescriptions, nil
 }
+
+func (dataSrc FixedAssetDescriptionDataSource) GetSimilarFixedAssetDescriptions(fixedAssetDescription models.FixedAssetDescription) (bool, uuid.UUID) {
+	similarFixedAssetDescriptions := make([]models.FixedAssetDescription, 0)
+	dataSrc.DbPsql.
+		Where("upper(description) = ? AND upper(brand) = ? AND upper(model) = ?", fixedAssetDescription.Description, fixedAssetDescription.Brand, fixedAssetDescription.Model).
+		Find(&similarFixedAssetDescriptions)
+	if len(similarFixedAssetDescriptions) == 0 {
+		return false, uuid.Nil
+	}
+	return true, similarFixedAssetDescriptions[0].Id
+
+}
+
+func (dataSrc FixedAssetDescriptionDataSource) CreateFixedAssetDescription(fixedAssetDescription models.FixedAssetDescription) (uuid.UUID, error) {
+	err := dataSrc.DbPsql.Create(&fixedAssetDescription).Error
+	if err != nil {
+		return uuid.Nil, err
+	}
+	return fixedAssetDescription.Id, nil
+}

@@ -1,0 +1,38 @@
+package controllers
+
+import (
+	"cecan_inventory/adapters/helpers"
+	"cecan_inventory/domain/models"
+	usecases "cecan_inventory/domain/useCases"
+	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
+	datasources "cecan_inventory/infrastructure/external/dataSources"
+	"fmt"
+	"strings"
+
+	"github.com/kataras/iris/v12"
+)
+
+type FixedAssetsController struct {
+	FixedAssetsDataSource            datasources.FixedAssetsDataSource
+	FixedAssetDescriptionsDataSource datasources.FixedAssetDescriptionDataSource
+	FixedAssetsInteractor            usecases.FixedAssetsInteractor
+}
+
+func (controller *FixedAssetsController) New() {
+	controller.FixedAssetsInteractor = usecases.FixedAssetsInteractor{
+		FixedAssetsDataSource:            controller.FixedAssetsDataSource,
+		FixedAssetDescriptionsDataSource: controller.FixedAssetDescriptionsDataSource,
+	}
+}
+
+func (controller FixedAssetsController) GetFixedAssets(ctx iris.Context) {
+	departmentName := ctx.URLParamDefault("department_name", "")
+	filters := models.FixedAssetFilters{
+		DepartmentName: strings.ToUpper(departmentName),
+	}
+	res := controller.FixedAssetsInteractor.GetFixedAssets(filters)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
