@@ -85,3 +85,14 @@ func (dataSrc FixedAssetsDataSource) UpdateFixedAsset(key string, fixedAsset mod
 	}
 	return nil
 }
+
+func (dataSrc FixedAssetsDataSource) DeleteFixedAsset(key string) error {
+	err := dataSrc.DbPsql.
+		Where("key = ?", key).
+		Delete(models.FixedAsset{}).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

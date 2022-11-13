@@ -97,3 +97,16 @@ func (interactor FixedAssetsInteractor) UpdateFixedAsset(key string, fixedAsset 
 		},
 	}
 }
+
+func (interactor FixedAssetsInteractor) DeleteFixedAsset(key string) models.Responser {
+	err := interactor.FixedAssetsDataSource.DeleteFixedAsset(key)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}

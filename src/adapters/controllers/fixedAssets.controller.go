@@ -58,3 +58,12 @@ func (controller FixedAssetsController) UpdateFixedAsset(ctx iris.Context) {
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller FixedAssetsController) DeleteFixedAsset(ctx iris.Context) {
+	fixedAssetKey := ctx.Params().GetStringDefault("key", "")
+	res := controller.FixedAssetsInteractor.DeleteFixedAsset(fixedAssetKey)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

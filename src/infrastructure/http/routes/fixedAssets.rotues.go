@@ -20,4 +20,6 @@ func InitFixedAssetsRoutes(router router.Party, dbPsql *gorm.DB) {
 	fixedAssets.Get("/", controller.GetFixedAssets)
 	fixedAssets.Post("/", controller.CreateFixedAsset)
 	fixedAssets.Put("/{key:string}", controller.UpdateFixedAsset)
+	fixedAssets.Delete("/{key:string}", controller.DeleteFixedAsset)
+
 }
