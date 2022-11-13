@@ -72,3 +72,16 @@ func (dataSrc FixedAssetsDataSource) CreateFixedAsset(fixedAsset models.FixedAss
 	}
 	return fixedAsset.Key, nil
 }
+
+func (dataSrc FixedAssetsDataSource) UpdateFixedAsset(key string, fixedAsset models.FixedAsset) error {
+	err := dataSrc.DbPsql.
+		Model(models.FixedAsset{}).
+		Omit("description", "brand", "model", "director_user_id", "administrator_user_id").
+		Where("key = ?", key).
+		Updates(fixedAsset).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

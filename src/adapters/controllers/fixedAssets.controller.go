@@ -46,3 +46,15 @@ func (controller FixedAssetsController) CreateFixedAsset(ctx iris.Context) {
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller FixedAssetsController) UpdateFixedAsset(ctx iris.Context) {
+	var fixedAsset models.FixedAsset
+	bodyreader.ReadBodyAsJson(ctx, &fixedAsset, true)
+	fmt.Println(fixedAsset)
+	fixedAssetKey := ctx.Params().GetStringDefault("key", "")
+	res := controller.FixedAssetsInteractor.UpdateFixedAsset(fixedAssetKey, fixedAsset)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
