@@ -1,0 +1,1 @@
+ALTER TABLE fixed_assets_items_requets RENAME TO fixed_assets_items_requests;

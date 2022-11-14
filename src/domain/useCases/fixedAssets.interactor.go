@@ -49,8 +49,12 @@ func (interactor FixedAssetsInteractor) CreateFixedAsset(fixedAsset models.Fixed
 			Err:        err,
 		}
 	}
+	fixedAssetFound, _ := interactor.FixedAssetsDataSource.GetFixedAssetByKey(fixedAsset.Key)
 	return models.Responser{
-		StatusCode: iris.StatusNoContent,
+		StatusCode: iris.StatusCreated,
+		Data: iris.Map{
+			"fixed_asset": fixedAssetFound,
+		},
 	}
 }
 

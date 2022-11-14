@@ -1,0 +1,25 @@
+package routes
+
+import (
+	"cecan_inventory/adapters/controllers"
+	datasources "cecan_inventory/infrastructure/external/dataSources"
+	"cecan_inventory/infrastructure/http/middlewares"
+
+	"github.com/kataras/iris/v12/core/router"
+	"gorm.io/gorm"
+)
+
+func InitFixedAssetsRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
+	fixedAssetsRequests := router.Party("/fixed_assets_requests")
+	fixedAssetsRequestDataSource := datasources.FixedAssetsRequetsDataSource{DbPsql: dbPsql}
+	fixedAssetsDataSource := datasources.FixedAssetsDataSource{DbPsql: dbPsql}
+	fixedAssetsDescriptionsDataSource := datasources.FixedAssetDescriptionDataSource{DbPsql: dbPsql}
+	controller := controllers.FixedAssetsRequestsController{
+		FixedAssetsRequestsDataSource:     fixedAssetsRequestDataSource,
+		FixedAssetsDataSource:             fixedAssetsDataSource,
+		FixedAssetsDescriptionsDataSource: fixedAssetsDescriptionsDataSource,
+	}
+	controller.New()
+	fixedAssetsRequests.Use(middlewares.VerifyJWT)
+	fixedAssetsRequests.Post("/departments/{departmentId:string}", controller.CreateFixedAssetsRequest)
+}

@@ -2,6 +2,7 @@ package datasources
 
 import (
 	"cecan_inventory/domain/models"
+	"errors"
 	"fmt"
 	"strings"
 
@@ -87,12 +88,26 @@ func (dataSrc FixedAssetsDataSource) UpdateFixedAsset(key string, fixedAsset mod
 }
 
 func (dataSrc FixedAssetsDataSource) DeleteFixedAsset(key string) error {
-	err := dataSrc.DbPsql.
-		Where("key = ?", key).
-		Delete(models.FixedAsset{}).
-		Error
-	if err != nil {
-		return err
+	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
+		errDisassociating := tx.
+			Where("fixed_asset_key = ?", key).
+			Delete(&models.FixedAssetsItemsRequests{}).
+			Error
+		if errDisassociating != nil {
+			return errors.New("Ocurrió un error al remover el material de activo fijo de la petición")
+		}
+		errDeleting := tx.
+			Where("key = ?", key).
+			Delete(&models.FixedAsset{}).
+			Error
+		if errDeleting != nil {
+			return errors.New("Ocurrió un error al eliminar el material de activo fijo")
+		}
+
+		return nil
+	})
+	if errInTransaction != nil {
+		return errInTransaction
 	}
 	return nil
 }
