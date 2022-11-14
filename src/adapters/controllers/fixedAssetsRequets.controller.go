@@ -48,3 +48,13 @@ func (controller FixedAssetsRequestsController) CreateFixedAssetsRequest(ctx iri
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller FixedAssetsRequestsController) DeleteFixedAssetsRequest(ctx iris.Context) {
+	fixedAssetsRequestId := ctx.Params().GetStringDefault("id", "")
+	res := controller.Interactor.DeleteFixedAssetsRequest(fixedAssetsRequestId)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}

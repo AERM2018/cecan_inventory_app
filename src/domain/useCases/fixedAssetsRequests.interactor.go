@@ -62,3 +62,17 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 		StatusCode: iris.StatusNoContent,
 	}
 }
+
+func (interactor FixedAssetsRequestsInteractor) DeleteFixedAssetsRequest(id string) models.Responser {
+	err := interactor.FixedAssetsRequestsDataSource.DeleteFixedAssetsRequest(id, interactor.FixedAssetsDataSource.DeleteFixedAsset)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Err:        err,
+			Message:    err.Error(),
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}

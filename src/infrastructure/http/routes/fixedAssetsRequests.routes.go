@@ -22,4 +22,6 @@ func InitFixedAssetsRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	controller.New()
 	fixedAssetsRequests.Use(middlewares.VerifyJWT)
 	fixedAssetsRequests.Post("/departments/{departmentId:string}", controller.CreateFixedAssetsRequest)
+	fixedAssetsRequests.Delete("/{id:string}", controller.DeleteFixedAssetsRequest)
+	// fixedAssetsRequests
 }
