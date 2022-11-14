@@ -14,8 +14,8 @@ type (
 		ResponsibleUserId *string        `json:"resposible_user_id,omitempty"`
 		Name              string         `json:"name"`
 		FloorNumber       string         `json:"floor_number"`
-		CreatedAt         time.Time      `json:"created_at"`
-		UpdatedAt         time.Time      `json:"updated_at"`
+		CreatedAt         *time.Time     `json:"created_at,omitempty"`
+		UpdatedAt         *time.Time     `json:"updated_at,omitempty"`
 		DeletedAt         gorm.DeletedAt `gorm:"index" json:"deleted_at"`
 	}
 
@@ -25,8 +25,8 @@ type (
 		ResponsibleUser   User           `gorm:"foreignKey:ResponsibleUserId" json:"reponsible_user"`
 		Name              string         `json:"name"`
 		FloorNumber       string         `json:"floor_number"`
-		CreatedAt         time.Time      `json:"created_at"`
-		UpdatedAt         time.Time      `json:"updated_at"`
+		CreatedAt         time.Time      `json:"created_at,omitempty"`
+		UpdatedAt         time.Time      `json:"updated_at,omitempty"`
 		DeletedAt         gorm.DeletedAt `json:"deleted_at"`
 	}
 )

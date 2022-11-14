@@ -14,6 +14,38 @@ type FixedAssetsRequestsInteractor struct {
 	FixedAssetsDataSource         datasources.FixedAssetsDataSource
 }
 
+func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequests() models.Responser {
+	fixedAssetsRequests, err := interactor.FixedAssetsRequestsDataSource.GetFixedAssetsRequests()
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"fixed_assets_requests": fixedAssetsRequests,
+		},
+	}
+}
+
+func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequestById(id string) models.Responser {
+	fixedAssetsRequest, err := interactor.FixedAssetsRequestsDataSource.GetFixedAssetsRequestById(id)
+	if err != nil {
+		return models.Responser{
+			StatusCode: iris.StatusInternalServerError,
+			Err:        err,
+		}
+	}
+	return models.Responser{
+		StatusCode: iris.StatusOK,
+		Data: iris.Map{
+			"fixed_assets_request": fixedAssetsRequest,
+		},
+	}
+}
+
 func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 	fixedAssetsRequest models.FixedAssetsRequestDetailed,
 	createAssetFunc func(fixedAsset models.FixedAsset) models.Responser,

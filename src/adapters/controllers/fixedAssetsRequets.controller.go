@@ -30,6 +30,25 @@ func (controller *FixedAssetsRequestsController) New() {
 	}
 }
 
+func (controller FixedAssetsRequestsController) GetFixedAssetsRequests(ctx iris.Context) {
+	res := controller.Interactor.GetFixedAssetsRequests()
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller FixedAssetsRequestsController) GetFixedAssetsRequestById(ctx iris.Context) {
+	fixedAssetsRequestId := ctx.Params().GetStringDefault("id", "")
+	res := controller.Interactor.GetFixedAssetsRequestById(fixedAssetsRequestId)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
 func (controller FixedAssetsRequestsController) CreateFixedAssetsRequest(ctx iris.Context) {
 	var fixedAssetsRequest models.FixedAssetsRequestDetailed
 	bodyreader.ReadBodyAsJson(ctx, &fixedAssetsRequest, true)

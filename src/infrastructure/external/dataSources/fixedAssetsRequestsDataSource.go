@@ -11,6 +11,47 @@ type FixedAssetsRequetsDataSource struct {
 	DbPsql *gorm.DB
 }
 
+func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests() ([]models.FixedAssetsRequestDetailed, error) {
+	fixedAssetsRequests := make([]models.FixedAssetsRequestDetailed, 0)
+	err := dataSrc.DbPsql.
+		Table("fixed_assets_requests").
+		Preload("Department", func(db *gorm.DB) *gorm.DB {
+			return db.Omit("created_at", "updated_at", "deleted_at")
+		}).
+		Preload("User", func(db *gorm.DB) *gorm.DB {
+			return db.Omit("password", "email", "created_at", "updated_at", "deleted_at")
+		}).
+		Find(&fixedAssetsRequests).
+		Error
+	if err != nil {
+		return fixedAssetsRequests, err
+	}
+	return fixedAssetsRequests, nil
+}
+
+func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequestById(id string) (models.FixedAssetsRequestDetailed, error) {
+	var fixedAssetsRequest models.FixedAssetsRequestDetailed
+	err := dataSrc.DbPsql.
+		Table("fixed_assets_requests").
+		Preload("FixedAssets").
+		Preload("FixedAssets.FixedAsset", func(db *gorm.DB) *gorm.DB {
+			return db.Raw("select * from fixed_assets_detailed")
+		}).
+		Preload("Department", func(db *gorm.DB) *gorm.DB {
+			return db.Omit("created_at", "updated_at", "deleted_at")
+		}).
+		Preload("User", func(db *gorm.DB) *gorm.DB {
+			return db.Omit("password", "email", "created_at", "updated_at", "deleted_at")
+		}).
+		Where("id = ?", id).
+		Find(&fixedAssetsRequest).
+		Error
+	if err != nil {
+		return fixedAssetsRequest, err
+	}
+	return fixedAssetsRequest, nil
+}
+
 func (dataSrc FixedAssetsRequetsDataSource) CreateFixedAssetsRequest(transactionBody func(tx *gorm.DB) error) error {
 	errInTransaction := dataSrc.DbPsql.Transaction(transactionBody)
 	if errInTransaction != nil {
