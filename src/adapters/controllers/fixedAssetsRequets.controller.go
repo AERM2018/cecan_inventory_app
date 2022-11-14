@@ -31,7 +31,8 @@ func (controller *FixedAssetsRequestsController) New() {
 }
 
 func (controller FixedAssetsRequestsController) GetFixedAssetsRequests(ctx iris.Context) {
-	res := controller.Interactor.GetFixedAssetsRequests()
+	departmentId := ctx.URLParamDefault("department_id", "")
+	res := controller.Interactor.GetFixedAssetsRequests(departmentId)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return

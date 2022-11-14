@@ -11,17 +11,20 @@ type FixedAssetsRequetsDataSource struct {
 	DbPsql *gorm.DB
 }
 
-func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests() ([]models.FixedAssetsRequestDetailed, error) {
+func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests(departmentId string) ([]models.FixedAssetsRequestDetailed, error) {
 	fixedAssetsRequests := make([]models.FixedAssetsRequestDetailed, 0)
-	err := dataSrc.DbPsql.
+	sqlInstance := dataSrc.DbPsql.
 		Table("fixed_assets_requests").
 		Preload("Department", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
 		Preload("User", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("password", "email", "created_at", "updated_at", "deleted_at")
-		}).
-		Find(&fixedAssetsRequests).
+		})
+	if departmentId != "" {
+		sqlInstance = sqlInstance.Where("department_id = ?", departmentId)
+	}
+	err := sqlInstance.Find(&fixedAssetsRequests).
 		Error
 	if err != nil {
 		return fixedAssetsRequests, err
