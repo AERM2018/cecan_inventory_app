@@ -11,9 +11,16 @@ import (
 
 func InitFixedAssetsRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	fixedAssetsRequests := router.Party("/fixed_assets_requests")
+	// Datasources needed
 	fixedAssetsRequestDataSource := datasources.FixedAssetsRequetsDataSource{DbPsql: dbPsql}
 	fixedAssetsDataSource := datasources.FixedAssetsDataSource{DbPsql: dbPsql}
 	fixedAssetsDescriptionsDataSource := datasources.FixedAssetDescriptionDataSource{DbPsql: dbPsql}
+	// Db validator instance
+	val := middlewares.DbValidator{
+		FixedAssetsDataSource:         fixedAssetsDataSource,
+		FixedAssetsRequestsDataSource: fixedAssetsRequestDataSource,
+	}
+	// Controller definition
 	controller := controllers.FixedAssetsRequestsController{
 		FixedAssetsRequestsDataSource:     fixedAssetsRequestDataSource,
 		FixedAssetsDataSource:             fixedAssetsDataSource,
@@ -22,7 +29,11 @@ func InitFixedAssetsRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	controller.New()
 	fixedAssetsRequests.Use(middlewares.VerifyJWT)
 	fixedAssetsRequests.Get("/", controller.GetFixedAssetsRequests)
-	fixedAssetsRequests.Get("/{id:string}", controller.GetFixedAssetsRequestById)
-	fixedAssetsRequests.Post("/departments/{departmentId:string}", controller.CreateFixedAssetsRequest)
-	fixedAssetsRequests.Delete("/{id:string}", controller.DeleteFixedAssetsRequest)
+	fixedAssetsRequests.Get("/{id:string}", val.FindFixedAssetsRequestById, controller.GetFixedAssetsRequestById)
+	fixedAssetsRequests.Post("/departments/{departmentId:string}",
+		val.AreFixedAssetsValidFromRequest,
+		controller.CreateFixedAssetsRequest)
+	fixedAssetsRequests.Delete("/{id:string}",
+		val.FindFixedAssetsRequestById,
+		controller.DeleteFixedAssetsRequest)
 }

@@ -6,7 +6,6 @@ import (
 	usecases "cecan_inventory/domain/useCases"
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
-	"fmt"
 	"strings"
 
 	"github.com/kataras/iris/v12"
@@ -50,7 +49,6 @@ func (controller FixedAssetsController) CreateFixedAsset(ctx iris.Context) {
 func (controller FixedAssetsController) UpdateFixedAsset(ctx iris.Context) {
 	var fixedAsset models.FixedAsset
 	bodyreader.ReadBodyAsJson(ctx, &fixedAsset, true)
-	fmt.Println(fixedAsset)
 	fixedAssetKey := ctx.Params().GetStringDefault("key", "")
 	res := controller.FixedAssetsInteractor.UpdateFixedAsset(fixedAssetKey, fixedAsset)
 	if res.StatusCode > 300 {

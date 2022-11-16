@@ -90,7 +90,7 @@ func (dataSrc FixedAssetsDataSource) UpdateFixedAsset(key string, fixedAsset mod
 func (dataSrc FixedAssetsDataSource) DeleteFixedAsset(key string) error {
 	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
 		errDisassociating := tx.
-			Where("fixed_asset_key = ?", key).
+			Where("fixed_asset_id in(select id from fixed_assets where key = ?)", key).
 			Delete(&models.FixedAssetsItemsRequests{}).
 			Error
 		if errDisassociating != nil {

@@ -56,6 +56,7 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 		DepartmentId: fixedAssetsRequest.DepartmentId,
 	}
 	err := interactor.FixedAssetsRequestsDataSource.CreateFixedAssetsRequest(
+		// Init a transaction making use of the data source of fixed assets
 		func(tx *gorm.DB) error {
 			// Create fixed asset request instance
 			errCreatingReq := tx.Create(&requestNoAssets).Error
@@ -71,13 +72,13 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 					return err
 				}
 				fixedAssetItemRequest := models.FixedAssetsItemsRequests{
-					FixedAssetKey:        maps.Values(res.Data)[0].(models.FixedAssetDetailed).Key,
+					FixedAssetId:         maps.Values(res.Data)[0].(models.FixedAssetDetailed).Id,
 					FixedAssetsRequestId: requestNoAssets.Id,
 				}
 				// Associate the fixed asset with the request
 				errAssociating := tx.Create(&fixedAssetItemRequest).Error
 				if errAssociating != nil {
-					deleteAssetFunc(asset.FixedAssetKey)
+					deleteAssetFunc(asset.FixedAsset.Key)
 					return errAssociating
 				}
 			}
@@ -90,8 +91,12 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 			Message:    err.Error(),
 		}
 	}
+	fixedAssetsRequestCreated, _ := interactor.FixedAssetsRequestsDataSource.GetFixedAssetsRequestById(requestNoAssets.Id.String())
 	return models.Responser{
-		StatusCode: iris.StatusNoContent,
+		StatusCode: iris.StatusCreated,
+		Data: iris.Map{
+			"fixed_assets_request": fixedAssetsRequestCreated,
+		},
 	}
 }
 

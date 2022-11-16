@@ -108,7 +108,6 @@ func (interactor DepartmentsInteractor) AssingResponsibleToDepartment(id string,
 }
 
 func (interactor DepartmentsInteractor) ReactivateDepartment(id string) models.Responser {
-	fmt.Println(id)
 	err := interactor.DepartmentsDataSource.ReactivateDepartment(id)
 	if err != nil {
 		return models.Responser{

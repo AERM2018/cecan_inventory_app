@@ -84,14 +84,14 @@ func (interactor FixedAssetsInteractor) UpdateFixedAsset(key string, fixedAsset 
 		}
 		fixedAsset.FixedAssetDescriptionId = &fixedAssetDescription.Id
 	}
-	errUpdating := interactor.FixedAssetsDataSource.UpdateFixedAsset(key, fixedAsset)
+	interactor.FixedAssetsDataSource.UpdateFixedAsset(key, fixedAsset)
 	// Look for the instance updated
 	// Use the key of the req data in case it would have changed
-	fixedAssetUpdated, errUpdating := interactor.FixedAssetsDataSource.GetFixedAssetByKey(fixedAsset.Key)
-	if errUpdating != nil {
+	fixedAssetUpdated, errGettingUpdated := interactor.FixedAssetsDataSource.GetFixedAssetByKey(fixedAsset.Key)
+	if errGettingUpdated != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
-			Err:        errUpdating,
+			Err:        errGettingUpdated,
 		}
 	}
 	return models.Responser{

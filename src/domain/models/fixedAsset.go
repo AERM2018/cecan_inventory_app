@@ -8,7 +8,8 @@ import (
 
 type (
 	FixedAsset struct {
-		Key                     string     `gorm:"primaryKey" json:"key"`
+		Id                      uuid.UUID  `gorm:"primaryKey;default:'uuid_generate_v4();'" json:"id"`
+		Key                     string     `json:"key"`
 		Description             string     `json:"description"`
 		Brand                   string     `json:"brand"`
 		Model                   string     `json:"model"`
@@ -25,7 +26,8 @@ type (
 	}
 
 	FixedAssetDetailed struct {
-		Key                   string    `gorm:"primaryKey" json:"key"`
+		Id                    uuid.UUID `gorm:"primaryKey;default:'uuid_generate_v4()'" json:"id"`
+		Key                   string    `json:"key"`
 		Description           string    `json:"description"`
 		Brand                 string    `json:"brand"`
 		Model                 string    `json:"model"`

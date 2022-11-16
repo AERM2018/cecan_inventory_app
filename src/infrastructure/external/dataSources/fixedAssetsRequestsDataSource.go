@@ -3,6 +3,7 @@ package datasources
 import (
 	"cecan_inventory/domain/models"
 	"errors"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -34,6 +35,7 @@ func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests(departmentId 
 
 func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequestById(id string) (models.FixedAssetsRequestDetailed, error) {
 	var fixedAssetsRequest models.FixedAssetsRequestDetailed
+	fmt.Println("id", id)
 	err := dataSrc.DbPsql.
 		Table("fixed_assets_requests").
 		Preload("FixedAssets").
@@ -47,8 +49,9 @@ func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequestById(id string)
 			return db.Omit("password", "email", "created_at", "updated_at", "deleted_at")
 		}).
 		Where("id = ?", id).
-		Find(&fixedAssetsRequest).
+		First(&fixedAssetsRequest).
 		Error
+	fmt.Println("error", err)
 	if err != nil {
 		return fixedAssetsRequest, err
 	}
@@ -75,7 +78,7 @@ func (dataSrc FixedAssetsRequetsDataSource) DeleteFixedAssetsRequest(id string, 
 			return errors.New("Ocurrió un error al obtener los elementos de material fijo de la petición.")
 		}
 		for _, fixedAsset := range fixedAssetsItemsRequest {
-			errDeleting := deleteFixedAssetFunc(fixedAsset.FixedAssetKey)
+			errDeleting := deleteFixedAssetFunc(fixedAsset.FixedAsset.Key)
 			if errDeleting != nil {
 				return errDeleting
 			}
