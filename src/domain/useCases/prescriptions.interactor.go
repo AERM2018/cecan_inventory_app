@@ -28,6 +28,8 @@ func (interactor PrescriptionInteractor) CreatePrescription(prescriptionRequest 
 		}
 	}
 	prescriptionFound, _ := interactor.PrescriptionsDataSource.GetPrescriptionById(prescriptionId)
+	prescriptionDoc := models.PrescriptionDoc{}
+	prescriptionDoc.CreateDoc()
 	return models.Responser{
 		StatusCode: iris.StatusCreated,
 		Data: iris.Map{
@@ -50,12 +52,28 @@ func (interactor PrescriptionInteractor) GetPrescriptions(userId string) models.
 	}
 }
 
-func (interactor PrescriptionInteractor) GetPrescriptionById(id uuid.UUID) models.Responser {
+func (interactor PrescriptionInteractor) GetPrescriptionById(id uuid.UUID, isPdf bool) models.Responser {
 	prescription, err := interactor.PrescriptionsDataSource.GetPrescriptionById(id)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
 			Err:        err,
+		}
+	}
+	if isPdf {
+		prescriptionDoc := models.PrescriptionDoc{Prescription: prescription}
+		filePath, errInPdf := prescriptionDoc.CreateDoc()
+		if errInPdf != nil {
+			return models.Responser{
+				StatusCode: iris.StatusInternalServerError,
+				Err:        errInPdf,
+			}
+		}
+
+		return models.Responser{
+			ExtraInfo: []map[string]interface{}{
+				{"file": filePath},
+			},
 		}
 	}
 	return models.Responser{

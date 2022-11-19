@@ -1,2 +1,3 @@
 Docker/*/*.env
 src/tmp
+src/domain/pdfs/*.pdf
