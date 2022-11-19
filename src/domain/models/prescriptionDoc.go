@@ -111,9 +111,19 @@ func (doc PrescriptionDoc) _addPrescriptionInfo(m pdf.Maroto) {
 			m.Text("Fecha de creación: ", props.Text{Style: consts.Bold, Size: 12})
 		})
 		m.Col(3, func() {
-			m.Text(doc.CreatedAt.Format(time.RFC822), props.Text{Align: consts.Left, Size: 12})
+			m.Text(doc.Prescription.CreatedAt.Format(time.RFC822), props.Text{Align: consts.Left, Size: 12})
 		})
 	})
+	if doc.Prescription.PrescriptionStatus.Name == "Completada" {
+		m.Row(10, func() {
+			m.Col(3, func() {
+				m.Text("Fecha de ultima suministración: ", props.Text{Style: consts.Bold, Size: 12})
+			})
+			m.Col(3, func() {
+				m.Text(doc.Prescription.SuppliedAt.Format(time.RFC822), props.Text{Align: consts.Left, Size: 12})
+			})
+		})
+	}
 }
 
 func (doc PrescriptionDoc) _addMedicineList(m pdf.Maroto) {

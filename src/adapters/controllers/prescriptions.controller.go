@@ -31,7 +31,7 @@ func (controller PrescriptionsController) CreatePrescription(ctx iris.Context) {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
 	}
-	helpers.PrepareAndSendDataResponse(ctx, res)
+	ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "receta.pdf")
 }
 
 func (controller PrescriptionsController) GetPrescriptions(ctx iris.Context) {
