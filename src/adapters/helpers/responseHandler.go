@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/kataras/iris/v12"
+	"golang.org/x/exp/maps"
 )
 
 func PrepareAndSendMessageResponse(c iris.Context, response models.Responser) {
@@ -34,6 +35,16 @@ func PrepareAndSendDataResponse(c iris.Context, response models.Responser) {
 		responseTag = "error"
 	}
 	mapResponse = iris.Map{"ok": ok, responseTag: response.Data}
+	if len(response.ExtraInfo) > 0 {
+		for _, extra := range response.ExtraInfo {
+			mapResponse[maps.Keys(extra)[0]] = extra[maps.Keys(extra)[0]]
+		}
+	}
+	if len(response.Headers) != 0 {
+		for _, h := range response.Headers {
+			c.Header(h["name"].(string), h["value"].(string))
+		}
+	}
 	c.StatusCode(response.StatusCode)
 	c.StopWithJSON(response.StatusCode, mapResponse)
 }

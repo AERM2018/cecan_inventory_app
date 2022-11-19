@@ -1,0 +1,4888 @@
+{
+    "descripciones": [
+        {
+            "id": "b718a114-f611-4f9e-a391-8a867b42afeb",
+            "descripcion": "ARCHIVERO DE MADERA 3 GAVETAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "196b7811-4035-43dc-95b3-e64a966a1853",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": ""
+        },
+        {
+            "id": "997e775c-e104-450d-920b-eb8d20eafe62",
+            "descripcion": "IMPRESORA COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "974811ef-5498-4174-86c1-9d329eb4a804",
+            "descripcion": "LIBRERO CON 5 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ba0bc255-5e5b-4704-af7a-7fa57cda179e",
+            "descripcion": "REGULADOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bfdb8e7c-ed08-401a-ac28-76814b37c9cb",
+            "descripcion": "SILLA COLOE VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d4217f4a-3e56-43cb-a18d-5a597f397aca",
+            "descripcion": "ESCRITORIO EN L",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "36dc41f7-98ad-4345-b162-42c465d9d1f3",
+            "descripcion": "SILLA EJECUTIVA VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f9ea8414-b63a-498f-b72f-0c224636703a",
+            "descripcion": "ARCHIVERO 2 GAVETAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6c8ccad1-e837-489e-9991-7da6707d4acf",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "P6720la"
+        },
+        {
+            "id": "35a27f8e-0e4f-4dac-975d-c5a543247669",
+            "descripcion": "SILLA COLOR VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4e24ad99-7d0e-4136-9ff2-d5962a0678a0",
+            "descripcion": "SILLA VERDE GIRATORIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "92ccb4ce-da06-4ce4-a611-8b19ee7ca2f7",
+            "descripcion": "TELEFONO CISCO",
+            "marca": "CISCO",
+            "modelo": "FCH16069BCM"
+        },
+        {
+            "id": "8df2a56d-6ed5-4aaf-a342-cf82b1d06d9d",
+            "descripcion": "ESTANTE METALICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d35019c1-376d-460d-8e67-b55f4e7f692c",
+            "descripcion": "GAVETA GRIS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "58d65f35-2ed8-4d12-940d-7123b622035c",
+            "descripcion": "REFRIGERADOR DOS PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4fc616ec-416a-4793-971e-4c44caf224db",
+            "descripcion": "COMPUTADORA AIO",
+            "marca": "HP",
+            "modelo": "20-C216LS"
+        },
+        {
+            "id": "4999bd87-a68f-41ae-9d2e-bd6bf841d466",
+            "descripcion": "TELEFONO CISCO",
+            "marca": "CISCO",
+            "modelo": "CP-3905"
+        },
+        {
+            "id": "62b5f5e1-6e42-4d51-adfc-4935b193d823",
+            "descripcion": "IMPRESORA",
+            "marca": "SAMSUNG",
+            "modelo": ""
+        },
+        {
+            "id": "f9a60bb1-a2f3-4af0-9ae6-cf81c081a8c4",
+            "descripcion": "SILLA VERDE CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c2b7b2b2-a7cd-4b1a-af00-c080fcd7a9dd",
+            "descripcion": "BOTE PARA BASURA CON PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e8fd4f9e-cdef-4750-90bd-8a9cee2f085a",
+            "descripcion": "BANCO DE ALTURA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1fbeb214-ebf0-45da-8bde-d250122fe271",
+            "descripcion": "SILLA VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d6d5b52d-3082-49c5-8234-0c76532cbda9",
+            "descripcion": "SILLA VERDE AJUSTABLE CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3ff82d3f-3ad4-403d-9944-10018b56bc5b",
+            "descripcion": "ESCRITORIO EN L CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a09d7820-9781-424d-86f1-058a3b7c81cc",
+            "descripcion": "DIABLITO ROJO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9e0a38da-8443-4650-9356-6a5fcfbbd6dc",
+            "descripcion": "MINISPLIT",
+            "marca": "MIRAGE",
+            "modelo": ""
+        },
+        {
+            "id": "8aaef188-9599-49f8-831a-66ea74da94dd",
+            "descripcion": "BOTE PARA BASURA MADERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8bbf0d9c-6bfd-49dd-96aa-8c890d66925a",
+            "descripcion": "BOTE PARA BASURA PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bac77c57-17d5-4250-99eb-a5ea0bf0a68d",
+            "descripcion": "GAVETA ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "41768813-c824-47a9-abfd-6a015000c29b",
+            "descripcion": "SILLA AJUSTABLE CON DESCANSA BRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bec702a5-acf2-4ba3-951f-71b786fa2ff4",
+            "descripcion": "IMPRESORA GRIS",
+            "marca": "SAMSUNG",
+            "modelo": "M4072FD"
+        },
+        {
+            "id": "b2c115b7-3283-4213-b2a1-11d209552402",
+            "descripcion": "REPISA CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ee72e905-3d25-4fe3-adc1-ea5921d4d26a",
+            "descripcion": "CAJONERA GRIS 4 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "30410955-054e-47c7-8716-1b20c14a1843",
+            "descripcion": "TELEFONO CISCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6fb66a91-80ce-4640-b946-e51e0a29dc3b",
+            "descripcion": "TELEFONO BLANCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a55a8a13-3348-4ab0-984b-f4c0017f5e50",
+            "descripcion": "ESCRITORIO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "53d3e0a2-ce72-496e-94e6-7cad14d0e007",
+            "descripcion": "CAJONERA 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fb674850-d1d6-4f78-8eb9-09349b33eb46",
+            "descripcion": "COMPUTADORA NEGRA",
+            "marca": "LENOVO",
+            "modelo": ""
+        },
+        {
+            "id": "88f11717-477b-4793-b06f-59e0d6e086a9",
+            "descripcion": "CAJONERA 3 CAJONES COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4c5c23ca-f84f-4ea4-af95-35311fa9aeb1",
+            "descripcion": "SILLA NEGRA CON DESCANSA BRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d96597a6-e232-47dc-8542-9cdaf7235b70",
+            "descripcion": "BOTE PARA BASURA DE PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ee68dc9b-a496-4479-8554-8f2fddbd1327",
+            "descripcion": "CAJONERA COLOR BEIGE 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a0e33108-107d-43d3-b5a6-7fb47220331c",
+            "descripcion": "CAJONERA COLOR CAOBA 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1249d280-19e4-46e9-a380-5c584173e26a",
+            "descripcion": "REPRODUCTOR DVD",
+            "marca": "SONY",
+            "modelo": "DVR-SR115"
+        },
+        {
+            "id": "4ade8d0e-4a11-4528-bcf5-f8c67d77215b",
+            "descripcion": "SILLA VERDE FIJA CON DESCANSA BRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2e02b60d-50c4-4d90-be6a-d91cc45658e5",
+            "descripcion": "IMPRESORA GRIS CON NEGRO",
+            "marca": "SAMSUNG",
+            "modelo": "XPRESS-M2020"
+        },
+        {
+            "id": "ae9af2c6-7bad-4f2a-a058-fa67f8a0d37a",
+            "descripcion": "ESCRITORIO COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9f1ed817-ac61-49e6-a621-cf041d611e55",
+            "descripcion": "ESCRITORIO PARA COMPUTADORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "789d52d2-febf-47fb-8d24-207857f3e37c",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "20-C401Ia"
+        },
+        {
+            "id": "d679ff9f-4196-4b0d-82f3-32c11d58a04b",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "LG",
+            "modelo": "19M38A"
+        },
+        {
+            "id": "3cbe0165-a4dc-4379-b978-eeb4b5671151",
+            "descripcion": "TELEFONO CISCO",
+            "marca": "CISCO",
+            "modelo": ""
+        },
+        {
+            "id": "842a5731-ed8f-42ae-beda-351dbd5bd5ae",
+            "descripcion": "REGULADOR NEGRO",
+            "marca": "XPOWER",
+            "modelo": ""
+        },
+        {
+            "id": "83afbf2f-caf0-48a1-b7cf-f03cb04089f6",
+            "descripcion": "SILLA SECRETARIAL COLOR VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e642855a-38d3-40ca-9946-54d1d7eb4961",
+            "descripcion": "IMPRESORA MULTIFUNCIONAL",
+            "marca": "BROTHER",
+            "modelo": "DCP-L5650DN"
+        },
+        {
+            "id": "03fffcd9-f03d-439a-950d-d22a636366a1",
+            "descripcion": "ESCRITORIO EN L COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a18bb905-bf0d-4777-a1a2-be05f4c64d76",
+            "descripcion": "COMPUTADORA",
+            "marca": "HP",
+            "modelo": "TFT185W80PS"
+        },
+        {
+            "id": "2278a8dd-40e2-40aa-adc2-c3d1b7fd66ad",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": "0I5B-0906-00"
+        },
+        {
+            "id": "eac42e60-d69a-4b7a-b292-e7c983db7f90",
+            "descripcion": "REGULADOR",
+            "marca": "XPOWER",
+            "modelo": ""
+        },
+        {
+            "id": "94f70621-a08f-4aa0-9d14-ce16dea0b8ff",
+            "descripcion": "ARCHIVERO 4 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b6aed6dc-6563-4b65-aa6e-f72155eaad08",
+            "descripcion": "BOTE DE BASURA PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3e5cdedb-9ca8-4bda-bf28-f8d21817ad20",
+            "descripcion": "LAVABO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c98a7405-5f6f-42e5-8fda-d34647c643bd",
+            "descripcion": "COMPUTADORA",
+            "marca": "GATAWAY",
+            "modelo": "HXI853L"
+        },
+        {
+            "id": "4460db4c-27f3-4005-8d88-5979c1499f81",
+            "descripcion": "IMPRESORA",
+            "marca": "SAMSUNG",
+            "modelo": "XPRESM2070"
+        },
+        {
+            "id": "01255a76-a37d-42d9-8c67-ab2e5abd947f",
+            "descripcion": "REGULADOR",
+            "marca": "VICA",
+            "modelo": ""
+        },
+        {
+            "id": "6b556e74-50a9-4475-b470-131dcd54b6b4",
+            "descripcion": "ARCHIVERO 3 CAJONES COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "433e4e2d-f098-431e-83c7-1e2cb343083c",
+            "descripcion": "SILLA VERDE SECRETARIAL CON DESCANSA BRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c84a790c-9a04-4ae2-8f72-f20209b0a014",
+            "descripcion": "COMPUTADORA",
+            "marca": "HP",
+            "modelo": "7265NGWAN"
+        },
+        {
+            "id": "577f16bb-a926-4b4e-a15f-f9a69647ca3a",
+            "descripcion": "BOTE PARA BASURA MADERA CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c7f6659c-8152-4adf-beee-c47b5c00d59e",
+            "descripcion": "BOTE PARA BASURA MADERA NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "87322b93-49de-4bd0-befd-8d2c70a761ce",
+            "descripcion": "REGULADOR",
+            "marca": "COMPLET",
+            "modelo": ""
+        },
+        {
+            "id": "81086e80-2eda-4208-9440-a0899ba58a47",
+            "descripcion": "DESPACHADOR DE AGUA",
+            "marca": "GENERAL ELECTRIC",
+            "modelo": ""
+        },
+        {
+            "id": "a3264252-6e7c-4fd4-8648-df59e9bef555",
+            "descripcion": "SILLA VERDE FIJA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "912ecffb-be37-43c9-822f-8b5df77ac081",
+            "descripcion": "LIBRERO 5 ENTREPAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "71a14aa2-d4ac-47b4-98ee-dc91f07f478e",
+            "descripcion": "TELEFONO BLANCO",
+            "marca": "PANASONIC",
+            "modelo": ""
+        },
+        {
+            "id": "7db8e7b1-bf7c-4f38-98df-14e89aa43d57",
+            "descripcion": "COMPUTADORA",
+            "marca": "HP",
+            "modelo": "21-B0013la"
+        },
+        {
+            "id": "efca6ca1-b921-4ce4-b05d-d00ef353d831",
+            "descripcion": "CAMA ELECTROMECANICA",
+            "marca": "STRYKER",
+            "modelo": "FL28C"
+        },
+        {
+            "id": "8e5f4bf5-c34d-418f-9389-e2c2b0526125",
+            "descripcion": "CAMA MECANICA",
+            "marca": "STRYKER",
+            "modelo": ""
+        },
+        {
+            "id": "c848d70a-3149-4863-b5fd-6293c391f6b6",
+            "descripcion": "TRIPIE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "23154add-d8d6-4be0-bd3f-42b8a5f4b808",
+            "descripcion": "ELECTROCARDIOGRAFO",
+            "marca": "FUKUDA CARDIMAX",
+            "modelo": "7202"
+        },
+        {
+            "id": "2694bd2c-a40b-4656-9c57-dae460a81fd7",
+            "descripcion": "CARRO AZUL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ba09bdcb-84fc-4d02-b18f-f98c19e73020",
+            "descripcion": "ESCRITORIO CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c678f2ef-63ad-4b19-aa38-ba01e9057b8f",
+            "descripcion": "VITRINA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "66351776-0a00-4422-8a6e-cf9df1c2f318",
+            "descripcion": "TARJA ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "383ff21c-0b34-44f7-8f62-b1fad96dc991",
+            "descripcion": "MESA PASTEUR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "64e52ac1-6791-46b4-a9a0-dc5aea1afaec",
+            "descripcion": "BANCO NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c2166d3f-feab-40bd-ae80-f8f6d85f90e2",
+            "descripcion": "LAMPARA DE CHICOTE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c0095977-d2db-473a-9c06-4bc8d7e59a74",
+            "descripcion": "ESTANTERIA BLANCA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5a717ffc-ca1e-4502-b4fd-7c9eeb410763",
+            "descripcion": "DESFIBRILADOR",
+            "marca": "ZOLL",
+            "modelo": "M SERIES"
+        },
+        {
+            "id": "9cc71377-9dc0-4407-91c6-9645ebd977a5",
+            "descripcion": "BASCULA CON ESTADIMETRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8de32bd1-5ff6-484c-9657-0dd4e0019859",
+            "descripcion": "MAMPARA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "484d45fa-d0bd-4c3d-b316-4c8827bab733",
+            "descripcion": "LIBRERO5 ENTREPAÑOS COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "201a8fba-de97-43a9-b220-24e972203868",
+            "descripcion": "ESTANTE 4 ENTREPAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "77021e72-f146-4525-834b-f336421cbb49",
+            "descripcion": "GUILLOTINA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c823a360-d282-4be7-a1ef-f98a6aac194d",
+            "descripcion": "LAMINADORA ",
+            "marca": "GBC",
+            "modelo": "300L12"
+        },
+        {
+            "id": "6df77b9e-871b-4576-bfbb-e369042e8410",
+            "descripcion": "SILLA VERDE SECRETARIAL ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3b31ea02-e531-45ee-8a63-5f395d5c13e4",
+            "descripcion": "SILLA VERDE SECRETARIAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "73444960-4f53-4854-a9bf-ccc5eab8c0a6",
+            "descripcion": "IMPRESORA NEGRA",
+            "marca": "HP",
+            "modelo": ""
+        },
+        {
+            "id": "2ac42749-970a-4bf9-9435-cd448b3352e0",
+            "descripcion": "REGULADOR",
+            "marca": "SMARBITT",
+            "modelo": ""
+        },
+        {
+            "id": "23746fee-ac43-43a5-9bcd-906f1a5404a2",
+            "descripcion": "BOTE PARA BASURA DE MADERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8d2720f6-922b-418c-929b-0bcbf9c5e4f8",
+            "descripcion": "IMPRESORA",
+            "marca": "EPSON",
+            "modelo": "C462H"
+        },
+        {
+            "id": "ec90dcb6-e3c0-48da-a7d0-65f102b0f16b",
+            "descripcion": "ESCRITORIO EN  COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "90a0870e-ae6c-4948-a672-9c44449aecb5",
+            "descripcion": "IMPRESORA COLOR BLANCO",
+            "marca": "HP",
+            "modelo": "SHNGC-1505-01"
+        },
+        {
+            "id": "97b6e545-75d9-4f2d-8026-8253f4eb0100",
+            "descripcion": "EQUIPO DE COMPUTO ALL IN ONE",
+            "marca": "HP",
+            "modelo": "24G2141A"
+        },
+        {
+            "id": "e9b47aae-e485-45e5-b849-c8a6efb43a97",
+            "descripcion": "REGULADOR",
+            "marca": "MICROBOLT",
+            "modelo": ""
+        },
+        {
+            "id": "272d1b98-2935-4111-868a-802448d3361a",
+            "descripcion": "ARCHIVERO 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0d369473-ace2-4e0c-9b39-85b0e23c5206",
+            "descripcion": "IMPRESORA",
+            "marca": "SAMSUNG",
+            "modelo": "PROXPRESS M4072FD"
+        },
+        {
+            "id": "c7b32f06-b647-4c36-8258-8cc4bddad7e6",
+            "descripcion": "TELEFONO",
+            "marca": "CISCO",
+            "modelo": ""
+        },
+        {
+            "id": "e6aa406f-29a7-439c-96c8-35a68a05f88a",
+            "descripcion": "IMPRESOR DE PUNTO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "cab12e24-491a-425f-81c3-528062dd292e",
+            "descripcion": "REGULADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a1693a72-dcac-4020-bfca-9f2dc1b0e040",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "LANIX",
+            "modelo": ""
+        },
+        {
+            "id": "3ec3b80d-afd9-488f-bc9a-b7a2a9ed61b9",
+            "descripcion": "BOTE PARA BASURA DE PLASTICO BLANCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "849b7fad-75bc-4335-9c7f-c56eb3e81a45",
+            "descripcion": "BOTE PARA BASURA DE PLASTICO NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "27b9c201-8b75-47b5-9213-b4c9fa95ba0a",
+            "descripcion": "SILLA FIJA NEGRA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b65442af-5683-41ad-a69f-8e93e8eaa9bc",
+            "descripcion": "SILLA EJECUTIVA NEGRA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ad0d5b26-5968-40ef-81e3-b1ce6ef07214",
+            "descripcion": "VITRINA COLOR BLANCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "96f120b7-a0cd-4f3f-81e5-9231b283f4ca",
+            "descripcion": "COMPUTADORA NEGRA",
+            "marca": "",
+            "modelo": "20-C401LO"
+        },
+        {
+            "id": "c45e4eb5-198d-4a03-b8d0-b8d677df660d",
+            "descripcion": "IMPRESORA NEGRA",
+            "marca": "BROTHER",
+            "modelo": "1617NVV"
+        },
+        {
+            "id": "89c1e249-26df-4183-aa71-84b38fa1c25d",
+            "descripcion": "BANCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8fecf05a-dad5-4737-96c9-f1ad574c03fe",
+            "descripcion": "CAMA DE EXPLORACION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3b6bf674-17f1-4398-b136-48891f47e94a",
+            "descripcion": "SILLA VERD CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bde40162-e1b1-46ac-b7cc-7f1ef0d2bd75",
+            "descripcion": "NEGATOSCOPIO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "59dfe675-828b-4d19-bbbf-b14f072963bd",
+            "descripcion": "REPISA DE MADERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a5935b6a-6ad7-445d-ae79-7e184c70267a",
+            "descripcion": "BOTE METALICO DE PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0cba18e9-92d6-4659-b07a-74a9df7ade33",
+            "descripcion": "BOTE PARA BASURA DE CAMPANA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "79d001f5-7683-40c9-9845-c42205d48e99",
+            "descripcion": "BOTE DE PATADA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9a0042fe-de7c-46b5-acee-cebc981a8c03",
+            "descripcion": "BASCULA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fa8faead-558c-4a1a-b9c5-f708f5de8737",
+            "descripcion": "ESCRITORIO CAFÉ METALICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "43dd996a-9fe1-48c1-83c8-f35a207f78c1",
+            "descripcion": "COMPUTADORA ALL IN ONE BLANCA",
+            "marca": "HP",
+            "modelo": "24-G214LA"
+        },
+        {
+            "id": "fdb2fd4f-a971-44b0-a190-83926a35a432",
+            "descripcion": "MESA CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b0581515-2aba-480e-be37-b23fea3c7327",
+            "descripcion": "REGULADOR ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1ad78783-ce40-4cbf-aed4-d721c8dffdec",
+            "descripcion": "SILA NEGRA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5322609d-0629-4021-9e3c-44272da8a0e0",
+            "descripcion": "COMPUTADORA EVOTEK",
+            "marca": "EVOTEK",
+            "modelo": ""
+        },
+        {
+            "id": "ba6698ef-a632-4d25-adc8-474180ce8e5a",
+            "descripcion": "IMPRESORA",
+            "marca": "BROTHER",
+            "modelo": "MFC-L2700DW"
+        },
+        {
+            "id": "6000c5aa-ba1a-403f-a8ad-0e97818ff2e2",
+            "descripcion": "BOTE PARA BASURA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bb2cd1fc-e693-4389-bbeb-c357ad449318",
+            "descripcion": "REGULADOR",
+            "marca": "APC",
+            "modelo": ""
+        },
+        {
+            "id": "099703a2-3827-4361-83a8-8c877a31a42a",
+            "descripcion": "COMPUTADORA NEGRA",
+            "marca": "HP",
+            "modelo": "20-C401LA"
+        },
+        {
+            "id": "a7473789-c3f2-46de-869c-9c4e758a7c52",
+            "descripcion": "MESA DE MAYO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9b8f8e7b-c79e-4b25-8303-bfc88d722993",
+            "descripcion": "SILLA NEGRA AJUSTABLE CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5ead2a0c-6994-4196-bebc-2d2ddcc27ee2",
+            "descripcion": "ESCRITORIOEN L",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ba3bb4bd-be2c-45ee-a1f9-7843d9dacb7a",
+            "descripcion": "VITRINA BLANCA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d669a2a8-5a5c-4f37-a5a5-a58d5650e58b",
+            "descripcion": "ESCRITORIO EN L COLOR VINO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1885095d-aa8f-40bc-82ae-11f67dd266fa",
+            "descripcion": "CAJONERA COLOR VINO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f8869f99-6886-4b86-a379-78b3f3739aed",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "ALL IN ONE"
+        },
+        {
+            "id": "b6ca489d-a509-4149-992c-7904f9144ff6",
+            "descripcion": "IMPRESORA COLOR NEGRO",
+            "marca": "BROTHER",
+            "modelo": "DCP"
+        },
+        {
+            "id": "be383ffe-e8b8-48b4-a9d2-754fe0d51997",
+            "descripcion": "MESA DE EXPLORACION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7602a7e9-76ec-4e89-90c3-867d283992e0",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "COMPLET",
+            "modelo": "1200"
+        },
+        {
+            "id": "994cef29-2d12-4371-9b82-9d648e9e6b66",
+            "descripcion": "BASCULA DE PIE ",
+            "marca": "TORINO",
+            "modelo": "PERSONA PLUS"
+        },
+        {
+            "id": "7b59b0c4-7188-4a58-a1cb-f376f37db898",
+            "descripcion": "ESTUCHE DE DIAGNOSTICO",
+            "marca": "WELCH ALLYN",
+            "modelo": ""
+        },
+        {
+            "id": "320f5509-de8d-4806-9204-9b73f412eddc",
+            "descripcion": "CAJONERA DE PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "cb7e02fe-8180-4b6d-a06f-5422ad585c8e",
+            "descripcion": "BOTE DE BASURA DE CAMPANA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "97fb85b8-920f-46a1-8c4b-5464959d51dd",
+            "descripcion": "TRIPE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f3083ab8-2a14-4c11-b866-2eaac8150b0d",
+            "descripcion": "GABETA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "deaca492-d116-43f9-a2fe-6e48266f7ff4",
+            "descripcion": "COMPUTADORA NEGRA",
+            "marca": "ACER",
+            "modelo": ""
+        },
+        {
+            "id": "1a4b301f-e2a9-4d33-bc0b-984c24d386fc",
+            "descripcion": "DESFIBRILADOR MANUAL",
+            "marca": "ZOLLM SERIES",
+            "modelo": ""
+        },
+        {
+            "id": "474bfc27-2db5-4a08-b6f0-259594af740c",
+            "descripcion": "CAJONERA MADERA 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "913043a0-7140-4bd5-b6cb-5ae96495ae73",
+            "descripcion": "CAMA HOSPITALARIA",
+            "marca": "STRYKER",
+            "modelo": "FLX28EX1"
+        },
+        {
+            "id": "df3a0bbe-e9db-4d40-acfd-88dafe469262",
+            "descripcion": "CAMA HOSPITALARIA",
+            "marca": "STRYKER",
+            "modelo": "FL28EX1"
+        },
+        {
+            "id": "c3d6dfbd-55fd-4efb-8458-d61bcab7f0df",
+            "descripcion": "MESA METALICA ELEVADA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "188d7690-abeb-4321-9b33-080b476e5005",
+            "descripcion": "MAMPARA DE PLOMO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0f697953-a94d-42c5-9665-fb8d14023522",
+            "descripcion": "CARRO AZUL REANIMACION",
+            "marca": "METRO LIFE LINE",
+            "modelo": ""
+        },
+        {
+            "id": "4a8f6516-07d7-42dc-911f-cf6e2a1d7701",
+            "descripcion": "CAMA DE HOSPITAL ELECTRICA",
+            "marca": "STRYKER",
+            "modelo": "FL28EX1"
+        },
+        {
+            "id": "fe3c5ee5-6123-4dcb-bce6-a602760d703d",
+            "descripcion": "TARJA DE MADERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4a6fc314-9cba-4ab0-9387-1027acb18610",
+            "descripcion": "CAMA PARA PACIENTE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "78a5edf5-b729-4f7a-9955-cd478a3a5d8a",
+            "descripcion": "VENTILADOR",
+            "marca": "WIND MACHINE",
+            "modelo": ""
+        },
+        {
+            "id": "ff346ae5-ccfb-4a46-838c-8bb4601b3fc5",
+            "descripcion": "MINISPLIT",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e2b60170-20b8-42cb-85d3-65db01b816cf",
+            "descripcion": "CAMARA DE SEGURIDAD",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3aec36a2-1c0e-4d34-8f6f-e38d9d2b4eda",
+            "descripcion": "MAMPARA DE TELA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3a133b8e-1806-4e19-b1f2-b13b1f927467",
+            "descripcion": "MESA METALICA CON RUEDAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4de4fd23-30b2-4eb3-a2a1-0625f2d9571b",
+            "descripcion": "ASPIRADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8f2855e3-6820-485c-8a0c-e1310b89334c",
+            "descripcion": "EQUIPO DE TELETERAPIA",
+            "marca": "THERATOON",
+            "modelo": "1000"
+        },
+        {
+            "id": "716062c9-d019-4532-b9fd-faf4608770e2",
+            "descripcion": "MESA MADERA CON GABETAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "24af529f-3a70-4ab7-b52d-d94ccb5a985b",
+            "descripcion": "BANCO DE 2 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "45c5429c-ce09-40df-90bd-09dfc0c46961",
+            "descripcion": "MESA PARA MOLDES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1191c579-c5be-41a9-85c1-bd09525db103",
+            "descripcion": "CONTROL DE SALIDA, DETECTOR AMBIENTAL DE RADIACION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "668e86f5-2492-4441-ada7-2b415d6729f2",
+            "descripcion": "MONITOR NEGRO",
+            "marca": "PANASONIC",
+            "modelo": ""
+        },
+        {
+            "id": "f90fd69a-4682-4b09-b0d2-95b4a337ae0f",
+            "descripcion": "CONSOLA DE MANDO",
+            "marca": "THERATRON",
+            "modelo": "1000"
+        },
+        {
+            "id": "666218a4-31f4-4519-ae00-6593e92fe601",
+            "descripcion": "CAJONERA MADERA BLANCA 2 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f8da2ac9-ee48-4b01-8cd6-7a1935b85513",
+            "descripcion": "SISTEMA DE CAMARAS",
+            "marca": "STEREN",
+            "modelo": ""
+        },
+        {
+            "id": "0ca44788-f0ce-4000-8610-5b2a1fa42248",
+            "descripcion": "SOPORTE DE MONITOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3c8946a9-d8dc-48ee-b7a7-bdef48037143",
+            "descripcion": "REPOSET NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0a48e372-2fdf-426f-90c4-033d8e1a23f6",
+            "descripcion": "ESTANTE MADERA BLANCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a51b07d8-c6da-460f-92d5-366e70560b41",
+            "descripcion": "PIZARRA BLANCA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "56f21d1f-37da-4cbd-a618-998630d95ae5",
+            "descripcion": "MONITOR",
+            "marca": "MAGNAVOX",
+            "modelo": ""
+        },
+        {
+            "id": "fa186d4c-a4e1-46ce-8f6c-b6f37e729f07",
+            "descripcion": "CONTROL DE SALIDA, DETECTOR AMBIENTAL DE RADIACION",
+            "marca": "FLUKE",
+            "modelo": ""
+        },
+        {
+            "id": "284ff352-d056-4861-a04f-14953d9f8787",
+            "descripcion": "APARATO DE RAYOS X PORTATIL",
+            "marca": "SIEMENS",
+            "modelo": "MOBILETT"
+        },
+        {
+            "id": "3209c19b-a8dc-4e75-b1a7-5f560011811e",
+            "descripcion": "CAMILLA DE TRATAMIENTO PARA TERAPIA SUPERFICIAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "23fb0eb9-89c5-44cb-aba5-e5f825a89f42",
+            "descripcion": "BANCO DE 1 PELDAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9edbb891-93bb-4b8e-9cd3-f0aad942bd9d",
+            "descripcion": "MINISPLIT",
+            "marca": "MCQUAY",
+            "modelo": ""
+        },
+        {
+            "id": "b13d343e-196f-42cc-886f-47d9a6821ba5",
+            "descripcion": "PANTOMA DE DOSIMETRIA APARATO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a8982114-2494-4dc9-bf65-b1f2ef0e4b3b",
+            "descripcion": "CAJONERA BEIGE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6934e9fd-d63d-4de3-8aba-01ac00dc13eb",
+            "descripcion": "FUNDIDORA PARA VACIAR MOLDES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c08a5248-9666-459c-9a8a-4a24a0a9eda9",
+            "descripcion": "MESA DE CIRUGIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5177f3d8-a8f1-448f-b816-9f104e4fa361",
+            "descripcion": "CORTADORA PARA HACER MOLDES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "41d3edf2-3bdb-4e94-9b9a-d68f71f747a2",
+            "descripcion": "MUEBLE PARA ESMERILADORA MADERA, 2 PUERTAS, 2 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f60bc894-401b-4ccc-81f2-b8358e7c8b24",
+            "descripcion": "ESMERILADORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1455297e-8182-496f-8099-1244872f8c0c",
+            "descripcion": "SILLON REPOSET",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5bb6d0ac-6a6b-4036-82e6-1f14c33af840",
+            "descripcion": "LAVADORA",
+            "marca": "MAYTAG",
+            "modelo": "MFS8OPNFVS"
+        },
+        {
+            "id": "5c181c15-cb1a-48cc-9d37-c55a88508390",
+            "descripcion": "SECADORA",
+            "marca": "MAYTAG",
+            "modelo": "MDG75LNVWW"
+        },
+        {
+            "id": "47de65e4-22e2-4139-8e41-6eeecd2dbf5b",
+            "descripcion": "MESA ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "843083f1-a495-4049-8632-83568ecab17a",
+            "descripcion": "BANCA METALICA PARA 3 PERSONAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d8715c8f-4242-4afb-b766-d3e4cb488958",
+            "descripcion": "BOTE DE PLASTICO PARA BASURA DE CAMPANA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e3895db8-5759-4012-97b4-e9b223caa561",
+            "descripcion": "COMPUTADORA NEGRA",
+            "marca": "HP",
+            "modelo": "FV583A"
+        },
+        {
+            "id": "2b64c96b-ac2a-4acc-b7f4-dee4a429e42a",
+            "descripcion": "IMPRESORA NEGRA",
+            "marca": "SAMSUNG",
+            "modelo": "NL-1640"
+        },
+        {
+            "id": "058dd314-f1ee-445d-bb55-cf79047077dd",
+            "descripcion": "ESCRITORIO ENSAMBLADO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4eeb9a49-9a7e-4123-bad6-9b1f12e88c9e",
+            "descripcion": "ELECTROCARDIOGRAMA",
+            "marca": "WELCHALLYN",
+            "modelo": ""
+        },
+        {
+            "id": "facd68f2-42a0-4c25-a879-9e993ca7ef3a",
+            "descripcion": "TARJA DOBLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3a6bd5c5-b39a-41a9-8b39-f9e1d995068b",
+            "descripcion": "UPS",
+            "marca": "CYBERPOWER",
+            "modelo": ""
+        },
+        {
+            "id": "11da7a4c-9d57-4160-b826-3d9691fa59d6",
+            "descripcion": "CAJONERA 2 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "296e8fee-41b2-4c37-9e4c-cd560157cd39",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "TPC-Q028-20"
+        },
+        {
+            "id": "cd4f424f-197f-4ddc-8ab7-8fc1bc9a17d5",
+            "descripcion": "SILLA SECRETARIAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "27a51a21-d817-4700-a952-3b2a589aa95e",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "MICROVOIT",
+            "modelo": ""
+        },
+        {
+            "id": "9f4753de-7174-40e7-adda-d3fc50e9577b",
+            "descripcion": "SILLA NEGRA AJUSTABLE CON DESCANSA BRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6c284650-38cf-4478-9d1b-ea706fc86022",
+            "descripcion": "CAJONERA CAFÉ 3 CAJONES ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "86f9d4f6-eb80-41ee-a148-78615232f4e5",
+            "descripcion": "ROPERO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ef18ab41-8e4b-4e96-936d-cf99018a999f",
+            "descripcion": "TELEFONO NEGRO",
+            "marca": "UNIDEN",
+            "modelo": ""
+        },
+        {
+            "id": "cee40889-dc54-4021-9f23-ae57597d584e",
+            "descripcion": "REFRIGERADOR  ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7b5b75d3-138d-4920-a46d-a1579da77138",
+            "descripcion": "SILLA NEGRA AJUSTABLE  ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f76e28c1-75b6-4518-b87a-cb9d1cf062a6",
+            "descripcion": "BOTE P/BASURA CAMPANA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fcae50dc-15d2-49f3-8632-c94c68bd2bfb",
+            "descripcion": "ESTANTE BLANCO CON CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0bc55919-56a8-4e53-975a-5847d8f70ebd",
+            "descripcion": "ESTANTE DE MADERA CON PELDAÑOS ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "365a78ac-077d-4259-9b96-a17ad6feae53",
+            "descripcion": "BASCULA  ",
+            "marca": "TORINO",
+            "modelo": ""
+        },
+        {
+            "id": "7276bdf5-30c6-44fd-9e64-0c8994f22ea5",
+            "descripcion": "CAJONERA COLOR CAFÉ 2 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b4f68b12-fed9-4b20-96f9-07d5cf95dbff",
+            "descripcion": "MIUEBLE DE 8 PELDAÑOS ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "dc98b948-2c0d-455e-ad33-e5b77d748d2d",
+            "descripcion": "TARJA DE ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9b78d44c-ce9e-48e5-9ba7-2fd2b526c3e1",
+            "descripcion": "REPISA BLANCA 3 PIEZAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6bd3b314-40ea-46a5-b2d4-884203fe954f",
+            "descripcion": "SILLA NEGRA AJUSTABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "02e1d810-7aa4-4fc3-b5ad-869e303e841b",
+            "descripcion": "ESTUCHE DE DIAGNOSTICO ",
+            "marca": "WELCH ALLYN",
+            "modelo": "901026A"
+        },
+        {
+            "id": "6307d3ff-7839-430b-843e-3d3d1683e4fe",
+            "descripcion": "BAUMANOMETRO CON ESTETOSCOPIO",
+            "marca": "WELCH ALLYN",
+            "modelo": "DS44MC"
+        },
+        {
+            "id": "169531dc-9157-4901-90a8-1b6ed7d9ce87",
+            "descripcion": "MESADE CENTRO CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "384d2c42-13ff-4136-825f-f4de317561db",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": "M1212NFMFP"
+        },
+        {
+            "id": "0cd06536-4e6f-4740-bf18-cac747508630",
+            "descripcion": "CARRO AZUL REANIMACION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "dee301e2-2c90-434d-aa11-3f6e3c2c788e",
+            "descripcion": "DESFIBRILADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "313f1b03-96cc-424e-8579-cead052028d0",
+            "descripcion": "DESPACHADOR DE AGUA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b3727c50-2ff1-4d0c-8806-7300fcf10813",
+            "descripcion": "CARRO DE  CURACIONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1d78af0f-81a8-4f08-9253-41692a0e9113",
+            "descripcion": "BASCULA DE PIE ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "db49264e-4d70-4ae6-a3fe-fedd23de5b45",
+            "descripcion": "BASCULA PEDIATRICA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f8f7299c-7a0e-4b89-9deb-b925eb8e0c6e",
+            "descripcion": "ELECTROCARDIOGRAFO  DOCIA 2020-1",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "544b8daa-8b44-4405-ad9f-6de3e7d50c47",
+            "descripcion": "BOTE P/BASURA PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5aae59f8-02a4-4c32-8987-dc802ef1eaab",
+            "descripcion": "ESTANTE ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "09f4af2b-39d4-4cd6-989b-f894105bc314",
+            "descripcion": "BOTE P/BASURA CON PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "eb749161-f19b-4675-96d5-65febdf3e036",
+            "descripcion": "BOTE P/BASURA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5c144592-5dba-4424-8be9-34d159a6ab9c",
+            "descripcion": "BOTE P/ROPA SUCIA ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fada10ae-febd-45bc-aa1e-4b180469b103",
+            "descripcion": "BOTE P /TRAPEADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d500809f-5d1d-4722-8529-47feff1aa91f",
+            "descripcion": "LOCKER",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "39060e30-1a65-433d-a5c8-6be1ba032a5e",
+            "descripcion": "BANCO DE UN PELDAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f9370cf5-1807-4d08-84ed-66f19dfbfe72",
+            "descripcion": "MESA DE TRABAJO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f318f518-e236-4b20-9d0a-2d8640fe08ae",
+            "descripcion": "ESTUFA DE INCUBACION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0e2c86d8-62d3-4987-9eb6-ac479050482d",
+            "descripcion": "MONITOR DE SIGNOS VITALES ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "71913e7d-9780-46f1-b053-e9da66f99d45",
+            "descripcion": "SILLA ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1aa93d86-2290-4c7c-ad71-8b3424a7e80a",
+            "descripcion": "SILLA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "806b5031-2d7f-4004-bcdc-649e2d53ded2",
+            "descripcion": "BOMBA DE INFUSION ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4b688791-6f9f-431f-a18b-05439d4b5612",
+            "descripcion": "CAJONERA PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b114640e-9f09-4110-a2d7-656f784d6d3d",
+            "descripcion": "CAJONERAS MEDIANAS ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9d9e59e4-80ea-4d5a-bcfd-d6f1cbb79437",
+            "descripcion": "CAMA ELECTROMECANICA",
+            "marca": "STRYKER",
+            "modelo": ""
+        },
+        {
+            "id": "e99b0b3f-d058-4953-b6e2-732c648066b8",
+            "descripcion": "REPOSET",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "65cdb319-8a8f-4bbd-ab12-be26d2a46be8",
+            "descripcion": "BURO CLINICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d71713f9-113b-4de7-b5a4-5f42c4e729f4",
+            "descripcion": "TELEVISION",
+            "marca": "PANASONIC",
+            "modelo": ""
+        },
+        {
+            "id": "08974584-00fa-4d7d-8d52-2719c5ab9721",
+            "descripcion": "DVD",
+            "marca": "LG",
+            "modelo": ""
+        },
+        {
+            "id": "22fe2340-8e12-4675-859c-031a3a92f932",
+            "descripcion": "SILLA DE PLSTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "eed9a54d-e8dd-42cc-bcf2-a2cde9fd1abb",
+            "descripcion": "MESA PUENTE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7a4954d6-558f-48cb-a73d-0466fc2bcee3",
+            "descripcion": "MESA DE CURACION CON CAJON ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "aa99aa65-0ef4-4c9a-b644-45d549269f14",
+            "descripcion": "SILLA P/BAÑO PLASTICO GRANDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "72c26c75-a8a6-456b-b700-fbca122ec30e",
+            "descripcion": "SILLA P/BAÑO PLASTICO CHICA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "249ec003-3052-43a9-bfcb-3203a288b876",
+            "descripcion": "TELEVISION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "dd796ad1-aac4-42c8-8a1d-0b228ef8dd00",
+            "descripcion": "BURO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a1ce3d7a-99e2-4d64-a758-df78940ad848",
+            "descripcion": "BANCO PARA BAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1ff82ab1-396a-4e08-9ae1-a013138e6720",
+            "descripcion": "BOTE P /BASURA CON PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e374f53f-d15e-4992-baf2-f03a8caf2dd9",
+            "descripcion": "BOTE P/BASSURA DE PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8c32bc5c-fcdd-43b2-9a7d-976ed2106690",
+            "descripcion": "SILLA PLASTICO P/BAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1c6d8429-2d0d-43a6-b355-f154ff2f4b29",
+            "descripcion": "SILLA PLASTICO  ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c1391e30-8f33-4014-a4ca-37bedb121449",
+            "descripcion": "CONSOLA DE EXBOX",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8813d3c5-ee8b-4035-b0f7-2ad6fe1fd8e1",
+            "descripcion": "CAMA ELECTROMECANICA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b5bd2dce-ad2a-45b9-b02f-319ed7dabc2a",
+            "descripcion": "BOTR P/BASURA CON PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8045bdb1-5ed2-4a39-912d-c8b0c4418187",
+            "descripcion": "BAÑERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "35c0ffa9-21d6-403d-96e9-94b6f42bf46f",
+            "descripcion": "CUNA CON BARANDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b8065539-5107-4ae9-abaf-fe8c1d790134",
+            "descripcion": "VENTILADOR MECANICO",
+            "marca": "AEONMED",
+            "modelo": "VG70"
+        },
+        {
+            "id": "a60bc719-f5d4-4f6a-8be8-703b3b37fd4e",
+            "descripcion": "VENTILADOR MECANICO",
+            "marca": "PURITAN BENET",
+            "modelo": "840"
+        },
+        {
+            "id": "b0a85366-60d5-4935-bb13-45c2049b6ef6",
+            "descripcion": "TELEVISION",
+            "marca": "SONY",
+            "modelo": ""
+        },
+        {
+            "id": "cc9118b7-4145-4405-817e-6a21cf912e03",
+            "descripcion": "CALENTADOR ELECTRICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8823eecf-11a8-4e79-b6fb-1978327c93af",
+            "descripcion": "SILLA P/BAÑO PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d208d2cb-b4e6-4985-8e16-bcb1531da717",
+            "descripcion": "CUNA CALOR RADIANTE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a721f30f-3578-4873-b09a-7553d1546ee3",
+            "descripcion": "TELEVISION",
+            "marca": "AOC",
+            "modelo": ""
+        },
+        {
+            "id": "24505b07-ff28-4f78-974e-b22e4fdc9513",
+            "descripcion": "SILLA PARA BAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b45c0b54-5f1e-43a5-a761-849d3f395557",
+            "descripcion": "CAMA PARA PACIENTES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f6cfd8e4-385e-4e24-a0d8-98a4e83f37cc",
+            "descripcion": "BOTE PAFRA BASURA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f870cf69-6abe-41f2-a9e5-b15eb561a9d2",
+            "descripcion": "MUEBLE COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "88902a57-5615-4b71-a019-8b86cf43f79b",
+            "descripcion": "ESCRITORIO EN L CON ARCHIVERO DE 3 GAVETAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ae7ebc32-673b-46b0-925d-d9a8bbf3f2d3",
+            "descripcion": "GAVETA COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "75d6697f-f9d4-4417-ad9c-5d1bdc3edd5f",
+            "descripcion": "SILLA EJECUTIVA DE PIEL CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "70692516-f1c5-4626-8f5d-80b5f5f9d103",
+            "descripcion": "EQUIPO PARA TERAPIA LINFEDEMA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "303f39f7-5652-41cb-8a15-0fe9852f536c",
+            "descripcion": "IMPRESORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "723d5eab-d552-4759-85f9-4ae7ca6962ac",
+            "descripcion": "BOTE DE BASURA CON PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "84df69ec-f7a4-41c1-a2a0-ed266e698dda",
+            "descripcion": "SILLA CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "301bd2c7-6ca4-4c3c-ac6e-f1bc3ff18b6d",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c20bf924-1265-4e91-8309-94b4e60dbceb",
+            "descripcion": "LIBRERO DE 5 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "aade0ebf-dc0b-498c-ab21-4547d889fdb3",
+            "descripcion": "ARCHIVERO DE MADERA CON 2 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c3ebfb9a-b2f7-4231-9e95-d5131df3cefe",
+            "descripcion": "SILLA PARA VISITA CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b9e743ae-9f5b-42f3-bf00-7cecfc0dd34d",
+            "descripcion": "IMPRESORA",
+            "marca": "BROTHER",
+            "modelo": "DCP-1100"
+        },
+        {
+            "id": "d4d68ff5-7384-4e6c-9eac-351438ecad91",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "IMVOILA"
+        },
+        {
+            "id": "ae787bc0-80e6-46d7-a111-11767b9af37b",
+            "descripcion": "ARCHIVERO DE MADERA CON 4 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f927e6c0-f1da-4942-b4e4-1775d6fc92fd",
+            "descripcion": "CAJONERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0c7e1831-2afb-4d08-94c0-c121ae5e05a1",
+            "descripcion": "SILLON DE 2 PLAZAS COLOR VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "653c0d06-9dd0-4b1a-9d31-12d22495d088",
+            "descripcion": "BOTE DE BASURA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "01f550cb-880c-4a24-892f-bd7cfbce5ecb",
+            "descripcion": "LIBRERO COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4372c3fc-034d-4f4e-9d13-3902187d4895",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "DELL",
+            "modelo": "D11S"
+        },
+        {
+            "id": "2e94d31c-7e34-440a-8865-e113e34c2b96",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": "MFPN125A"
+        },
+        {
+            "id": "b36e9882-6754-4d37-a555-ab941d4d837f",
+            "descripcion": "BOTE PARA BASURA COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8b2374bf-a518-4af0-907f-8195cf570c72",
+            "descripcion": "LAVAMANOS COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "93715266-b447-48dc-9713-406753d067a7",
+            "descripcion": "MESA DE CURACION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bc53934a-eab0-4ca4-a520-fb5c820c65b9",
+            "descripcion": "SILLA NEGRA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e91921b4-464d-42e0-8f65-732a251a05a5",
+            "descripcion": "MEA PASTEUR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5124306b-edcd-47f5-9613-bbcfeb90175c",
+            "descripcion": "VISUALIZADOR DE VENAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5a7489b0-61ed-464d-8488-f3b38b742f2f",
+            "descripcion": "VITRINA PARA MEDICAMENTO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e72f471d-5b1e-4265-b95a-2bed12284ecf",
+            "descripcion": "CAMA PARA PACIENTES",
+            "marca": "STRYKER",
+            "modelo": "3002-S3"
+        },
+        {
+            "id": "8a6b8d3d-33c3-47bc-9087-3871a123a33a",
+            "descripcion": "VENTILADOR MECANICO",
+            "marca": "GENERAL ELECTRIC",
+            "modelo": "ENGSTROM"
+        },
+        {
+            "id": "293907f4-f98e-430a-851b-2321173ba609",
+            "descripcion": "CAMA PARA PACIENTES",
+            "marca": "STRYKER",
+            "modelo": "FL28EX1"
+        },
+        {
+            "id": "7572d293-f3c4-48cb-bb2e-25a856cb96d6",
+            "descripcion": "SISTEMA DE BOCEO",
+            "marca": "STEREN",
+            "modelo": "SA-1200AR"
+        },
+        {
+            "id": "71acb7f5-6697-4fb9-ba39-7b257216add8",
+            "descripcion": "CONMUTADOR",
+            "marca": "PANASONIC",
+            "modelo": ""
+        },
+        {
+            "id": "c070eaa2-2615-4eb6-bfdb-1de1aa421ebf",
+            "descripcion": "SWITCH PARA INTERNET",
+            "marca": "STEREN",
+            "modelo": ""
+        },
+        {
+            "id": "625326ba-0c40-4046-a668-e501c810996e",
+            "descripcion": "SWITCH POE PARA INTERNET",
+            "marca": "PLANET",
+            "modelo": "G5D-804P"
+        },
+        {
+            "id": "06a43d95-9923-4e4a-a2ff-bbf2310dd426",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "CDP",
+            "modelo": "R-UPR-1008"
+        },
+        {
+            "id": "398d909c-31ca-4570-a42d-4ec3fbbc17e8",
+            "descripcion": "CUNA CON BARANDAL",
+            "marca": "STRYKER",
+            "modelo": "FL20"
+        },
+        {
+            "id": "c6c8d14e-231b-4889-9baf-256f6452228d",
+            "descripcion": "DESFIBRILADOR",
+            "marca": "ZOLL",
+            "modelo": "MSERIES"
+        },
+        {
+            "id": "2aeaffbf-a7a9-4a76-8878-e1455384ae5e",
+            "descripcion": "MAQUINA DE ANESTESIA CON MONITOR",
+            "marca": "DRAGER",
+            "modelo": "FABIUS"
+        },
+        {
+            "id": "1a15ce3d-cbe0-4bbb-8056-d5aed4750e10",
+            "descripcion": "TARJA METALICA UNA PUERTA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2bbed138-bbd7-4fc5-a5a3-dcac2fbf42af",
+            "descripcion": "MESA CON TARJA DE ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d639313c-0636-4b62-86fe-d5cf90a46ab2",
+            "descripcion": "CAJONERA DE PLASTICO 3 ESPACIOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "31c1fcad-4254-4ecc-8980-6b715b4c6295",
+            "descripcion": "CAJONERA DE PLASTICO UN ESPACIO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "826464da-c541-47ae-aa1b-53aef1d33b0d",
+            "descripcion": "BOTE PARA BASURA PLASTICO CAMPANA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6ae54be1-2a84-4da4-a64d-206bb86ab6d5",
+            "descripcion": "BOTE PARA BASURA PLASTICO PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "af941c65-889e-4697-8c38-5e481e2d8230",
+            "descripcion": "LAMPARA QUIRURGICA",
+            "marca": "COBRAMEX",
+            "modelo": ""
+        },
+        {
+            "id": "e9f3ae29-f0bf-4a42-91e8-98195fa10f07",
+            "descripcion": "GAVETA MADERA 2 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "82735a23-3061-4fdc-a023-d5d11ba29c68",
+            "descripcion": "BANCO METALICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5774fd79-c5d5-484c-bb87-a6d152132131",
+            "descripcion": "MESA DE RIÑON",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3fd893b3-185b-4c09-ad43-8e3a8ec1776f",
+            "descripcion": "JABONERA AUTOMATICA",
+            "marca": "HELVEX",
+            "modelo": ""
+        },
+        {
+            "id": "e94fe457-5563-4213-9407-bbd0fb9e7b7d",
+            "descripcion": "BANCO DE ALTURA UN PELDAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "02153f36-01af-4f8d-94b2-be1d63b7783b",
+            "descripcion": "GAVETA DE DOS PUERTAS GRIS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c5424bb9-42bc-4b2f-b094-f0201a631f95",
+            "descripcion": "DISPENSADOR DE GEL",
+            "marca": "B BRAUN",
+            "modelo": ""
+        },
+        {
+            "id": "15825dce-e20d-49ca-9e90-7b3d396da08d",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "SS610la"
+        },
+        {
+            "id": "2f3132b7-4911-4d3a-a094-0ec131c14857",
+            "descripcion": "SILLA EJECUTIVA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "97f438e2-27ba-4f0b-b1eb-bcb80b4c1603",
+            "descripcion": "SUMADORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5cf199e8-3d0d-4227-9ecd-9ae401a8e3ad",
+            "descripcion": "EQUIPO DE COMPUTO ",
+            "marca": "HP",
+            "modelo": "24-R007la"
+        },
+        {
+            "id": "41ed0eb4-f922-49d2-a5c6-e61ec3a50759",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "GHIA",
+            "modelo": "MG2417"
+        },
+        {
+            "id": "f196c597-6945-469d-a9be-30952d1cc609",
+            "descripcion": "LIBRERO 6 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "86ca025c-fad5-482e-950c-0a8ae9bb7759",
+            "descripcion": "CALEFACTOR BLANCO",
+            "marca": "DELONGHI",
+            "modelo": ""
+        },
+        {
+            "id": "31219987-b473-4826-8894-f1199359cf9e",
+            "descripcion": "ESCRITORIO CON CUBIERTA DE CRISTAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "837837f3-5e51-4a64-92b5-8868bbdc2080",
+            "descripcion": "SILLON VERDE DOS PLAZAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "baf989d9-c341-49e8-a158-118e837747fb",
+            "descripcion": "MAQUINA DE ESCRIBIR ELECTRICA",
+            "marca": "BROTHER",
+            "modelo": ""
+        },
+        {
+            "id": "8cb99dad-2c38-4721-a4d5-af6aee42d254",
+            "descripcion": "ESTANTE METALICO DE 5 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5d53358d-decf-4459-8b0f-43a1b53de13a",
+            "descripcion": "CAJA FUERTE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "78398d6e-aeed-4359-9a1e-3868b7ba6516",
+            "descripcion": "VENTILADOR DE TORRE COLOR BLANCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fe194963-6dfd-44fe-9d7a-504b2a8f327d",
+            "descripcion": "CALEFACTOR",
+            "marca": "HEAT WAVE",
+            "modelo": ""
+        },
+        {
+            "id": "0bb3c916-d621-4a54-a9c2-109d33a0073e",
+            "descripcion": "LIBRERO MODULAR DE 80*40 COLOR VINO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1084ff9f-4880-4ddf-a00c-0c9a7bef529b",
+            "descripcion": "SILLON 1 PLAZA VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fb765e2f-093c-4210-aa08-9c535d280b91",
+            "descripcion": "ESCRITORIO COLOR CHERRY",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4d8cd042-5796-412d-92db-e17ab5aae669",
+            "descripcion": "ARCHIVERO DE MADERA 4 GAVETAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "70cb6382-bcd5-4636-b4fe-10308760eeee",
+            "descripcion": "MAQUINA DE ESCRIBIR ELECTRICA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c654d3f5-62df-44f0-b880-f115e70a2016",
+            "descripcion": "BOTE PARA BASURA DE MADERA COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d0497a92-5a69-47bf-82ed-573bec9b040a",
+            "descripcion": "IMPRESORA",
+            "marca": "EPSON",
+            "modelo": "C87 PLUS"
+        },
+        {
+            "id": "6c13fbf8-3446-4429-ad8a-3e48e7364b2b",
+            "descripcion": "IMPRESORA",
+            "marca": "BROTHER",
+            "modelo": "DCP-1617NW"
+        },
+        {
+            "id": "76efaa8c-9fd0-40ac-bcd5-bab79d9fd7b8",
+            "descripcion": "MESA MULTIUSOS DE MADERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6843467e-c363-4902-b206-f7224bb8954c",
+            "descripcion": "TELEFONO CISCO",
+            "marca": "CISCO",
+            "modelo": "7962"
+        },
+        {
+            "id": "03d9af1d-b9df-43c7-a71d-cbe533c112a8",
+            "descripcion": "GAVETA COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1a90774a-7e38-4e0f-a130-03cef9bd91d4",
+            "descripcion": "PANTALLA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "af69d8c7-5aae-4b58-9909-52f3b91c75ad",
+            "descripcion": "WEBCAM",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "630413e5-4c11-43ac-919e-93efa07288a9",
+            "descripcion": "LAMPARA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "606f92cb-1bfa-4667-b964-5d1a86f88018",
+            "descripcion": "BOTE PARA BASURA COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "226db750-5371-460b-b737-8361a214afa9",
+            "descripcion": "MESA DE VIDRIO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8017da3d-f7df-47c9-9c2f-4d605a0f337d",
+            "descripcion": "CONJUNTO SECRETARIAL CON ARCHIVERO Y LIBRERO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9fd5077d-4c44-4934-ba64-4730c76a9e1c",
+            "descripcion": "LAMPARA DE BURO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c01bacfc-c987-4937-9e6c-3c9279ac43ef",
+            "descripcion": "CALCULADORA",
+            "marca": "OLYMPIA",
+            "modelo": ""
+        },
+        {
+            "id": "92d8e097-fc35-4e92-bce0-1752639536ee",
+            "descripcion": "TELEFONO TIPO CONMUTADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b1534455-e1d0-4913-88e2-54f032e1b751",
+            "descripcion": "LAMPARA DE PEDESTAL COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "cf38d563-522c-438f-ac35-2d104b205936",
+            "descripcion": "BOTE DE BASURA DE MADERA COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "be94869f-9a09-4d7b-851a-8f9eb0fbc598",
+            "descripcion": "LAMPARA COLOR BLANCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7817fb74-c853-4e69-be4a-d9113fe48059",
+            "descripcion": "SILLA METALICA 3 PLAZAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5d37d03d-50a4-4d8f-94e6-5c5b6578f482",
+            "descripcion": "SILLON COLOR VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c7de3692-a2fc-400f-a236-2bf41b240ffe",
+            "descripcion": "MESA DE CENTRO COLOR VINO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e84f7074-e915-496f-b616-08425d9c0802",
+            "descripcion": "MICROSCOPIO",
+            "marca": "OLYMPUS",
+            "modelo": "CX23RTT52"
+        },
+        {
+            "id": "4f852409-0906-43b3-b2f9-b7563f841e48",
+            "descripcion": "REPISA COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fae6a05f-ec58-4ab2-a921-7269663156f1",
+            "descripcion": "ESCRITORIO COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "50d79c38-27c4-4621-acab-cd8655d9ee7b",
+            "descripcion": "SILLA EJECUTIVA COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5af3456a-72d7-4709-98ed-f6895267c2f2",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "ACER",
+            "modelo": ""
+        },
+        {
+            "id": "d52f84ed-1cfd-4056-9f21-253b017b5fb3",
+            "descripcion": "REFRIGERADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1ffaed54-cc0a-4641-acd4-a436998a114b",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": "M477"
+        },
+        {
+            "id": "b5bad3fb-0474-430e-ba4e-69332b063b8f",
+            "descripcion": "ESTUCHE DE DIAGNOSTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1ee852f8-2276-4776-b3ed-baba6dfe362b",
+            "descripcion": "SILLON 2 PLAZAS VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "68855861-7566-4fa2-8c55-9e43ab94aa9e",
+            "descripcion": "IMPRESORA NEGRA",
+            "marca": "EPSON",
+            "modelo": "L575"
+        },
+        {
+            "id": "74ba7bab-2c5b-4d6d-8556-e49cca616a8e",
+            "descripcion": "SACAPUNTAS ELECTRICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ace72348-64f0-4a01-80b8-82668a18e379",
+            "descripcion": "ARCHIVEROD E MADERA 3 GAVETAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e5869dd4-e037-4f17-87e7-403e8342a1e6",
+            "descripcion": "SILLA SECRETARIAL SEMIEJECUTIVA COLOR VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b3b79a27-3850-4d97-831d-7f6411261b34",
+            "descripcion": "ARCHIVERO DE 3 GAVETAS CHICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "77ff4a68-745a-4cf8-9f5c-7c4e7c7bcdf9",
+            "descripcion": "ESQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "SS1246LA"
+        },
+        {
+            "id": "7f6dc7f6-478c-45d0-b2ce-8f1147415318",
+            "descripcion": "BOTE PARA BASURA DE PEDAL ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "167bf640-2eb8-4895-9b3e-6a91e0075b90",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "240"
+        },
+        {
+            "id": "12e73626-ac7b-4680-846f-a784e58d84e1",
+            "descripcion": "SILLA EJECUTIVA COLOR VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5d23336e-df86-455c-95c2-1396b5d59ab3",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "S1933"
+        },
+        {
+            "id": "1253f895-f5e9-4d0e-b57a-2b818c16beff",
+            "descripcion": "SILLA SEMIEJECUTIVA COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5a544370-6e91-4c91-a386-effde674ddd1",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "HP2309m"
+        },
+        {
+            "id": "2af1712b-9820-4e66-984b-bcbc32686c4b",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": "K7276A"
+        },
+        {
+            "id": "112ee7da-6cbc-44ff-974a-30d6481df78b",
+            "descripcion": "IMPRESORA",
+            "marca": "SAMSUNG",
+            "modelo": "SCX.3405"
+        },
+        {
+            "id": "928d8c76-d658-4543-bb80-ad3879fa6d54",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": ""
+        },
+        {
+            "id": "60b11f4c-2114-4cd1-a957-4351f620b6de",
+            "descripcion": "BOTE PARA BASURA ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a91228a3-0e6f-4388-afe3-4e5eca7f8d1b",
+            "descripcion": "REPISA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6e73da20-8649-41c3-a678-a047b4094de2",
+            "descripcion": "CAJONERA CON 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e26e54ea-8ca0-49e9-8afa-fd644898ccf9",
+            "descripcion": "CAJONERA CON 4 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8288dd17-48e7-4f32-82e2-21259d5a7226",
+            "descripcion": "GABINETE COLOR CAOBA DE 4 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "09f2dcf5-e2f3-4e5a-9b88-d034bff3b580",
+            "descripcion": "SILLON VERDE 3 ESPACIOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "81c7e0d4-0f3d-4596-80b5-4a48b4beaa28",
+            "descripcion": "SILLA TIPO EJECUTIVA NEGRA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5010468f-94ec-4a94-b890-94debbdeed5d",
+            "descripcion": "TELEFONO NEGRO",
+            "marca": "CISCO",
+            "modelo": ""
+        },
+        {
+            "id": "18bdd210-ed68-4d6a-9a48-06a0a1f5ffcf",
+            "descripcion": "CAJONERA 2 CAJONES COOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3c522235-9ddc-4116-831c-8a7fdf244eaa",
+            "descripcion": "TELEVISION",
+            "marca": "SAMSUNG",
+            "modelo": ""
+        },
+        {
+            "id": "d675575f-75fd-44f7-a212-3201289a90d6",
+            "descripcion": "MAQUINA DE ESCRIBIR ",
+            "marca": "OLYMPIA",
+            "modelo": ""
+        },
+        {
+            "id": "a50c7f77-2b74-45d1-96c7-4f9e24b022dc",
+            "descripcion": "IMPRESORA BLANCA",
+            "marca": "HP",
+            "modelo": "M28W"
+        },
+        {
+            "id": "96b40ea7-9e20-45cb-bf32-b58ef7564483",
+            "descripcion": "SILLA NEGRA CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "33326e2b-c4af-41aa-a78b-3fa362a0344e",
+            "descripcion": "SILLA NEGRA FIJA CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "58c35545-fd9b-4eb3-ab35-62b781c85615",
+            "descripcion": "CAJONERA CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "23b775c5-7952-455a-9cb0-38a3e91245d0",
+            "descripcion": "BOTE PARA BASURA MADERA COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2a707eaf-8a9f-41e5-b7a4-f6bfbf1bb942",
+            "descripcion": "COMPUTADORA ALL IN ONE BLANCA",
+            "marca": "HP",
+            "modelo": ""
+        },
+        {
+            "id": "1c268ab1-1bec-446c-b9b7-281fbc3344e2",
+            "descripcion": "BOCINA",
+            "marca": "ACTEZ",
+            "modelo": ""
+        },
+        {
+            "id": "87faf8fa-015d-4049-93f6-1c04d5614523",
+            "descripcion": "TELEFONO CISCO NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7e03d390-bc3d-4f15-b922-8180b1e46f06",
+            "descripcion": "PERCHERO COLOR GRIS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "11226343-4755-441e-8a1c-20731889c934",
+            "descripcion": "REFRIGERADOR CHICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e05cb261-69c1-4c06-bc8c-02e74fb83165",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": "CE657A"
+        },
+        {
+            "id": "6f2e5334-24d0-4100-878a-340c4f8ab30f",
+            "descripcion": "ULTRASONIDO",
+            "marca": "PHILIPS",
+            "modelo": "CLEAR VUE"
+        },
+        {
+            "id": "57ec4652-d5dd-426c-ac9f-6d7b299ecfb5",
+            "descripcion": "PISTOLA BARD MAGNUM",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "20a8e656-7d10-4b85-8260-a225b9589bbd",
+            "descripcion": "UPS",
+            "marca": "ISB",
+            "modelo": "XR-21-162"
+        },
+        {
+            "id": "a15919f7-0318-4f14-a7ce-9248e7824b76",
+            "descripcion": "BANCO RODABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "362f61c5-b974-4ac2-b05d-6d87231aa452",
+            "descripcion": "SILLA SEMIEJECUTIVA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "32018d9d-10cc-432c-8ea2-3c0c07948e4c",
+            "descripcion": "LIBRERO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "44ac9607-b95b-4265-922b-f7044ad7d7ab",
+            "descripcion": "MASTOGRAFO",
+            "marca": "HOLOGIC",
+            "modelo": "LORAD IV"
+        },
+        {
+            "id": "c196dbe0-9f65-4c0d-9496-4229c40a9f0b",
+            "descripcion": "CALENTON",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d92869fb-986a-4770-a532-709d74227d31",
+            "descripcion": "SILLA GIRATORIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "61df3fe9-8699-4e4f-9055-823373647746",
+            "descripcion": "TRIPI",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a167cdd6-81f5-41c2-bffd-be794f1afc5a",
+            "descripcion": "SILLA GIRATORIA CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "66d97434-65e2-4735-a923-84938c672637",
+            "descripcion": "MESA DE MADERA PARA REVELADORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "65d3225f-9e30-45c5-a256-dc1fbe8d4adb",
+            "descripcion": "MESA DE MADERAA PARA IMPRESOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "31dbed50-da27-4b40-ae55-dc853f5ef6b9",
+            "descripcion": "COMPUTADORA PARA REVELADO DE PLACAS",
+            "marca": "HP",
+            "modelo": "XM009EC#ABB"
+        },
+        {
+            "id": "285ca0c5-7476-4bcd-9aa5-b67a54307610",
+            "descripcion": "BANCO GIRATORIO VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3a54a238-a588-489e-ae14-73853fb194a7",
+            "descripcion": "UPS BLANCO",
+            "marca": "STEREN",
+            "modelo": ""
+        },
+        {
+            "id": "3b30f51c-ce3e-442d-9666-3d5f61dac5bd",
+            "descripcion": "CENTRO DE REVELADO (DIGITALIZADOR CR)",
+            "marca": "AGFA",
+            "modelo": "CR30-XM"
+        },
+        {
+            "id": "7d3c0fc5-4cf6-4c90-9cc6-d7f7849c930f",
+            "descripcion": "IMPRESORA DE PLACAS",
+            "marca": "AGFA",
+            "modelo": "DRYSTAR AXYS"
+        },
+        {
+            "id": "6c6e4dbc-9713-4f5c-a5bb-60f294812294",
+            "descripcion": "UPS",
+            "marca": "APC",
+            "modelo": ""
+        },
+        {
+            "id": "03019f26-0a11-422a-a8d8-9d0a3bb591d9",
+            "descripcion": "BOTE PARA BASURA CAMPANA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e17b19e7-4399-4200-bba7-a8f8ade458b1",
+            "descripcion": "MESA PUENTE ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7ab3f59d-3c51-4460-ac2e-dab6931b3657",
+            "descripcion": "BOTE CAMPANA P/ BASURA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6bedb0fb-f75a-4ba5-9a4f-884c090d7492",
+            "descripcion": "BOTE P/BASURA DE PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bc7cf97a-b208-41b5-b451-1c65a93c1849",
+            "descripcion": "BOTE P/BASURA DE PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "58811529-2f9f-4b49-b4fe-18cd7b6a1c24",
+            "descripcion": "ESTANTE DE METAL 4 ENTREPAÑOS ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3c874d3a-18ea-4b52-a07c-012ddd21b3ee",
+            "descripcion": "TRIPIE ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8aa04309-9325-49be-a2fe-1bb5968d334d",
+            "descripcion": "BOTE P/BASURA METALICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "43a031a1-6e9a-4a48-9785-4ad905b3de67",
+            "descripcion": "BANCO ALTURA UN PELDAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1480f699-bbaf-4d1e-a1a2-cf1dbca5d011",
+            "descripcion": "BOMBAS DE INFUSION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3aa179ef-7656-41af-ab44-4f2db2a33889",
+            "descripcion": "BOTE PARA BASURA CON PEDAL ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1f1e8bed-d91e-45df-a934-afdd9ff3b0b9",
+            "descripcion": "BANCO 1 PELDAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8fd98d1c-7c53-436b-947e-e374b4bfbb54",
+            "descripcion": "BOTE PLASTICO CON PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5a0344fc-0b52-4c40-82fe-9c3d0841e902",
+            "descripcion": "BANCO UN PELDAÑO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9c58264a-4810-4c5a-a77c-de71f1942cb2",
+            "descripcion": "BOTE PARA BASURA DE CAMANA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c7b9a742-d4b0-4866-b247-51cee62fa0ea",
+            "descripcion": "BOTE DE PEDAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bac8c18a-2c16-42d8-aa93-2fae52592771",
+            "descripcion": "IMPRESORA NEGRA",
+            "marca": "BROTHER",
+            "modelo": "DCP-1617NW"
+        },
+        {
+            "id": "c710994c-665b-4819-81b6-092d498a7333",
+            "descripcion": "LAMPARA DE EMERGENCIA",
+            "marca": "DEWIMEND",
+            "modelo": "CLE/24/300W/L"
+        },
+        {
+            "id": "51817e05-cfa1-4513-baac-75a60d41d0a7",
+            "descripcion": "MESA MAYO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e157ca91-a7ef-437b-b8be-23ce814f0321",
+            "descripcion": "DESFIBRILADOR",
+            "marca": "",
+            "modelo": "ZOLL M SERIES"
+        },
+        {
+            "id": "c8f7eb9c-405a-40ba-9667-42a859e560e8",
+            "descripcion": "CARRO ROJO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fcd68c6b-8db4-4d76-84c8-d4f25b6763c0",
+            "descripcion": "ESTANTE LAPAROSCOPIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "89312d7d-d16d-4fd0-a1db-4347fece070d",
+            "descripcion": "FUENTE DE LUZ",
+            "marca": "ENDORO",
+            "modelo": "L300"
+        },
+        {
+            "id": "d2f80e1e-d2ca-45b2-bf0f-5550f1bf0c72",
+            "descripcion": "CAMARA DE ENDOCOSPIA",
+            "marca": "INNOP",
+            "modelo": "LNP300"
+        },
+        {
+            "id": "179a1dcf-4347-4f89-aa04-7419dfea66a6",
+            "descripcion": "INSUFLADOR",
+            "marca": "ENDORO",
+            "modelo": "LAP 25"
+        },
+        {
+            "id": "23d644a4-d51e-4609-89e5-105427bd7a9d",
+            "descripcion": "ELECTROCAUTERIO",
+            "marca": "ALSA",
+            "modelo": "AXCELL350MCDS"
+        },
+        {
+            "id": "42cc847c-ad2d-4136-b68b-76fafb0a5a69",
+            "descripcion": "PANTALLA",
+            "marca": "SAMSUMG",
+            "modelo": "U2:8E5900"
+        },
+        {
+            "id": "30064ece-a8b4-4f71-adc6-5439719bd8f9",
+            "descripcion": "BISTURI ARMONICO",
+            "marca": "THINCON ENDOSURGER",
+            "modelo": "GENERADOR 300"
+        },
+        {
+            "id": "fc22177c-61de-4854-9c97-2e450b9bc1cb",
+            "descripcion": "ELECTROCAUTERIO",
+            "marca": "COVIDIEN",
+            "modelo": "VALLEY LAB FT10"
+        },
+        {
+            "id": "9b3785ab-5e71-46cc-9d11-ab3192aed7fd",
+            "descripcion": "ELECTROCAUTERIO",
+            "marca": "COVIDIEN",
+            "modelo": "FORCE FX"
+        },
+        {
+            "id": "6353ad14-f971-4a49-b020-7c5f13d600f1",
+            "descripcion": "BOMBA DE INFUSION ",
+            "marca": "SGRINGE POMP",
+            "modelo": "BY2-810"
+        },
+        {
+            "id": "6179162f-c658-49ab-8a1b-f9595328279f",
+            "descripcion": "OXIMETRO DIGITAL",
+            "marca": "SCIENTS TECH",
+            "modelo": "DS1000"
+        },
+        {
+            "id": "9c919400-83de-46eb-8d07-5867f710f858",
+            "descripcion": "CAMA",
+            "marca": "STRYKER",
+            "modelo": "1027"
+        },
+        {
+            "id": "fb55179e-8ca1-4969-b1f4-08eb37e83fa3",
+            "descripcion": "CAMA",
+            "marca": "STRYKER",
+            "modelo": "1007"
+        },
+        {
+            "id": "3b9553d8-d1c2-4855-9b67-e42019b9d297",
+            "descripcion": "ESTANTE CON ENTREPAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "97d69594-de97-4935-8b3e-7e31dcc0e0d4",
+            "descripcion": "IMPRESORA",
+            "marca": "SAMSAUNG",
+            "modelo": "XPRESS-M2020"
+        },
+        {
+            "id": "ca7a6cc3-c6c6-48fb-a8c1-aab95567473b",
+            "descripcion": "COMPUTADORA BLANCA",
+            "marca": "HP",
+            "modelo": "X6A84AA#A8M"
+        },
+        {
+            "id": "8dec7919-440c-4129-9b75-54e63e764a78",
+            "descripcion": "CAMA MEANICA",
+            "marca": "STRYKER",
+            "modelo": "1061"
+        },
+        {
+            "id": "f394d854-4038-4ed5-98eb-8dd511251c2d",
+            "descripcion": "CARRO AZUL ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "89dcce7b-c19f-4346-9d08-8c3eafb5405b",
+            "descripcion": "MONITOR DE SIGNOS VITALES ",
+            "marca": "MINDRAG",
+            "modelo": "M8-1200"
+        },
+        {
+            "id": "c7fd0813-20dd-475e-87f0-60b61a356f3f",
+            "descripcion": "MONITOR DE SIGNOS VITALES ",
+            "marca": "WALTWICH",
+            "modelo": "ZAFIRO"
+        },
+        {
+            "id": "6410be31-9606-4b9e-8611-440898e967e5",
+            "descripcion": "ESFIGMOMANOMETRO",
+            "marca": "HERGOM",
+            "modelo": ""
+        },
+        {
+            "id": "f6a5c890-cc3a-4a4c-8cce-2628ff2a3ecf",
+            "descripcion": "SILLA SECRETARIAL NEGRA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ce0f8228-a0c3-4865-bfa3-034cb020aa83",
+            "descripcion": "FUENTE DE LUZ",
+            "marca": "FIJINON",
+            "modelo": "LOW-REVOLUTION700"
+        },
+        {
+            "id": "90f2aa76-cf12-40ed-b0f3-1d70af1b9062",
+            "descripcion": "TORRE DE GASES MEDICINALES",
+            "marca": "STRYKER",
+            "modelo": ""
+        },
+        {
+            "id": "4d1c42e6-1deb-450d-b856-137f5970c3df",
+            "descripcion": "MESA DE ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ad38874e-2db1-4438-8099-4cc75d296e17",
+            "descripcion": "MESA DE CIRUGIA",
+            "marca": "MEDIFA",
+            "modelo": ""
+        },
+        {
+            "id": "92bb7242-824c-4d52-b16e-71ffa97ba541",
+            "descripcion": "NEGATOSCOPIO",
+            "marca": "CARR",
+            "modelo": ""
+        },
+        {
+            "id": "afc2e5d5-57f2-4089-a066-34f974d7515a",
+            "descripcion": "RELOJ DIGITAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b5ef194d-311f-4d3e-82bd-fa4ec539d5bc",
+            "descripcion": "MRSA PASTEUR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6cad178c-71c7-467f-a0df-1ba713e2ef02",
+            "descripcion": "TARJA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f4eb519e-4859-47b4-9819-28683a389d9e",
+            "descripcion": "ESTANTE BLANCO TRES ENTREPAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8108469a-e52f-4402-aed3-58f501121000",
+            "descripcion": "TARJA CON TRES LAVES DE SENSOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "16cca0f6-43ba-44f3-aef3-7ce582292055",
+            "descripcion": "JABONERA DE PIE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5477826a-6736-4003-b250-061c163882a7",
+            "descripcion": "BANCO DE ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ffbda724-85ef-4090-85dc-aa3754f8a5f3",
+            "descripcion": "|",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c7686faf-ee98-4497-8ef3-37947e3bcf75",
+            "descripcion": "SILLA BANCO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "72e67118-853d-4994-8b4d-8e741979cbb9",
+            "descripcion": "MESA RIÑON",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a24c7d52-9bff-494e-b4ec-2bc3363fb016",
+            "descripcion": "ESTANTE DE METAL 4",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e46d3602-7363-44d9-ae9f-28e9e7ed588d",
+            "descripcion": "TELEFONO NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "61726789-a0f7-41b1-895a-18ace0c92fb2",
+            "descripcion": "ESTANTE DE METAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "14beb91d-d84b-4152-b1a4-d63d00a385ca",
+            "descripcion": "BANCO DOS PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f71cf000-01ed-4eb3-a9ee-54dd925adba1",
+            "descripcion": "VITRINA BEIGE UNA PUERTA DOS CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e2089ef6-96f4-46cb-b1f3-03eecfde164d",
+            "descripcion": "VITRINA DE INSTRUMENTAL ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c4beee30-bcbb-48b6-b39c-7c597f821975",
+            "descripcion": "TARJA DE ACRO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b7800cd4-bc85-4281-a9f8-e398346c0456",
+            "descripcion": "AUTO CLAVE DE VAPOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7de06893-6333-48fa-9e35-045c422fcb34",
+            "descripcion": "AUTO CLAVE DE PLASMA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bd0606ea-c538-45c6-844f-67d957a66525",
+            "descripcion": "CARRO ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "852c5b36-d491-470b-b7fa-02c183a4d34f",
+            "descripcion": "SILLA NEGRA ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7c9c0963-c0ed-44d5-9eba-a2b7881b173c",
+            "descripcion": "PASTILLEROS 15 CAJONES SON TRES PIEZAS ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bafe13ca-e7a8-461a-96c9-b3ba46ac5ace",
+            "descripcion": "GAVETA D TRES CAJONES PLASTICO GDE SON 5 PIEZAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5750a24a-5d99-4a71-a947-7a540adc81dd",
+            "descripcion": "CONTENEDORES PLASTICOS SON 10 PIEZAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3c046c7d-8ab8-4206-a586-0353f81c819f",
+            "descripcion": "GAVETA 2 CAJONES DE PLASTICO SON 3 PIEZAS ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2235215b-da78-4680-a501-a6eb11f96e0f",
+            "descripcion": "GAVETA 3 CAJONES DE PLASTICO MED. SON 5 PZS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2c93c3b5-a29d-416b-b8f7-e8f335c1c305",
+            "descripcion": "GAVETA 3 CAJONES CHI. SON 6 PZS.",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "10a48896-66bd-4b42-8f7a-1c7008ed1f04",
+            "descripcion": "BANCO ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "607ae466-def0-404c-9acc-0a4dccec1153",
+            "descripcion": "VITRINA NEGRA P/INSTRUMENTAL SON 3 PZS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "61880150-bfb3-4355-b993-404c8b520b67",
+            "descripcion": "MAQUINA SELLADORA ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4d2bf7e4-8738-4957-9b23-b5a87117125e",
+            "descripcion": "LOCKER DOS PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9934ba9b-f0c0-42df-b292-b9508df7b97e",
+            "descripcion": "LOCKER DOS PUERTAS SON 5 PIEZAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3e098578-66b3-4375-8f9d-c4d44c28fb7a",
+            "descripcion": "SUAVIZADOR DE AGUA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "82e86079-e1bf-448f-a885-24d03007a4e4",
+            "descripcion": "BOILER",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ffac74da-b1fc-41fd-8062-e8df71fc5cc4",
+            "descripcion": "VENTILADOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "59713230-80c9-400d-b96c-5780d33cd3ad",
+            "descripcion": "MESA COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "60034904-4e2e-4f18-be20-cece98e90462",
+            "descripcion": "BOTE P/BASURA CON ASIENTO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3012ee6d-ef04-4b40-accd-1a24d251fafa",
+            "descripcion": "BANCO ALTURA  ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4a9bfe52-a8a4-4043-9ed4-ad7fbd40144b",
+            "descripcion": "MAQUINA DE ANESTESIA ",
+            "marca": "DRAGER",
+            "modelo": ""
+        },
+        {
+            "id": "80cee0ff-9d86-4d1d-aa8e-37e61e5e3d84",
+            "descripcion": "CARRO DE ESTERILIZACION ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "68fd4547-c325-49d4-bd31-9b7cab98a6fc",
+            "descripcion": "BOTA P/BASURA METALICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bb562b72-c085-4ca7-b4fc-50c79628b450",
+            "descripcion": "MESA DE ANESTESIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "33a1aec0-63e2-49eb-85cf-5db21762907a",
+            "descripcion": "ESTANTE METAL ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f5cb4760-99c0-4595-a99e-fc5690e22633",
+            "descripcion": "ESTANTE METAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "305df88c-6f2d-41dc-a450-147044ed2bf2",
+            "descripcion": "LOCKER 5 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a86326ce-16da-41a7-afbd-d8d63ed512d3",
+            "descripcion": "ULTRASONIDO",
+            "marca": "PHILIPS",
+            "modelo": "AFFINITI 30"
+        },
+        {
+            "id": "fcc4b1af-a52e-4403-a572-fbdd344075c0",
+            "descripcion": "BOTE PARA BASURA DE CAMPAMA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "68a837d0-87ad-4d96-87f8-a702d9d981d7",
+            "descripcion": "DESFIBRILADOR",
+            "marca": "ZOLL",
+            "modelo": ""
+        },
+        {
+            "id": "24067f65-ebae-431e-83f5-5a54e3b84831",
+            "descripcion": "ESTANTE DE MADERA 3 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9b5cb12d-6edb-4f76-97b6-379690aac897",
+            "descripcion": "BOTE PARA BASURA DE CAMPANA GRANDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a9036b52-b311-4af7-b95e-40f4a1d35a00",
+            "descripcion": "CAJONERA DE PLASTICO GRANDE 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "98dfa83f-130b-4b80-90f3-4440641ac708",
+            "descripcion": "CAJONERA DE PLASTICO 3 CAJONES ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f4d1e56f-01c1-49c2-ba89-3b1a7a6b1c7e",
+            "descripcion": "DISPENSADOR DE AGUA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b93169a3-48e0-4682-abbf-1dba4a5e9671",
+            "descripcion": "PORTA EXPEDIENTES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0e0cb4cc-e51a-4ddf-a1fe-1b5c790bea76",
+            "descripcion": "BOTE PARA BASURA DE CAMPANA CHICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "46f410cf-4971-4528-88e2-0aadd0b6032a",
+            "descripcion": "TELEVISION",
+            "marca": "SPELER",
+            "modelo": ""
+        },
+        {
+            "id": "0da6cb1f-2ab4-4acc-8c6d-289655c589a5",
+            "descripcion": "SOPORTE PARA TELEVISION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d5ee77b5-1671-4f48-9ad6-3db16eb87740",
+            "descripcion": "REGRIGERADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0cf48f1a-d5ba-4956-81a1-465606293fd0",
+            "descripcion": "TELEFONO",
+            "marca": "PANASONIC",
+            "modelo": "KXTS5LXW"
+        },
+        {
+            "id": "25ac90b8-d90a-4e62-afa3-3a4aa5e1232c",
+            "descripcion": "LIBRERO 5 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f4705133-eaa8-4421-880b-48b8e89a0683",
+            "descripcion": "GAVETA 2 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2f40be77-8c76-4e2a-8ca1-9b6c978499b1",
+            "descripcion": "LAMPAA DE CHICOTE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6a0c4540-678e-47db-83fa-c2c5f56de917",
+            "descripcion": "BANCO DE METAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "836c245c-6830-4600-b534-e118baa8b35c",
+            "descripcion": "CAMILLA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "19aa41c1-79b8-4b60-98bb-8bd76cc7d9f6",
+            "descripcion": "DISPENSADOR DE GEL",
+            "marca": "B -BRAUN",
+            "modelo": ""
+        },
+        {
+            "id": "31381f6c-1236-4a9d-8c1f-c263960d3b25",
+            "descripcion": "CAMPANA DE FLUJO LAMINAR",
+            "marca": "VECO",
+            "modelo": "BHC12"
+        },
+        {
+            "id": "9a63c951-0075-4a20-8729-c16535a40ac3",
+            "descripcion": "CAJA DE PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a2ac3b11-8d44-4570-b785-cdfd9e30a8f2",
+            "descripcion": "BANCO GIRATORIO COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "eb814b49-c150-4a88-bd6e-5e381f51d4fa",
+            "descripcion": "BANCO DE PLASTICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "dae98c6e-e346-4da6-81b1-e302289e45cc",
+            "descripcion": "BOTE PARA BASURA DE CAMPANA GRIS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "cea29bc5-25e4-4394-b29d-1c796df43643",
+            "descripcion": "BANCO COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "006bf179-6587-4bbc-9b2a-4dc0a279b56b",
+            "descripcion": "IMPRESORA",
+            "marca": "",
+            "modelo": "C2181A"
+        },
+        {
+            "id": "371d23ed-7759-4416-a2f6-fb89cde44d70",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "LENOVO",
+            "modelo": ""
+        },
+        {
+            "id": "0f37f050-6051-4307-a4c9-b1e3b61c961f",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "CYBERPOWER",
+            "modelo": ""
+        },
+        {
+            "id": "32e531e7-d5da-41ab-b1f7-3d3ce38c9781",
+            "descripcion": "JABONERA AUTOMATICA",
+            "marca": "PURELL",
+            "modelo": ""
+        },
+        {
+            "id": "0bfeb98a-6e5c-41f5-8a97-847739fbe751",
+            "descripcion": "CAJONERA DE PLASTICO ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "28ebfd90-b510-4447-9ef2-89e287f48b04",
+            "descripcion": "IMPRESORA",
+            "marca": "SAMSUNG",
+            "modelo": "SCX-3406"
+        },
+        {
+            "id": "2585cc8d-9287-4486-9bbc-15f2b2e46e80",
+            "descripcion": "COMPUTADORA",
+            "marca": "HP",
+            "modelo": "ASV72A"
+        },
+        {
+            "id": "fa53d700-1d2e-457a-994d-5c721f16458a",
+            "descripcion": "CALCULADORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "13602330-33ae-4f8e-97b7-eaca332a53a3",
+            "descripcion": "ENGARGOLADORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5d8b1445-e631-44df-827e-80d480b6d9c3",
+            "descripcion": "SILLON VERDE UNA PLAZA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "0da93948-30a9-422c-9196-859669e3fd94",
+            "descripcion": "BOCINAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f5f2d2bd-79aa-4439-acd9-19edd9202250",
+            "descripcion": "BURO CON CAJON",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a1f0eb61-25ad-4385-bce6-c3d0f6e1d736",
+            "descripcion": "BUIRO CON CAJON Y PUERTA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "33322368-b7d7-49ea-8c12-9e913b3844c2",
+            "descripcion": "ESCRITORIO DE MADERA 2 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "23795671-27e9-4806-b3c5-f6b7cb32048e",
+            "descripcion": "ESCRITORIO DE MADERA EN L COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b3849710-f6cd-471a-9078-34ab5a4df4d5",
+            "descripcion": "ESCRITORIO DE MADERA COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ed12bec8-92b3-4f14-baee-a2155404d8d1",
+            "descripcion": "UPS NO BRAKE",
+            "marca": "APC",
+            "modelo": ""
+        },
+        {
+            "id": "143ab774-9e16-4ba5-b7eb-c3314302d442",
+            "descripcion": "UPS NO BRAKE",
+            "marca": "APC",
+            "modelo": "PRO 1500"
+        },
+        {
+            "id": "92c65404-eb39-48ba-a057-655af9d4be01",
+            "descripcion": "SILLON 2 PLAZAS COLOR VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7514ccee-32ca-4db0-8145-9ef9187ea887",
+            "descripcion": "SILLON 1 PLAZA COLOR VERDE ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a3abfb73-5db3-4bb3-aab5-9bc470b4b239",
+            "descripcion": "OLLA DE PRESION",
+            "marca": "RUSELL HOBBS",
+            "modelo": ""
+        },
+        {
+            "id": "55625a03-0ee2-4011-a27c-57634aecb7f0",
+            "descripcion": "MESA BLANCA EN FORMA DE TRIANGULO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4274e99b-9431-49d3-9b31-d80ccc8881f7",
+            "descripcion": "BOTE AMARILLO PARA RESIDUOS AMARILOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f770afed-7e2d-4efd-9a6f-e3332bab2202",
+            "descripcion": "IMPRESORA",
+            "marca": "SAMSUNG",
+            "modelo": "M2020"
+        },
+        {
+            "id": "c25a1175-e840-4247-8819-a7061585e35c",
+            "descripcion": "ESTUFA DE INCUBACION",
+            "marca": "FELISA",
+            "modelo": "TE-291"
+        },
+        {
+            "id": "185ac4c9-7e00-4169-8fe7-8a15f8cdc509",
+            "descripcion": "MESA DE MADERA COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "aa787e8b-ba06-4513-b8f8-07bbc7a45b43",
+            "descripcion": "BAÑO MARIA",
+            "marca": "RIOSSA",
+            "modelo": ""
+        },
+        {
+            "id": "c89434ff-9b06-491d-930d-35e603e05f49",
+            "descripcion": "MICRO TOMO",
+            "marca": "LEIKA",
+            "modelo": "RM2245"
+        },
+        {
+            "id": "2aafbb26-7886-422f-ae16-9c42a0239ff0",
+            "descripcion": "ARCHIVERO DE MADERA BEIGE 2 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ba965c69-1b16-4bd7-bf4d-610dea81f260",
+            "descripcion": "ARCHIVERO DE MADERA BEIGE 4 ENTREPAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a7903221-97b2-4c19-b5c3-2f08549efbe7",
+            "descripcion": "HISTOQUINETE",
+            "marca": "LEIKA",
+            "modelo": "TP1020"
+        },
+        {
+            "id": "23174d29-77fd-4896-ab61-edcb022039c5",
+            "descripcion": "MESA DE MADERA Y FORMICA COLOR BEIGE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b3926888-6540-48b9-bd49-78c9dbd8f220",
+            "descripcion": "MESA DE MADERA FORMICA DE 6 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1fc294f2-f3b7-4fc9-bf73-18fa9d560b73",
+            "descripcion": "MESA DE MADERA FORMICA 2 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "47f7d624-636c-4b1e-80e7-37411f944c66",
+            "descripcion": "ESCALERA 2 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e46c6477-acb4-4c22-9242-a0762a3f10ad",
+            "descripcion": "PARRILLA ELECTRICA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bf04d96c-2931-4820-ae69-169da5adabf7",
+            "descripcion": "ARCHIVERO COLOR CAOBA 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "91eaf273-0de0-42f9-a59b-8966bc362afd",
+            "descripcion": "ARCHIVERO 1 PUERTA 2 CAJONES COLOR BEIGE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "cf1f6df9-ab38-4250-bab5-7ae84e2a010b",
+            "descripcion": "VITRINA DE ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e7d80614-e8b6-4bf6-9386-46b1bc60242c",
+            "descripcion": "MESA DE TRABAJO 6 CAJONES ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c9d4b312-16b8-4399-a600-5285f299815a",
+            "descripcion": "REFRIGERADOR VERTICAL",
+            "marca": "FIDE",
+            "modelo": ""
+        },
+        {
+            "id": "1082e163-2be8-4e90-bad1-5d207b0404f8",
+            "descripcion": "REFRIGERADOR 4 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c5fc761d-4b4a-4991-8e3c-5f2faed1dd5f",
+            "descripcion": "OLLA DE PRESION",
+            "marca": "BIO SB",
+            "modelo": ""
+        },
+        {
+            "id": "2c48ae73-48ee-4d6d-9f9b-2414a6f84335",
+            "descripcion": "INCUBADORA DE TEMPERATURA CONTROLADA",
+            "marca": "MICRO PROBE",
+            "modelo": "FISHER"
+        },
+        {
+            "id": "0d803d17-f1f7-4215-88a0-dce0d2823acf",
+            "descripcion": "ESTACION DE TINCION DE INMUNO",
+            "marca": "MICRO PROBE",
+            "modelo": "FISHER"
+        },
+        {
+            "id": "cda92542-6a89-4fcc-8168-bb440ab35588",
+            "descripcion": "SILLA COLOR VERDE FIJA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7557a578-02e4-4d2a-bc36-3a098c6d1ed1",
+            "descripcion": "SILLA SECRETARIAL VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6aa6cc19-5616-407c-afcb-0cff9d848271",
+            "descripcion": "SILLA SECRETARIAL CON DESCANSA BRAZOS VERDE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1f5b3da4-1791-4823-a038-6adc134eb8cd",
+            "descripcion": "MICROOSCOPIO COLOR BEIGE",
+            "marca": "OLIMPUS",
+            "modelo": "CX31"
+        },
+        {
+            "id": "488725b7-7467-44d3-96c9-4ea0096ad51a",
+            "descripcion": "MICROOSCOPIO COLOR BEIGE",
+            "marca": "OLIMPUS",
+            "modelo": "CX21F51"
+        },
+        {
+            "id": "f2953a62-22a5-4d11-a0b7-e9ada92001f6",
+            "descripcion": "MINISPLIT",
+            "marca": "MIRAGE",
+            "modelo": "ELC2617"
+        },
+        {
+            "id": "0aca2f3e-3b0f-4fa0-8b17-57dfd027ad1d",
+            "descripcion": "PLACA DE ENFRIAMIENTO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1b53ba8a-da87-4991-838b-4e6983387849",
+            "descripcion": "KRISTATO BLANCO",
+            "marca": "LEIKA",
+            "modelo": "CM1950"
+        },
+        {
+            "id": "8e498b3b-e254-47b6-b016-83bc8a17a5de",
+            "descripcion": "MICRO TOMO",
+            "marca": "KADEE",
+            "modelo": ""
+        },
+        {
+            "id": "7728206b-3d7b-41ec-b3f2-8dd5beb66481",
+            "descripcion": "CENTRIFUGA",
+            "marca": "SOLVAT",
+            "modelo": "C-40"
+        },
+        {
+            "id": "ae80a0da-f7cd-45f9-a259-590251dd6e0b",
+            "descripcion": "COMPUTADORA",
+            "marca": "HP",
+            "modelo": "XJ311A"
+        },
+        {
+            "id": "6be13977-8003-4c41-b252-35703ed9755a",
+            "descripcion": "BUTACA PARA ESTUDIANTE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5e5285a8-925e-45c3-b99f-e93371a9a567",
+            "descripcion": "ESCRITORIO AZUL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "212d187b-e85a-428e-99c8-c2d5cf7f685e",
+            "descripcion": "TELEVISION",
+            "marca": "LG",
+            "modelo": ""
+        },
+        {
+            "id": "52c595dd-1902-4c45-be9b-b3ed430a3406",
+            "descripcion": "PANTALLA PARA CAÑON",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a0945add-e6da-4150-9713-42c3d7e5d2a4",
+            "descripcion": "ESTANTE METALICO 3 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4a1f3bca-15df-4736-9e2f-7c00a58f4fb4",
+            "descripcion": "VENTILADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "7355e0c5-cdbf-4ea0-a531-c2b99a7ba1c9",
+            "descripcion": "PROYECTOR",
+            "marca": "EPSON",
+            "modelo": "H430A"
+        },
+        {
+            "id": "ff05a8ae-c82d-44e0-806e-f873f012c333",
+            "descripcion": "SISTEMA DE AUDIO",
+            "marca": "THX",
+            "modelo": ""
+        },
+        {
+            "id": "1fb1f30e-5bd6-48e5-8a00-47f8772a0375",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "SOLA BASIC",
+            "modelo": ""
+        },
+        {
+            "id": "cd6c1e61-2703-42e1-a021-2493afb52e48",
+            "descripcion": "PROYECTOR",
+            "marca": "SONY",
+            "modelo": "VPL-CS21"
+        },
+        {
+            "id": "66e003da-cef8-48fd-88b4-a09d1b60ee92",
+            "descripcion": "PROYECTOR",
+            "marca": "INFOCUS",
+            "modelo": ""
+        },
+        {
+            "id": "b248d958-3bd8-4529-84b8-85b230778619",
+            "descripcion": "REPRODUCTOR DVD",
+            "marca": "SOÑY",
+            "modelo": "DVPNC625"
+        },
+        {
+            "id": "3b2c9ef0-c615-4cfe-afca-b800cbae3aa7",
+            "descripcion": "CALCULADORA",
+            "marca": "OLIVETTI",
+            "modelo": "CA-1100"
+        },
+        {
+            "id": "89edb364-3c78-4571-bc61-905778729dc8",
+            "descripcion": "REPRODUCTOR DVD",
+            "marca": "SAMSUNG",
+            "modelo": "DVD-V330"
+        },
+        {
+            "id": "b055b6b6-fa38-497d-82ce-0d4843dc9009",
+            "descripcion": "MESA RODABLE COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f622993c-85b3-4b80-a0d8-6b05a0a670b7",
+            "descripcion": "ESCRITORIO EN L CAFÉ ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5a368c2b-58c3-4adc-b365-23627ab919a1",
+            "descripcion": "IMPRESORA",
+            "marca": "SAMSUNG",
+            "modelo": "24-R007ia"
+        },
+        {
+            "id": "e373a32c-4358-4c0f-bfa6-d476b4af1956",
+            "descripcion": "COMPUTADORA ALL IN ONE",
+            "marca": "HP",
+            "modelo": "ink advantage 1515"
+        },
+        {
+            "id": "980d23fb-6fd0-4b72-b7f0-2c6720caafdc",
+            "descripcion": "MICROONDAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fbdd6fa7-74aa-4e75-9640-66e6a3469245",
+            "descripcion": "REGULADOR NEGRO",
+            "marca": "ISB",
+            "modelo": ""
+        },
+        {
+            "id": "2ae53bd7-b382-4404-b903-9a3e8ffd342c",
+            "descripcion": "IMPRESORA NEGRA",
+            "marca": "HP",
+            "modelo": "P1102W"
+        },
+        {
+            "id": "df8152a9-b9d6-4538-95c1-f425a3850f36",
+            "descripcion": "ESCRITORIO EN L COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c13a1b22-1f59-4bfe-9e46-82b6cf714f52",
+            "descripcion": "SILLAVERDE SECRETARIAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1d08f67c-bdce-4261-a6ae-373a545ddf04",
+            "descripcion": "COMPUTADORA ALL IN ONE",
+            "marca": "HP",
+            "modelo": "24-R007ia"
+        },
+        {
+            "id": "702b89df-685b-40dc-a1fd-60fd5e1ef872",
+            "descripcion": "ESTANTE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "39a678aa-eb4b-4230-8718-7bf91a873b9c",
+            "descripcion": "COMPUTADORA",
+            "marca": "ACER",
+            "modelo": "P227HQV"
+        },
+        {
+            "id": "7103f1f0-a94e-40f7-8152-2548a373616b",
+            "descripcion": "REGULADOR",
+            "marca": "TDE",
+            "modelo": ""
+        },
+        {
+            "id": "ef725961-2d06-4330-b7ec-58dd9f7de264",
+            "descripcion": "MUEBLE PARA COMPUTADORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "05ac2191-344d-412f-9407-e5551ed5c7d7",
+            "descripcion": "ESTANTE 6 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "878618fb-88a6-4b84-883b-29fbaa35dd07",
+            "descripcion": "GABETA 2 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "35bd50a4-7962-499f-a431-bcea64bbd246",
+            "descripcion": "MAQUINA DE ESCRIBIR ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d76419e9-9560-4f25-83c3-78404515a6f6",
+            "descripcion": "ESCRITORIO PEQUEÑO COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9bb701da-c955-418f-abea-f2c1e8f8e89b",
+            "descripcion": "SILLA NEGRA GIRATORIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "04f1d166-f824-4883-b0c6-f1a2ab62fd84",
+            "descripcion": "BANCO DE ALTURA 2 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fe093391-842e-4cd7-a63d-f6d3ab849833",
+            "descripcion": "CARRO TRANSPORTADOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f95171ee-6d05-42d3-80d7-98db770174c0",
+            "descripcion": "GILLOTINA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c53b47d2-d8ae-462d-807f-ae808b4fdda6",
+            "descripcion": "SILLA NEGRA CON MALLA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b725cb0a-2c47-4ed2-890e-bd5fa2f4c9d2",
+            "descripcion": "SILLA NEGRA CON MALA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8b30348c-aab4-473e-ba66-35009faac19b",
+            "descripcion": "IMPRESORA",
+            "marca": "EPSON",
+            "modelo": "L6171"
+        },
+        {
+            "id": "7cad06d9-6de7-4735-a986-245ea0ceb3be",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "XPOWER",
+            "modelo": "20GR060194"
+        },
+        {
+            "id": "c4fb3abb-8d1b-4003-b7b6-5ce864f8320a",
+            "descripcion": "CITOMETRO",
+            "marca": "BECKMAN COULTER",
+            "modelo": "NAVIOS"
+        },
+        {
+            "id": "cb1c237e-5224-4709-97c6-af1372eeefe0",
+            "descripcion": "COMPUTADORA  WORK STATION",
+            "marca": "LENOVO",
+            "modelo": "M7205"
+        },
+        {
+            "id": "d4ce26d8-161f-42a6-aab4-f434b713adb7",
+            "descripcion": "MESA DE MADERA CIRCULAR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b142734e-d072-454b-a1d6-74a4626fd13b",
+            "descripcion": "CENTRIFUGA",
+            "marca": "HETT ICH",
+            "modelo": "ROTOFIX32A"
+        },
+        {
+            "id": "494bc6f1-81c5-416b-818b-c6bfd76692a0",
+            "descripcion": "MINISPLIT",
+            "marca": "ABSOLUT UNIVERSE",
+            "modelo": "MMEC2621H"
+        },
+        {
+            "id": "926294bb-6cfa-4452-a847-296b6edbb58f",
+            "descripcion": "BOTE PARA BASURA DE METAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b0821aa2-fba5-4f97-9cd4-3dd751f501be",
+            "descripcion": "ESCRITORIO BLANCO 6 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "60dac448-070f-43d3-a5fd-d567db52bfa6",
+            "descripcion": "ARCHIVERO 2 PUERTAS 3 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2e32c709-3171-446e-a243-d7a4666f5c7f",
+            "descripcion": "ACL ELITE - PRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "697e889d-dbc4-4817-9c9a-41b407abafcf",
+            "descripcion": "NO BREAK 1000 KVA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "288ed947-9e33-4d51-b105-cb40910134e9",
+            "descripcion": "IMPRESORA DE MATRIZ ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d1c47e7f-1931-4cc2-9f93-6300de5df311",
+            "descripcion": "MICROSCOPIO DE DOBLE CABEZAL",
+            "marca": "OLYMPUS",
+            "modelo": "CX43RF"
+        },
+        {
+            "id": "659f1075-631b-46da-96e8-413b5e58aaf4",
+            "descripcion": "SILLON VERDE 2 ESPACIOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a56249ba-2171-4c9a-895b-011431177768",
+            "descripcion": "CARRO PARA CHAROLAS ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "50ad0965-d747-4cc8-a691-ca3e7de230f8",
+            "descripcion": "ESTANTE ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3a337809-8147-4a2a-8e96-dbbba6109397",
+            "descripcion": "BOTE PARA BASURA COLOR GRIS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b8915c5b-7d46-4bbe-8dbb-0864b241547c",
+            "descripcion": "CARRO PARA COMIDA ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "761cd2be-bd3c-410a-8b02-290c4be7f86f",
+            "descripcion": "ALACENA DE METAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "70b82aa7-37f3-495c-97e4-fc01745c064e",
+            "descripcion": "MESA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4763ad24-72a0-46ea-9706-cb23dec4e9df",
+            "descripcion": "ESTUFA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9874014f-d231-408c-afe6-b3a3cd787ebd",
+            "descripcion": "MESA REDONDA DE METAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "44b5e02f-f94f-48c1-ab71-d3c5d46956d5",
+            "descripcion": "CONTENEDOR PARA BOTE DE BASURA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a8b8d1da-6825-46f8-bd3f-31500dd93437",
+            "descripcion": "MESA DE ACERO PARA MICROONDAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e6758fd2-1c20-4420-bd2e-3641e96e1993",
+            "descripcion": "LICUADORA INDUSTRIAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "79533a4f-0a1a-4670-bd4e-f975b305e211",
+            "descripcion": "CAMPANA DE ACERO INOXIDABLE CON EXTRACTOR",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bf5ca395-4e93-488e-af00-fcb00db034f1",
+            "descripcion": "BASCULA DIGITAL",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8993c898-c07d-41ee-b6e0-3a04cac18101",
+            "descripcion": "ESTADIMETRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9fa7d953-d86a-462b-b70b-168009134894",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "ASUS",
+            "modelo": "M62417"
+        },
+        {
+            "id": "57ec921a-9e90-4ce6-a319-2bcd4c9325da",
+            "descripcion": "IMPRESORA",
+            "marca": "EPSON",
+            "modelo": "L5190"
+        },
+        {
+            "id": "46c40007-c21e-4eb8-b74a-19072524e801",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "XPOWER",
+            "modelo": ""
+        },
+        {
+            "id": "ad9448b6-b383-40c2-9b18-05a020e767eb",
+            "descripcion": "SILLA SECRETARIAL COLOR NEGRO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "17061ada-acba-45c7-bae4-ff8e9a84c7ec",
+            "descripcion": "PIZARRON DE CORCHO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5f1e39d9-e0ad-4869-9ab4-3c3c945be349",
+            "descripcion": "MESA CHICA DE MADERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "f97c96e9-d4e1-41fb-bb88-2c665b3bd051",
+            "descripcion": "ARCO EN C",
+            "marca": "SIEMENS",
+            "modelo": "CIOS CONNECT"
+        },
+        {
+            "id": "46fd5bdc-b91b-41ce-8112-ff50d2d3527b",
+            "descripcion": "ESTANTE RODABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "eac21499-30d5-49b5-b210-826c2cd78c09",
+            "descripcion": "EQUIPO DE BRAQUITERAPIA",
+            "marca": "ECKER ZIEGLER",
+            "modelo": "SAGINOVA"
+        },
+        {
+            "id": "058f94b7-9e2c-4e6e-95a4-c68f5a4072e6",
+            "descripcion": "CONTENEDOR DE FUENTE DE COBALTO",
+            "marca": "ECKER ZIEGLER",
+            "modelo": "EMERGENCY CONTAINER"
+        },
+        {
+            "id": "c14e5b63-355d-4720-8380-d5eef21449b7",
+            "descripcion": "ULTRASONIDO",
+            "marca": "BK MEDICAL",
+            "modelo": "BK3000-01"
+        },
+        {
+            "id": "43e9d53b-de39-460f-acad-36c1a5292337",
+            "descripcion": "PHANTOMA",
+            "marca": "PTW",
+            "modelo": ""
+        },
+        {
+            "id": "c7733a60-b75f-4358-a0a9-6f785c877e2c",
+            "descripcion": "UPS",
+            "marca": "TOSHIBA",
+            "modelo": ""
+        },
+        {
+            "id": "892a8ad9-b2f0-46bb-aed9-c4749bd748ef",
+            "descripcion": "COMPRESOR",
+            "marca": "POWEREX",
+            "modelo": "ST5050232"
+        },
+        {
+            "id": "b625784f-727c-42ec-ac8e-6e5532b07baa",
+            "descripcion": "BOILER",
+            "marca": "RHEEM",
+            "modelo": "89V50"
+        },
+        {
+            "id": "08722714-00c3-4de3-86d9-1ee4fc61c7c6",
+            "descripcion": "HIDRONEUMATICO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "42dc09b9-3b13-446f-9dbd-a3d1dc48ac94",
+            "descripcion": "LOCKER 3 GAVETAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "8e5e1840-87c3-400c-9fd4-9fbe5192d64f",
+            "descripcion": "LIBRERO 8 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "190b43bb-7964-42da-92fb-5c4f0b6d3e3f",
+            "descripcion": "DESPACHADOR DE AGUA",
+            "marca": "KELVIN",
+            "modelo": "KRFC"
+        },
+        {
+            "id": "deaebd48-822a-42f2-9dac-c0aac3af05f0",
+            "descripcion": "MINISPLIT",
+            "marca": "TRANE",
+            "modelo": "4MXW4512A1000AA"
+        },
+        {
+            "id": "fcc58c36-33c4-49e8-8f4d-2e33dc3d0183",
+            "descripcion": "SILLA METALICA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ac88fd87-a1fe-4ec1-a41d-a2590f0d830a",
+            "descripcion": "SILLA SECRETARIAL CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "62c55d4a-ee86-4068-a8b9-a589f0d9dcf8",
+            "descripcion": "UPS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "52a00bc9-fae1-4792-89ce-d800ce747c9d",
+            "descripcion": "EQUIPO DE COMPUTO ",
+            "marca": "DELL",
+            "modelo": ""
+        },
+        {
+            "id": "fe431a09-7cf2-4866-9999-edd449aa6cd0",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "DELL",
+            "modelo": ""
+        },
+        {
+            "id": "058be134-3e6c-42be-a0cf-cc3a45b88f87",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": "8210"
+        },
+        {
+            "id": "51282616-dc0e-4134-919b-a6f740e5471c",
+            "descripcion": "CONTROL DE MANDO PARA EQUIPO DE BRAQUITERAPIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4f640501-6164-4e30-95f9-7858a05cae66",
+            "descripcion": "SISTEMA DE BOSEO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3434a8fc-1b43-4de3-aa72-833dede4ca8b",
+            "descripcion": "CLOSET 4 PUERTAS COLOR CAFÉ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "34a5cb02-d932-4f8a-bb09-0ed7fdcb0c07",
+            "descripcion": "SWITCH DE INTERNET",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "11ae10b2-4e39-4950-8542-d92158807fbd",
+            "descripcion": "EQUIPO DE COMPUTO PLANEACION",
+            "marca": "ACCURAY",
+            "modelo": ""
+        },
+        {
+            "id": "4081665d-4313-4b7a-b83b-9beb673a52f4",
+            "descripcion": "IMPRESORA MULTIFUNCIONAL",
+            "marca": "HP",
+            "modelo": "M125A"
+        },
+        {
+            "id": "e7fd884b-05ee-4ebc-b601-fd2c5caf29cf",
+            "descripcion": "IMPRESORA PARA PLANEACION ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c1a28868-7740-4563-9763-4a84af82754d",
+            "descripcion": "SILLA EJECUTIVA CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "dd46368c-d015-42bb-a406-37225cd2dc4c",
+            "descripcion": "CAMARA FOTOGRAFICA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "24216a9c-a204-4024-9a89-a48133f1c189",
+            "descripcion": "UPS",
+            "marca": "TRIPP-LITE",
+            "modelo": "SU1500RTXL2LLA"
+        },
+        {
+            "id": "c7f462da-75f4-4d7b-8266-e6b62e0bf340",
+            "descripcion": "MESA DE TRABAJO DE PLANEACION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "13e0b5fd-f360-488c-9549-881acaa1a5c5",
+            "descripcion": "MESA DPARA IMPRESORA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "1a1e1629-2f0e-46c1-b2f5-c5129bf73cd5",
+            "descripcion": "EQUIPO DE COMPUTO PARA TOMOTHERAPY",
+            "marca": "ACCURAY",
+            "modelo": "OPERATOR STATION 10313"
+        },
+        {
+            "id": "fae1dc12-3780-49bc-8920-04273c985016",
+            "descripcion": "SISTEMA DE VOZ",
+            "marca": "BHL",
+            "modelo": "NEIS-DU"
+        },
+        {
+            "id": "cd232536-3787-4eba-b55b-2dfae587f5ad",
+            "descripcion": "DVR",
+            "marca": "SAMSUNG",
+            "modelo": "SRD 476D1"
+        },
+        {
+            "id": "b1a6d0cc-3788-4bda-bd99-159387ec8aba",
+            "descripcion": "MANDO DE CONTROL CIRCUITO CERRADO BUNKER",
+            "marca": "SAMSUNG",
+            "modelo": "SPC-1010"
+        },
+        {
+            "id": "628d69b7-a759-4a75-bd4f-b7bf6ac3dfc6",
+            "descripcion": "SISTEMA DE AUDIO",
+            "marca": "PHILIPS",
+            "modelo": "BTM1360Y85"
+        },
+        {
+            "id": "024ab99c-183e-42da-9269-1d0a0c9f256b",
+            "descripcion": "UPS",
+            "marca": "POWERTRONIX",
+            "modelo": "ISOLATION STATION"
+        },
+        {
+            "id": "7f336bbb-9791-41af-bb92-66d5dedb5f0d",
+            "descripcion": "ELECTROMETRO",
+            "marca": "TOMOELECTROMETER",
+            "modelo": "90016"
+        },
+        {
+            "id": "511782e0-e8a1-4482-bc00-340d0af0c812",
+            "descripcion": "LIBRERO PARED COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4923873b-2d1f-4591-ad11-aaf1f02f69cc",
+            "descripcion": "UPS",
+            "marca": "EATON",
+            "modelo": "9390"
+        },
+        {
+            "id": "e8000638-d769-4c62-86bc-5d7812b2bf65",
+            "descripcion": "LIBRERO DE PARED COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "b3278ead-af40-46d2-970f-81bec1551c34",
+            "descripcion": "MESA DE TRABAJO ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "154dcbea-c941-4b0f-b0a6-d7c391f895aa",
+            "descripcion": "ESQUINERO DE MADERA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9f60abb3-af64-47c9-8456-6ca389dccbd8",
+            "descripcion": "IMPRESORA NEGRA",
+            "marca": "EPSON",
+            "modelo": ""
+        },
+        {
+            "id": "d8f698c1-5ac9-49bf-a259-8fac6b075b16",
+            "descripcion": "IMPRESORA DOSIMETRIA",
+            "marca": "VIDAR SYSTEM",
+            "modelo": "ADVANTAGE"
+        },
+        {
+            "id": "a2652cd6-ed05-47c9-9755-3e4a93bd75aa",
+            "descripcion": "LAPTOP",
+            "marca": "DELL",
+            "modelo": ""
+        },
+        {
+            "id": "6d24c262-2db9-4d1a-a21d-f16afccdde28",
+            "descripcion": "PANTALLA NEGRA",
+            "marca": "ACCUSYNC",
+            "modelo": ""
+        },
+        {
+            "id": "a2d85253-812b-48ff-a798-79784b5bdd68",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "TRIPP-LITE",
+            "modelo": ""
+        },
+        {
+            "id": "69f4a924-9cfa-4923-8060-0093a5732eee",
+            "descripcion": "UPS",
+            "marca": "EATON",
+            "modelo": ""
+        },
+        {
+            "id": "c5095e4e-6f07-45b8-b3d3-559074f1c5ab",
+            "descripcion": "IMPRESORA DE IMAGEN RX",
+            "marca": "CARESTREAM",
+            "modelo": "DRYVIEWS 5700 LASER IMAGE"
+        },
+        {
+            "id": "db6c0d96-b5e4-4c76-9a14-538f6101880b",
+            "descripcion": "EQUIPO DE COMPUTO PARA TOMOGRAFO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3030c23f-db46-42c5-a944-7cfd8f33a57b",
+            "descripcion": "SWITCH DE COMUNICACIÓN TOMOGRAFO",
+            "marca": "CISCO",
+            "modelo": ""
+        },
+        {
+            "id": "e6b6f4f3-f461-400c-9424-d2dc395ccc33",
+            "descripcion": "ESCRITORIO MADERA CUBIERTA BLANCA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "516aaf16-f575-4175-abb9-83fd66843238",
+            "descripcion": "ESCRITORIO METAL CUBIERTA BLANCA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "cbb62eaf-34f3-4cea-97e7-d1282318b982",
+            "descripcion": "ARCHIVERO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fce05d3a-2ae9-453b-90e7-163af05bc6ce",
+            "descripcion": "EQUIPO DE COMPUTO WORKSTATION PINNACLE",
+            "marca": "PHILIPS",
+            "modelo": ""
+        },
+        {
+            "id": "cc8d5ee2-0b62-4fc4-8e77-18a992e6493e",
+            "descripcion": "EQUIPO DE COMPUTO WORKSTATAION TOMOGRAFO",
+            "marca": "SIEMENS",
+            "modelo": ""
+        },
+        {
+            "id": "f86b05dc-bb0d-4c4c-8f94-af0241908956",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "ACER",
+            "modelo": "ASPIRE AXC-703"
+        },
+        {
+            "id": "c45697c1-5709-49d0-9e9e-90a44b6befe9",
+            "descripcion": "MUEBLE DE MADERA RECEPCION",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bba9e820-7df2-4d13-ac37-cf62c252c3ff",
+            "descripcion": "REPRODUCTOR DVD",
+            "marca": "SONY",
+            "modelo": "BDP-S1200"
+        },
+        {
+            "id": "0f8b36a5-28a2-419e-a4c0-761ce5e98376",
+            "descripcion": "SISTEMA DE VOCEO",
+            "marca": "INTER M",
+            "modelo": "MA-2120"
+        },
+        {
+            "id": "4af878ae-35f9-45e7-aa6c-5ed23bfd2c16",
+            "descripcion": "CAJONERA 4 CAJONES",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2c7326a4-7c59-4adb-91ff-ce892df11fab",
+            "descripcion": "ROPERO 4 CAJO0NES 2 PUERTAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4cf6a0f9-5319-4c2c-9edd-6986cb704a45",
+            "descripcion": "GAVETA DOS PUERTAS GRIS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "16195a4a-b668-4c80-ae2e-9fc11bb224c5",
+            "descripcion": "BOTE PARA ROPA SUCIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a329763b-4e13-4edc-b825-9aca5d03c9c2",
+            "descripcion": "TABURETE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5d8b1ef0-6f2b-4497-88e2-cfae725ae1d5",
+            "descripcion": "PENTAPIE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "13b56e59-8b41-40be-bd12-63e2865650b5",
+            "descripcion": "LIBRERO 7 PELDAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5ff5eca7-fc4c-47f6-a7d1-423467ee7ad2",
+            "descripcion": "CAJON COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "2964ac1a-be5c-45e6-bc0b-daa58b6bfa80",
+            "descripcion": "CAJON DE MADERA COLOR ROBLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "59695470-4e33-42b0-8f12-869a071581e6",
+            "descripcion": "UPS",
+            "marca": "ACCURAY",
+            "modelo": "TOMOTHERAPY"
+        },
+        {
+            "id": "68aa06ef-e9b0-465b-8479-64dd7b1bae74",
+            "descripcion": "TOMOTHERAPY",
+            "marca": "ACCURAY",
+            "modelo": "TOMOTHERAPY"
+        },
+        {
+            "id": "51a36bec-5b2d-473f-9ac0-129bb6bc8629",
+            "descripcion": "MESA PACIENTE TOMOTHERAPY",
+            "marca": "ACCURAY",
+            "modelo": "TOMOTHERAPY"
+        },
+        {
+            "id": "32e9b9e8-8e0e-4c7f-876f-9cd16e0cebdd",
+            "descripcion": "MAQUINA DE ANESTESIA",
+            "marca": "MINDRAY",
+            "modelo": "WATP-EX30"
+        },
+        {
+            "id": "20e02c58-fb02-48cb-af6f-2df5f39b5662",
+            "descripcion": "ESTACION DE TRABAJO TOMOGRAFO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "fa464610-5469-44ea-9c8a-180aa8cc11e5",
+            "descripcion": "ARCHIVERO 2 REPISAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a1df86ca-ac53-4193-a439-b1c0bb4d03e3",
+            "descripcion": "SILLON DOS PLAZAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "5ed1c7ce-b264-484f-8dad-2de8f3974bf1",
+            "descripcion": "BASCULA CON ESTADIMETRO",
+            "marca": "TORINO",
+            "modelo": ""
+        },
+        {
+            "id": "b1b42bfa-feb1-488f-9f3f-9ce160251f83",
+            "descripcion": "BOMBA DE VACIO",
+            "marca": "S & S X-RAY PRODUCT",
+            "modelo": "VF PUMP"
+        },
+        {
+            "id": "bb371101-612b-4778-905d-c1ae43e712c3",
+            "descripcion": "MESA DE ACUAPANT",
+            "marca": "NEMKO",
+            "modelo": "SP1600-D"
+        },
+        {
+            "id": "a42e9596-5f0b-4a1b-b7c4-c036636138e4",
+            "descripcion": "TOMOGRAFO",
+            "marca": "SIEMENS",
+            "modelo": "SIMATOM DEFINITION AS"
+        },
+        {
+            "id": "3191b135-ac05-44eb-a8d6-41de8329c670",
+            "descripcion": "MESA PARA PACIENTE",
+            "marca": "SIEMENS",
+            "modelo": "SIMATOM DEFINITION AS"
+        },
+        {
+            "id": "2a05a5e1-6b85-43e8-ad69-1e2bfc57d9ac",
+            "descripcion": "MUBLE MADERA 2 ENTREPAÑOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "ceb40371-b4be-4b32-80ff-e23a44718936",
+            "descripcion": "SILLA PARA VISITA ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a895d82a-5747-4341-a5cb-6284b65315f4",
+            "descripcion": "REGULADOR DE VOLTAJE",
+            "marca": "CPD",
+            "modelo": ""
+        },
+        {
+            "id": "63bc4036-1120-486b-9886-57c2504ab8e0",
+            "descripcion": "BANCO GIRATORIO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "e30de0be-45f5-4f49-a8b4-a514a70d6068",
+            "descripcion": "SILLA PARA PACIENTE CON DESCANSABRAZOS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "26f8cf2f-3fbc-49bb-9b7e-6613967f9da3",
+            "descripcion": "REPISA DE ACERO INOXIDABLE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "00fbdfbd-52d9-4183-afc1-faeb03d33992",
+            "descripcion": "UPS",
+            "marca": "TOSHIBA",
+            "modelo": "1400 XL PLUS"
+        },
+        {
+            "id": "f3c56e57-32e1-48df-8fcb-db16149d6b2a",
+            "descripcion": "SWITCH PARA INTERNET",
+            "marca": "CISCO",
+            "modelo": "CATALYST 2960"
+        },
+        {
+            "id": "6951f58e-321d-427b-92ba-0f12f2e1323c",
+            "descripcion": "EQUIPO DE COMPUTO",
+            "marca": "HP",
+            "modelo": "PRODESK"
+        },
+        {
+            "id": "f4657e7a-846a-4df7-bce5-ef7407a33ec4",
+            "descripcion": "DVR",
+            "marca": "DAHUA",
+            "modelo": "DH1-HCVR5108H-52"
+        },
+        {
+            "id": "29c52cdb-2873-448c-beef-e3afbc4bd6a1",
+            "descripcion": "SISTEMA DE CHAPAS MAGNETICAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4cd4a8e7-4e0d-416c-8f11-ac32dcf6fca3",
+            "descripcion": "LIBRERO COLOR CAOBA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "286f004a-4a00-4141-94c0-dc62f98cfa0b",
+            "descripcion": "TOMOESCANER",
+            "marca": "ESTANDAR IMAGIN",
+            "modelo": "TOMOESCANNER"
+        },
+        {
+            "id": "f4a8647c-978a-4d58-80d7-053ae6aa511d",
+            "descripcion": "BASCULA",
+            "marca": "BAME",
+            "modelo": ""
+        },
+        {
+            "id": "909ec291-562f-4802-b812-072c6d9e59cf",
+            "descripcion": "CAMA PARA PACIENTES",
+            "marca": "STRYKER",
+            "modelo": ""
+        },
+        {
+            "id": "db8e7d24-c3c1-40b1-8bbb-f1005ed1c1c1",
+            "descripcion": "CAMA DE TRASLADO",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "d6bf6080-c359-479c-867d-ad8e99ef4d09",
+            "descripcion": "CONTENEDOR DE ROPA SUCIA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "de4f7e25-49d1-4096-ab01-9c7c50195086",
+            "descripcion": "SILLA DE RUEDAS",
+            "marca": "MOBICARE",
+            "modelo": ""
+        },
+        {
+            "id": "e85eda2d-cc77-42bd-abb3-55485f757b2a",
+            "descripcion": "SILLA PARA VISTA 4 PLAZAS",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "6d76c198-bd77-4022-8752-91f91c314c24",
+            "descripcion": "IMPRESORA",
+            "marca": "HP",
+            "modelo": "M125A"
+        },
+        {
+            "id": "b7586a10-d802-43bf-922c-6feb11e8dc5f",
+            "descripcion": "DVR",
+            "marca": "EPCOM",
+            "modelo": "EV1016TURBO"
+        },
+        {
+            "id": "c373fd95-2836-4c55-871b-2aac59a94109",
+            "descripcion": "GAVETA METALICA 2 PUERTAS ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "bd6bd471-1802-4e2f-994e-5724c1f92f1d",
+            "descripcion": "ESCRITORIO BEIGE",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "a70cfa6c-78dd-475c-9dee-96aacda911fd",
+            "descripcion": "UPS",
+            "marca": "APC",
+            "modelo": "2200"
+        },
+        {
+            "id": "7d1e1fc8-43ef-424e-babb-0e5be5226d1e",
+            "descripcion": "IMPRESORA",
+            "marca": "BROTHER",
+            "modelo": "LC509"
+        },
+        {
+            "id": "50c562ee-2005-43c0-8a94-81e8aaaee65b",
+            "descripcion": "TELEFONO CISCO  ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c7c48abf-28b3-407d-b651-a17cd03953d7",
+            "descripcion": "EQUIPO DE COMPUTO WORD STATION",
+            "marca": "HP",
+            "modelo": "3399LT#ABM"
+        },
+        {
+            "id": "f5f2a728-a2aa-4119-a457-24ce3d8937a9",
+            "descripcion": "CPU ",
+            "marca": "HP",
+            "modelo": "PAVILION"
+        },
+        {
+            "id": "be269f0a-26b8-4330-b172-40d1629429c4",
+            "descripcion": "NEGATOSCOPIO",
+            "marca": "ACC - GREAT",
+            "modelo": "LITE BOX "
+        },
+        {
+            "id": "bcee85c7-9c43-46ad-b952-d7142c4a0d07",
+            "descripcion": "EXCANER",
+            "marca": "MICROTEC",
+            "modelo": "TMA 1600"
+        },
+        {
+            "id": "80565551-bbbe-4d05-a6c3-a5bc39ab36f4",
+            "descripcion": "ESCRITORIO EN L ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "3cb5a1a0-20b6-4506-8d25-2ebb58ebbef4",
+            "descripcion": "SILLA VERDE ",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "9cb5c2da-0ef5-4b52-b123-25327511a17e",
+            "descripcion": "DOSIMETRO",
+            "marca": "DOSIMETER",
+            "modelo": "3700A"
+        },
+        {
+            "id": "17d5354c-1184-4ae4-935d-bc5e5481b07d",
+            "descripcion": "IMPRESORA NEGRA",
+            "marca": "SAMSUNG",
+            "modelo": "ML - 1640"
+        },
+        {
+            "id": "f6fc99ef-bffe-4ec0-9f90-3037f26d2d08",
+            "descripcion": "MESA PEQUEÑA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "4d65fdfc-4b30-4473-a4cd-79aa48048a67",
+            "descripcion": "CAJA NEGRA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "413275ef-7266-4764-94d7-f2448681b177",
+            "descripcion": "ELECTROCARDIOGRAMA ",
+            "marca": "WELCH ALLYN",
+            "modelo": ""
+        },
+        {
+            "id": "87541aaf-f9d3-446c-8137-7d34e6fa863c",
+            "descripcion": "TARJA SENCILLA",
+            "marca": "",
+            "modelo": ""
+        },
+        {
+            "id": "c77d154c-b169-416d-8c43-b339334bb1dc",
+            "descripcion": "UPS",
+            "marca": "CYBER POWER",
+            "modelo": ""
+        }
+    ]
+}

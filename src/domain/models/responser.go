@@ -7,4 +7,6 @@ type Responser struct {
 	Message    string
 	Err        error
 	Data       iris.Map
+	Headers    []iris.Map
+	ExtraInfo  []iris.Map
 }

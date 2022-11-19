@@ -1,0 +1,1 @@
+DROP VIEW fixed_assets_detailed;

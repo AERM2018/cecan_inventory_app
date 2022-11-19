@@ -14,14 +14,16 @@ import (
 )
 
 type DbValidator struct {
-	MedicineDataSrc              datasources.MedicinesDataSource
-	PharmacyDataSrc              datasources.PharmacyStocksDataSource
-	RolesDataSource              datasources.RolesDataSource
-	UserDataSource               datasources.UserDataSource
-	PrescriptionDataSource       datasources.PrescriptionsDataSource
-	StorehouseUtilityDataSource  datasources.StorehouseUtilitiesDataSource
-	StorehouseStocksDataSource   datasources.StorehouseStocksDataSource
-	StorehouseRequestsDataSource datasources.StorehouseRequestsDataSource
+	MedicineDataSrc               datasources.MedicinesDataSource
+	PharmacyDataSrc               datasources.PharmacyStocksDataSource
+	RolesDataSource               datasources.RolesDataSource
+	UserDataSource                datasources.UserDataSource
+	PrescriptionDataSource        datasources.PrescriptionsDataSource
+	StorehouseUtilityDataSource   datasources.StorehouseUtilitiesDataSource
+	StorehouseStocksDataSource    datasources.StorehouseStocksDataSource
+	StorehouseRequestsDataSource  datasources.StorehouseRequestsDataSource
+	FixedAssetsDataSource         datasources.FixedAssetsDataSource
+	FixedAssetsRequestsDataSource datasources.FixedAssetsRequetsDataSource
 }
 
 func (dbVal DbValidator) IsRoleId(ctx iris.Context) {
@@ -467,6 +469,81 @@ func (dbVal DbValidator) AreStorehouseRequestItemsValid(ctx iris.Context) {
 			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 			return
 		}
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) AreFixedAssetsValidFromRequest(ctx iris.Context) {
+	var (
+		httpRes           models.Responser
+		fixedAssetsRequet models.FixedAssetsRequestDetailed
+	)
+	bodyreader.ReadBodyAsJson(ctx, &fixedAssetsRequet, false)
+	for _, fixedAssetItemRequest := range fixedAssetsRequet.FixedAssets {
+		_, errNotFound := dbVal.FixedAssetsDataSource.GetFixedAssetByKey(fixedAssetItemRequest.FixedAsset.Key)
+		if errNotFound == nil {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    fmt.Sprintf("El elemento de material de activo fijo con clave: %v ya se encuentra registrado.", fixedAssetItemRequest.FixedAsset.Key),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) FindFixedAssetByKey(ctx iris.Context) {
+	var (
+		httpRes models.Responser
+	)
+	fixedAssetKey := ctx.Params().GetStringDefault("key", "")
+	_, errNotFound := dbVal.FixedAssetsDataSource.GetFixedAssetByKey(fixedAssetKey)
+	if errNotFound != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("El elemento de material de activo fijo con clave: %v no existe.", fixedAssetKey),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsFixedAssetWithKey(ctx iris.Context) {
+	var (
+		httpRes    models.Responser
+		fixedAsset models.FixedAssetDetailed
+	)
+	bodyreader.ReadBodyAsJson(ctx, &fixedAsset, false)
+
+	fixedAssetKey := ctx.Params().GetStringDefault("key", "")
+	if fixedAsset.Key != fixedAssetKey {
+		_, errNotFound := dbVal.FixedAssetsDataSource.GetFixedAssetByKey(fixedAsset.Key)
+		if errNotFound == nil {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    fmt.Sprintf("No se pudo actualizar el elemento de material de activo fijo debido a que ya existe uno con clave: %v.", fixedAsset.Key),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) FindFixedAssetsRequestById(ctx iris.Context) {
+	var httpRes models.Responser
+	fixedAssetRequestId := ctx.Params().GetStringDefault("id", "")
+	_, errNotFound := dbVal.FixedAssetsRequestsDataSource.GetFixedAssetsRequestById(fixedAssetRequestId)
+	fmt.Println("id", fixedAssetRequestId, "err", errNotFound)
+	if errNotFound != nil {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("La petición con id %v no existe.", fixedAssetRequestId),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
 	}
 	ctx.Next()
 }
