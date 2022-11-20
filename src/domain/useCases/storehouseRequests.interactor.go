@@ -28,12 +28,27 @@ func (interactor StorehouseRequestsInteractor) GetStorehouseRequests() models.Re
 	}
 }
 
-func (interactor StorehouseRequestsInteractor) GetStorehouseRequestById(id string) models.Responser {
+func (interactor StorehouseRequestsInteractor) GetStorehouseRequestById(id string, isPdf bool) models.Responser {
 	storehouseRequests, err := interactor.StorehouseRequestDataSource.GetStorehouseRequestById(id)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
 			Err:        err,
+		}
+	}
+	if isPdf {
+		storehouseRequestDoc := models.StorehouseRequestDoc{StorehouseRequest: storehouseRequests}
+		filePath, errInPdf := storehouseRequestDoc.CreateDoc()
+		if errInPdf != nil {
+			return models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    "Ocurrió un error al generar el documento digital, intentelo mas tarde.",
+			}
+		}
+		return models.Responser{
+			ExtraInfo: []map[string]interface{}{
+				{"file": filePath},
+			},
 		}
 	}
 	return models.Responser{

@@ -6,6 +6,7 @@ import (
 	usecases "cecan_inventory/domain/useCases"
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
+	"fmt"
 
 	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
@@ -46,10 +47,14 @@ func (controller StorehouseRequestsController) GetStorehouseRequests(ctx iris.Co
 
 func (controller StorehouseRequestsController) GetStorehouseRequestById(ctx iris.Context) {
 	storehouseRequetId := ctx.Params().GetStringDefault("id", "")
-	res := controller.interactor.GetStorehouseRequestById(storehouseRequetId)
+	isPdf, _ := ctx.URLParamBool("pdf")
+	res := controller.interactor.GetStorehouseRequestById(storehouseRequetId, isPdf)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
+	}
+	if isPdf {
+		ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "request.pdf")
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
