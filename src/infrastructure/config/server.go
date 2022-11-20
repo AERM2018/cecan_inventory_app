@@ -57,7 +57,7 @@ func (server *Server) setUpMiddlewares() {
 		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 	})
-	server.IrisApp.Use(crs)
+	server.IrisApp.UseRouter(crs)
 	server.IrisApp.AllowMethods(iris.MethodOptions)
 }
 func (server *Server) SetUpRouter() {
