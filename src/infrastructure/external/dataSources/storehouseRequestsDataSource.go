@@ -47,9 +47,15 @@ func (dataSrc StorehouseRequestsDataSource) GetStorehouseRequestById(id string) 
 			return tx.Omit("created_at", "updated_at")
 		}).
 		Preload("Utilities.StorehouseUtilty", func(tx *gorm.DB) *gorm.DB {
-			return tx.Table("storehouse_utilities").Select("key", "generic_name", "storehouse_utility_category_id")
+			return tx.Table("storehouse_utilities").Select("key", "generic_name", "storehouse_utility_category_id", "storehouse_utility_unit_id", "storehouse_utility_presentation_id")
 		}).
 		Preload("Utilities.StorehouseUtilty.Category", func(tx *gorm.DB) *gorm.DB {
+			return tx.Omit("created_at", "updated_at")
+		}).
+		Preload("Utilities.StorehouseUtilty.Unit", func(tx *gorm.DB) *gorm.DB {
+			return tx.Omit("created_at", "updated_at")
+		}).
+		Preload("Utilities.StorehouseUtilty.Presentation", func(tx *gorm.DB) *gorm.DB {
 			return tx.Omit("created_at", "updated_at")
 		}).
 		Where("id = ?", id).

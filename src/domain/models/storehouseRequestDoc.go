@@ -103,16 +103,16 @@ func (doc StorehouseRequestDoc) _addRequestInfo(m pdf.Maroto) {
 }
 
 func (doc StorehouseRequestDoc) _addUtilitiesList(m pdf.Maroto) {
-	headers := []string{"Clave", "Nombre generico", "Categoría", "Piezas solicitadas", "Piezas suminstradas"}
-	gridSizes := []uint{2, 4, 2, 2, 2}
+	headers := []string{"Clave", "Nombre generico", "Categoría", "Cantidad solicitada", "Cantidad suminstrada"}
+	gridSizes := []uint{2, 3, 2, 2, 3}
 	contents := make([][]string, 0)
 	for _, utility := range doc.StorehouseRequest.Utilities {
 		utilityuInfo := []string{
 			utility.StorehouseUtilty.Key,
 			utility.StorehouseUtilty.GenericName,
 			utility.StorehouseUtilty.Category.Name,
-			fmt.Sprintf("%v", utility.Pieces),
-			fmt.Sprintf("%v", utility.PiecesSupplied)}
+			fmt.Sprintf("%v %v", utility.Pieces, utility.StorehouseUtilty.Unit.Name),
+			fmt.Sprintf("%v %v", utility.PiecesSupplied, utility.StorehouseUtilty.Unit.Name)}
 		contents = append(contents, utilityuInfo)
 	}
 	m.Line(10, props.Line{Color: color.NewWhite()})
