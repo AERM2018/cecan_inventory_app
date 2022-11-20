@@ -56,8 +56,15 @@ func (server *Server) setUpMiddlewares() {
 	crs := cors.New(cors.Options{
 		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{"Authorization"},
 	})
 	server.IrisApp.UseRouter(crs)
+	// server.IrisApp.UseGlobal(func(ctx iris.Context) {
+	// 	ctx.Header("Access-Control-Allow-Origin", "*")
+	// 	ctx.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT")
+	// 	ctx.Header("Access-Control-Allow-Headers", "append,delete,entries,foreach,get,has,keys,set,values,Authorization")
+	// 	ctx.Next()
+	// })
 	server.IrisApp.AllowMethods(iris.MethodOptions)
 }
 func (server *Server) SetUpRouter() {
