@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"strings"
 	"time"
 
 	"github.com/johnfercher/maroto/pkg/color"
@@ -83,7 +84,7 @@ func (doc FixedAssetsRequestDoc) _addFixedAssetRequestInfo(m pdf.Maroto) {
 		})
 		m.Col(2, func() {
 			fmt.Println(doc.CreatedAt)
-			m.Text(doc.CreatedAt.Format("02/01/2006"), props.Text{Size: 8, Style: consts.Bold, Align: consts.Center})
+			m.Text(doc.FixedAssetRequest.CreatedAt.Format("02/01/2006"), props.Text{Size: 8, Style: consts.Bold, Align: consts.Center})
 		})
 	})
 	// This simulates the line below the text
@@ -152,11 +153,11 @@ func (doc FixedAssetsRequestDoc) _addSignatues(m pdf.Maroto) {
 	})
 	m.Row(10, func() {
 		m.Col(5, func() {
-			m.Signature(doc.SignaturesInfo.Director.FullName, props.Font{Color: color.NewBlack()})
+			m.Signature(strings.ToUpper(doc.SignaturesInfo.Director.FullName), props.Font{Color: color.NewBlack()})
 		})
 		m.ColSpace(2)
 		m.Col(5, func() {
-			m.Signature("ING JOSE ANGEL GUZMAN DAVALOS", props.Font{Color: color.NewBlack()})
+			m.Signature("ING. JOSE ANGEL GUZMAN DAVALOS", props.Font{Color: color.NewBlack()})
 		})
 	})
 	m.Row(5, func() {
@@ -171,11 +172,11 @@ func (doc FixedAssetsRequestDoc) _addSignatues(m pdf.Maroto) {
 	m.Line(10, props.Line{Color: color.NewWhite()})
 	m.Row(6, func() {
 		m.Col(5, func() {
-			m.Signature(doc.SignaturesInfo.Administrator.FullName, props.Font{Color: color.NewBlack()})
+			m.Signature(strings.ToUpper(doc.SignaturesInfo.Administrator.FullName), props.Font{Color: color.NewBlack()})
 		})
 		m.ColSpace(2)
 		m.Col(5, func() {
-			m.Signature(doc.FixedAssetRequest.Department.ResponsibleUser.FullName, props.Font{Color: color.NewBlack()})
+			m.Signature(strings.ToUpper(doc.FixedAssetRequest.Department.ResponsibleUser.FullName), props.Font{Color: color.NewBlack()})
 		})
 	})
 	m.Row(5, func() {
