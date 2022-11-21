@@ -1,0 +1,1 @@
+## This folder will contain the pdf file created by the api before sending them to the client

@@ -6,6 +6,7 @@ import (
 	usecases "cecan_inventory/domain/useCases"
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
+	"fmt"
 
 	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
@@ -30,7 +31,7 @@ func (controller PrescriptionsController) CreatePrescription(ctx iris.Context) {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
 	}
-	helpers.PrepareAndSendDataResponse(ctx, res)
+	ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "receta.pdf")
 }
 
 func (controller PrescriptionsController) GetPrescriptions(ctx iris.Context) {
@@ -44,12 +45,21 @@ func (controller PrescriptionsController) GetPrescriptions(ctx iris.Context) {
 }
 
 func (controller PrescriptionsController) GetPrescriptionById(ctx iris.Context) {
+	var isPdf bool
 	idString := ctx.Params().GetString("id")
+	if ctx.URLParamDefault("pdf", "false") == "false" {
+		isPdf = false
+	} else {
+		isPdf = true
+	}
 	id, _ := uuid.Parse(idString)
-	res := controller.PrescriptionsInteractor.GetPrescriptionById(id)
+	res := controller.PrescriptionsInteractor.GetPrescriptionById(id, isPdf)
 	if res.StatusCode >= 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
+	}
+	if isPdf {
+		ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "receta.pdf")
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }

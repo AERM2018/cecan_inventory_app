@@ -13,6 +13,7 @@ type Seed struct {
 func All() []Seed {
 	return []Seed{
 		{Name: "CreateAdminRole", Run: func(db *gorm.DB) error { return CreateRoles(db) }},
+		{Name: "CreateSuperiorRoles", Run: func(db *gorm.DB) error { return CreateSuperiorRoles(db) }},
 		{Name: "CreateAdminUser", Run: func(db *gorm.DB) error { return CreateAdminUser(db) }},
 		{Name: "CreateUsers", Run: func(db *gorm.DB) error { return CreateUsers(db) }},
 		{Name: "CreateDepartments", Run: func(db *gorm.DB) error { return CreateDepartments(db) }},

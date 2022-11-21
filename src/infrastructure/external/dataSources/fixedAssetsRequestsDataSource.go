@@ -43,7 +43,10 @@ func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequestById(id string)
 			return db.Raw("select * from fixed_assets_detailed")
 		}).
 		Preload("Department", func(db *gorm.DB) *gorm.DB {
-			return db.Omit("created_at", "updated_at", "deleted_at")
+			return db.Table("departments").Omit("created_at", "updated_at", "deleted_at")
+		}).
+		Preload("Department.ResponsibleUser", func(db *gorm.DB) *gorm.DB {
+			return db.Select("id", "name", "surname", "full_name")
 		}).
 		Preload("User", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("password", "email", "created_at", "updated_at", "deleted_at")
@@ -96,4 +99,15 @@ func (dataSrc FixedAssetsRequetsDataSource) DeleteFixedAssetsRequest(id string, 
 		return errInTransaction
 	}
 	return nil
+}
+
+func (dataSrc FixedAssetsRequetsDataSource) GetSignaturesInfo() models.FixedAssetsRequestSignaturesInfo {
+	director := models.User{}
+	subDirector := models.User{}
+	dataSrc.DbPsql.Table("users").Joins("Role").Where("\"Role\".name = ?", "Director").Take(&director)
+	dataSrc.DbPsql.Table("users").Joins("Role").Where("\"Role\".name = ?", "Subdirector").Take(&subDirector)
+	return models.FixedAssetsRequestSignaturesInfo{
+		Director:      director,
+		Administrator: subDirector,
+	}
 }

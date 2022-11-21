@@ -27,7 +27,7 @@ func InitStorehouseRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseRequests.Get("/{id:string}", storehouseRequestsController.GetStorehouseRequestById)
 
 	storehouseRequests.Post("/",
-		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest),
+		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest, "pieces_supplied"),
 		val.AreStorehouseRequestItemsValid,
 		storehouseRequestsController.CreateStorehouseRequest)
 

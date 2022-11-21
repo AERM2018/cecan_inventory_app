@@ -50,6 +50,29 @@ func GetRolesMock(name string) []models.Role {
 	return rolesMocks
 }
 
+func GetSuperiorRolesMock(name string) []models.Role {
+	rolesMocksMap := []map[string]string{
+		{"id": "c1225222-30ae-4001-963b-e5a042957c45", "name": "Director"},
+		{"id": "67606ab7-ece7-4cd1-ace0-0b43bde63d15", "name": "Subdirector"},
+	}
+	var rolesMocks []models.Role
+	var rolesFinalMap []map[string]string
+	if name == "" {
+		rolesFinalMap = rolesMocksMap
+	} else {
+		rolesFound := common.FilterSlice(rolesMocksMap, func(i interface{}) bool {
+			parsed := i.(map[string]string)
+			return strings.ToLower(parsed["name"]) == strings.ToLower(name)
+		})
+		rolesFinalMap = rolesFound.([]map[string]string)
+	}
+	for _, roleMockAsMap := range rolesFinalMap {
+		idAsUuid, _ := uuid.Parse(roleMockAsMap["id"])
+		rolesMocks = append(rolesMocks, models.Role{Id: &idAsUuid, Name: roleMockAsMap["name"]})
+	}
+	return rolesMocks
+}
+
 func GetUserMockSeed(rolId string) models.User {
 	return models.User{
 		RoleId:   rolId,

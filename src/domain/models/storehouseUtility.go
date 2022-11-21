@@ -24,9 +24,9 @@ type (
 	StorehouseUtilityDetailed struct {
 		Key             string                         `gorm:"primaryKey" json:"key"`
 		GenericName     string                         `json:"generic_name"`
-		UnitId          *uuid.UUID                     `gorm:"column:storehouse_utility_unit_id;foreignKey:storehouse_utility_unit_id" json:"unit_id,omitempty"`
+		UnitId          uuid.UUID                      `gorm:"column:storehouse_utility_unit_id;foreignKey:storehouse_utility_unit_id" json:"unit_id,omitempty"`
 		Unit            *StorehouseUtilityUnit         `json:"unit,omitempty"`
-		PresentationId  *uuid.UUID                     `gorm:"column:storehouse_utility_presentation_id;foreignKey:storehouse_utility_presentation_id" json:"presentation_id,omitempty"`
+		PresentationId  uuid.UUID                      `gorm:"column:storehouse_utility_presentation_id;foreignKey:storehouse_utility_presentation_id" json:"presentation_id"`
 		Presentation    *StorehouseUtilityPresentation `json:"presentation,omitempty"`
 		CategoryId      uuid.UUID                      `gorm:"column:storehouse_utility_category_id;foreignKey:storehouse_utility_category_id" json:"category_id"`
 		Category        *StorehouseUtilityCategory     `json:"category,omitempty"`
