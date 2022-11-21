@@ -16,7 +16,7 @@ var user = mocks.GetUserMock("", 10)
 
 func testOkAuth(t *testing.T) {
 	userMockSeed := mocks.GetUserMockSeed("")
-	credentials := models.AccessCredentials{Email: userMockSeed.Email, Password: userMockSeed.Password}
+	credentials := models.AccessCredentials{Username: userMockSeed.Email, Password: userMockSeed.Password}
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		POST("/api/v1/auth/login").
@@ -29,7 +29,7 @@ func testOkAuth(t *testing.T) {
 }
 
 func testNotFoundAuth(t *testing.T) {
-	credentials := models.AccessCredentials{Email: fake.EmailAddress(), Password: fake.Password(8, 10, true, true, false)}
+	credentials := models.AccessCredentials{Username: fake.EmailAddress(), Password: fake.Password(8, 10, true, true, false)}
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		POST("/api/v1/auth/login").
@@ -40,7 +40,7 @@ func testNotFoundAuth(t *testing.T) {
 }
 
 func testEmailNotFoundAuth(t *testing.T) {
-	credentials := models.AccessCredentials{Email: fake.EmailAddress(), Password: user.Password}
+	credentials := models.AccessCredentials{Username: fake.EmailAddress(), Password: user.Password}
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		POST("/api/v1/auth/login").
@@ -51,7 +51,7 @@ func testEmailNotFoundAuth(t *testing.T) {
 }
 
 func testPasswordWrongAuth(t *testing.T) {
-	credentials := models.AccessCredentials{Email: user.Email, Password: fake.Password(8, 10, true, true, false)}
+	credentials := models.AccessCredentials{Username: user.Email, Password: fake.Password(8, 10, true, true, false)}
 	httpTester := httptest.New(t, IrisApp)
 	res := httpTester.
 		POST("/api/v1/auth/login").

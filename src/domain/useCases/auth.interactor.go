@@ -17,8 +17,12 @@ type AuthInteractor struct {
 }
 
 func (interacor AuthInteractor) LoginUser(credentials models.AccessCredentials) models.Responser {
-	user, err := interacor.UserDataSource.GetUserByEmail(credentials.Email)
-	// User with that email doesn't exist
+	var (
+		user models.User
+		err  error
+	)
+	user, err = interacor.UserDataSource.GetUserByEmailOrId(credentials.Username)
+	// User with that email or ID doesn't exist
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return models.Responser{

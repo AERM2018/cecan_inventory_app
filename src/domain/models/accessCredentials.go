@@ -1,6 +1,6 @@
 package models
 
 type AccessCredentials struct {
-	Email    string `json:"email"`
+	Username string `json:"username,omitempty"`
 	Password string `json:"password"`
 }

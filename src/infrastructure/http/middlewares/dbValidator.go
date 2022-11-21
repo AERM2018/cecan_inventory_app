@@ -65,7 +65,7 @@ func (dbVal DbValidator) IsEmail(ctx iris.Context) {
 		user    models.User
 	)
 	bodyreader.ReadBodyAsJson(ctx, &user, false)
-	_, err := dbVal.UserDataSource.GetUserByEmail(user.Email)
+	_, err := dbVal.UserDataSource.GetUserByEmailOrId(user.Email)
 	if err == nil {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusBadRequest,

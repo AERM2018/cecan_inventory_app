@@ -11,12 +11,12 @@ type UserDataSource struct {
 	DbPsql *gorm.DB
 }
 
-func (dataSrc UserDataSource) GetUserByEmail(email string) (models.User, error) {
+func (dataSrc UserDataSource) GetUserByEmailOrId(username string) (models.User, error) {
 	var user models.User
 	res := dataSrc.DbPsql.
 		Joins("Role").
 		Omit("updated_at", "deleted_at").
-		Where(&models.User{Email: email}).First(&user)
+		Where("email = ? or \"users\".id = ?", username, username).First(&user)
 	if res.RowsAffected < 1 {
 		return user, res.Error
 	}
