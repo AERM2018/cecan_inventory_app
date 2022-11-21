@@ -16,6 +16,12 @@ import (
 type FixedAssetsRequestDoc struct {
 	FixedAssetRequest FixedAssetsRequestDetailed
 	CreatedAt         time.Time
+	SignaturesInfo    FixedAssetsRequestSignaturesInfo
+}
+
+type FixedAssetsRequestSignaturesInfo struct {
+	Director      User
+	Administrator User
 }
 
 func (doc *FixedAssetsRequestDoc) CreateDoc() (string, error) {
@@ -146,11 +152,11 @@ func (doc FixedAssetsRequestDoc) _addSignatues(m pdf.Maroto) {
 	})
 	m.Row(10, func() {
 		m.Col(5, func() {
-			m.Signature(doc.FixedAssetRequest.Department.ResponsibleUser.FullName, props.Font{Color: color.NewBlack()})
+			m.Signature(doc.SignaturesInfo.Director.FullName, props.Font{Color: color.NewBlack()})
 		})
 		m.ColSpace(2)
 		m.Col(5, func() {
-			m.Signature(doc.FixedAssetRequest.Department.ResponsibleUser.FullName, props.Font{Color: color.NewBlack()})
+			m.Signature("ING JOSE ANGEL GUZMAN DAVALOS", props.Font{Color: color.NewBlack()})
 		})
 	})
 	m.Row(5, func() {
@@ -165,7 +171,7 @@ func (doc FixedAssetsRequestDoc) _addSignatues(m pdf.Maroto) {
 	m.Line(10, props.Line{Color: color.NewWhite()})
 	m.Row(6, func() {
 		m.Col(5, func() {
-			m.Signature(doc.FixedAssetRequest.Department.ResponsibleUser.FullName, props.Font{Color: color.NewBlack()})
+			m.Signature(doc.SignaturesInfo.Administrator.FullName, props.Font{Color: color.NewBlack()})
 		})
 		m.ColSpace(2)
 		m.Col(5, func() {

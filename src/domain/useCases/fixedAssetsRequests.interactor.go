@@ -39,7 +39,10 @@ func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequestById(id str
 		}
 	}
 	if isPdf {
-		fixedAssetsRequestDoc := models.FixedAssetsRequestDoc{FixedAssetRequest: fixedAssetsRequest}
+		fixedAssetsRequestDoc := models.FixedAssetsRequestDoc{
+			FixedAssetRequest: fixedAssetsRequest,
+			SignaturesInfo:    interactor.FixedAssetsRequestsDataSource.GetSignaturesInfo(),
+		}
 		filePath, errInPdf := fixedAssetsRequestDoc.CreateDoc()
 		if errInPdf != nil {
 			return models.Responser{

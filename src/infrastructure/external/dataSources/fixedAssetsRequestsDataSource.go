@@ -100,3 +100,14 @@ func (dataSrc FixedAssetsRequetsDataSource) DeleteFixedAssetsRequest(id string, 
 	}
 	return nil
 }
+
+func (dataSrc FixedAssetsRequetsDataSource) GetSignaturesInfo() models.FixedAssetsRequestSignaturesInfo {
+	director := models.User{}
+	subDirector := models.User{}
+	dataSrc.DbPsql.Table("users").Joins("Role").Where("\"Role\".name = ?", "Director").Take(&director)
+	dataSrc.DbPsql.Table("users").Joins("Role").Where("\"Role\".name = ?", "Subdirector").Take(&subDirector)
+	return models.FixedAssetsRequestSignaturesInfo{
+		Director:      director,
+		Administrator: subDirector,
+	}
+}
