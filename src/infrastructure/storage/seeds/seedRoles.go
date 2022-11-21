@@ -15,3 +15,13 @@ func CreateRoles(db *gorm.DB) error {
 	}
 	return nil
 }
+
+func CreateSuperiorRoles(db *gorm.DB) error {
+	for _, rol := range mocks.GetSuperiorRolesMock("") {
+		err := db.FirstOrCreate(&rol, rol).Error
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
