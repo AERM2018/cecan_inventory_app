@@ -6,6 +6,7 @@ import (
 	usecases "cecan_inventory/domain/useCases"
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
+	"fmt"
 
 	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
@@ -42,10 +43,14 @@ func (controller FixedAssetsRequestsController) GetFixedAssetsRequests(ctx iris.
 
 func (controller FixedAssetsRequestsController) GetFixedAssetsRequestById(ctx iris.Context) {
 	fixedAssetsRequestId := ctx.Params().GetStringDefault("id", "")
-	res := controller.Interactor.GetFixedAssetsRequestById(fixedAssetsRequestId)
+	isPdf, _ := ctx.URLParamBool("pdf")
+	res := controller.Interactor.GetFixedAssetsRequestById(fixedAssetsRequestId, isPdf)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
+	}
+	if isPdf {
+		ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "fixedAssetsRequest.pdf")
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }

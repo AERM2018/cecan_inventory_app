@@ -30,12 +30,27 @@ func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequests(departmen
 	}
 }
 
-func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequestById(id string) models.Responser {
+func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequestById(id string, isPdf bool) models.Responser {
 	fixedAssetsRequest, err := interactor.FixedAssetsRequestsDataSource.GetFixedAssetsRequestById(id)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
 			Err:        err,
+		}
+	}
+	if isPdf {
+		fixedAssetsRequestDoc := models.FixedAssetsRequestDoc{FixedAssetRequest: fixedAssetsRequest}
+		filePath, errInPdf := fixedAssetsRequestDoc.CreateDoc()
+		if errInPdf != nil {
+			return models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    "Ocurrió un error al generar el documento digital, intentelo mas tarde.",
+			}
+		}
+		return models.Responser{
+			ExtraInfo: []map[string]interface{}{
+				{"file": filePath},
+			},
 		}
 	}
 	return models.Responser{

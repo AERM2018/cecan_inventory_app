@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"os"
 	"path"
 
@@ -36,5 +37,74 @@ func InsertPdfHeader(m pdf.Maroto) {
 			})
 		})
 	})
+}
 
+func InsertFixedAssetsRequestPdfHeader(m pdf.Maroto, createdAt string) {
+	cwd, _ := os.Getwd()
+	m.RegisterHeader(func() {
+		m.Row(50, func() {
+			// m.Col(2, func() {
+			m.FileImage(
+				path.Join(cwd, "domain", "assets", "servicios_salud_dgo.jpeg"),
+				props.Rect{Percent: 50},
+			)
+			// })
+			m.Row(5, func() {
+				m.ColSpace(2)
+				m.Col(4, func() {
+					m.Text("SERVICIOS DE SALUD DE DURANGO", props.Text{Style: consts.Bold, Align: consts.Center, Size: 9})
+				})
+
+				m.ColSpace(2)
+				m.SetBorder(true)
+				m.Col(2, func() {
+					m.Text("Código", props.Text{Align: consts.Left, Left: 3, Size: 6, Top: 1.5})
+				})
+				m.Col(2, func() {
+					m.Text("...", props.Text{Align: consts.Left, Left: 3, Size: 6, Top: 1.5})
+				})
+				m.SetBorder(false)
+			})
+			m.Row(5, func() {
+				m.ColSpace(2)
+				m.Col(4, func() {
+					m.Text("DIRECCION ADMINISTRATIVA", props.Text{Style: consts.Bold, Align: consts.Center, Size: 9})
+				})
+				m.ColSpace(2)
+				m.SetBorder(true)
+				m.Col(2, func() {
+					m.Text(fmt.Sprintf("Fecha de emisión: %v", createdAt), props.Text{Align: consts.Left, Left: 1.5, Size: 6, Top: 1.5})
+				})
+				m.Col(2, func() {
+					m.Text(fmt.Sprintf("Fecha de emisión: %v", createdAt), props.Text{Align: consts.Left, Left: 1.5, Size: 6, Top: 1.5})
+				})
+				m.SetBorder(false)
+			})
+			m.Row(5, func() {
+				m.ColSpace(2)
+				m.Col(4, func() {
+					m.Text("SUBDIRECCION DE CONTABILIDAD Y PRESUPUESTOS", props.Text{Style: consts.Bold, Align: consts.Center, Size: 9})
+				})
+				m.ColSpace(2)
+				m.SetBorder(true)
+				m.Col(4, func() {
+					m.Text("Elaboró: JEFE DEL DEPARTAMENTO DE CONTROL DE ACTIVOS", props.Text{Align: consts.Left, Left: 1.5, Size: 7, Top: 1.5})
+				})
+				m.SetBorder(false)
+			})
+			m.Row(5, func() {
+				m.ColSpace(2)
+				m.Col(4, func() {
+					m.Text("DPTO. DE CONTROL DE ACTIVOS E INVENTARIOS", props.Text{Style: consts.Bold, Align: consts.Center, Size: 9})
+				})
+				m.ColSpace(2)
+				m.SetBorder(true)
+				m.Col(4, func() {
+					m.Text("Aprobado por: SUBDIRECCION DE CONTABILIDAD Y PRESUPUESTOS", props.Text{Align: consts.Left, Left: 1.5, Size: 7, Top: 1.5})
+				})
+				m.SetBorder(false)
+			})
+		})
+	})
+	m.SetBorder(false)
 }
