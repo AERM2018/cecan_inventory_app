@@ -299,6 +299,7 @@ func GetStorehouseRequestStatuses() []models.StorehouseRequestStatus {
 	mapStorehouseRequestStatuses := []map[string]string{
 		{"id": "8d60d759-55e3-474e-9b13-bd41c720ef2b", "name": "Pendiente"},
 		{"id": "4920d64d-7c5c-4fb0-ad52-c00141a298b9", "name": "Completada"},
+		{"id": "b54b0878-dade-4e2b-83b2-c922d992eb83", "name": "Incompleta"},
 	}
 	storehouseRequestStatusesMockSeed := make([]models.StorehouseRequestStatus, 0)
 	for pointer < len(mapStorehouseRequestStatuses) {

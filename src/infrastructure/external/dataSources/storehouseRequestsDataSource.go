@@ -201,28 +201,48 @@ func (dataSrc StorehouseRequestsDataSource) IsRequestDeterminedStatus(id string,
 func (dataSrc StorehouseRequestsDataSource) SupplyStorehouseRequest(id string, utilities []models.StorehouseUtilitiesStorehouseRequests) error {
 	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
 		var (
-			storehouseRequestUtilityUpdated models.StorehouseUtilitiesStorehouseRequests
-			storehouseRequestStatus         models.StorehouseRequestStatus
+			utilityRequested        models.StorehouseUtilitiesStorehouseRequests
+			storehouseRequestStatus models.StorehouseRequestStatus
+			isRequestIncomplete     bool
 		)
-		isCompleted := true
 
 		for _, utilityRequestReference := range utilities {
-			err := tx.Exec(fmt.Sprintf("Call public.reserve_utility_to_request('%v','%v',%v);", id, utilityRequestReference.UtilityKey, utilityRequestReference.PiecesSupplied)).Error
-			if err != nil {
-				return err
+			errConsulting := tx.
+				Table("storehouse_utilities_storehouse_requests").
+				Where("storehouse_request_id = ? and storehouse_utility_key = ?", id, utilityRequestReference.UtilityKey).
+				Take(&utilityRequested).Error
+			if errConsulting != nil {
+				return errConsulting
 			}
-			// Check if the total quantity requested was supplied already
-			// The request status depends on the quantity supplied
-			// If at least one element was not supplied totally, the status will be incomplited
-			tx.Where("storehouse_request_id = ? AND storehouse_utility_key = ?", id, utilityRequestReference.UtilityKey).Take(&storehouseRequestUtilityUpdated)
-			if storehouseRequestUtilityUpdated.Pieces != storehouseRequestUtilityUpdated.PiecesSupplied {
-				isCompleted = false
+			if utilityRequested.PiecesSupplied+utilityRequestReference.PiecesSupplied < utilityRequested.Pieces {
+				isRequestIncomplete = true
+			}
+			errUpdating := tx.
+				Table("storehouse_utilities_storehouse_requests").
+				Where("storehouse_request_id = ? and storehouse_utility_key = ?", id, utilityRequestReference.UtilityKey).
+				Update("pieces_supplied", utilityRequested.PiecesSupplied+utilityRequestReference.PiecesSupplied).
+				Update("last_pieces_supplied", utilityRequestReference.PiecesSupplied).
+				Error
+			if errUpdating != nil {
+				return errUpdating
+			}
+			errInUtilitiesResetvation := tx.Transaction(func(tx *gorm.DB) error {
+				// Take and reserver the medicines stocks for the prescription
+				err := tx.Exec(fmt.Sprintf("Call public.reserve_utility_to_request('%v');", id)).Error
+				if err != nil {
+					return err
+				}
+				return nil
+			})
+			if errInUtilitiesResetvation != nil {
+				return errInUtilitiesResetvation
 			}
 		}
-		if isCompleted {
-			tx.Where("name = ?", "Completada").Take(&storehouseRequestStatus)
-		} else {
+		fmt.Println("status", isRequestIncomplete)
+		if isRequestIncomplete {
 			tx.Where("name = ?", "Incompleta").Take(&storehouseRequestStatus)
+		} else {
+			tx.Where("name = ?", "Completada").Take(&storehouseRequestStatus)
 		}
 		errUpdatingStatus := tx.
 			Table("storehouse_requests").
