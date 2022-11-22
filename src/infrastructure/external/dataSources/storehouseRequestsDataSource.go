@@ -74,7 +74,6 @@ func (dataSrc StorehouseRequestsDataSource) CreateStorehouseRequest(requestInfo 
 			Create(&requestInfo).
 			Error
 		if err1 != nil {
-			fmt.Println(err1)
 			return errors.New("No se pudo crear una nueva solicitud, verifique los datos y vuelvalo a intentar.")
 		}
 		// Start assosiationg utilities to the new storehouse request
@@ -134,7 +133,6 @@ func (dataSrc StorehouseRequestsDataSource) UpdateStorehouseRequest(id string, r
 		}
 		// The slice's position 1 is for the utilities to be added to the storehouse request
 		for _, utilityToAdd := range utilitiesOperationTypes[1] {
-			fmt.Println(utilityToAdd)
 			err = tx.
 				Create(&utilityToAdd).Error
 			if err != nil {

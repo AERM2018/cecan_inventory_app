@@ -83,7 +83,6 @@ func (doc FixedAssetsRequestDoc) _addFixedAssetRequestInfo(m pdf.Maroto) {
 			m.Text("FECHA:", props.Text{Size: 8, Style: consts.Bold})
 		})
 		m.Col(2, func() {
-			fmt.Println(doc.CreatedAt)
 			m.Text(doc.FixedAssetRequest.CreatedAt.Format("02/01/2006"), props.Text{Size: 8, Style: consts.Bold, Align: consts.Center})
 		})
 	})

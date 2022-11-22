@@ -35,7 +35,6 @@ func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests(departmentId 
 
 func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequestById(id string) (models.FixedAssetsRequestDetailed, error) {
 	var fixedAssetsRequest models.FixedAssetsRequestDetailed
-	fmt.Println("id", id)
 	err := dataSrc.DbPsql.
 		Table("fixed_assets_requests").
 		Preload("FixedAssets").
