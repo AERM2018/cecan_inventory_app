@@ -42,6 +42,7 @@ func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
 	tx.Model(User{}).Count(&numOfRecord)
 	numOfRecord += 100
 	user.Id = fmt.Sprintf("CAN%v%v", numOfRecord, dateUnixSufix)
+	user.FullName = user.Name + " " + user.Surname
 	user.Password = hashPassword(user.Password)
 	return
 }

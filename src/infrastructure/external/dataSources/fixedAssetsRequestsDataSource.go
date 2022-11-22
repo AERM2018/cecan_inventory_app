@@ -17,7 +17,7 @@ func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests(departmentId 
 	sqlInstance := dataSrc.DbPsql.
 		Table("fixed_assets_requests").
 		Preload("Department", func(db *gorm.DB) *gorm.DB {
-			return db.Omit("created_at", "updated_at", "deleted_at")
+			return db.Table("departments").Omit("created_at", "updated_at", "deleted_at")
 		}).
 		Preload("User", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("password", "email", "created_at", "updated_at", "deleted_at")
@@ -39,7 +39,7 @@ func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequestById(id string)
 		Table("fixed_assets_requests").
 		Preload("FixedAssets").
 		Preload("FixedAssets.FixedAsset", func(db *gorm.DB) *gorm.DB {
-			return db.Raw("select * from fixed_assets_detailed")
+			return db.Table("fixed_assets_detailed")
 		}).
 		Preload("Department", func(db *gorm.DB) *gorm.DB {
 			return db.Table("departments").Omit("created_at", "updated_at", "deleted_at")
