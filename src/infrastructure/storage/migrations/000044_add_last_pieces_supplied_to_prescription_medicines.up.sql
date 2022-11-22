@@ -1,0 +1,1 @@
+ALTER TABLE prescriptions_medicines ADD last_pieces_supplied INT NOT NULL DEFAULT 0;

@@ -216,14 +216,20 @@ func (dbVal DbValidator) IsMedicineDeleted(ctx iris.Context) {
 func (dbVal DbValidator) IsPharmacyStockUsed(ctx iris.Context) {
 	var (
 		httpRes models.Responser
+		action  string
 	)
+	if ctx.Method() == "PUT" {
+		action = "actualizar"
+	} else {
+		action = "eliminar"
+	}
 	pharmacyStockId := ctx.Params().GetString("id")
 	pharmacyStockUuid, _ := uuid.Parse(pharmacyStockId)
 	isStockUsed, _ := dbVal.PharmacyDataSrc.IsStockUsed(pharmacyStockUuid)
 	if isStockUsed {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusBadRequest,
-			Message:    "No se puede eliminar un stock de farmacia cuando ha sido utilizado.",
+			Message:    fmt.Sprintf("No se puede %v un stock de farmacia cuando ha sido utilizado.", action),
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return

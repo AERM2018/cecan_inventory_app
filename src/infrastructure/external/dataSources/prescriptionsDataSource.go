@@ -152,24 +152,51 @@ func (dataSrc PrescriptionsDataSource) IsSamePrescriptionCreator(id string, user
 }
 
 func (dataSrc PrescriptionsDataSource) CompletePrescription(id string, prescription models.PrescriptionToComplete) error {
-	prescription.PrescriptionStatusId = dataSrc.GetPrescriptionStatus("Completada")
+	var (
+		medicineSuscripted       models.PrescriptionsMedicines
+		isPrescriptionIncomplete bool
+	)
 	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
-		// Take and reserver the medicines stocks for the prescription
-		errUpdatingStocks := dataSrc.DbPsql.Exec(fmt.Sprintf("Call public.reserve_medicines_to_prescription('%v','actualizar')", id)).Error
-		if errUpdatingStocks != nil {
-			return errUpdatingStocks
-		}
+
 		// Update the records of amount of medicines supplied
 		for _, medicine := range prescription.Medicines {
+			errCosulting := tx.
+				Table("prescriptions_medicines").
+				Where("prescription_id = ? and medicine_key = ?", id, medicine.MedicineKey).
+				Take(&medicineSuscripted).Error
+			if errCosulting != nil {
+				return errCosulting
+			}
+			if medicineSuscripted.PiecesSupplied+medicine.PiecesSupplied < medicineSuscripted.Pieces {
+				isPrescriptionIncomplete = true
+			}
 			errUpdating := tx.
 				Table("prescriptions_medicines").
 				Where("prescription_id = ? and medicine_key = ?", id, medicine.MedicineKey).
-				Updates(medicine).Error
+				Update("pieces_supplied", medicineSuscripted.PiecesSupplied+medicine.PiecesSupplied).
+				Update("last_pieces_supplied", medicine.PiecesSupplied).
+				Error
 			if errUpdating != nil {
 				return errUpdating
 			}
 		}
+		errInMedicineResetvation := tx.Transaction(func(tx *gorm.DB) error {
+			// Take and reserver the medicines stocks for the prescription
+			errUpdatingStocks := tx.Exec(fmt.Sprintf("Call public.reserve_medicines_to_prescription('%v','actualizar')", id)).Error
+			if errUpdatingStocks != nil {
+				return errUpdatingStocks
+			}
+			return nil
+		})
+		if errInMedicineResetvation != nil {
+			return errInMedicineResetvation
+		}
 		suppliedAt := time.Now()
+		if isPrescriptionIncomplete {
+			prescription.PrescriptionStatusId = dataSrc.GetPrescriptionStatus("Incompleta")
+		} else {
+			prescription.PrescriptionStatusId = dataSrc.GetPrescriptionStatus("Completada")
+		}
 		errUpdatingInfo := tx.
 			Model(&models.Prescription{}).
 			Where("id = ?", id).
@@ -183,6 +210,7 @@ func (dataSrc PrescriptionsDataSource) CompletePrescription(id string, prescript
 		}
 		return nil
 	})
+
 	if errInTransaction != nil {
 		return errInTransaction
 	}

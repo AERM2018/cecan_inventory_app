@@ -34,8 +34,9 @@ type (
 	PharmacyStocksDetailed struct {
 		Medicine                    Medicine                `json:"medicine"`
 		Stocks                      []PharmacyStocksDetails `json:"stocks"`
-		PiecesBySemaforizationColor map[string]int          `json:"pieces_by_semaforization_color"`
+		PiecesBySemaforizationColor map[string]int          `json:"pieces_left_by_semaforization_color"`
 		TotalPieces                 int16                   `json:"total_pieces"`
+		TotalPiecesLeft             int16                   `json:"total_pieces_left"`
 	}
 
 	PharmacyStocksDetails struct {
@@ -63,16 +64,19 @@ func (pharmacyStock *PharmacyStock) BeforeCreate(tx *gorm.DB) (err error) {
 }
 
 func (pharmacyStocksDetailed *PharmacyStocksDetailed) CountAndCategorizePieces() {
-	var totalPieces int
+	var (
+		totalPiecesLeft int
+		totalPieces     int
+	)
 	multipleSemaforizationCounter := make(map[string]int, 0)
 	for _, stock := range pharmacyStocksDetailed.Stocks {
-		multipleSemaforizationCounter[string(stock.SemaforizationColor)] += int(stock.Pieces)
-	}
-	for _, pieces := range multipleSemaforizationCounter {
-		totalPieces += pieces
+		multipleSemaforizationCounter[string(stock.SemaforizationColor)] += int(stock.PiecesLeft)
+		totalPiecesLeft += int(stock.PiecesLeft)
+		totalPieces += int(stock.Pieces)
 	}
 	pharmacyStocksDetailed.PiecesBySemaforizationColor = multipleSemaforizationCounter
 	pharmacyStocksDetailed.TotalPieces = int16(totalPieces)
+	pharmacyStocksDetailed.TotalPiecesLeft = int16(totalPiecesLeft)
 }
 
 func (pharmacyStockToUpdate *PharmacyStockToUpdate) BeforeUpdate(tx *gorm.DB) (err error) {

@@ -164,6 +164,10 @@ func GetPrescriptionStatuesMockSeed() []models.PrescriptionsStatues {
 			"id":   "8036632b-d5aa-4cf7-81ed-b4abbbd90482",
 			"name": "Completada",
 		},
+		{
+			"id":   "50599ef5-f22b-43f7-bdab-d3ce3cf35bd3",
+			"name": "Incompleta",
+		},
 	}
 	for _, prescriptionStatus := range mapStatues {
 		uuidParsed, _ := uuid.Parse(prescriptionStatus["id"])
