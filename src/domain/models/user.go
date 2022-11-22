@@ -46,6 +46,10 @@ func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
 	return
 }
 
+func (user *User) RestPassword(password string) {
+	user.Password = hashPassword(password)
+}
+
 func (user *User) WithoutPassword() User {
 	user.Password = ""
 	return *user

@@ -13,8 +13,9 @@ import (
 func InitUsersRoutes(router router.Party, dbPsql *gorm.DB) {
 	auth := router.Party("/auth")
 	userDataSource := datasources.UserDataSource{DbPsql: dbPsql}
+	passwordResetCodesDataSource := datasources.PasswordResetCodesDataSource{DbPsql: dbPsql}
 	roleDataSource := datasources.RolesDataSource{DbPsql: dbPsql}
-	controller := controllers.AuthController{}
+	controller := controllers.AuthController{PasswordResetCodesDataSource: passwordResetCodesDataSource}
 	controller.New(userDataSource)
 	val := middlewares.DbValidator{RolesDataSource: roleDataSource, UserDataSource: userDataSource}
 	// Enpoints definition by HTTP method
@@ -26,4 +27,6 @@ func InitUsersRoutes(router router.Party, dbPsql *gorm.DB) {
 		val.IsRoleId, val.IsEmail, controller.SignUp)
 
 	auth.Post("/renew", middlewares.VerifyJWT, controller.RenewToken)
+	auth.Post("/password_reset_code", val.IsEmail, controller.GeneratePasswordResetCode)
+	auth.Post("/password_reset/users/{userId:string}", controller.ResetPassword)
 }

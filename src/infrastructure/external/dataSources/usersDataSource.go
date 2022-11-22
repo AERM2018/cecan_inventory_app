@@ -34,3 +34,15 @@ func (dataSrc UserDataSource) CreateUser(user models.User) (models.User, error) 
 	}
 	return newUserOrFound, nil
 }
+
+func (dataSrc UserDataSource) UpdateUserPassword(user models.User) error {
+	err := dataSrc.DbPsql.
+		Model(&models.User{}).
+		Where("id = ?", user.Id).
+		Update("password", user.Password).
+		Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

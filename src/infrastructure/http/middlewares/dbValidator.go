@@ -61,17 +61,35 @@ func (dbVal DbValidator) CanUserDoAction(roleNamesAllowed ...string) func(ctx ir
 }
 func (dbVal DbValidator) IsEmail(ctx iris.Context) {
 	var (
-		httpRes models.Responser
-		user    models.User
+		httpRes          models.Responser
+		user             models.User
+		username         string
+		credentialsReset models.AccessCredentialsRestart
+		errNotFound      error
 	)
-	bodyreader.ReadBodyAsJson(ctx, &user, false)
-	_, err := dbVal.UserDataSource.GetUserByEmailOrId(user.Email)
-	if err == nil {
+	isPasswordReset := strings.Contains(ctx.FullRequestURI(), "password_reset_code")
+	if isPasswordReset {
+		bodyreader.ReadBodyAsJson(ctx, &credentialsReset, false)
+		username = credentialsReset.Email
+
+	} else {
+		bodyreader.ReadBodyAsJson(ctx, &user, false)
+		username = user.Email
+	}
+	_, errNotFound = dbVal.UserDataSource.GetUserByEmailOrId(username)
+	if errNotFound == nil && !isPasswordReset {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusBadRequest,
 			Message:    fmt.Sprintf("El email %v ya está siendo usado por otro usuario.", user.Email),
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+	} else if errNotFound != nil && isPasswordReset {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusNotFound,
+			Message:    fmt.Sprintf("El email %v no está asociado a ningún usuario.", credentialsReset.Email),
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
 	}
 	ctx.Next()
 }

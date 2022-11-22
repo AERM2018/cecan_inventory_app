@@ -4,6 +4,7 @@ import (
 	"cecan_inventory/adapters/helpers"
 	"cecan_inventory/domain/models"
 	usecases "cecan_inventory/domain/useCases"
+	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 
 	"strings"
@@ -12,13 +13,14 @@ import (
 )
 
 type AuthController struct {
-	UserDataSource datasources.UserDataSource
-	Interator      usecases.AuthInteractor
+	UserDataSource               datasources.UserDataSource
+	PasswordResetCodesDataSource datasources.PasswordResetCodesDataSource
+	Interator                    usecases.AuthInteractor
 }
 
 func (controller *AuthController) New(userDatasource datasources.UserDataSource) {
 	controller.UserDataSource = userDatasource
-	controller.Interator = usecases.AuthInteractor{UserDataSource: userDatasource}
+	controller.Interator = usecases.AuthInteractor{UserDataSource: userDatasource, PasswordResetCodeDataSource: controller.PasswordResetCodesDataSource}
 }
 
 func (controller AuthController) Login(ctx iris.Context) {
@@ -51,4 +53,29 @@ func (controller AuthController) RenewToken(ctx iris.Context) {
 		return
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
+}
+
+func (controller AuthController) GeneratePasswordResetCode(ctx iris.Context) {
+	var passwordResetInfo models.AccessCredentialsRestart
+	bodyreader.ReadBodyAsJson(ctx, &passwordResetInfo, true)
+	res := controller.Interator.GeneratePasswordResetCode(passwordResetInfo.Email)
+	if res.StatusCode != iris.StatusOK {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendMessageResponse(ctx, res)
+}
+
+func (controller AuthController) ResetPassword(ctx iris.Context) {
+	userId := ctx.Params().GetStringDefault("userId", "")
+	hash := ctx.URLParamDefault("hash", "")
+	withOldPassword, _ := ctx.URLParamBool("withOldPassword")
+	var passwordResetInfo models.AccessCredentialsRestart
+	bodyreader.ReadBodyAsJson(ctx, &passwordResetInfo, true)
+	res := controller.Interator.ResetPassword(userId, hash, withOldPassword, passwordResetInfo)
+	if res.StatusCode != iris.StatusOK {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+		return
+	}
+	helpers.PrepareAndSendMessageResponse(ctx, res)
 }
