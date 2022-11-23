@@ -17,7 +17,7 @@ type (
 		Series                  string     `json:"series"`
 		Type                    string     `json:"type"`
 		PhysicState             string     `json:"physic_state"`
-		DepartmentId            string     `json:"department_id"`
+		DepartmentId            uuid.UUID  `json:"department_id"`
 		Observation             string     `json:"observations"`
 		DirectorUserId          string     `json:"director_user_id"`
 		AdministratorUserId     string     `json:"administrator_user_id"`

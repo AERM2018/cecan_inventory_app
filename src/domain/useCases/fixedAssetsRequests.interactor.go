@@ -89,6 +89,8 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 				// Assing director id and adminstrator id depending on the users who have those roles currently
 				asset.FixedAsset.DirectorUserId = signaturesInfo.Director.Id
 				asset.FixedAsset.AdministratorUserId = signaturesInfo.Administrator.Id
+				// Assing the request department to all fixed assets from the request
+				asset.FixedAsset.DepartmentId = fixedAssetsRequest.DepartmentId
 				res := createAssetFunc(asset.FixedAsset)
 				err := res.Err
 				if err != nil {
