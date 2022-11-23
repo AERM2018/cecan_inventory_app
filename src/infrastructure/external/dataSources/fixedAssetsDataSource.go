@@ -76,8 +76,8 @@ func (dataSrc FixedAssetsDataSource) CreateFixedAsset(fixedAsset models.FixedAss
 
 func (dataSrc FixedAssetsDataSource) UpdateFixedAsset(key string, fixedAsset models.FixedAsset) error {
 	err := dataSrc.DbPsql.
-		Model(models.FixedAsset{}).
-		Omit("description", "brand", "model", "director_user_id", "administrator_user_id").
+		Table("fixed_assets").
+		Select("key", "series", "type", "physic_state", "observation").
 		Where("key = ?", key).
 		Updates(fixedAsset).
 		Error
@@ -110,4 +110,13 @@ func (dataSrc FixedAssetsDataSource) DeleteFixedAsset(key string) error {
 		return errInTransaction
 	}
 	return nil
+}
+
+func (dataSrc FixedAssetsDataSource) IsFixedAssetWithSeries(series string) bool {
+	var fixedAsset models.FixedAsset
+	err := dataSrc.DbPsql.
+		Where("series = ?", series).
+		Take(&fixedAsset).
+		Error
+	return !errors.Is(err, gorm.ErrRecordNotFound)
 }

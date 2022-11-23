@@ -584,7 +584,6 @@ func (dbVal DbValidator) FindFixedAssetsRequestById(ctx iris.Context) {
 	var httpRes models.Responser
 	fixedAssetRequestId := ctx.Params().GetStringDefault("id", "")
 	_, errNotFound := dbVal.FixedAssetsRequestsDataSource.GetFixedAssetsRequestById(fixedAssetRequestId)
-	fmt.Println("id", fixedAssetRequestId, "err", errNotFound)
 	if errNotFound != nil {
 		httpRes = models.Responser{
 			StatusCode: iris.StatusNotFound,
@@ -592,6 +591,34 @@ func (dbVal DbValidator) FindFixedAssetsRequestById(ctx iris.Context) {
 		}
 		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
 		return
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsFixedAssetWithSeries(ctx iris.Context) {
+	var (
+		fixedAsset         models.FixedAsset
+		fixedAssetsRequest models.FixedAssetsRequestDetailed
+		httpRes            models.Responser
+	)
+	if ctx.Method() == "POST" && strings.Contains(ctx.FullRequestURI(), "fixed_assets_requests") {
+		bodyreader.ReadBodyAsJson(ctx, &fixedAssetsRequest, false)
+	} else {
+		bodyreader.ReadBodyAsJson(ctx, &fixedAsset, false)
+		fixedAssetsRequest.FixedAssets = append(fixedAssetsRequest.FixedAssets, models.FixedAssetsItemsRequests{FixedAsset: fixedAsset})
+	}
+	for _, fixedAssetItemFromReq := range fixedAssetsRequest.FixedAssets {
+		if fixedAssetItemFromReq.FixedAsset.Series != "" {
+			isFixedAsset := dbVal.FixedAssetsDataSource.IsFixedAssetWithSeries(fixedAssetItemFromReq.FixedAsset.Series)
+			if isFixedAsset {
+				httpRes = models.Responser{
+					StatusCode: iris.StatusNotFound,
+					Message:    fmt.Sprintf("Ya existe con material de activo fijo con el numero de serie: %v", fixedAssetItemFromReq.FixedAsset.Series),
+				}
+				helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+				return
+			}
+		}
 	}
 	ctx.Next()
 }
