@@ -4,6 +4,7 @@ WORKDIR /usr/src/app
 
 COPY src/go.mod ./
 COPY src/go.sum ./
+RUN apt-get install -y tzdata
 RUN go mod download
 EXPOSE $PORT
 # COPY src/ .
