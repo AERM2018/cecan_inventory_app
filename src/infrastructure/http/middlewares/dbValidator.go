@@ -253,6 +253,32 @@ func (dbVal DbValidator) IsPharmacyStockById(ctx iris.Context) {
 	ctx.Next()
 }
 
+func (dbVal DbValidator) IsPharmacyStockWithLotNumber(ctx iris.Context) {
+	var (
+		pharmacyStockIdForUpdate string
+		pharmacyStock            models.PharmacyStock
+		httpRes                  models.Responser
+		errorMessage             string
+	)
+	bodyreader.ReadBodyAsJson(ctx, &pharmacyStock, false)
+	if ctx.Method() == "PUT" {
+		pharmacyStockIdForUpdate = ctx.Params().GetStringDefault("id", "")
+		errorMessage = fmt.Sprintf("No se pudó actualizar el stock en farmacia debido a que ya existe uno con el número de lote %v", pharmacyStock.LotNumber)
+	} else {
+		errorMessage = fmt.Sprintf("Ya existe un stock en farmacia con el número de lote %v", pharmacyStock.LotNumber)
+	}
+	isPharmacyStock := dbVal.PharmacyDataSrc.IsPharmacyStockWithLotNumber(pharmacyStock.LotNumber, pharmacyStockIdForUpdate)
+	if isPharmacyStock {
+		httpRes = models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    errorMessage,
+		}
+		helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+		return
+	}
+	ctx.Next()
+}
+
 func (dbVal DbValidator) IsPrescriptionDeterminedStatus(status string) func(ctx iris.Context) {
 	return func(ctx iris.Context) {
 		var httpRes models.Responser

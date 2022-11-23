@@ -41,6 +41,7 @@ type (
 
 	PharmacyStocksDetails struct {
 		Id                  uuid.UUID           `json:"id"`
+		LotNumber           string              `json:"lot_number"`
 		Pieces              int16               `json:"pieces"`
 		PiecesUsed          int16               `json:"pieces_used"`
 		PiecesLeft          int16               `json:"pieces_left"`

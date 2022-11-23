@@ -71,3 +71,16 @@ func (dataSrc PharmacyStocksDataSource) IsStockUsed(id uuid.UUID) (bool, error) 
 	isStockUsed := pharmacyStock.Pieces_used > 0
 	return isStockUsed, nil
 }
+
+func (dataSrc PharmacyStocksDataSource) IsPharmacyStockWithLotNumber(lotNumber string, pharmacyStockId string) bool {
+	var pharmacyStock models.PharmacyStock
+	whereValues := []interface{}{fmt.Sprintf("'%v'", lotNumber)}
+	whereCondition := "\"lot_number\" = ?"
+	if pharmacyStockId != "" {
+		whereCondition += " AND \"id\" != ?"
+		whereValues = append(whereValues, fmt.Sprintf("%v", pharmacyStockId))
+	}
+	fmt.Println(whereValues...)
+	err := dataSrc.DbPsql.Where(whereCondition, whereValues...).Take(&pharmacyStock).Error
+	return !errors.Is(err, gorm.ErrRecordNotFound)
+}
