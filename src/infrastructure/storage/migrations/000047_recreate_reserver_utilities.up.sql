@@ -8,7 +8,8 @@ AS $procedure$
     declare pieces_needed integer;
 	BEGIN
 			-- Find details about storehouse utility
-			for storehouse_utility_storehouse_request in select id,storehouse_utility_key,stouti."generic_name" as utility_name, pieces, last_pieces_supplied
+			for storehouse_utility_storehouse_request in select 
+				id,storehouse_utility_key,stouti."generic_name" as utility_name, stouti."quantity_per_unit" as quantity_per_unit, pieces, last_pieces_supplied
 				from storehouse_utilities_storehouse_requests utireq
 				left join storehouse_utilities stouti
 				on utireq.storehouse_utility_key = stouti.key
@@ -24,12 +25,14 @@ AS $procedure$
 					end if;
 					if stock.quantity_parsed_left >= pieces_needed then
 						update storehouse_stocks 
-							set quantity_parsed_used = stock.quantity_parsed_used + pieces_needed
+							set quantity_presentation_used = (stock.quantity_parsed_used + stock.quantity_parsed_left) / storehouse_utility_storehouse_request.quantity_per_unit,
+								quantity_parsed_used = stock.quantity_parsed_used + pieces_needed
 							where id = stock.id; 
 						pieces_needed := 0;
 					else
 						update storehouse_stocks 
-							set quantity_parsed_used = stock.quantity_parsed_used + stock.quantity_parsed_left 
+							set quantity_presentation_used = (stock.quantity_parsed_used + stock.quantity_parsed_left) / storehouse_utility_storehouse_request.quantity_per_unit,
+								quantity_parsed_used = stock.quantity_parsed_used + stock.quantity_parsed_left 
 							where id = stock.id; 
 						pieces_needed := pieces_needed - stock.quantity_parsed_left;
 					end if;

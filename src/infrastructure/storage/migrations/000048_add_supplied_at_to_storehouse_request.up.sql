@@ -1,0 +1,1 @@
+ALTER TABLE storehouse_requests ADD supplied_at TIMESTAMP;

@@ -11,24 +11,26 @@ import (
 
 type (
 	StorehouseRequest struct {
-		Id        uuid.UUID  `gorm:"primaryKey;default:'uuid_generate_v4();'" json:"id"`
-		UserId    string     `json:"user_id"`
-		Folio     int16      `json:"folio,omitempty"`
-		StatusId  uuid.UUID  `gorm:"column:storehouse_request_status_id" json:"status_id"`
-		CreatedAt *time.Time `json:"created_at,omitempty"`
-		UpdatedAt *time.Time `json:"updated_at,omitempty"`
+		Id         uuid.UUID  `gorm:"primaryKey;default:'uuid_generate_v4();'" json:"id"`
+		UserId     string     `json:"user_id"`
+		Folio      int16      `json:"folio,omitempty"`
+		StatusId   uuid.UUID  `gorm:"column:storehouse_request_status_id" json:"status_id"`
+		CreatedAt  *time.Time `json:"created_at,omitempty"`
+		UpdatedAt  *time.Time `json:"updated_at,omitempty"`
+		SuppliedAt *time.Time `json:"supplied_at,omitempty"`
 	}
 
 	StorehouseRequestDetailed struct {
-		Id        uuid.UUID                               `gorm:"primaryKey;default:'uuid_generate_v4();'" json:"id"`
-		UserId    string                                  `json:"user_id"`
-		User      User                                    `gorm:"foreignKey:user_id" json:"user,omitempty"`
-		Folio     int16                                   `json:"folio"`
-		StatusId  uuid.UUID                               `gorm:"column:storehouse_request_status_id" json:"status_id"`
-		Status    StorehouseRequestStatus                 `json:"status,omitempty"`
-		Utilities []StorehouseUtilitiesStorehouseRequests `gorm:"foreignKey:storehouse_request_id" json:"utilities"`
-		CreatedAt *time.Time                              `json:"created_at,omitempty"`
-		UpdatedAt *time.Time                              `json:"updated_at,omitempty"`
+		Id         uuid.UUID                               `gorm:"primaryKey;default:'uuid_generate_v4();'" json:"id"`
+		UserId     string                                  `json:"user_id"`
+		User       User                                    `gorm:"foreignKey:user_id" json:"user,omitempty"`
+		Folio      int16                                   `json:"folio"`
+		StatusId   uuid.UUID                               `gorm:"column:storehouse_request_status_id" json:"status_id"`
+		Status     StorehouseRequestStatus                 `json:"status,omitempty"`
+		Utilities  []StorehouseUtilitiesStorehouseRequests `gorm:"foreignKey:storehouse_request_id" json:"utilities"`
+		CreatedAt  *time.Time                              `json:"created_at,omitempty"`
+		UpdatedAt  *time.Time                              `json:"updated_at,omitempty"`
+		SuppliedAt *time.Time                              `json:"supplied_at,omitempty"`
 	}
 )
 

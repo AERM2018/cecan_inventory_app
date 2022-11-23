@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -227,7 +228,7 @@ func (dataSrc StorehouseRequestsDataSource) SupplyStorehouseRequest(id string, u
 				return errUpdating
 			}
 			errInUtilitiesResetvation := tx.Transaction(func(tx *gorm.DB) error {
-				// Take and reserver the medicines stocks for the prescription
+				// Take and reserver the utilities stocks for the request
 				err := tx.Exec(fmt.Sprintf("Call public.reserve_utility_to_request('%v');", id)).Error
 				if err != nil {
 					return err
@@ -238,7 +239,6 @@ func (dataSrc StorehouseRequestsDataSource) SupplyStorehouseRequest(id string, u
 				return errInUtilitiesResetvation
 			}
 		}
-		fmt.Println("status", isRequestIncomplete)
 		if isRequestIncomplete {
 			tx.Where("name = ?", "Incompleta").Take(&storehouseRequestStatus)
 		} else {
@@ -248,6 +248,7 @@ func (dataSrc StorehouseRequestsDataSource) SupplyStorehouseRequest(id string, u
 			Table("storehouse_requests").
 			Where("id = ?", id).
 			Update("storehouse_request_status_id", storehouseRequestStatus.Id).
+			Update("supplied_at", time.Now()).
 			Error
 		if errUpdatingStatus != nil {
 			return errors.New("No se pudo actualizar el estado de la solictud de almacen.")
