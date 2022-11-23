@@ -50,6 +50,7 @@ func InitStorehouseUtilitiesRoutes(router router.Party, dbPsql *gorm.DB) {
 		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseUtility),
 		val.FindStorehouseUtilityByKey,
 		val.IsStorehouseUtilityWithKey,
+		val.CanUtilityInfoBeChanged,
 		storehouseUtilitesController.UpdateStorehouseUtility)
 
 	storehouseUtilities.Put("/{key:string}/reactivate",

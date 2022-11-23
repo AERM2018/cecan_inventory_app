@@ -423,6 +423,30 @@ func (dbVal DbValidator) IsStorehouseStockUsed(ctx iris.Context) {
 	ctx.Next()
 }
 
+func (dbVal DbValidator) CanUtilityInfoBeChanged(ctx iris.Context) {
+	var (
+		httpRes              models.Responser
+		storehouseUtilityReq models.StorehouseUtility
+	)
+	storehouseUtilityKey := ctx.Params().GetStringDefault("key", "")
+	bodyreader.ReadBodyAsJson(ctx, &storehouseUtilityReq, false)
+	isStockUsed := dbVal.StorehouseUtilityDataSource.IsStockFromUtilityUsed(storehouseUtilityKey)
+	storehouseUtility, _ := dbVal.StorehouseUtilityDataSource.GetStorehouseUtilityByKey(storehouseUtilityKey)
+	isPresentationInfoChanged := storehouseUtilityReq.CategoryId != storehouseUtility.CategoryId || storehouseUtilityReq.PresentationId != storehouseUtility.PresentationId || storehouseUtilityReq.UnitId != storehouseUtility.UnitId
+	isQuantityPerUnitChaged := storehouseUtilityReq.QuantityPerUnit != storehouseUtility.QuantityPerUnit
+	if isStockUsed {
+		if isPresentationInfoChanged || isQuantityPerUnitChaged {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusBadRequest,
+				Message:    "La información de presentación o cantidad por unidad de un elemento de almacén no puede ser modificada una vez el elemento haya sido utilizado en una solicitud.",
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+	}
+	ctx.Next()
+}
+
 func (dbVal DbValidator) IsStorehouseRequest(ctx iris.Context) {
 	var (
 		httpRes models.Responser

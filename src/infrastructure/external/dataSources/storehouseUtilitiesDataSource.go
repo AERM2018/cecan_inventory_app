@@ -2,6 +2,7 @@ package datasources
 
 import (
 	"cecan_inventory/domain/models"
+	"errors"
 
 	"gorm.io/gorm"
 )
@@ -123,4 +124,16 @@ func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilityUnits() ([]mode
 		return storehouseUtilityUnits, err
 	}
 	return storehouseUtilityUnits, nil
+}
+
+func (dataSrc StorehouseUtilitiesDataSource) IsStockFromUtilityUsed(key string) bool {
+	var utilityStock models.StorehouseStock
+	err := dataSrc.DbPsql.
+		Where("storehouse_utility_key = ? and quantity_parsed_used > ?", key, 0).
+		Take(&utilityStock).
+		Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return false
+	}
+	return true
 }
