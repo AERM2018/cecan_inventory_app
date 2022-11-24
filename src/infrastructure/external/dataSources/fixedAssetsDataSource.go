@@ -112,10 +112,16 @@ func (dataSrc FixedAssetsDataSource) DeleteFixedAsset(key string) error {
 	return nil
 }
 
-func (dataSrc FixedAssetsDataSource) IsFixedAssetWithSeries(series string) bool {
+func (dataSrc FixedAssetsDataSource) IsFixedAssetWithSeries(series string, key string) bool {
 	var fixedAsset models.FixedAsset
+	whereValues := []interface{}{fmt.Sprintf("'%v'", series)}
+	whereCondition := "\"series\" = ?"
+	if key != "" {
+		whereCondition += " AND \"key\" != ?"
+		whereValues = append(whereValues, fmt.Sprintf("'%v'", key))
+	}
 	err := dataSrc.DbPsql.
-		Where("series = ?", series).
+		Where(whereCondition, whereValues...).
 		Take(&fixedAsset).
 		Error
 	return !errors.Is(err, gorm.ErrRecordNotFound)
