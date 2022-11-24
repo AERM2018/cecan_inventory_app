@@ -358,15 +358,23 @@ func (dbVal DbValidator) IsStorehouseUtilityWithKey(ctx iris.Context) {
 }
 
 func (dbVal DbValidator) FindStorehouseUtilityByKey(ctx iris.Context) {
-	// Look for it to know if the key specified exist in order to alterate
+	// Look for it to know if the key specified exist in order to alterate the utility or a stock
 	var (
-		httpRes    models.Responser
-		utility    models.StorehouseUtility
-		utilityKey string
+		httpRes      models.Responser
+		utility      models.StorehouseUtility
+		utilityStock models.StorehouseStock
+		utilityKey   string
 	)
-	if ctx.Method() == "PUT" || ctx.Method() == "DELETE" {
+	//Cases when the key is in the params
+	if (!strings.Contains(ctx.FullRequestURI(), "storehouse_inventory") && (ctx.Method() == "PUT" || ctx.Method() == "DELETE")) ||
+		(strings.Contains(ctx.FullRequestURI(), "storehouse_inventory") && ctx.Method() == "POST") {
 		utilityKey = ctx.Params().GetString("key")
+		// The key is the struct of a storehouse stock
+	} else if strings.Contains(ctx.FullRequestURI(), "storehouse_inventory") && ctx.Method() == "PUT" {
+		bodyreader.ReadBodyAsJson(ctx, &utilityStock, false)
+		utilityKey = utilityStock.StorehouseUtilityKey
 	} else {
+		// The key is the struct of a storehouse utility
 		bodyreader.ReadBodyAsJson(ctx, &utility, false)
 		utilityKey = utility.Key
 	}
@@ -681,6 +689,7 @@ func (dbVal DbValidator) FindFixedAssetsRequestById(ctx iris.Context) {
 
 func (dbVal DbValidator) IsFixedAssetWithSeries(ctx iris.Context) {
 	var (
+		fixedAssetKey      string
 		fixedAsset         models.FixedAsset
 		fixedAssetsRequest models.FixedAssetsRequestDetailed
 		httpRes            models.Responser
@@ -688,12 +697,13 @@ func (dbVal DbValidator) IsFixedAssetWithSeries(ctx iris.Context) {
 	if ctx.Method() == "POST" && strings.Contains(ctx.FullRequestURI(), "fixed_assets_requests") {
 		bodyreader.ReadBodyAsJson(ctx, &fixedAssetsRequest, false)
 	} else {
+		fixedAssetKey = ctx.Params().GetStringDefault("key", "")
 		bodyreader.ReadBodyAsJson(ctx, &fixedAsset, false)
 		fixedAssetsRequest.FixedAssets = append(fixedAssetsRequest.FixedAssets, models.FixedAssetsItemsRequests{FixedAsset: fixedAsset})
 	}
 	for _, fixedAssetItemFromReq := range fixedAssetsRequest.FixedAssets {
 		if fixedAssetItemFromReq.FixedAsset.Series != "" {
-			isFixedAsset := dbVal.FixedAssetsDataSource.IsFixedAssetWithSeries(fixedAssetItemFromReq.FixedAsset.Series)
+			isFixedAsset := dbVal.FixedAssetsDataSource.IsFixedAssetWithSeries(fixedAssetItemFromReq.FixedAsset.Series, fixedAssetKey)
 			if isFixedAsset {
 				httpRes = models.Responser{
 					StatusCode: iris.StatusNotFound,
