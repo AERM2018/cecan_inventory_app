@@ -449,6 +449,64 @@ func (dbVal DbValidator) IsStorehouseStockUsed(ctx iris.Context) {
 	ctx.Next()
 }
 
+func (dbVal DbValidator) IsStorehouseStockWithLotNumber(ctx iris.Context) {
+	var (
+		storehouseStockId             string
+		storehouseUtilityStockRequest models.StorehouseStock
+		httpRes                       models.Responser
+	)
+	if ctx.Method() == "POST" {
+		bodyreader.ReadBodyAsJson(ctx, &storehouseUtilityStockRequest, false)
+	} else {
+		storehouseStockId = ctx.Params().GetStringDefault("id", "")
+		fmt.Println("id", storehouseStockId)
+		bodyreader.ReadBodyAsJson(ctx, &storehouseUtilityStockRequest, false)
+	}
+	fmt.Println("lote", storehouseUtilityStockRequest.LotNumber)
+	if storehouseUtilityStockRequest.LotNumber != "" {
+		isFixedAsset := dbVal.StorehouseStocksDataSource.IsStorehouseStockWithLotNumber(storehouseUtilityStockRequest.LotNumber, storehouseStockId)
+
+		fmt.Println("is", isFixedAsset)
+		if isFixedAsset {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusNotFound,
+				Message:    fmt.Sprintf("Ya existe un elemento de almacén con el numero de lote: %v.", storehouseUtilityStockRequest.LotNumber),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+	}
+	ctx.Next()
+}
+
+func (dbVal DbValidator) IsStorehouseStockWithCatalogNumber(ctx iris.Context) {
+	var (
+		storehouseStockId             string
+		storehouseUtilityStockRequest models.StorehouseStock
+		httpRes                       models.Responser
+	)
+	if ctx.Method() == "POST" {
+		bodyreader.ReadBodyAsJson(ctx, &storehouseUtilityStockRequest, false)
+	} else {
+		storehouseStockId = ctx.Params().GetStringDefault("id", "")
+		bodyreader.ReadBodyAsJson(ctx, &storehouseUtilityStockRequest, false)
+	}
+	fmt.Println("catalogo", storehouseUtilityStockRequest.CatalogNumber, storehouseStockId)
+	if storehouseUtilityStockRequest.CatalogNumber != "" {
+		isFixedAsset := dbVal.StorehouseStocksDataSource.IsStorehouseStockWithCatalogNumber(storehouseUtilityStockRequest.CatalogNumber, storehouseStockId)
+		fmt.Println("is", isFixedAsset)
+		if isFixedAsset {
+			httpRes = models.Responser{
+				StatusCode: iris.StatusNotFound,
+				Message:    fmt.Sprintf("Ya existe un elemento de almacén con el numero de catálogo: %v.", storehouseUtilityStockRequest.CatalogNumber),
+			}
+			helpers.PrepareAndSendMessageResponse(ctx, httpRes)
+			return
+		}
+	}
+	ctx.Next()
+}
+
 func (dbVal DbValidator) CanUtilityInfoBeChanged(ctx iris.Context) {
 	var (
 		httpRes              models.Responser

@@ -20,7 +20,8 @@ func InitStorehouseStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 	}
 
 	val := middlewares.DbValidator{
-		StorehouseStocksDataSource: storehouseStocksDataSource,
+		StorehouseStocksDataSource:  storehouseStocksDataSource,
+		StorehouseUtilityDataSource: storehouseUtilitiesDataSource,
 	}
 
 	storehouseStocksController.New()
@@ -35,6 +36,9 @@ func InitStorehouseStocksRoutes(router router.Party, dbPsql *gorm.DB) {
 		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseStock),
 		val.FindStorehouseStockById,
 		val.IsStorehouseStockUsed,
+		val.FindStorehouseUtilityByKey,
+		val.IsStorehouseStockWithLotNumber,
+		val.IsStorehouseStockWithCatalogNumber,
 		storehouseStocksController.UpdateStorehouseStock)
 	// DELETE
 	storehouseStocks.Delete("/{id:string}",

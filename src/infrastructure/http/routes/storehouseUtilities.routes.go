@@ -41,7 +41,7 @@ func InitStorehouseUtilitiesRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseUtilities.Post("/{key:string}/storehouse_inventory",
 		val.CanUserDoAction("Almacen"),
 		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseStock, "storehouse_utility_key"),
-		val.IsStorehouseUtilityWithKey,
+		val.FindStorehouseUtilityByKey,
 		storehouseUtilitesController.CreateStorehouseUtilityStock,
 	)
 	// PUT
