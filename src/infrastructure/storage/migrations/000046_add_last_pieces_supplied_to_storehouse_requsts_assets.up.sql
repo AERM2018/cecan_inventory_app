@@ -1,0 +1,1 @@
+ALTER TABLE storehouse_utilities_storehouse_requests ADD last_pieces_supplied INT NOT NULL DEFAULT 0;

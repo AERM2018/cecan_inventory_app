@@ -114,7 +114,7 @@ func (doc PrescriptionDoc) _addPrescriptionInfo(m pdf.Maroto) {
 			m.Text(doc.Prescription.CreatedAt.Format(time.RFC822), props.Text{Align: consts.Left, Size: 12})
 		})
 	})
-	if doc.Prescription.PrescriptionStatus.Name == "Completada" {
+	if doc.Prescription.PrescriptionStatus.Name != "Pendiente" {
 		m.Row(10, func() {
 			m.Col(3, func() {
 				m.Text("Fecha de ultima suministración: ", props.Text{Style: consts.Bold, Size: 12})

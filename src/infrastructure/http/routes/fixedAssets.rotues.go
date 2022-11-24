@@ -29,6 +29,7 @@ func InitFixedAssetsRoutes(router router.Party, dbPsql *gorm.DB) {
 	fixedAssets.Put("/{key:string}",
 		val.FindFixedAssetByKey,
 		val.IsFixedAssetWithKey,
+		val.IsFixedAssetWithSeries,
 		controller.UpdateFixedAsset)
 	fixedAssets.Delete("/{key:string}",
 		val.FindFixedAssetByKey,

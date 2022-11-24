@@ -1,0 +1,1 @@
+ALTER TABLE prescriptions_medicines DROP COLUMN last_pieces_supplied;

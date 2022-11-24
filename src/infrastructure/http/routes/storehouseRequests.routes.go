@@ -24,7 +24,7 @@ func InitStorehouseRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	storehouseRequestsController.New()
 	storehouseRequests.Use(middlewares.VerifyJWT)
 	storehouseRequests.Get("/", storehouseRequestsController.GetStorehouseRequests)
-	storehouseRequests.Get("/{id:string}", storehouseRequestsController.GetStorehouseRequestById)
+	storehouseRequests.Get("/{id:string}", val.IsStorehouseRequest, storehouseRequestsController.GetStorehouseRequestById)
 
 	storehouseRequests.Post("/",
 		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest, "pieces_supplied"),

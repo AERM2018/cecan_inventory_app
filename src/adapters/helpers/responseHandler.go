@@ -23,6 +23,11 @@ func PrepareAndSendMessageResponse(c iris.Context, response models.Responser) {
 		}
 	}
 	mapResponse = iris.Map{"ok": ok, tag: response.Message}
+	if len(response.ExtraInfo) > 0 {
+		for _, extra := range response.ExtraInfo {
+			mapResponse[maps.Keys(extra)[0]] = extra[maps.Keys(extra)[0]]
+		}
+	}
 	c.StopWithJSON(response.StatusCode, mapResponse)
 }
 

@@ -100,6 +100,16 @@ func (doc StorehouseRequestDoc) _addRequestInfo(m pdf.Maroto) {
 			})
 		})
 	})
+	if doc.StorehouseRequest.Status.Name != "Pendiente" {
+		m.Row(10, func() {
+			m.Col(2, func() {
+				m.Text("Fecha de ultima suministración: ", props.Text{Style: consts.Bold, Size: 12})
+			})
+			m.Col(3, func() {
+				m.Text(doc.StorehouseRequest.SuppliedAt.Format(time.RFC822), props.Text{Align: consts.Left, Size: 12})
+			})
+		})
+	}
 }
 
 func (doc StorehouseRequestDoc) _addUtilitiesList(m pdf.Maroto) {

@@ -30,7 +30,7 @@ func InitMedicinesRoutes(router router.Party, dbPsql *gorm.DB) {
 
 	medicines.Post("/{key:string}/pharmacy_inventory",
 		middlewares.ValidateRequest(customreqvalidations.ValidatePharmacyStock, "medicine_key"),
-		val.IsMedicineInCatalogByKey, val.IsMedicineDeleted, controller.InsertPharmacyStockOfMedicine)
+		val.IsMedicineInCatalogByKey, val.IsMedicineDeleted, val.IsPharmacyStockWithLotNumber, controller.InsertPharmacyStockOfMedicine)
 
 	medicines.Put("/{key:string}",
 		middlewares.ValidateRequest(customreqvalidations.ValidateMedicine),

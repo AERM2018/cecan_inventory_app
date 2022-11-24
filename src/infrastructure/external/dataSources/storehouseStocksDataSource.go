@@ -2,6 +2,8 @@ package datasources
 
 import (
 	"cecan_inventory/domain/models"
+	"errors"
+	"fmt"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -83,4 +85,34 @@ func (dataSrc StorehouseStocksDataSource) IsStockUsed(id string) bool {
 		Where("id = ?", id).
 		Find(&stock)
 	return stock.QuantityParsedUsed != 0 && stock.QuantityPresentationUsed != 0
+}
+
+func (dataSrc StorehouseStocksDataSource) IsStorehouseStockWithLotNumber(lot_number string, id string) bool {
+	var storehouseStock models.StorehouseStock
+	whereValues := []interface{}{fmt.Sprintf("%v", lot_number)}
+	whereCondition := "\"lot_number\" = ?"
+	if id != "" {
+		whereCondition += " AND \"id\" != ?"
+		whereValues = append(whereValues, fmt.Sprintf("%v", id))
+	}
+	err := dataSrc.DbPsql.
+		Where(whereCondition, whereValues...).
+		Take(&storehouseStock).
+		Error
+	return !errors.Is(err, gorm.ErrRecordNotFound)
+}
+
+func (dataSrc StorehouseStocksDataSource) IsStorehouseStockWithCatalogNumber(catalog_number string, id string) bool {
+	var storehouseStock models.StorehouseStock
+	whereValues := []interface{}{fmt.Sprintf("%v", catalog_number)}
+	whereCondition := "\"catalog_number\" = ?"
+	if id != "" {
+		whereCondition += " AND \"id\" != ?"
+		whereValues = append(whereValues, fmt.Sprintf("%v", id))
+	}
+	err := dataSrc.DbPsql.
+		Where(whereCondition, whereValues...).
+		Take(&storehouseStock).
+		Error
+	return !errors.Is(err, gorm.ErrRecordNotFound)
 }

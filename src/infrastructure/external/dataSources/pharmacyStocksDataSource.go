@@ -23,7 +23,7 @@ func (dataSrc PharmacyStocksDataSource) InsertStockOfMedicine(pharmacyStock mode
 
 func (dataSrc PharmacyStocksDataSource) GetPharmacyStockById(id uuid.UUID) (models.PharmacyStock, error) {
 	var pharmacyStock models.PharmacyStock
-	res := dataSrc.DbPsql.First(&pharmacyStock, "id = ?", id)
+	res := dataSrc.DbPsql.Preload("Medicine").First(&pharmacyStock, "id = ?", id)
 	if errors.Is(res.Error, gorm.ErrRecordNotFound) {
 		return pharmacyStock, res.Error
 	}
@@ -68,6 +68,19 @@ func (dataSrc PharmacyStocksDataSource) IsStockUsed(id uuid.UUID) (bool, error) 
 	if res.Error != nil {
 		return false, res.Error
 	}
-	isStockUsed := pharmacyStock.Pieces_used > 0 || pharmacyStock.CreatedAt.Unix() != pharmacyStock.UpdatedAt.Unix()
+	isStockUsed := pharmacyStock.Pieces_used > 0
 	return isStockUsed, nil
+}
+
+func (dataSrc PharmacyStocksDataSource) IsPharmacyStockWithLotNumber(lotNumber string, pharmacyStockId string) bool {
+	var pharmacyStock models.PharmacyStock
+	whereValues := []interface{}{fmt.Sprintf("'%v'", lotNumber)}
+	whereCondition := "\"lot_number\" = ?"
+	if pharmacyStockId != "" {
+		whereCondition += " AND \"id\" != ?"
+		whereValues = append(whereValues, fmt.Sprintf("%v", pharmacyStockId))
+	}
+	fmt.Println(whereValues...)
+	err := dataSrc.DbPsql.Where(whereCondition, whereValues...).Take(&pharmacyStock).Error
+	return !errors.Is(err, gorm.ErrRecordNotFound)
 }

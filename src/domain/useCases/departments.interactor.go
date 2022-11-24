@@ -116,7 +116,6 @@ func (interactor DepartmentsInteractor) ReactivateDepartment(id string) models.R
 		}
 	}
 	departmentFound, _ := interactor.DepartmentsDataSource.GetDepartmentById(id)
-	fmt.Println(departmentFound)
 	return models.Responser{
 		StatusCode: iris.StatusOK,
 		Data: iris.Map{

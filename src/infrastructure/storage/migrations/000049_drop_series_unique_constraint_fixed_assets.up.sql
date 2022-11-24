@@ -1,0 +1,1 @@
+ALTER TABLE fixed_assets DROP CONSTRAINT IF EXISTS fixed_assets_series_key;

@@ -32,6 +32,7 @@ func InitFixedAssetsRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	fixedAssetsRequests.Get("/{id:string}", val.FindFixedAssetsRequestById, controller.GetFixedAssetsRequestById)
 	fixedAssetsRequests.Post("/departments/{departmentId:string}",
 		val.AreFixedAssetsValidFromRequest,
+		val.IsFixedAssetWithSeries,
 		controller.CreateFixedAssetsRequest)
 	fixedAssetsRequests.Delete("/{id:string}",
 		val.FindFixedAssetsRequestById,

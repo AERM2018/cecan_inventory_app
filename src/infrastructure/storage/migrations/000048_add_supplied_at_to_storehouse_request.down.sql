@@ -1,0 +1,1 @@
+ALTER TABLE storehouse_requests DROP COLUMN supplied_at;

@@ -73,6 +73,8 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 		UserId:       fixedAssetsRequest.UserId,
 		DepartmentId: fixedAssetsRequest.DepartmentId,
 	}
+	// Signatures include the id of the director and adminstrator users
+	signaturesInfo := interactor.FixedAssetsRequestsDataSource.GetSignaturesInfo()
 	err := interactor.FixedAssetsRequestsDataSource.CreateFixedAssetsRequest(
 		// Init a transaction making use of the data source of fixed assets
 		func(tx *gorm.DB) error {
@@ -84,6 +86,11 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 			// Create fixed asset instances
 			// Use create asset function from the interactor to include the logic of description reusability
 			for _, asset := range fixedAssetsRequest.FixedAssets {
+				// Assing director id and adminstrator id depending on the users who have those roles currently
+				asset.FixedAsset.DirectorUserId = signaturesInfo.Director.Id
+				asset.FixedAsset.AdministratorUserId = signaturesInfo.Administrator.Id
+				// Assing the request department to all fixed assets from the request
+				asset.FixedAsset.DepartmentId = fixedAssetsRequest.DepartmentId
 				res := createAssetFunc(asset.FixedAsset)
 				err := res.Err
 				if err != nil {
