@@ -5,14 +5,16 @@ import (
 	"os"
 	"path"
 
+	"github.com/johnfercher/maroto/pkg/color"
 	"github.com/johnfercher/maroto/pkg/consts"
 	"github.com/johnfercher/maroto/pkg/pdf"
 	"github.com/johnfercher/maroto/pkg/props"
 )
 
-func InsertPdfHeader(m pdf.Maroto) {
+func InsertPdfHeader(m pdf.Maroto, borderAfterHeader bool) {
 	cwd, _ := os.Getwd()
 	m.RegisterHeader(func() {
+		m.SetBorder(false)
 		m.Row(15, func() {
 			m.Col(1, func() {
 				m.FileImage(
@@ -36,6 +38,7 @@ func InsertPdfHeader(m pdf.Maroto) {
 				})
 			})
 		})
+		m.Line(8, props.Line{Color: color.NewWhite()})
 	})
 }
 

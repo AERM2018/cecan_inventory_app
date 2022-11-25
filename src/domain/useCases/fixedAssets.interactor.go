@@ -13,12 +13,28 @@ type FixedAssetsInteractor struct {
 	FixedAssetDescriptionsDataSource datasources.FixedAssetDescriptionDataSource
 }
 
-func (interactor FixedAssetsInteractor) GetFixedAssets(filters models.FixedAssetFilters) models.Responser {
-	fixedAssets, err := interactor.FixedAssetsDataSource.GetFixedAssets(filters)
+func (interactor FixedAssetsInteractor) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string, isPdf bool) models.Responser {
+	fixedAssets, err := interactor.FixedAssetsDataSource.GetFixedAssets(filters, datesDelimiter)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
 			Err:        err,
+		}
+	}
+	if isPdf {
+		fixedAssetsReport := models.FixedAssetsReportDoc{FixedAssets: fixedAssets}
+		filePath, errInPdf := fixedAssetsReport.CreateDoc()
+		if errInPdf != nil {
+			return models.Responser{
+				StatusCode: iris.StatusInternalServerError,
+				Err:        errInPdf,
+			}
+		}
+
+		return models.Responser{
+			ExtraInfo: []map[string]interface{}{
+				{"file": filePath},
+			},
 		}
 	}
 	return models.Responser{

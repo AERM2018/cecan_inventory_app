@@ -15,13 +15,14 @@ type FixedAssetsDataSource struct {
 	DbPsql *gorm.DB
 }
 
-func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFilters) ([]models.FixedAssetDetailed, error) {
+func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string) ([]models.FixedAssetDetailed, error) {
 	fixedAssets := make([]models.FixedAssetDetailed, 0)
 	filtersJson := make(map[string]interface{})
 	filterAsMap := structs.Map(filters)
 	conditionString := ""
 	fixedAssetFilterCounter := 0
 	sqlInstance := dataSrc.DbPsql.Table("fixed_assets_detailed")
+	// Convert struct property names to json tags and remove the ones which are empty
 	for _, field := range structs.Fields(filters) {
 		if filterAsMap[field.Name()] != "" {
 			jsonTag := field.Tag("json")
@@ -33,14 +34,18 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 	}
 	if len(maps.Keys(filtersJson)) > 0 {
 		includeLogicalAndOperator := len(maps.Keys(filtersJson)) > 1
-		for k, _ := range filtersJson {
+		for k := range filtersJson {
 			conditionString += fmt.Sprintf("%v = @%v", k, k)
-			if includeLogicalAndOperator && fixedAssetFilterCounter < len(filterAsMap)-2 {
+			if includeLogicalAndOperator && fixedAssetFilterCounter+1 < len(filtersJson) {
 				conditionString += " AND "
 			}
-			fixedAssetFilterCounter -= 1
+			fixedAssetFilterCounter += 1
 		}
+		conditionString += fmt.Sprintf(" AND \"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
 		sqlInstance = sqlInstance.Where(conditionString, filtersJson)
+	} else {
+		conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
+		sqlInstance = sqlInstance.Where(conditionString)
 	}
 
 	err := sqlInstance.

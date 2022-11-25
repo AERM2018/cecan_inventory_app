@@ -1,0 +1,4 @@
+ALTER TABLE fixed_assets
+DROP CONSTRAINT fk_department_responsible;
+ALTER TABLE fixed_assets
+DROP COLUMN department_responsible_user_id;

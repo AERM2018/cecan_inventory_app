@@ -23,7 +23,7 @@ func (doc *StorehouseRequestDoc) CreateDoc() (string, error) {
 	cwd, _ := os.Getwd()
 	outputFilePath := path.Join(cwd, "domain", "pdfs", fmt.Sprintf("%v_%v.pdf", "storehouseRequest", doc.CreatedAt.UnixMicro()))
 	mto := pdf.NewMaroto(consts.Landscape, consts.Letter)
-	common.InsertPdfHeader(mto)
+	common.InsertPdfHeader(mto, false)
 	doc._addRequestInfo(mto)
 	doc._addUtilitiesList(mto)
 	err := mto.OutputFileAndClose(outputFilePath)
