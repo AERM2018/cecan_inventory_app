@@ -6,6 +6,7 @@ import (
 	usecases "cecan_inventory/domain/useCases"
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
+	"fmt"
 	"strings"
 
 	"github.com/kataras/iris/v12"
@@ -26,12 +27,27 @@ func (controller *FixedAssetsController) New() {
 
 func (controller FixedAssetsController) GetFixedAssets(ctx iris.Context) {
 	departmentName := ctx.URLParamDefault("department_name", "")
+	brand := ctx.URLParamDefault("brand", "")
+	model := ctx.URLParamDefault("model", "")
+	typeOfAsset := ctx.URLParamDefault("type", "")
+	physicState := ctx.URLParamDefault("physic_state", "")
+	isPdf, _ := ctx.URLParamBool("pdf")
+	fromDate := ctx.URLParamDefault("from", "2000/01/01")
+	toDate := ctx.URLParamDefault("to", "9999/12/31")
 	filters := models.FixedAssetFilters{
 		DepartmentName: strings.ToUpper(departmentName),
+		Brand:          strings.ToUpper(brand),
+		Model:          strings.ToUpper(model),
+		Type:           strings.ToUpper(typeOfAsset),
+		PhysicState:    strings.ToUpper(physicState),
 	}
-	res := controller.FixedAssetsInteractor.GetFixedAssets(filters)
+	datesDelimiter := []string{fmt.Sprintf("'%v'", fromDate), fmt.Sprintf("'%v'", toDate)}
+	res := controller.FixedAssetsInteractor.GetFixedAssets(filters, datesDelimiter, isPdf)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	if isPdf {
+		ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "receta.pdf")
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
