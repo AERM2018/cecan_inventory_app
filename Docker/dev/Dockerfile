@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 COPY src/go.mod ./
 COPY src/go.sum ./
 # COPY src/ .
-RUN apt install -y tzdata
+RUN apk add --update tzdata
 
 # DOWNLOAD DEPENDECIES
 RUN go mod download
