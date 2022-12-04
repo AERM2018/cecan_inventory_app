@@ -1,4 +1,4 @@
-FROM golang:1.16.15
+FROM golang:1.18.8
 
 WORKDIR /usr/src/app
 
@@ -9,6 +9,7 @@ RUN apt install -y tzdata
 
 # DOWNLOAD DEPENDECIES
 RUN go mod download
+RUN go mod tidy
 EXPOSE $PORT
 RUN go install github.com/cosmtrek/air@latest
 CMD [ "air" ]

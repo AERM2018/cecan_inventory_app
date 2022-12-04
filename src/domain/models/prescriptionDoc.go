@@ -158,4 +158,12 @@ func (doc PrescriptionDoc) _addMedicineList(m pdf.Maroto) {
 			m.Text(doc.Prescription.Id.String(), props.Text{Align: consts.Center})
 		})
 	})
+	if doc.Prescription.Observations != "" {
+		m.Line(10, props.Line{Color: color.NewWhite()})
+		m.Row(10, func() {
+			m.Col(12, func() {
+				m.Text(fmt.Sprintf("Observasiones: \n%v", doc.Prescription.Observations), props.Text{Style: consts.Bold})
+			})
+		})
+	}
 }
