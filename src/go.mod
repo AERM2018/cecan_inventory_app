@@ -16,12 +16,12 @@ require (
 require (
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/icrowley/fake v0.0.0-20220625154756-3c7517006344
+	github.com/johnfercher/maroto v0.39.0
 )
 
 require (
 	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496 // indirect
 	github.com/boombuler/barcode v1.0.1 // indirect
-	github.com/johnfercher/maroto v0.39.0 // indirect
 	github.com/jung-kurt/gofpdf v1.16.2 // indirect
 	github.com/kr/pretty v0.3.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
