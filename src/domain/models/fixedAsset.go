@@ -18,7 +18,7 @@ type (
 		Type                        string     `json:"type"`
 		PhysicState                 string     `json:"physic_state"`
 		DepartmentId                uuid.UUID  `json:"department_id"`
-		DepartmentResponsibleUserId string     `json:"department_responsible_user_id"`
+		DepartmentResponsibleUserId string     `gorm:"default:null" json:"department_responsible_user_id"`
 		Observation                 string     `json:"observations"`
 		DirectorUserId              string     `json:"director_user_id"`
 		AdministratorUserId         string     `json:"administrator_user_id"`
