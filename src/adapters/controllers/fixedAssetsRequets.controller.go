@@ -16,6 +16,7 @@ type FixedAssetsRequestsController struct {
 	FixedAssetsRequestsDataSource     datasources.FixedAssetsRequetsDataSource
 	FixedAssetsDataSource             datasources.FixedAssetsDataSource
 	FixedAssetsDescriptionsDataSource datasources.FixedAssetDescriptionDataSource
+	DeparmentsDataSource              datasources.DepartmentDataSource
 	Interactor                        usecases.FixedAssetsRequestsInteractor
 	FixedAssetsInteractor             usecases.FixedAssetsInteractor
 }
@@ -24,6 +25,7 @@ func (controller *FixedAssetsRequestsController) New() {
 	controller.Interactor = usecases.FixedAssetsRequestsInteractor{
 		FixedAssetsRequestsDataSource: controller.FixedAssetsRequestsDataSource,
 		FixedAssetsDataSource:         controller.FixedAssetsDataSource,
+		DepartmentsDataSource:         controller.DeparmentsDataSource,
 	}
 	controller.FixedAssetsInteractor = usecases.FixedAssetsInteractor{
 		FixedAssetsDataSource:            controller.FixedAssetsDataSource,

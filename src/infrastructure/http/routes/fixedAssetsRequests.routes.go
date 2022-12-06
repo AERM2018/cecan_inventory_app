@@ -15,6 +15,7 @@ func InitFixedAssetsRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 	fixedAssetsRequestDataSource := datasources.FixedAssetsRequetsDataSource{DbPsql: dbPsql}
 	fixedAssetsDataSource := datasources.FixedAssetsDataSource{DbPsql: dbPsql}
 	fixedAssetsDescriptionsDataSource := datasources.FixedAssetDescriptionDataSource{DbPsql: dbPsql}
+	departmentsDataSource := datasources.DepartmentDataSource{DbPsql: dbPsql}
 	// Db validator instance
 	val := middlewares.DbValidator{
 		FixedAssetsDataSource:         fixedAssetsDataSource,
@@ -25,6 +26,7 @@ func InitFixedAssetsRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 		FixedAssetsRequestsDataSource:     fixedAssetsRequestDataSource,
 		FixedAssetsDataSource:             fixedAssetsDataSource,
 		FixedAssetsDescriptionsDataSource: fixedAssetsDescriptionsDataSource,
+		DeparmentsDataSource:              departmentsDataSource,
 	}
 	controller.New()
 	fixedAssetsRequests.Use(middlewares.VerifyJWT)

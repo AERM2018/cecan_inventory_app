@@ -12,6 +12,7 @@ import (
 type FixedAssetsRequestsInteractor struct {
 	FixedAssetsRequestsDataSource datasources.FixedAssetsRequetsDataSource
 	FixedAssetsDataSource         datasources.FixedAssetsDataSource
+	DepartmentsDataSource         datasources.DepartmentDataSource
 }
 
 func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequests(departmentId string) models.Responser {
@@ -75,6 +76,7 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 	}
 	// Signatures include the id of the director and adminstrator users
 	signaturesInfo := interactor.FixedAssetsRequestsDataSource.GetSignaturesInfo()
+	department, _ := interactor.DepartmentsDataSource.GetDepartmentById(fixedAssetsRequest.DepartmentId.String())
 	err := interactor.FixedAssetsRequestsDataSource.CreateFixedAssetsRequest(
 		// Init a transaction making use of the data source of fixed assets
 		func(tx *gorm.DB) error {
@@ -91,6 +93,9 @@ func (interactor FixedAssetsRequestsInteractor) CreateFixedAssetsRequest(
 				asset.FixedAsset.AdministratorUserId = signaturesInfo.Administrator.Id
 				// Assing the request department to all fixed assets from the request
 				asset.FixedAsset.DepartmentId = fixedAssetsRequest.DepartmentId
+				if department.ResponsibleUser.Id != "" {
+					asset.FixedAsset.DepartmentResponsibleUserId = department.ResponsibleUser.Id
+				}
 				res := createAssetFunc(asset.FixedAsset)
 				err := res.Err
 				if err != nil {
