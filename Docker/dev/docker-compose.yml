@@ -9,10 +9,10 @@ services:
       - 80:80
     restart: always
     volumes:
-      - ../../nginx/conf/nginx.conf:/etc/nginx/conf.d/:ro
+      - ../../nginx/conf/:/etc/nginx/conf.d/:ro
       - ./certbot/www:/var/www/certbot/:ro
   certbot:
-    image: certbot/certbot:latest
+    image: certbot/certbot:arm32v6-v1.32.1
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
   api-app:
