@@ -2,6 +2,19 @@ version: "3.8"
 volumes:
   psql:
 services:
+  webserver:
+    image: nginx:latest
+    ports:
+      - 443:443
+      - 80:80
+    restart: always
+    volumes:
+      - ../../nginx/conf/nginx.conf:/etc/nginx/conf.d/:ro
+      - ./certbot/www:/var/www/certbot/:ro
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
   api-app:
     restart: always
     build:
