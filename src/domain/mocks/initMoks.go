@@ -360,3 +360,23 @@ func GetFixedAssetsDescriptionsMockSeed() []models.FixedAssetDescription {
 	}
 	return fixedAssetDescriptions
 }
+
+func GetDirectorAndSubDirectorUsersMockSeed() []models.User {
+	director := models.User{
+		RoleId:   "c1225222-30ae-4001-963b-e5a042957c45",
+		Name:     "DR. ELIO AARON",
+		Surname:  "REYES ESPINOZA",
+		Email:    "director@cecan.com",
+		Password: "cecan_director",
+	}
+	subdirector := models.User{
+		RoleId:   "67606ab7-ece7-4cd1-ace0-0b43bde63d15",
+		Name:     "L.A. ALEJANDRA DEL ROCIO",
+		Surname:  "PEYNADO MARES",
+		Email:    "subdirector@cecan.com",
+		Password: "cecan_subdirector",
+	}
+	users := []models.User{director, subdirector}
+
+	return users
+}

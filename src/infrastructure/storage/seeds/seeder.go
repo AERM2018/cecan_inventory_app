@@ -26,5 +26,6 @@ func All() []Seed {
 		{Name: "CreateStorehouseUtilityUnits", Run: func(db *gorm.DB) error { return CreateStorehouseUtilityUnits(db) }},
 		{Name: "CreateStorehouseRequestStatuses", Run: func(db *gorm.DB) error { return CreateStorehouseRequestStatuses(db) }},
 		{Name: "CreateFixedAssetDescriptions", Run: func(db *gorm.DB) error { return CreateFixedAssetDescriptions(db) }},
+		{Name: "CreateDirectorAndSubDirectorUsers", Run: func(db *gorm.DB) error { return CreateResponsibleUsers(db) }},
 	}
 }
