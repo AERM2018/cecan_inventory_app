@@ -11,10 +11,12 @@ services:
     volumes:
       - ../../nginx/conf/:/etc/nginx/conf.d/:ro
       - ./certbot/www:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/ssl/:ro
   certbot:
     image: certbot/certbot:arm32v6-v1.32.1
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
   api-app:
     restart: always
     build:
