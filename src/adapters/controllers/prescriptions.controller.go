@@ -59,7 +59,8 @@ func (controller PrescriptionsController) GetPrescriptionById(ctx iris.Context) 
 		return
 	}
 	if isPdf {
-		ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "receta.pdf")
+		ctx.ServeFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]))
+		// ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "receta.pdf")
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
