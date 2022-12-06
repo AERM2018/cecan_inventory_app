@@ -54,6 +54,7 @@ func (server *Server) ConnectDatabase() {
 
 func (server *Server) setUpMiddlewares() {
 	crs := cors.New(cors.Options{
+		MaxAge: 86400,
 		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders: []string{"*"},
