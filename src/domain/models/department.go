@@ -11,7 +11,7 @@ import (
 type (
 	Department struct {
 		Id                uuid.UUID      `gorm:"primaryKey;default:'uuid_generate_v4()'" json:"id"`
-		ResponsibleUserId *string        `json:"resposible_user_id,omitempty"`
+		ResponsibleUserId *string        `json:"resposible_user_id"`
 		Name              string         `json:"name"`
 		FloorNumber       string         `json:"floor_number"`
 		CreatedAt         *time.Time     `json:"created_at,omitempty"`
