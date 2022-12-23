@@ -25,7 +25,8 @@ func (server *Server) New() *iris.Application {
 	server.ConnectDatabase()
 	server.setUpMiddlewares()
 	server.Router = server.IrisApp.Party("/api/v1")
-	routes.InitUsersRoutes(server.Router, server.DbPsql)
+	routes.InitAuthRoutes(server.Router, server.DbPsql)
+	routes.InitUserRuotes(server.Router, server.DbPsql)
 	routes.InitMedicinesRoutes(server.Router, server.DbPsql)
 	routes.InitPharmacyStocksRoutes(server.Router, server.DbPsql)
 	routes.InitPrescriptionsRoutes(server.Router, server.DbPsql)
@@ -54,7 +55,7 @@ func (server *Server) ConnectDatabase() {
 
 func (server *Server) setUpMiddlewares() {
 	crs := cors.New(cors.Options{
-		MaxAge: 86400,
+		MaxAge:         86400,
 		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders: []string{"*"},

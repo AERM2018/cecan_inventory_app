@@ -23,6 +23,18 @@ func (dataSrc UserDataSource) GetUserByEmailOrId(username string) (models.User, 
 	return user, nil
 }
 
+func (dataSrc UserDataSource) GetUsers() ([]models.User, error) {
+	users := make([]models.User, 0)
+	err := dataSrc.DbPsql.
+		Omit("password").
+		Find(&users).
+		Error
+	if err != nil {
+		return users, err
+	}
+	return users, nil
+}
+
 func (dataSrc UserDataSource) CreateUser(user models.User) (models.User, error) {
 	var newUserOrFound models.User
 	res := dataSrc.DbPsql.FirstOrCreate(&newUserOrFound, &user)

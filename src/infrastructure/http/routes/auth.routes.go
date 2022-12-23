@@ -10,7 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func InitUsersRoutes(router router.Party, dbPsql *gorm.DB) {
+func InitAuthRoutes(router router.Party, dbPsql *gorm.DB) {
 	auth := router.Party("/auth")
 	userDataSource := datasources.UserDataSource{DbPsql: dbPsql}
 	passwordResetCodesDataSource := datasources.PasswordResetCodesDataSource{DbPsql: dbPsql}
