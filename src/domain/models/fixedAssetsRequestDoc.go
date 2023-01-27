@@ -31,7 +31,7 @@ func (doc *FixedAssetsRequestDoc) CreateDoc() (string, error) {
 	outputFilePath := path.Join(cwd, "domain", "pdfs", fmt.Sprintf("%v_%v.pdf", "fixedAssetsRequest", doc.CreatedAt.UnixMilli()))
 	// outputFilePath := path.Join(cwd, "domain", "pdfs", fmt.Sprintf("%v.pdf", "fixedAssetsRequest"))
 	mto := pdf.NewMaroto(consts.Landscape, consts.Letter)
-	common.InsertFixedAssetsRequestPdfHeader(mto, doc.FixedAssetRequest.CreatedAt.Format(time.RFC3339))
+	common.InsertFixedAssetsRequestPdfHeader(mto, doc.FixedAssetRequest.CreatedAt.Format(time.RFC822))
 	doc._addFixedAssetRequestInfo(mto)
 	doc._addFixedAssetsList(mto)
 	doc._addSignatues(mto)
