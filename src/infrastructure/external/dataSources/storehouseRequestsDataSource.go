@@ -211,7 +211,7 @@ func (dataSrc StorehouseRequestsDataSource) SupplyStorehouseRequest(id string, u
 			errConsulting := tx.
 				Table("storehouse_utilities_storehouse_requests").
 				Where("storehouse_request_id = ? and storehouse_utility_key = ?", id, utilityRequestReference.UtilityKey).
-				Take(&utilityRequested).Error
+				First(&utilityRequested).Error
 			if errConsulting != nil {
 				return errConsulting
 			}
@@ -222,7 +222,7 @@ func (dataSrc StorehouseRequestsDataSource) SupplyStorehouseRequest(id string, u
 				Table("storehouse_utilities_storehouse_requests").
 				Where("storehouse_request_id = ? and storehouse_utility_key = ?", id, utilityRequestReference.UtilityKey).
 				Update("pieces_supplied", utilityRequested.PiecesSupplied+utilityRequestReference.PiecesSupplied).
-				Update("last_pieces_supplied", utilityRequestReference.PiecesSupplied).
+				Update("last_pieces_supplied", utilityRequested.PiecesSupplied+utilityRequestReference.PiecesSupplied).
 				Error
 			if errUpdating != nil {
 				return errUpdating

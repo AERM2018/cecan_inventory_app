@@ -54,7 +54,7 @@ func (controller StorehouseRequestsController) GetStorehouseRequestById(ctx iris
 		return
 	}
 	if isPdf {
-		ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), "request.pdf")
+		ctx.SendFile(fmt.Sprintf("%v", res.ExtraInfo[0]["file"]), fmt.Sprintf("%v",res.ExtraInfo[1]["file_name"]))
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }

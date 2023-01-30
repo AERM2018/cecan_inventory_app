@@ -48,6 +48,7 @@ func (interactor StorehouseRequestsInteractor) GetStorehouseRequestById(id strin
 		return models.Responser{
 			ExtraInfo: []map[string]interface{}{
 				{"file": filePath},
+				{"file_name": fmt.Sprintf("solicitud_almacen_%v_%v.pdf",storehouseRequests.Folio,storehouseRequests.CreatedAt.UnixMilli())},
 			},
 		}
 	}

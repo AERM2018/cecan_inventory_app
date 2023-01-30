@@ -59,6 +59,7 @@ func (server *Server) setUpMiddlewares() {
 		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowedHeaders: []string{"*"},
+		ExposedHeaders: []string{"Content-Disposition"},
 	})
 	server.IrisApp.UseRouter(crs)
 	server.IrisApp.AllowMethods(iris.MethodOptions)

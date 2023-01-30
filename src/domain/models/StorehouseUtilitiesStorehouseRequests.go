@@ -13,6 +13,7 @@ type StorehouseUtilitiesStorehouseRequests struct {
 	StorehouseRequestId uuid.UUID                 `gorm:"column:storehouse_request_id;foreignKey" json:"request_id"`
 	Pieces              int16                     `json:"pieces"`
 	PiecesSupplied      int16                     `json:"pieces_supplied"`
+	LastPiecesSupplied  int16                     `json:"last_pieces_supplied"`
 	CreatedAt           *time.Time                `json:"created_at,omitempty"`
 	UpdatedAt           *time.Time                `json:"updated_at,omitempty"`
 }

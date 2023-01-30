@@ -28,7 +28,7 @@ func (dataSrc PrescriptionsDataSource) CreatePrescription(prescription models.Pr
 				MedicineKey:    medicineForPrescription.MedicineKey,
 				Pieces:         medicineForPrescription.Pieces,
 				PrescriptionId: prescription.Id}
-			prescriptionMedicineError := tx.Create(&prescriptionsMedicines).Error
+			prescriptionMedicineError := tx.Table("prescriptions_medicines").Create(&prescriptionsMedicines).Error
 			if prescriptionMedicineError != nil {
 				return errors.New("No se pudo crear la receta debido a que no se pudo asignar los medicamentos a la misma.")
 			}
@@ -157,15 +157,15 @@ func (dataSrc PrescriptionsDataSource) CompletePrescription(id string, prescript
 		isPrescriptionIncomplete bool
 	)
 	errInTransaction := dataSrc.DbPsql.Transaction(func(tx *gorm.DB) error {
-
+		
 		// Update the records of amount of medicines supplied
 		for _, medicine := range prescription.Medicines {
 			errCosulting := tx.
 				Table("prescriptions_medicines").
 				Where("prescription_id = ? and medicine_key = ?", id, medicine.MedicineKey).
-				Take(&medicineSuscripted).Error
+				First(&medicineSuscripted).Error
 			if errCosulting != nil {
-				return errCosulting
+				return errors.New("Ocurrió un error al buscar los medicamentos asociados a la receta, intentelo de nuevo")
 			}
 			if medicineSuscripted.PiecesSupplied+medicine.PiecesSupplied < medicineSuscripted.Pieces {
 				isPrescriptionIncomplete = true
@@ -174,11 +174,13 @@ func (dataSrc PrescriptionsDataSource) CompletePrescription(id string, prescript
 				Table("prescriptions_medicines").
 				Where("prescription_id = ? and medicine_key = ?", id, medicine.MedicineKey).
 				Update("pieces_supplied", medicineSuscripted.PiecesSupplied+medicine.PiecesSupplied).
-				Update("last_pieces_supplied", medicine.PiecesSupplied).
+				Update("last_pieces_supplied", medicineSuscripted.PiecesSupplied+medicine.PiecesSupplied).
 				Error
 			if errUpdating != nil {
-				return errUpdating
+				return errors.New("Ocurrio un error al actualizar las piezas suministradas, intentelo mas tarde") 
 			}
+			// Clear the variable to avoid malformed the where condition
+			medicineSuscripted = models.PrescriptionsMedicines{}
 		}
 		errInMedicineResetvation := tx.Transaction(func(tx *gorm.DB) error {
 			// Take and reserver the medicines stocks for the prescription

@@ -39,7 +39,7 @@ func InitStorehouseRequestsRoutes(router router.Party, dbPsql *gorm.DB) {
 		val.AreStorehouseRequestItemsValid,
 		storehouseRequestsController.UpdateStorehouseRequest)
 
-	storehouseRequests.Put("/{id:string}",
+	storehouseRequests.Put("/{id:string}/complete",
 		middlewares.ValidateRequest(customreqvalidations.ValidateStorehouseRequest, "pieces"),
 		val.CanUserDoAction("Almacen"),
 		val.IsStorehouseRequest,
