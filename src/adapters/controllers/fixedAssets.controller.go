@@ -15,6 +15,8 @@ import (
 type FixedAssetsController struct {
 	FixedAssetsDataSource            datasources.FixedAssetsDataSource
 	FixedAssetDescriptionsDataSource datasources.FixedAssetDescriptionDataSource
+	DepartmentsDataSource            datasources.DepartmentDataSource
+	UserDataSource                   datasources.UserDataSource
 	FixedAssetsInteractor            usecases.FixedAssetsInteractor
 }
 
@@ -22,6 +24,8 @@ func (controller *FixedAssetsController) New() {
 	controller.FixedAssetsInteractor = usecases.FixedAssetsInteractor{
 		FixedAssetsDataSource:            controller.FixedAssetsDataSource,
 		FixedAssetDescriptionsDataSource: controller.FixedAssetDescriptionsDataSource,
+		DepartmentsDataSource:            controller.DepartmentsDataSource,
+		UserDataSource:                   controller.UserDataSource,
 	}
 }
 

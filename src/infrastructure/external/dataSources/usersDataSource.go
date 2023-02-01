@@ -58,3 +58,17 @@ func (dataSrc UserDataSource) UpdateUserPassword(user models.User) error {
 	}
 	return nil
 }
+
+func (dataSrc UserDataSource) GetSuperiorUsers() ([]models.User, error) {
+	users := make([]models.User, 0)
+	err := dataSrc.DbPsql.
+		Omit("password").
+		Joins("Role").
+		Where("\"Role\".name = ? or \"Role\".name = ?", "Director", "Subdirector").
+		Find(&users).
+		Error
+	if err != nil {
+		return users, err
+	}
+	return users, nil
+}

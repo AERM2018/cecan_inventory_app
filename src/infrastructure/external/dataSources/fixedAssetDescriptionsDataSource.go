@@ -30,6 +30,7 @@ func (dataSrc FixedAssetDescriptionDataSource) GetFixedAssetDescriptions(express
 func (dataSrc FixedAssetDescriptionDataSource) GetSimilarFixedAssetDescriptions(fixedAssetDescription models.FixedAssetDescription) (bool, uuid.UUID) {
 	similarFixedAssetDescriptions := make([]models.FixedAssetDescription, 0)
 	dataSrc.DbPsql.
+		Table("fixed_asset_descriptions").
 		Where("upper(description) = ? AND upper(brand) = ? AND upper(model) = ?", fixedAssetDescription.Description, fixedAssetDescription.Brand, fixedAssetDescription.Model).
 		Find(&similarFixedAssetDescriptions)
 	if len(similarFixedAssetDescriptions) == 0 {

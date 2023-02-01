@@ -3,15 +3,16 @@ package common
 import (
 	"encoding/csv"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 )
 
-func UploadCsvToDb(filePath string) error {
+func ReadDataFromCsv(filePath string) ([][]string, error) {
 	file, err := os.Open(filePath)
+	index := 0
+	lines := make([][]string, 0)
 	if err != nil {
-		return errors.New("No se ha podido leer el archivo.")
+		return lines, errors.New("No se ha podido leer el archivo.")
 	}
 	defer file.Close()
 	reader := csv.NewReader(file)
@@ -23,8 +24,10 @@ func UploadCsvToDb(filePath string) error {
 		if err != nil {
 			// log.Fatal(err)
 		}
-		// do something with read line
-		fmt.Printf("%+v\n", rec)
+		if index != 0 {
+			lines = append(lines, rec)
+		}
+		index += 1
 	}
-	return nil
+	return lines, nil
 }

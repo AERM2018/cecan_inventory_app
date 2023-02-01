@@ -48,6 +48,23 @@ func (dataSrc DepartmentDataSource) GetDepartmentById(id string) (models.Departm
 	return department, nil
 }
 
+func (dataSrc DepartmentDataSource) GetDepartmentByName(name string) (models.DepartmentDetailed, error) {
+	var department models.DepartmentDetailed
+	err := dataSrc.DbPsql.
+		Table("departments").
+		Unscoped().
+		Where("name = ?", name).
+		Preload("ResponsibleUser", func(db *gorm.DB) *gorm.DB {
+			return db.Select("id", "name", "surname", "role_id")
+		}).
+		Find(&department).
+		Error
+	if err != nil {
+		return department, err
+	}
+	return department, nil
+}
+
 func (dataSrc DepartmentDataSource) UpdateDepartment(id string, department models.Department) error {
 	err := dataSrc.DbPsql.
 		Omit("id", "created_at", "responsible_user_id").

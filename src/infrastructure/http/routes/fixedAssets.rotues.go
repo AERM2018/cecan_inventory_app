@@ -14,6 +14,8 @@ func InitFixedAssetsRoutes(router router.Party, dbPsql *gorm.DB) {
 	// Datasources
 	fixedAssetsDataSource := datasources.FixedAssetsDataSource{DbPsql: dbPsql}
 	fixedAssetDescriptionsDataSource := datasources.FixedAssetDescriptionDataSource{DbPsql: dbPsql}
+	departmentsDataSource := datasources.DepartmentDataSource{DbPsql: dbPsql}
+	userDataSource := datasources.UserDataSource{DbPsql: dbPsql}
 	// Db validator instance
 	val := middlewares.DbValidator{
 		FixedAssetsDataSource: fixedAssetsDataSource,
@@ -22,6 +24,8 @@ func InitFixedAssetsRoutes(router router.Party, dbPsql *gorm.DB) {
 	controller := controllers.FixedAssetsController{
 		FixedAssetsDataSource:            fixedAssetsDataSource,
 		FixedAssetDescriptionsDataSource: fixedAssetDescriptionsDataSource,
+		DepartmentsDataSource:            departmentsDataSource,
+		UserDataSource:                   userDataSource,
 	}
 	controller.New()
 	fixedAssets.Get("/", controller.GetFixedAssets)

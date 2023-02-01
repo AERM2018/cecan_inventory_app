@@ -3,12 +3,12 @@ package helpers
 import (
 	"errors"
 	"os"
-	"path/filepath"
+	"path"
 
 	"github.com/kataras/iris/v12"
 )
 
-func UploadFile(ctx iris.Context, path string, fileName string) (string, error) {
+func UploadFile(ctx iris.Context, folderName string, fileName string) (string, error) {
 	ctx.SetMaxRequestBodySize(86 * iris.MB)
 	cwd, _ := os.Getwd()
 	formDataFileField := "excel_file"
@@ -16,7 +16,7 @@ func UploadFile(ctx iris.Context, path string, fileName string) (string, error) 
 	if err != nil {
 		return "", errors.New("No se ha podido leer el archivo.")
 	}
-	dest := filepath.Join(cwd, "domain", path, fileName)
+	dest := path.Join(cwd, "domain", folderName, fileName)
 	ctx.SaveFormFile(fileHeader, dest)
 	return dest, nil
 }
