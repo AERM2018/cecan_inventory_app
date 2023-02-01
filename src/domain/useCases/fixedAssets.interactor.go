@@ -1,6 +1,7 @@
 package usecases
 
 import (
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"strings"
@@ -126,6 +127,13 @@ func (interactor FixedAssetsInteractor) DeleteFixedAsset(key string) models.Resp
 			Err:        err,
 		}
 	}
+	return models.Responser{
+		StatusCode: iris.StatusNoContent,
+	}
+}
+
+func (interactor FixedAssetsInteractor) UploadFileDataToDb(filePath string) models.Responser {
+	common.UploadCsvToDb(filePath)
 	return models.Responser{
 		StatusCode: iris.StatusNoContent,
 	}

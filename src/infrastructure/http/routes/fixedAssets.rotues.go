@@ -26,6 +26,7 @@ func InitFixedAssetsRoutes(router router.Party, dbPsql *gorm.DB) {
 	controller.New()
 	fixedAssets.Get("/", controller.GetFixedAssets)
 	fixedAssets.Post("/", controller.CreateFixedAsset)
+	fixedAssets.Post("/file", controller.UploadFixedAssetsFromFile)
 	fixedAssets.Put("/{key:string}",
 		val.FindFixedAssetByKey,
 		val.IsFixedAssetWithKey,

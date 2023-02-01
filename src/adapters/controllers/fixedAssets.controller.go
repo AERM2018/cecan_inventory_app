@@ -81,3 +81,19 @@ func (controller FixedAssetsController) DeleteFixedAsset(ctx iris.Context) {
 	}
 	helpers.PrepareAndSendDataResponse(ctx, res)
 }
+
+func (controller FixedAssetsController) UploadFixedAssetsFromFile(ctx iris.Context) {
+	filePath, err := helpers.UploadFile(ctx, "seeds", "fixed_assets.csv")
+	if err != nil {
+		helpers.PrepareAndSendMessageResponse(ctx, models.Responser{
+			StatusCode: iris.StatusBadRequest,
+			Message:    err.Error(),
+		})
+		return
+	}
+	res := controller.FixedAssetsInteractor.UploadFileDataToDb(filePath)
+	if res.StatusCode > 300 {
+		helpers.PrepareAndSendMessageResponse(ctx, res)
+	}
+	helpers.PrepareAndSendDataResponse(ctx, res)
+}
