@@ -18,8 +18,8 @@ type FixedAssetsInteractor struct {
 	UserDataSource                   datasources.UserDataSource
 }
 
-func (interactor FixedAssetsInteractor) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string, isPdf bool) models.Responser {
-	fixedAssets, err := interactor.FixedAssetsDataSource.GetFixedAssets(filters, datesDelimiter)
+func (interactor FixedAssetsInteractor) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string, isPdf bool, page int, limit int, offset int) models.Responser {
+	fixedAssets, numPages, err := interactor.FixedAssetsDataSource.GetFixedAssets(filters, datesDelimiter, page, limit, offset)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
@@ -33,6 +33,7 @@ func (interactor FixedAssetsInteractor) GetFixedAssets(filters models.FixedAsset
 			return models.Responser{
 				StatusCode: iris.StatusInternalServerError,
 				Err:        errInPdf,
+				
 			}
 		}
 
@@ -46,6 +47,10 @@ func (interactor FixedAssetsInteractor) GetFixedAssets(filters models.FixedAsset
 		StatusCode: iris.StatusOK,
 		Data: iris.Map{
 			"fixed_assets": fixedAssets,
+
+		},
+		ExtraInfo: []map[string]interface{}{
+			{"pages": numPages},
 		},
 	}
 }

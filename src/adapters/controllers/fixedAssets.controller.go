@@ -30,11 +30,16 @@ func (controller *FixedAssetsController) New() {
 }
 
 func (controller FixedAssetsController) GetFixedAssets(ctx iris.Context) {
+	// This is for pagination
+	page := ctx.URLParamIntDefault("page",1)
+	limit := ctx.URLParamIntDefault("limit",10)
+	offset := ctx.URLParamIntDefault("offset",limit)
 	departmentName := ctx.URLParamDefault("department_name", "")
 	brand := ctx.URLParamDefault("brand", "")
 	model := ctx.URLParamDefault("model", "")
 	typeOfAsset := ctx.URLParamDefault("type", "")
 	physicState := ctx.URLParamDefault("physic_state", "")
+	description := ctx.URLParamDefault("description", "")
 	isPdf, _ := ctx.URLParamBool("pdf")
 	fromDate := ctx.URLParamDefault("from", "2000/01/01")
 	toDate := ctx.URLParamDefault("to", "9999/12/31")
@@ -44,9 +49,11 @@ func (controller FixedAssetsController) GetFixedAssets(ctx iris.Context) {
 		Model:          strings.ToUpper(model),
 		Type:           strings.ToUpper(typeOfAsset),
 		PhysicState:    strings.ToUpper(physicState),
+		Description:    strings.ToUpper(description),
+
 	}
 	datesDelimiter := []string{fmt.Sprintf("'%v'", fromDate), fmt.Sprintf("'%v'", toDate)}
-	res := controller.FixedAssetsInteractor.GetFixedAssets(filters, datesDelimiter, isPdf)
+	res := controller.FixedAssetsInteractor.GetFixedAssets(filters, datesDelimiter, isPdf, page, limit,offset)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 	}
@@ -87,7 +94,7 @@ func (controller FixedAssetsController) DeleteFixedAsset(ctx iris.Context) {
 }
 
 func (controller FixedAssetsController) UploadFixedAssetsFromFile(ctx iris.Context) {
-	filePath, err := helpers.UploadFile(ctx, "seeds", "fixed_assets.csv")
+	filePath, err := helpers.UploadFile(ctx, "seeds", "fixed_assets.csv","excel_file")
 	if err != nil {
 		helpers.PrepareAndSendMessageResponse(ctx, models.Responser{
 			StatusCode: iris.StatusBadRequest,

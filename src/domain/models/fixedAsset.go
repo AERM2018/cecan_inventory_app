@@ -52,6 +52,7 @@ type (
 	FixedAssetFilters struct {
 		Brand          string `json:"brand,omitempty"`
 		Model          string `json:"model,omitempty"`
+		Description    string `json:"description,omitempty"`
 		Type           string `json:"type,omitempty"`
 		PhysicState    string `json:"physic_state,omitempty"`
 		DepartmentName string `json:"department_name,omitempty"`

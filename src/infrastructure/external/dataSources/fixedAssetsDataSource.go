@@ -4,6 +4,8 @@ import (
 	"cecan_inventory/domain/models"
 	"errors"
 	"fmt"
+	"math"
+	"reflect"
 	"strings"
 
 	"github.com/fatih/structs"
@@ -15,7 +17,8 @@ type FixedAssetsDataSource struct {
 	DbPsql *gorm.DB
 }
 
-func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string) ([]models.FixedAssetDetailed, error) {
+func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string,page int, limit int, offset int) ([]models.FixedAssetDetailed, float64 ,error) {
+	var totalRecordsCounter int64
 	fixedAssets := make([]models.FixedAssetDetailed, 0)
 	filtersJson := make(map[string]interface{})
 	filterAsMap := structs.Map(filters)
@@ -33,28 +36,39 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 		}
 	}
 	if len(maps.Keys(filtersJson)) > 0 {
+		keys := reflect.ValueOf(filtersJson).MapKeys()
+		fmt.Println(keys)
+		fmt.Println(filtersJson[keys[0].String()])
+		
 		includeLogicalAndOperator := len(maps.Keys(filtersJson)) > 1
-		for k := range filtersJson {
-			conditionString += fmt.Sprintf("%v = @%v", k, k)
+		for _,k := range keys {
+			conditionString += fmt.Sprintf("%v LIKE %v%v%v", k, "'%",filtersJson[k.String()],"%'")
 			if includeLogicalAndOperator && fixedAssetFilterCounter+1 < len(filtersJson) {
-				conditionString += " AND "
+				conditionString += " OR "
 			}
 			fixedAssetFilterCounter += 1
 		}
 		conditionString += fmt.Sprintf(" AND \"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
-		sqlInstance = sqlInstance.Where(conditionString, filtersJson)
+		sqlInstance = sqlInstance.Where(conditionString)
 	} else {
 		conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
 		sqlInstance = sqlInstance.Where(conditionString)
 	}
 
+	sqlInstance.Count(&totalRecordsCounter)
 	err := sqlInstance.
+		Offset((page - 1) * offset).
+		Limit(limit).
 		Find(&fixedAssets).
 		Error
 	if err != nil {
-		return fixedAssets, err
+		return fixedAssets, 0, err
 	}
-	return fixedAssets, nil
+	totalPages := math.Round(float64(int(totalRecordsCounter) / limit))
+	if totalPages * float64(limit) < float64(totalRecordsCounter) {
+		totalPages += 1
+	}
+	return fixedAssets, totalPages, nil
 }
 
 func (dataSrc FixedAssetsDataSource) GetFixedAssetByKey(key string) (models.FixedAssetDetailed, error) {

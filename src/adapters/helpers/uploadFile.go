@@ -8,11 +8,10 @@ import (
 	"github.com/kataras/iris/v12"
 )
 
-func UploadFile(ctx iris.Context, folderName string, fileName string) (string, error) {
+func UploadFile(ctx iris.Context, folderName string, fileName string, formFieldName string) (string, error) {
 	ctx.SetMaxRequestBodySize(86 * iris.MB)
 	cwd, _ := os.Getwd()
-	formDataFileField := "excel_file"
-	_, fileHeader, err := ctx.FormFile(formDataFileField)
+	_, fileHeader, err := ctx.FormFile(formFieldName)
 	if err != nil {
 		return "", errors.New("No se ha podido leer el archivo.")
 	}
