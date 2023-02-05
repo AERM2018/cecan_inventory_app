@@ -24,6 +24,7 @@ type (
 		LotNumber           string              `json:"lot_number" validate:"required"`
 		Pieces              int16               `json:"pieces" validate:"required,gt=0"`
 		Pieces_used         int16               `json:"pieces_used"`
+		Pieces_left         int16               `json:"pieces_left,omitempty"`
 		SemaforizationColor SemaforizationColor `json:"semaforization_color"`
 		CreatedAt           *time.Time          `json:"created_at,omitempty"`
 		UpdatedAt           *time.Time          `gorm:"autoUpdateTime:milli" json:"updated_at,omitempty"`
@@ -32,8 +33,9 @@ type (
 	}
 
 	PharmacyStocksDetailed struct {
+		MedicineKey         string              `gorm:"foreignKey:medicine_key;references:key" json:"medicine_key"`
 		Medicine                    Medicine                `json:"medicine"`
-		Stocks                      []PharmacyStocksDetails `json:"stocks"`
+		Stocks                      *[]PharmacyStocksDetails `gorm:"foreignKey:medicine_key" json:"stocks,omitempty"`
 		PiecesBySemaforizationColor map[string]int          `json:"pieces_left_by_semaforization_color"`
 		TotalPieces                 int16                   `json:"total_pieces"`
 		TotalPiecesLeft             int16                   `json:"total_pieces_left"`
@@ -42,6 +44,8 @@ type (
 	PharmacyStocksDetails struct {
 		Id                  uuid.UUID           `json:"id"`
 		LotNumber           string              `json:"lot_number"`
+		MedicineKey         string              `gorm:"foreignKey:medicine_key;references:key" json:"medicine_key"`
+		Medicine            Medicine            `json:"medicine"`
 		Pieces              int16               `json:"pieces"`
 		PiecesUsed          int16               `json:"pieces_used"`
 		PiecesLeft          int16               `json:"pieces_left"`
@@ -57,6 +61,7 @@ type (
 		ExpiresAt           time.Time           `json:"expires_at" validate:"gttoday"`
 		UpdatedAt           *time.Time          `gorm:"autoUpdateTime:milli" json:"updated_at,omitempty"`
 	}
+
 )
 
 func (pharmacyStock *PharmacyStock) BeforeCreate(tx *gorm.DB) (err error) {
@@ -70,7 +75,7 @@ func (pharmacyStocksDetailed *PharmacyStocksDetailed) CountAndCategorizePieces()
 		totalPieces     int
 	)
 	multipleSemaforizationCounter := make(map[string]int, 0)
-	for _, stock := range pharmacyStocksDetailed.Stocks {
+	for _, stock := range *pharmacyStocksDetailed.Stocks {
 		multipleSemaforizationCounter[string(stock.SemaforizationColor)] += int(stock.PiecesLeft)
 		totalPiecesLeft += int(stock.PiecesLeft)
 		totalPieces += int(stock.Pieces)

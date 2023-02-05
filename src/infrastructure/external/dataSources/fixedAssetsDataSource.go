@@ -1,15 +1,13 @@
 package datasources
 
 import (
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
 	"errors"
 	"fmt"
 	"math"
-	"reflect"
-	"strings"
 
 	"github.com/fatih/structs"
-	"golang.org/x/exp/maps"
 	"gorm.io/gorm"
 )
 
@@ -20,41 +18,45 @@ type FixedAssetsDataSource struct {
 func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string,page int, limit int, offset int) ([]models.FixedAssetDetailed, float64 ,error) {
 	var totalRecordsCounter int64
 	fixedAssets := make([]models.FixedAssetDetailed, 0)
-	filtersJson := make(map[string]interface{})
-	filterAsMap := structs.Map(filters)
-	conditionString := ""
-	fixedAssetFilterCounter := 0
+	// filtersJson := make(map[string]interface{})
+	// filterAsMap := structs.Map(filters)
+	// conditionString := ""
+	// fixedAssetFilterCounter := 0
 	sqlInstance := dataSrc.DbPsql.Table("fixed_assets_detailed")
 	// Convert struct property names to json tags and remove the ones which are empty
-	for _, field := range structs.Fields(filters) {
-		if filterAsMap[field.Name()] != "" {
-			jsonTag := field.Tag("json")
-			if strings.Contains(jsonTag, ",") {
-				jsonTag = strings.Split(jsonTag, ",")[0]
-			}
-			filtersJson[jsonTag] = fmt.Sprintf("%v", filterAsMap[field.Name()])
-		}
-	}
-	if len(maps.Keys(filtersJson)) > 0 {
-		keys := reflect.ValueOf(filtersJson).MapKeys()
-		fmt.Println(keys)
-		fmt.Println(filtersJson[keys[0].String()])
+	// for _, field := range structs.Fields(filters) {
+	// 	if filterAsMap[field.Name()] != "" {
+	// 		jsonTag := field.Tag("json")
+	// 		if strings.Contains(jsonTag, ",") {
+	// 			jsonTag = strings.Split(jsonTag, ",")[0]
+	// 		}
+	// 		filtersJson[jsonTag] = fmt.Sprintf("%v", filterAsMap[field.Name()])
+	// 	}
+	// }
+	// if len(maps.Keys(filtersJson)) > 0 {
+	// 	keys := reflect.ValueOf(filtersJson).MapKeys()
+	// 	fmt.Println(keys)
+	// 	fmt.Println(filtersJson[keys[0].String()])
 		
-		includeLogicalAndOperator := len(maps.Keys(filtersJson)) > 1
-		for _,k := range keys {
-			conditionString += fmt.Sprintf("%v LIKE %v%v%v", k, "'%",filtersJson[k.String()],"%'")
-			if includeLogicalAndOperator && fixedAssetFilterCounter+1 < len(filtersJson) {
-				conditionString += " OR "
-			}
-			fixedAssetFilterCounter += 1
-		}
-		conditionString += fmt.Sprintf(" AND \"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
-		sqlInstance = sqlInstance.Where(conditionString)
-	} else {
-		conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
-		sqlInstance = sqlInstance.Where(conditionString)
+	// 	includeLogicalAndOperator := len(maps.Keys(filtersJson)) > 1
+	// 	for _,k := range keys {
+	// 		conditionString += fmt.Sprintf("%v LIKE %v%v%v", k, "'%",filtersJson[k.String()],"%'")
+	// 		if includeLogicalAndOperator && fixedAssetFilterCounter+1 < len(filtersJson) {
+	// 			conditionString += " OR "
+	// 		}
+	// 		fixedAssetFilterCounter += 1
+	// 	}
+	// 	conditionString += fmt.Sprintf(" AND \"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
+	// 	sqlInstance = sqlInstance.Where(conditionString)
+	// } else {
+	// 	conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
+	// 	sqlInstance = sqlInstance.Where(conditionString)
+	// }
+	conditionString := common.StructJsonSerializer(structs.Map(filters))
+	if conditionString != ""{
+		conditionString += " AND "
 	}
-
+	conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
 	sqlInstance.Count(&totalRecordsCounter)
 	err := sqlInstance.
 		Offset((page - 1) * offset).

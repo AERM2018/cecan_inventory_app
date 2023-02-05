@@ -2,6 +2,7 @@ package datasources
 
 import (
 	"cecan_inventory/domain/models"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -27,19 +28,20 @@ func (dataSrc MedicinesDataSource) GetMedicineByKey(key string) (models.Medicine
 	return medicineFound, nil
 }
 
-func (dataSrc MedicinesDataSource) GetMedicinesCatalog(medicineKey string, includeDeleted bool) ([]models.Medicine, error) {
-	var medicinesCatalog []models.Medicine
+func (dataSrc MedicinesDataSource) GetMedicinesCatalog(filters models.MedicinesFilters, includeDeleted bool) ([]models.Medicine, error) {
+	medicinesCatalog := make([]models.Medicine,0)
 	res := dataSrc.DbPsql.Omit("created_at", "updated_at", "deletet_at")
 	if includeDeleted {
 		res = res.Unscoped()
 	}
-	if medicineKey != "" {
-		res = res.Where("key = ?", medicineKey).First(&medicinesCatalog)
+	if filters.MedicineKey != "" {
+		conditionString := fmt.Sprintf("key LIKE %v%v%v","'%",filters.MedicineKey,"%'")
+		res = res.Where(conditionString).Find(&medicinesCatalog)
 	} else {
 		res = res.Find(&medicinesCatalog)
-	}
-	if res.Error != nil {
-		return medicinesCatalog, res.Error
+		if res.Error != nil {
+			return medicinesCatalog, res.Error
+		}
 	}
 	return medicinesCatalog, nil
 }
