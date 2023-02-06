@@ -28,17 +28,17 @@ func Connect() (*gorm.DB, error) {
 		os.Getenv("CECAN_DB_NAME"),
 		os.Getenv("CECAN_DB_PORT")) // Get stringConnection with help of the env file
 	if DBInstance == nil {
-		logLevel := logger.Silent
-		if(os.Getenv("DEBUG") == "TRUE"){
+		logLevel := logger.Info
+		if os.Getenv("DEBUG") == "TRUE" {
 			logLevel = logger.Info
 		}
 		newLogger := logger.New(
 			log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 			logger.Config{
-				SlowThreshold:             time.Second,   // Slow SQL threshold
-				LogLevel:                  logLevel, // Log level
-				IgnoreRecordNotFoundError: true,          // Ignore ErrRecordNotFound error for logger
-				Colorful:                  false,         // Disable color
+				SlowThreshold:             time.Second, // Slow SQL threshold
+				LogLevel:                  logLevel,    // Log level
+				IgnoreRecordNotFoundError: true,        // Ignore ErrRecordNotFound error for logger
+				Colorful:                  false,       // Disable color
 			},
 		)
 		DBInstance, err = gorm.Open(postgres.Open(stringConnection), &gorm.Config{Logger: newLogger})

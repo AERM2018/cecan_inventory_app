@@ -15,12 +15,12 @@ type PharmacyStockInteractor struct {
 }
 
 func (interactor PharmacyStockInteractor) GetPharmacyStocks(filters models.MedicinesFilters) models.Responser {
-	medicineStocksDetailed := make([]models.PharmacyStocksDetails,0)
-	medicineLessQty := make([]models.PharmacyStock,0)
+	medicineStocksDetailed := make([]models.PharmacyStocksDetails, 0)
+	medicineLessQty := make([]models.PharmacyStocksDetailedNoStocks, 0)
 	data := iris.Map{}
 	var (
 		stocksError error
-		totalPages int
+		totalPages  int
 	)
 
 	// medicines, errMedicines := interactor.MedicinesDataSource.GetMedicinesCatalog(filters, filters.IncludeDeleted)
@@ -40,25 +40,25 @@ func (interactor PharmacyStockInteractor) GetPharmacyStocks(filters models.Medic
 	// 	medicineStocksDetailed = append(medicineStocksDetailed, stockDetailed)
 	// }
 	if filters.ShowLessQty {
-		medicineLessQty, stocksError = interactor.PharmacyStocksDataSource.GetMedicinesWithLessStockQty(filters)
+		medicineLessQty, totalPages, stocksError = interactor.PharmacyStocksDataSource.GetMedicinesWithLessStockQty(filters)
 		data["inventory"] = medicineLessQty
-	}else{
+	} else {
 		// Get all stocks from pharmacy
-		medicineStocksDetailed, totalPages ,stocksError = interactor.PharmacyStocksDataSource.GetPharmacyStocks(filters)
+		medicineStocksDetailed, totalPages, stocksError = interactor.PharmacyStocksDataSource.GetPharmacyStocks(filters)
 		data["inventory"] = medicineStocksDetailed
 	}
 	if stocksError != nil {
 		fmt.Println(stocksError.Error())
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
-			Err: stocksError,
+			Err:        stocksError,
 		}
 	}
 	return models.Responser{
 		StatusCode: iris.StatusOK,
-		Data: data,
+		Data:       data,
 		ExtraInfo: []map[string]interface{}{
-			{"pages":totalPages},
+			{"pages": totalPages},
 		},
 	}
 }

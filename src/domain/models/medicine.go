@@ -15,13 +15,12 @@ type (
 		DeletedAt gorm.DeletedAt `gorm:"index" json:"deleted_at,omitempty"`
 	}
 
-	
 	MedicinesFilters struct {
-		MedicineKey string `json:"medicine_key,omitempty"`
-		MedicineName string `json:"medicine_name,omitempty"`
-		Limit int `json:"limit,omitempty"`
-		Page int `json:"page,omitempty"`
-		IncludeDeleted bool `json:"include_deleted,omitempty"`
-		ShowLessQty bool `json:"show_less_qty,omitempty"`
+		MedicineKey    string `json:"key,omitempty" json2:"medicine_key"`
+		MedicineName   string `json:"name,omitempty" json2:"medicine_name"`
+		Limit          int    `json:"limit,omitempty"`
+		Page           int    `json:"page,omitempty"`
+		IncludeDeleted bool   `json:"include_deleted,omitempty"`
+		ShowLessQty    bool   `json:"show_less_qty,omitempty"`
 	}
 )

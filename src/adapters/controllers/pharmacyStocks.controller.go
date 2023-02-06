@@ -26,8 +26,9 @@ func (controller *PharmacyStocksController) New() {
 
 func (controller PharmacyStocksController) GetPharmacyStocks(ctx iris.Context) {
 	medicineKey := ctx.URLParam("medicine_key")
-	limit := ctx.URLParamIntDefault("limit",10)
-	page := ctx.URLParamIntDefault("page",1)
+	medicineName := ctx.URLParam("medicine_name")
+	limit := ctx.URLParamIntDefault("limit", 10)
+	page := ctx.URLParamIntDefault("page", 1)
 	includeDeleted, errBoolParse := ctx.URLParamBool("include_deleted")
 	if errBoolParse != nil {
 		includeDeleted = false
@@ -38,11 +39,12 @@ func (controller PharmacyStocksController) GetPharmacyStocks(ctx iris.Context) {
 	}
 	// Build filters struct
 	medicinesFilters := models.MedicinesFilters{
-		MedicineKey: medicineKey,
-		Page: page,
-		Limit: limit,
+		MedicineKey:    medicineKey,
+		MedicineName:   medicineName,
+		Page:           page,
+		Limit:          limit,
 		IncludeDeleted: includeDeleted,
-		ShowLessQty: showLessQty,
+		ShowLessQty:    showLessQty,
 	}
 	res := controller.PharmacyStocksInteractor.GetPharmacyStocks(medicinesFilters)
 	if res.StatusCode >= 300 {

@@ -1,8 +1,8 @@
 package datasources
 
 import (
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
-	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -28,22 +28,30 @@ func (dataSrc MedicinesDataSource) GetMedicineByKey(key string) (models.Medicine
 	return medicineFound, nil
 }
 
-func (dataSrc MedicinesDataSource) GetMedicinesCatalog(filters models.MedicinesFilters, includeDeleted bool) ([]models.Medicine, error) {
-	medicinesCatalog := make([]models.Medicine,0)
-	res := dataSrc.DbPsql.Omit("created_at", "updated_at", "deletet_at")
+func (dataSrc MedicinesDataSource) GetMedicinesCatalog(filters models.MedicinesFilters, includeDeleted bool) ([]models.Medicine, int, error) {
+	var totalRecords int64
+	medicinesCatalog := make([]models.Medicine, 0)
+	conditionStringFromJson := common.StructJsonSerializer(models.MedicinesFilters{
+		MedicineKey:  filters.MedicineKey,
+		MedicineName: filters.MedicineName,
+	}, "json")
+	res := dataSrc.DbPsql
 	if includeDeleted {
 		res = res.Unscoped()
 	}
-	if filters.MedicineKey != "" {
-		conditionString := fmt.Sprintf("key LIKE %v%v%v","'%",filters.MedicineKey,"%'")
-		res = res.Where(conditionString).Find(&medicinesCatalog)
-	} else {
-		res = res.Find(&medicinesCatalog)
-		if res.Error != nil {
-			return medicinesCatalog, res.Error
-		}
+
+	res = res.
+		Where(conditionStringFromJson).
+		Limit(filters.Limit).
+		Offset((filters.Page - 1) * filters.Limit).
+		Find(&medicinesCatalog).
+		Count(&totalRecords)
+
+	totalPages := int(totalRecords) / filters.Limit
+	if totalPages*filters.Limit != int(totalRecords) {
+		totalPages += 1
 	}
-	return medicinesCatalog, nil
+	return medicinesCatalog, totalPages, nil
 }
 
 func (dataSrc MedicinesDataSource) UpdateMedicine(key string, medicine models.Medicine) (string, error) {

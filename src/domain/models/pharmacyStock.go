@@ -33,12 +33,20 @@ type (
 	}
 
 	PharmacyStocksDetailed struct {
-		MedicineKey         string              `gorm:"foreignKey:medicine_key;references:key" json:"medicine_key"`
-		Medicine                    Medicine                `json:"medicine"`
+		MedicineKey                 string                   `gorm:"foreignKey:medicine_key;references:key" json:"medicine_key"`
+		Medicine                    Medicine                 `json:"medicine"`
 		Stocks                      *[]PharmacyStocksDetails `gorm:"foreignKey:medicine_key" json:"stocks,omitempty"`
-		PiecesBySemaforizationColor map[string]int          `json:"pieces_left_by_semaforization_color"`
-		TotalPieces                 int16                   `json:"total_pieces"`
-		TotalPiecesLeft             int16                   `json:"total_pieces_left"`
+		PiecesBySemaforizationColor map[string]int           `json:"pieces_left_by_semaforization_color"`
+		TotalPieces                 int16                    `json:"total_pieces"`
+		TotalPiecesLeft             int16                    `json:"total_pieces_left"`
+	}
+
+	PharmacyStocksDetailedNoStocks struct {
+		MedicineKey                 string         `gorm:"foreignKey:medicine_key;references:key" json:"medicine_key"`
+		Medicine                    Medicine       `json:"medicine"`
+		PiecesBySemaforizationColor map[string]int `json:"pieces_left_by_semaforization_color"`
+		TotalPieces                 int16          `json:"total_pieces"`
+		TotalPiecesLeft             int16          `json:"total_pieces_left"`
 	}
 
 	PharmacyStocksDetails struct {
@@ -61,11 +69,11 @@ type (
 		ExpiresAt           time.Time           `json:"expires_at" validate:"gttoday"`
 		UpdatedAt           *time.Time          `gorm:"autoUpdateTime:milli" json:"updated_at,omitempty"`
 	}
-
 )
 
 func (pharmacyStock *PharmacyStock) BeforeCreate(tx *gorm.DB) (err error) {
 	pharmacyStock.SemaforizationColor = SemaforizationColor(common.GetSemaforizationColorFromDate(pharmacyStock.ExpiresAt))
+	pharmacyStock.Pieces_left = pharmacyStock.Pieces
 	return
 }
 
