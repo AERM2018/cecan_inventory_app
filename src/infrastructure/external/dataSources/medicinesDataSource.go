@@ -35,17 +35,17 @@ func (dataSrc MedicinesDataSource) GetMedicinesCatalog(filters models.MedicinesF
 		MedicineKey:  filters.MedicineKey,
 		MedicineName: filters.MedicineName,
 	}, "json")
-	res := dataSrc.DbPsql
+	res := dataSrc.DbPsql.Table("medicines")
 	if includeDeleted {
 		res = res.Unscoped()
 	}
 
 	res = res.
 		Where(conditionStringFromJson).
+		Count(&totalRecords).
 		Limit(filters.Limit).
 		Offset((filters.Page - 1) * filters.Limit).
-		Find(&medicinesCatalog).
-		Count(&totalRecords)
+		Find(&medicinesCatalog)
 
 	totalPages := int(totalRecords) / filters.Limit
 	if totalPages*filters.Limit != int(totalRecords) {
