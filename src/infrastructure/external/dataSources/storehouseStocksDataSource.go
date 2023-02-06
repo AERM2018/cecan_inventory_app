@@ -1,6 +1,7 @@
 package datasources
 
 import (
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
 	"errors"
 	"fmt"
@@ -18,6 +19,8 @@ func (dataSrc StorehouseStocksDataSource) CreateStorehouseStock(stock models.Sto
 		"storehouse_utility_key",
 		"quantity_presentation",
 		"quantity_parsed",
+		"quantity_parsed_left",
+		"quantity_presentation_left",
 		"lot_number",
 		"catalog_number",
 		"expires_at",
@@ -48,6 +51,81 @@ func (dataSrc StorehouseStocksDataSource) GetStorehouseStockById(id string) (mod
 		return stock, err
 	}
 	return stock, nil
+}
+
+func (dataSrc StorehouseStocksDataSource) GetStorehouseInventoryStocks(filters models.StorehouseUtilitiesFilters) ([]models.StorehouseUtilityStockDetailed, int, error) {
+	var totalRecords int64
+	keysMatched := make([]string, 0)
+	storehouseStocks := make([]models.StorehouseUtilityStockDetailed, 0)
+	totalPages := 1
+	sqlInstance := dataSrc.DbPsql.Table("storehouse_stocks")
+	conditionStringFromJson := common.StructJsonSerializer(models.StorehouseUtilitiesFilters{
+		UtilityKey:  filters.UtilityKey,
+		UtilityName: filters.UtilityName,
+	}, "json")
+	if conditionStringFromJson != "" {
+		// Get the utilities with key that matches the condition
+		dataSrc.DbPsql.Select("key").Table("storehouse_utilities").Where(conditionStringFromJson).Find(&keysMatched)
+		sqlInstance = sqlInstance.Where("storehouse_utility_key in (?)", keysMatched)
+	}
+	sqlInstance = sqlInstance.
+		Limit(filters.Limit).
+		Offset((filters.Page - 1) * filters.Limit).
+		Preload("StorehouseUtility").
+		Find(&storehouseStocks).
+		Count(&totalRecords)
+
+	if sqlInstance.Error != nil {
+		return storehouseStocks, 0, sqlInstance.Error
+	}
+
+	totalPages = int(totalRecords) / filters.Limit
+	if int(totalRecords)%filters.Limit != 0 {
+		totalPages = totalPages + 1
+	}
+
+	return storehouseStocks, totalPages, nil
+}
+
+func (dataSrc StorehouseStocksDataSource) GetStorehouseInventoryUtilitiesDetailed(filters models.StorehouseUtilitiesFilters) ([]models.StorehouseUtilitsDetailedNoStocks, int, error) {
+	var totalRecords int64
+	keysMatched := make([]string, 0)
+	totalPages := 1
+	conditionStringFromJson := common.StructJsonSerializer(models.StorehouseUtilitiesFilters{
+		UtilityKey:  filters.UtilityKey,
+		UtilityName: filters.UtilityName,
+	}, "json")
+	// Get the utilities with key that matches the condition
+	dataSrc.DbPsql.Select("key").Table("storehouse_utilities").Where(conditionStringFromJson).Find(&keysMatched)
+	storehouseUtilitiesNoStocks := make([]models.StorehouseUtilitsDetailedNoStocks, 0)
+	// Subquery to get total pieces left of a medicine
+	subQuerySelect := dataSrc.DbPsql.
+		Select("SUM(quantity_presentation) - SUM(quantity_presentation_used) as total_quantity_presentation_left").
+		Where("storehouse_utility_key = ss.storehouse_utility_key").
+		Table("storehouse_stocks")
+	// Query medicines that match with the condition
+	querySelect := dataSrc.DbPsql.
+		Select("storehouse_utility_key,(?) as total_quantity_presentation_left", subQuerySelect).
+		Group("ss.storehouse_utility_key").
+		Table("storehouse_stocks as ss").
+		Where("storehouse_utility_key in (?)", keysMatched)
+	res := dataSrc.DbPsql.
+		Omit("query_result.total_quantity_parsed_left").
+		Table("(?) as query_result", querySelect).
+		Preload("StorehouseUtility").
+		Where("query_result.total_quantity_presentation_left < 1000").
+		Find(&storehouseUtilitiesNoStocks).
+		Count(&totalRecords)
+
+	totalPages = int(totalRecords) / filters.Limit
+	if totalPages*filters.Limit != int(totalRecords) {
+		totalPages += 1
+	}
+
+	if res.Error != nil {
+		return storehouseUtilitiesNoStocks, 0, res.Error
+	}
+	return storehouseUtilitiesNoStocks, totalPages, nil
 }
 
 func (dataSrc StorehouseStocksDataSource) UpdateStorehouseStock(id string, stock models.StorehouseStock) error {

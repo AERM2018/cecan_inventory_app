@@ -1,0 +1,1 @@
+ALTER TABLE storehouse_utilities DROP COLUMN final_presentation;
