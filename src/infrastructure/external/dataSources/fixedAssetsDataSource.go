@@ -22,6 +22,8 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 	// conditionString := ""
 	// fixedAssetFilterCounter := 0
 	sqlInstance := dataSrc.DbPsql.Table("fixed_assets_detailed")
+	fmt.Println("filters")
+	fmt.Println(filters)
 	// Convert struct property names to json tags and remove the ones which are empty
 	// for _, field := range structs.Fields(filters) {
 	// 	if filterAsMap[field.Name()] != "" {
