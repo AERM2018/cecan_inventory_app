@@ -58,8 +58,9 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 		conditionString += " AND "
 	}
 	conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
-	sqlInstance.Count(&totalRecordsCounter)
 	err := sqlInstance.
+		Where(conditionString).
+		Count(&totalRecordsCounter).
 		Offset((page - 1) * offset).
 		Limit(limit).
 		Find(&fixedAssets).
