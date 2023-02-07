@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/fatih/structs"
 	"gorm.io/gorm"
 )
 
@@ -52,7 +51,7 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 	// 	conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
 	// 	sqlInstance = sqlInstance.Where(conditionString)
 	// }
-	conditionString := common.StructJsonSerializer(structs.Map(filters), "json")
+	conditionString := common.StructJsonSerializer(filters, "json")
 	if conditionString != "" {
 		conditionString += " AND "
 	}
