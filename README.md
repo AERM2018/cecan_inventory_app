@@ -10,7 +10,13 @@ Esta aplicación de servidor se ejecuta en un contenedor docker, por lo que es n
 3. Una vez definidas las variables en los ficheros antes mencionados, hay que ejecutar el siguiente comando
 ```
   docker-compose -p cecan-dev up -d
+``` 
+
+#### **Nota:** Si es la primera vez que se va a ejecutar se debe de ejecutar el siguiente comando:
 ```
+docker-compose -p cecan-dev up -d --build
+```
+
 4. Después de unos segundos deberías ver un mensaje que dice que los contenedores se han creado correctamente.
 5. Ejecuta el comando ```docker ps```, el verás la lista de los contenedores que se están ejecutando actualmente, deberías ver dos contenedores cuyo nombre empieza por "cecan-dev"
 6. Finalmente, puedes acceder al contenedor en los puertos especificados, 
