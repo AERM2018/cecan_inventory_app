@@ -54,7 +54,15 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 	// 	conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
 	// 	sqlInstance = sqlInstance.Where(conditionString)
 	// }
-	conditionString := common.StructJsonSerializer(structs.Map(filters), "json")
+	conditionString := common.StructJsonSerializer(structs.Map(models.FixedAssetFilters{
+		DepartmentName: filters.DepartmentName,
+		Brand:          filters.Brand,
+		Model:          filters.Model,
+		Type:           filters.Type,
+		PhysicState:    filters.PhysicState,
+		Description:    filters.Description,
+
+	}), "json")
 	if conditionString != "" {
 		conditionString += " AND "
 	}
