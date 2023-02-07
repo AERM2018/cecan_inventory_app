@@ -8,7 +8,7 @@ import (
 	"github.com/fatih/structs"
 )
 
-func StructJsonSerializer(filters interface{}) string {
+func StructJsonSerializer(filters any) string {
 	fmt.Println(reflect.TypeOf(filters))
 	filtersJson := make(map[string]interface{})
 	filterAsMap := structs.Map(filters)
