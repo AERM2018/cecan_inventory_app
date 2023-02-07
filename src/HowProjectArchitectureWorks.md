@@ -1,89 +1,142 @@
-# Project's architecture (directories distribution)
 
-This project implements an architecture (*arch*) model called "Clean Architecture" which divides the project into three different layers. Thanks to this arch it's easier
-to separate the project's parts by their functionality. The layers are the following:
+# Table of content
+- [Introducción](#introduction)
+- [Infrastructure](#infrastructure)
+  - [config](#sub_config)
+  - [external](#sub_external)
+  - [http](#sub_http)
+  - [storage](#sub_storage)
+- [Adpaters](#adapters)
+  - [helpers](#sub_helpers)
+  - [controllers](#sub_controllers)
+- [Domain](#domain)
+  - [assets](#sub_assets)
+  - [common](#sub_common)
+  - [mocks](#sub_mocks)
+  - [models](#sub_models)
+  - [pfds](#sub_pfds)
+  - [seeds](#sub_seeds)
+  - [useCases](#sub_useCases)
+
+<div id='introduction'/>
+
+# Arquitectura del proyecto (distribución de directorios)
+
+Este proyecto implementa un modelo de arquitectura (*arch*) llamado "Arquitectura Limpia" que divide el proyecto en tres capas diferentes. Gracias a este arquitectura es más fácil separar las partes del proyecto por su funcionalidad. Las capas son las siguientes
 - Infrastructure
 - Adapters
 - Domain
 
 
+<div id='infrastructure'/>
+
 ## Infrastructure
 
-This layer contains the configuration and initialization of the project and it's dependencies (third-party software). The dependencies are the software that I used to be build this software.
-Within this folder there are others folder such as config, external, http and storage.
+Esta capa contiene la configuración e inicialización del proyecto y sus dependencias (software de terceros). Las dependencias son el software que he utilizado para construir este software.
+Dentro de esta carpeta hay otras carpetas como config, external, http y storage.
 
 ---------------------------
-#### config
-This folder contains the file of the app´s configuration where the application instance is initialized with the routes and middlewares, also has the method which starts the server.
 
-#### external
-This folder contains different function that are part of the third-party software that was used. Within this you will find:
-- AuthToken : Function to generate the JWT (Json Web Token). Token that is used to authenticate the user in the server-side, by doing this it's possible to know which users are allowed to do any action defined in the API.
-- BodyReader: Function to read the request's body and pass it to the api endpoints' middlewares until get the request's handler.
-- DataSources: Objects that implement functions that are able to read, create, update and delete records from the data base (most of the cases, one data source is for a table in the data base)
+<div id='sub_config'/>
+
+### config
+Esta carpeta contiene el archivo de configuración de la aplicación donde se inicializa la instancia de la aplicación con las rutas y middlewares, también tiene el método que inicia el servidor.
+
+<div id='sub_external'/>
+
+### external
+Esta carpeta contiene diferentes funciones que son parte del software de terceros que se utilizó. Dentro de esta se encuentran:
+- AuthToken : Función para generar el JWT (Json Web Token). Token que se utiliza para autenticar al usuario en el lado del servidor, haciendo esto es posible saber que usuarios tienen permiso para realizar cualquier acción definida en el API.
+- BodyReader: Función para leer el cuerpo de la petición y pasarlo a los middlewares de los endpoints de la api hasta obtener el manejador de la petición.
+- DataSources: Objetos que implementan funciones capaces de leer, crear, actualizar y borrar registros de la base de datos (en la mayoría de los casos, un data source es para una tabla de la base de datos).
 
 
-#### http
-This folder contains the files that define the routes the API is listening to, as well as,  the middlewares that are functions that executed before execute the main handler. It looks like this:
+<div id='sub_http'/>
+
+### http
+Esta carpeta contiene los archivos que definen las rutas que la API está escuchando, así como, los middlewares que son funciones que se ejecutan antes de ejecutar el manejador principal. Su aspecto es el siguiente
 - Middlewares
-  - requestValidator: Function to validate a request contains the specified fields
-  - customReqValidator: Contains different functions that specify the fields that has to be in the reques's body and the validations that they have to fulfill
-  - verifyJwt: Function to validate the JWT token that is present in the request's headers, if it's valid, the next middlewares and main handler are executed. If not, a message that the token is invalid is sent to the client.
-  - DbValidator: Object that make calls to the data base to check if certain data is in the data base since it's needed for executing the different actions that the api is able to
+  - requestValidator: Función para validar que una petición contiene los campos especificados.
+  - customReqValidator: Contiene diferentes funciones que especifican los campos que tienen que estar en el cuerpo de la petición y las validaciones que tienen que cumplir
+  - verifyJwt: Función para validar el token JWT que está presente en las cabeceras de la petición, si es válido, se ejecutan los siguientes middlewares y el handler principal. En caso contrario, se envía un mensaje al cliente indicando que el token no es válido.
+  - DbValidator: Objeto que realiza llamadas a la base de datos para comprobar si ciertos datos están en la base de datos ya que son necesarios para ejecutar las diferentes acciones que es capaz de realizar la api
 - Routes
-  This folder contains the different files in which the routes are difined, each file groups certain routes that belong to a module, for example, the pharmacy's routes are for getting the catalog and inventory from that department.
+  Esta carpeta contiene los diferentes archivos en los que se definen las rutas, cada archivo agrupa ciertas rutas que pertenecen a un módulo, por ejemplo, las rutas de farmacia son para obtener el catálogo e inventario de ese departamento.
   
- #### storage
- This folder contains different files that are useful to set up the data base connection. Within it you will find:
- - Migrations: Folder in which all the migration files are located. The migration files are SQL files that have SQL commands to create, alter or delete the data base tables. Thanks to this you can run the API the first time, and the data base tables will be created automatically.
- - Migrator: Object that has the different function to run or destroy the data base migrations.
- - Seeds: They are kind of migration that insted of creating a table, it will insert data to a table when the app runs.
- - Storage: This is the file where the connection is stablished and the migrations run to read and execute the missing migrations and seeds. It uses the environmental variables to define the data base credentials to be used.
+  <div id='sub_storage'/>
+
+### storage
+ Esta carpeta contiene diferentes archivos útiles para configurar la conexión a la base de datos. Dentro de ella encontrará:
+ - Migrations: Carpeta en la que se encuentran todos los ficheros de migración. Los ficheros de migración son ficheros SQL que contienen comandos SQL para crear, alterar o borrar las tablas de la base de datos. Gracias a esto podrás ejecutar la API la primera vez, y las tablas de la base de datos se crearán automáticamente.
+ - Migrator: Objeto que tiene funciones diferentes para ejecutar o destruir las migraciones de base de datos.
+ - Seeds: Son un tipo de migración que en lugar de crear una tabla, insertará datos a una tabla cuando se ejecute la aplicación.
+ - Storage: Es el fichero donde se establece la conexión y se ejecutan las migraciones para leer y ejecutar las migraciones y semillas que faltan. Utiliza las variables de entorno para definir las credenciales de la base de datos a utilizar.
 
 ------------------------------
 
+<div id='adapters'/>
+
 ## Adapters
-This folder contains two subfolders that are shown below:
+Esta carpeta contiene dos subcarpetas que se muestran a continuación:
 
-#### helpers
-This folder contains two function that are shown below:
-- responseHandler: A function that receives a group of parameters that are part of the response that is sent to the client, this is the function in charge of triggering the event to send the response.
-- uploadFile: This a function to take the file that is present in the request's body, stores it and return the path where it was stored. If there's an error, it will call the another helper to send an error to the client.
+<div id='sub_helpers'/>
 
-#### controllers
-This folder contains different files that are the main handlers of the routes, they are many files, but all of them follows the same logic:
-- The handler is an object that has as parameters the data sources instances and interactors that were injected when the controller instance was defined in the router
-  - You can the interacors explanations here:
-- It calls the desired method of the interactor, stores the response from it that is actually the response to the client, and calls the helper to send the response
+### helpers
+- responseHandler: Es una función que recibe un grupo de parámetros que forman parte de la respuesta que se envía al cliente, esta es la función encargada de disparar el evento para enviar la respuesta.
+- uploadFile: Es una función que toma el archivo presente en el cuerpo de la petición, lo almacena y devuelve la ruta donde fue almacenado. Si hay un error, llamará al otro helper para enviar un error al cliente.
+
+<div id='sub_controllers'/>
+
+### controllers
+Esta carpeta contiene diferentes archivos que son los manejadores principales de las rutas, son muchos archivos, pero todos siguen la misma lógica:
+- El manejador es un objeto que tiene como parámetros las instancias de los data sources y los interactors que se inyectaron cuando se definió la instancia del controlador en el router.
+  - Puedes ver las explicaciones de los interactores aquí:
+- Llama al método deseado del interactor, almacena la respuesta del mismo que es en realidad la respuesta al cliente, y llama al helper para enviar la respuesta
 
 --------------------------------
 
+<div id='domain'/>
+
 ## Domain
 
-#### assets
-This folder contains assets (images) that are used in the creation of the different documents.
+<div id='sub_assets'/>
 
-#### common
-This folder contains functions that are re-used in different parts of the project such as 
-- get the semaforization color by date.
-- insert a predefined header to pfd documents.
-- mailer service.
-- upload data from files to data base
+### assets
+Esta carpeta contiene activos (imágenes) que se utilizan en la creación de los diferentes documentos.
 
-#### mocks
-This folder containt objects that contain objects with the data thar is inserted to the data base the first time is run.
+<div id='sub_common'/>
 
-#### models
-This folder contains objects that are a representation of the data bases tables in the programming language's objects. These objects have also a function that are executed before inserting or deleteing records in the corresponding table.
+### common
+Esta carpeta contiene funciones que se reutilizan en diferentes partes del proyecto como por ejemplo 
+- obtener el color de semaforización por fecha.
+- insertar una cabecera predefinida a los documentos pfd.
+- servicio de correo.
+- subir datos de ficheros a base de datos
 
-#### pfds
-This folder is used to store the pdf files that are created whent the user requests the generation of a document. Those files can be deleted each lapse of time in order not to make this folder heavy.
+<div id='sub_mocks'/>
 
-#### seeds
-This folder is used to store the files that the user upload to insert predifend data to a table (until now it's possible to upload data to fixed assests table).
+### mocks
+Esta carpeta contiene objetos con los datos que se insertan en la base de datos la primera vez que se ejecuta.
 
-#### useCases
-This folder contains different files that contain the business login that is the responsible of dictate the way the data must be treated, they are many files, but all of them follows the same logic:
-- It's an object call interactor, its intance is declared in the controller and the data sources are injected to it.
-- It contains functions that are called in the controllers, each function makes a call to the data base using a data source.
-- Thanks to the execution of the login within it, it's possible to determine the response that will be sent to the client by the controller. In other words, the response body is returned by this function
+<div id='sub_models'/>
+
+### models
+Esta carpeta contiene objetos que son una representación de las tablas de las bases de datos en los objetos del lenguaje de programación. Estos objetos tienen también una función que se ejecuta antes de insertar o borrar registros en la tabla correspondiente.
+
+<div id='sub_pdfs'/>
+
+### pfds
+Esta carpeta se utiliza para almacenar los ficheros pdf que se crean cuando el usuario solicita la generación de un documento. Estos ficheros pueden ser borrados cada cierto tiempo para no hacer pesada esta carpeta.
+
+<div id='sub_seeds'/>
+
+### seeds
+Esta carpeta se utiliza para almacenar los ficheros que el usuario sube para insertar datos predefinidos en una tabla (hasta ahora es posible subir datos a tablas de activos fijos).
+
+<div id='sub_useCases'/>
+
+### useCases
+Esta carpeta contiene diferentes archivos que contienen la logíca de negocio que es el encargado de dictar la forma en que los datos deben ser tratados, son muchos archivos, pero todos siguen la misma lógica:
+- Es un llamado objeto interactor, su instancia se declara en el controlador y se le inyectan los data sources.
+- Contiene funciones que son llamadas en los controladores, cada función hace una llamada a la base de datos utilizando un data source.
+- Gracias a la ejecución de la logíca dentro de él, es posible determinar la respuesta que será enviada al cliente por el controlador. En otras palabras, el cuerpo de la respuesta es devuelto por esta función
