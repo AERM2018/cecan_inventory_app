@@ -1,5 +1,5 @@
 
-# Table of content
+# Table de contenido
 - [Introducción](#introduction)
 - [Infrastructure](#infrastructure)
   - [config](#sub_config)
@@ -31,6 +31,7 @@ Este proyecto implementa un modelo de arquitectura (*arch*) llamado "Arquitectur
 <div id='infrastructure'/>
 
 ## Infrastructure
+[ver carpeta en repositorio remoto](https://github.com/AERM2018/cecan_inventory_app/tree/main/src/infrastructure)
 
 Esta capa contiene la configuración e inicialización del proyecto y sus dependencias (software de terceros). Las dependencias son el software que he utilizado para construir este software.
 Dentro de esta carpeta hay otras carpetas como config, external, http y storage.
@@ -77,6 +78,8 @@ Esta carpeta contiene los archivos que definen las rutas que la API está escuch
 <div id='adapters'/>
 
 ## Adapters
+[ver carpeta en repositorio remoto](https://github.com/AERM2018/cecan_inventory_app/tree/main/src/adapters)
+
 Esta carpeta contiene dos subcarpetas que se muestran a continuación:
 
 <div id='sub_helpers'/>
@@ -98,6 +101,8 @@ Esta carpeta contiene diferentes archivos que son los manejadores principales de
 <div id='domain'/>
 
 ## Domain
+[ver carpeta en repositorio remoto](https://github.com/AERM2018/cecan_inventory_app/tree/main/src/domain)
+
 
 <div id='sub_assets'/>
 

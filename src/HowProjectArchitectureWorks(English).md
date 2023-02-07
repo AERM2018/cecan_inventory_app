@@ -32,6 +32,7 @@ to separate the project's parts by their functionality. The layers are the follo
 <div id='infrastructure'/>
 
 ## Infrastructure
+[see folder on remote repository](https://github.com/AERM2018/cecan_inventory_app/tree/main/src/infrastructure)
 
 This layer contains the configuration and initialization of the project and it's dependencies (third-party software). The dependencies are the software that I used to be build this software.
 Within this folder there are others folder such as config, external, http and storage.
@@ -76,8 +77,12 @@ This folder contains the files that define the routes the API is listening to, a
 ------------------------------
 <div id='adapters'/>
 
-## Adapters
-This folder contains two subfolders that are shown below:
+## Adapters 
+
+#### [see folder on remote repository](https://github.com/AERM2018/cecan_inventory_app/tree/main/src/adapters)
+
+This folder contains two subfolders that are shown below: 
+
 
 <div id='sub_helpers'/>
 
@@ -98,6 +103,7 @@ This folder contains different files that are the main handlers of the routes, t
 <div id='domain'/>
 
 ## Domain
+#### [see folder on remote repository](https://github.com/AERM2018/cecan_inventory_app/tree/main/src/domain)
 
 
 <div id='sub_assets'/>
