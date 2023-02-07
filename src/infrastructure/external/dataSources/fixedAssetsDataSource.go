@@ -15,7 +15,7 @@ type FixedAssetsDataSource struct {
 	DbPsql *gorm.DB
 }
 
-func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string,page int, limit int, offset int) ([]models.FixedAssetDetailed, float64 ,error) {
+func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFilters, datesDelimiter []string, page int, limit int, offset int) ([]models.FixedAssetDetailed, float64, error) {
 	var totalRecordsCounter int64
 	fixedAssets := make([]models.FixedAssetDetailed, 0)
 	// filtersJson := make(map[string]interface{})
@@ -37,7 +37,7 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 	// 	keys := reflect.ValueOf(filtersJson).MapKeys()
 	// 	fmt.Println(keys)
 	// 	fmt.Println(filtersJson[keys[0].String()])
-		
+
 	// 	includeLogicalAndOperator := len(maps.Keys(filtersJson)) > 1
 	// 	for _,k := range keys {
 	// 		conditionString += fmt.Sprintf("%v LIKE %v%v%v", k, "'%",filtersJson[k.String()],"%'")
@@ -52,8 +52,8 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 	// 	conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
 	// 	sqlInstance = sqlInstance.Where(conditionString)
 	// }
-	conditionString := common.StructJsonSerializer(structs.Map(filters))
-	if conditionString != ""{
+	conditionString := common.StructJsonSerializer(structs.Map(filters), "json")
+	if conditionString != "" {
 		conditionString += " AND "
 	}
 	conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
@@ -67,7 +67,7 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 		return fixedAssets, 0, err
 	}
 	totalPages := math.Round(float64(int(totalRecordsCounter) / limit))
-	if totalPages * float64(limit) < float64(totalRecordsCounter) {
+	if totalPages*float64(limit) < float64(totalRecordsCounter) {
 		totalPages += 1
 	}
 	return fixedAssets, totalPages, nil

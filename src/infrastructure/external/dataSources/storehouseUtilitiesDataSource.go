@@ -1,6 +1,7 @@
 package datasources
 
 import (
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
 	"errors"
 
@@ -19,13 +20,19 @@ func (dataSrc StorehouseUtilitiesDataSource) CreateStorehouseUtility(utility mod
 	return nil
 }
 
-func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities(includeDeleted bool) ([]models.StorehouseUtilityDetailed, error) {
+func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities(filters models.StorehouseUtilitiesFilters) ([]models.StorehouseUtilityDetailed, int, error) {
+	var totalRecords int64
+	totalPages := 1
+	conditionStringFromJson := common.StructJsonSerializer(models.StorehouseUtilitiesFilters{
+		UtilityKey:  filters.UtilityKey,
+		UtilityName: filters.UtilityName,
+	}, "json")
 	storehouseUtilities := make([]models.StorehouseUtilityDetailed, 0)
 	dbPointer := dataSrc.DbPsql.Model(&models.StorehouseUtility{})
-	if includeDeleted {
+	if filters.IncludeDeleted {
 		dbPointer = dbPointer.Unscoped()
 	}
-	err := dbPointer.
+	dbPointer = dbPointer.
 		Preload("Presentation", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
@@ -35,11 +42,20 @@ func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities(includeDelet
 		Preload("Category", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("created_at", "updated_at", "deleted_at")
 		}).
-		Find(&storehouseUtilities).Error
-	if err != nil {
-		return storehouseUtilities, err
+		Where(conditionStringFromJson).
+		Count(&totalRecords).
+		Limit(filters.Limit).
+		Offset((filters.Page - 1) * filters.Limit).
+		Find(&storehouseUtilities)
+
+	totalPages = int(totalRecords) / filters.Limit
+	if totalPages*filters.Limit != int(totalRecords) {
+		totalPages += 1
 	}
-	return storehouseUtilities, nil
+	if dbPointer.Error != nil {
+		return storehouseUtilities, 0, dbPointer.Error
+	}
+	return storehouseUtilities, totalPages, nil
 }
 
 func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilityByKey(key string) (models.StorehouseUtilityDetailed, error) {

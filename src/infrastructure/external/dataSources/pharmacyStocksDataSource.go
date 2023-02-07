@@ -31,51 +31,75 @@ func (dataSrc PharmacyStocksDataSource) GetPharmacyStockById(id uuid.UUID) (mode
 	return pharmacyStock, nil
 }
 
-func (dataSrc PharmacyStocksDataSource) GetPharmacyStocks(filters models.MedicinesFilters) ([]models.PharmacyStocksDetails, int,error) {
+func (dataSrc PharmacyStocksDataSource) GetPharmacyStocks(filters models.MedicinesFilters) ([]models.PharmacyStocksDetails, int, error) {
 	var totalRecords int64
 	pharmacyStocks := make([]models.PharmacyStocksDetails, 0)
+	keysMatched := make([]string, 0)
 	totalPages := 0
-	// res := dataSrc.DbPsql.Raw(fmt.Sprintf("SELECT * FROM public.get_pharmacy_stocks_sorted_no_color('%v');", medicineKey)).Scan(&pharmacyStocks)
-	res := dataSrc.DbPsql.Table("pharmacy_stocks")
-
-	if filters.MedicineKey != "" {
-		res = res.Where(fmt.Sprintf("medicine_key LIKE %v%v%v","'%",filters.MedicineKey,"%'"))
-	}
-
-	res.Count(&totalRecords)
+	conditionStringFromJson := common.StructJsonSerializer(models.MedicinesFilters{
+		MedicineKey:  filters.MedicineKey,
+		MedicineName: filters.MedicineName,
+	}, "json")
+	dataSrc.DbPsql.Select("key").Table("medicines").Where(conditionStringFromJson).Find(&keysMatched)
+	res := dataSrc.DbPsql.Table("pharmacy_stocks").Where("medicine_key in (?)", keysMatched)
 	res = res.
 		Limit(filters.Limit).
-		Offset((filters.Page-1) * filters.Limit).
+		Offset((filters.Page - 1) * filters.Limit).
 		Preload("Medicine").
-		Find(&pharmacyStocks)
+		Find(&pharmacyStocks).
+		Count(&totalRecords)
 
 	if res.Error != nil {
-		return pharmacyStocks,0, res.Error
+		return pharmacyStocks, 0, res.Error
 	}
 
 	totalPages = int(totalRecords) / filters.Limit
-	if int(totalRecords) % filters.Limit != 0 {
+	if int(totalRecords)%filters.Limit != 0 {
 		totalPages = totalPages + 1
 	}
-	
+
 	return pharmacyStocks, totalPages, nil
 }
 
-func (dataSrc PharmacyStocksDataSource) GetMedicinesWithLessStockQty(filters models.MedicinesFilters)([]models.PharmacyStock, error){
-	conditionString := ""
+func (dataSrc PharmacyStocksDataSource) GetMedicinesWithLessStockQty(filters models.MedicinesFilters) ([]models.PharmacyStocksDetailedNoStocks, int, error) {
+	var totalRecords int64
+	keysMatched := make([]string, 0)
+	totalPages := 1
 	conditionStringFromJson := common.StructJsonSerializer(models.MedicinesFilters{
-		MedicineKey: filters.MedicineKey,
-	})
-	if conditionStringFromJson != ""{
-		conditionString += "WHERE " + conditionStringFromJson
+		MedicineKey:  filters.MedicineKey,
+		MedicineName: filters.MedicineName,
+	}, "json")
+	// Get the medicines keys that matches the condition
+	dataSrc.DbPsql.Select("key").Table("medicines").Where(conditionStringFromJson).Find(&keysMatched)
+	medicinesWithStocks := make([]models.PharmacyStocksDetailedNoStocks, 0)
+	// Subquery to get total pieces left of a medicine
+	subQuerySelect := dataSrc.DbPsql.
+		Select("SUM(pieces) - SUM(pieces_used) as pieces_left").
+		Where("medicine_key = ps.medicine_key").
+		Table("pharmacy_stocks")
+	// Query medicines that match with the condition
+	querySelect := dataSrc.DbPsql.
+		Select("medicine_key,(?) as total_pieces_left", subQuerySelect).
+		Group("ps.medicine_key").
+		Table("pharmacy_stocks as ps").
+		Where("medicine_key in (?)", keysMatched)
+	res := dataSrc.DbPsql.
+		Omit("query_result.total_pieces").
+		Table("(?) as query_result", querySelect).
+		Joins("Medicine").
+		Where("query_result.total_pieces_left < 1000").
+		Find(&medicinesWithStocks).
+		Count(&totalRecords)
+
+	totalPages = int(totalRecords) / filters.Limit
+	if totalPages*filters.Limit != int(totalRecords) {
+		totalPages += 1
 	}
-	sqlQuery := fmt.Sprintf("SELECT medicine_key, (SELECT SUM(pieces) FROM pharmacy_stocks where medicine_key = ps.medicine_key) as pieces_left FROM pharmacy_stocks ps %v GROUP by (medicine_key) LIMIT %v OFFSET %v;", conditionString,filters.Limit, (filters.Page - 1) * filters.Limit)
-	medicinesWithStocks := make([]models.PharmacyStock,0)
-	res := dataSrc.DbPsql.Raw(sqlQuery).Joins("Medicine").Scan(&medicinesWithStocks)
+
 	if res.Error != nil {
-		return medicinesWithStocks, res.Error
+		return medicinesWithStocks, 0, res.Error
 	}
-	return medicinesWithStocks, nil
+	return medicinesWithStocks, totalPages, nil
 }
 
 func (dataSrc PharmacyStocksDataSource) UpdatePharmacyStock(id uuid.UUID, pharmacyStock models.PharmacyStockToUpdate) error {

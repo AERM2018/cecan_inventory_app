@@ -1,4 +1,5 @@
 Docker/*/*.env
 src/tmp
 src/domain/pdfs/*.pdf
+src/domain/seeds/*.csv
 Docker/*/certbot/

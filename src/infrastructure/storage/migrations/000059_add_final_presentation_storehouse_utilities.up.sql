@@ -1,0 +1,1 @@
+ALTER TABLE storehouse_utilities ADD final_presentation VARCHAR(255) NOT NULL DEFAULT '';

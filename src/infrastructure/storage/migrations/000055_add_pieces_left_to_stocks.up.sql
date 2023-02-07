@@ -1,0 +1,1 @@
+ALTER TABLE pharmacy_stocks ADD pieces_left INT NOT NULL DEFAULT 0;

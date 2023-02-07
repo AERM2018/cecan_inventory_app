@@ -63,9 +63,9 @@ func (interactor StorehouseUtilitiesInteractor) CreateStorehouseUtilityStock(sto
 	}
 }
 
-func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilities(includeDeleted bool) models.Responser {
+func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilities(filters models.StorehouseUtilitiesFilters) models.Responser {
 
-	storehouseUtilities, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilities(includeDeleted)
+	storehouseUtilities, totalPages, err := interactor.StorehouseUtilitiesDataSource.GetStorehouseUtilities(filters)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,
@@ -76,6 +76,9 @@ func (interactor StorehouseUtilitiesInteractor) GetStorehouseUtilities(includeDe
 		StatusCode: iris.StatusOK,
 		Data: iris.Map{
 			"storehouse_utilities": storehouseUtilities,
+		},
+		ExtraInfo: []map[string]interface{}{
+			{"pages": totalPages},
 		},
 	}
 }

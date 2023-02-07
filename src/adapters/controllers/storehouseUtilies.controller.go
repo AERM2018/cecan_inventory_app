@@ -47,8 +47,23 @@ func (controller StorehouseUtilitiesController) CreateStorehouseUtilityStock(ctx
 }
 
 func (controller StorehouseUtilitiesController) GetStorehouseUtilities(ctx iris.Context) {
-	includeDeleted, _ := ctx.URLParamBool("include_deleted")
-	res := controller.Interactor.GetStorehouseUtilities(includeDeleted)
+	utilityKey := ctx.URLParam("utility_key")
+	utilityName := ctx.URLParam("utility_name")
+	limit := ctx.URLParamIntDefault("limit", 10)
+	page := ctx.URLParamIntDefault("page", 1)
+	includeDeleted, errBoolParse := ctx.URLParamBool("include_deleted")
+	if errBoolParse != nil {
+		includeDeleted = false
+	}
+	// Build filters struct
+	utilityFilters := models.StorehouseUtilitiesFilters{
+		UtilityKey:     utilityKey,
+		UtilityName:    utilityName,
+		Page:           page,
+		Limit:          limit,
+		IncludeDeleted: includeDeleted,
+	}
+	res := controller.Interactor.GetStorehouseUtilities(utilityFilters)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return

@@ -49,13 +49,15 @@ func (controller MedicinesController) InsertPharmacyStockOfMedicine(ctx iris.Con
 
 func (controller MedicinesController) GetMedicinesCatalog(ctx iris.Context) {
 	includeDeleted, _ := ctx.URLParamBool("include_deleted")
-	medicineKey := ctx.URLParamDefault("medicine_key","")
-	limit := ctx.URLParamIntDefault("limit",10)
-	page := ctx.URLParamIntDefault("page",1)
+	medicineKey := ctx.URLParamDefault("key", "")
+	medicineName := ctx.URLParamDefault("name", "")
+	limit := ctx.URLParamIntDefault("limit", 10)
+	page := ctx.URLParamIntDefault("page", 1)
 	medicinesFilters := models.MedicinesFilters{
-		MedicineKey: medicineKey,
-		Limit: limit,
-		Page: page,
+		MedicineKey:  medicineKey,
+		MedicineName: medicineName,
+		Limit:        limit,
+		Page:         page,
 	}
 	res := controller.Interactor.GetMedicinesCatalog(medicinesFilters, includeDeleted)
 	if res.StatusCode >= 300 {

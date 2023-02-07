@@ -24,7 +24,28 @@ func (controller *StorehouseStocksController) New() {
 }
 
 func (controller StorehouseStocksController) GetStorehouseInventory(ctx iris.Context) {
-	res := controller.Interactor.GetStorehouseInventory()
+	utilityKey := ctx.URLParam("utility_key")
+	utilityName := ctx.URLParam("utility_name")
+	limit := ctx.URLParamIntDefault("limit", 10)
+	page := ctx.URLParamIntDefault("page", 1)
+	includeDeleted, errBoolParse := ctx.URLParamBool("include_deleted")
+	if errBoolParse != nil {
+		includeDeleted = false
+	}
+	showLessQty, errBoolParse2 := ctx.URLParamBool("show_less_qty")
+	if errBoolParse2 != nil {
+		includeDeleted = false
+	}
+	// Build filters struct
+	utilityFilters := models.StorehouseUtilitiesFilters{
+		UtilityKey:     utilityKey,
+		UtilityName:    utilityName,
+		Page:           page,
+		Limit:          limit,
+		IncludeDeleted: includeDeleted,
+		ShowLessQty:    showLessQty,
+	}
+	res := controller.Interactor.GetStorehouseInventory(utilityFilters)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
