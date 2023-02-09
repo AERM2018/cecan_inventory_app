@@ -34,7 +34,7 @@ func (dataSrc MedicinesDataSource) GetMedicinesCatalog(filters models.MedicinesF
 	conditionStringFromJson := common.StructJsonSerializer(models.MedicinesFilters{
 		MedicineKey:  filters.MedicineKey,
 		MedicineName: filters.MedicineName,
-	}, "json")
+	}, "json", "OR")
 	res := dataSrc.DbPsql.Table("medicines")
 	if includeDeleted {
 		res = res.Unscoped()

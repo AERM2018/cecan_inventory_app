@@ -1,6 +1,7 @@
 package datasources
 
 import (
+	"cecan_inventory/domain/common"
 	"cecan_inventory/domain/models"
 	"errors"
 	"fmt"
@@ -12,8 +13,9 @@ type FixedAssetsRequetsDataSource struct {
 	DbPsql *gorm.DB
 }
 
-func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests(departmentId string) ([]models.FixedAssetsRequestDetailed, error) {
+func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests(filters models.FixedAssetsRequestsFilters) ([]models.FixedAssetsRequestDetailed, error) {
 	fixedAssetsRequests := make([]models.FixedAssetsRequestDetailed, 0)
+	conditionStringFromJson := common.StructJsonSerializer(filters, "json", "AND")
 	sqlInstance := dataSrc.DbPsql.
 		Table("fixed_assets_requests").
 		Preload("Department", func(db *gorm.DB) *gorm.DB {
@@ -22,10 +24,7 @@ func (dataSrc FixedAssetsRequetsDataSource) GetFixedAssetsRequests(departmentId 
 		Preload("User", func(db *gorm.DB) *gorm.DB {
 			return db.Omit("password", "email", "created_at", "updated_at", "deleted_at")
 		})
-	if departmentId != "" {
-		sqlInstance = sqlInstance.Where("department_id = ?", departmentId)
-	}
-	err := sqlInstance.Find(&fixedAssetsRequests).
+	err := sqlInstance.Where(conditionStringFromJson).Find(&fixedAssetsRequests).
 		Error
 	if err != nil {
 		return fixedAssetsRequests, err

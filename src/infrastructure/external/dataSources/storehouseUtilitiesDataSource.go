@@ -26,7 +26,7 @@ func (dataSrc StorehouseUtilitiesDataSource) GetStorehouseUtilities(filters mode
 	conditionStringFromJson := common.StructJsonSerializer(models.StorehouseUtilitiesFilters{
 		UtilityKey:  filters.UtilityKey,
 		UtilityName: filters.UtilityName,
-	}, "json")
+	}, "json", "OR")
 	storehouseUtilities := make([]models.StorehouseUtilityDetailed, 0)
 	dbPointer := dataSrc.DbPsql.Model(&models.StorehouseUtility{})
 	if filters.IncludeDeleted {

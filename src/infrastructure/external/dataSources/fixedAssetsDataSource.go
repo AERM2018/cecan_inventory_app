@@ -53,7 +53,7 @@ func (dataSrc FixedAssetsDataSource) GetFixedAssets(filters models.FixedAssetFil
 	// 	conditionString += fmt.Sprintf("\"created_at\" BETWEEN %v AND %v", datesDelimiter[0], datesDelimiter[1])
 	// 	sqlInstance = sqlInstance.Where(conditionString)
 	// }
-	conditionString := common.StructJsonSerializer(filters, "json")
+	conditionString := common.StructJsonSerializer(filters, "json", "OR")
 	if conditionString != "" {
 		conditionString += " AND "
 	}

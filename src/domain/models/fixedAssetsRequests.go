@@ -25,4 +25,9 @@ type (
 		CreatedAt    time.Time                  `json:"created_at"`
 		UpdatedAt    time.Time                  `json:"updated_at"`
 	}
+
+	FixedAssetsRequestsFilters struct {
+		DepartmentId string `json:"department_id"`
+		Date         string `json:"created_at"`
+	}
 )

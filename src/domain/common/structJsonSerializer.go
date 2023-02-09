@@ -8,7 +8,7 @@ import (
 	"github.com/fatih/structs"
 )
 
-func StructJsonSerializer(filters interface{}, tagName string) string {
+func StructJsonSerializer(filters interface{}, tagName string, logicalOperator string) string {
 	fmt.Println(reflect.TypeOf(filters))
 	filtersJson := make(map[string]interface{})
 	filterAsMap := structs.Map(filters)
@@ -25,10 +25,10 @@ func StructJsonSerializer(filters interface{}, tagName string) string {
 			}
 		}
 	}
-	return jsonToConditionString(filtersJson)
+	return jsonToConditionString(filtersJson, logicalOperator)
 }
 
-func jsonToConditionString(json map[string]interface{}) string {
+func jsonToConditionString(json map[string]interface{}, logicalOperator string) string {
 	conditionString := ""
 	filterCounter := 0
 	keys := reflect.ValueOf(json).MapKeys()
@@ -39,9 +39,9 @@ func jsonToConditionString(json map[string]interface{}) string {
 
 		includeLogicalAndOperator := len(keys) > 1
 		for _, k := range keys {
-			conditionString += fmt.Sprintf("%v ILIKE %v%v%v", k, "'%", json[k.String()], "%'")
+			conditionString += fmt.Sprintf("%v::varchar ILIKE %v%v%v", k, "'%", json[k.String()], "%'")
 			if includeLogicalAndOperator && filterCounter+1 < len(json) {
-				conditionString += " OR "
+				conditionString += fmt.Sprintf(" %v ", logicalOperator)
 			}
 			filterCounter += 1
 		}

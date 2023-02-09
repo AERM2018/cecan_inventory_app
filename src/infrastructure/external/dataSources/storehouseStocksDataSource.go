@@ -63,7 +63,7 @@ func (dataSrc StorehouseStocksDataSource) GetStorehouseInventoryStocks(filters m
 	conditionStringFromJson := common.StructJsonSerializer(models.StorehouseUtilitiesFilters{
 		UtilityKey:  filters.UtilityKey,
 		UtilityName: filters.UtilityName,
-	}, "json")
+	}, "json", "OR")
 	if conditionStringFromJson != "" {
 		// Get the utilities with key that matches the condition
 		dataSrc.DbPsql.Select("key").Table("storehouse_utilities").Where(conditionStringFromJson).Find(&keysMatched)
@@ -95,7 +95,7 @@ func (dataSrc StorehouseStocksDataSource) GetStorehouseInventoryUtilitiesDetaile
 	conditionStringFromJson := common.StructJsonSerializer(models.StorehouseUtilitiesFilters{
 		UtilityKey:  filters.UtilityKey,
 		UtilityName: filters.UtilityName,
-	}, "json")
+	}, "json", "OR")
 	// Get the utilities with key that matches the condition
 	dataSrc.DbPsql.Select("key").Table("storehouse_utilities").Where(conditionStringFromJson).Find(&keysMatched)
 	storehouseUtilitiesNoStocks := make([]models.StorehouseUtilitsDetailedNoStocks, 0)

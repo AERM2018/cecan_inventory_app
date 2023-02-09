@@ -15,8 +15,8 @@ type FixedAssetsRequestsInteractor struct {
 	DepartmentsDataSource         datasources.DepartmentDataSource
 }
 
-func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequests(departmentId string) models.Responser {
-	fixedAssetsRequests, err := interactor.FixedAssetsRequestsDataSource.GetFixedAssetsRequests(departmentId)
+func (interactor FixedAssetsRequestsInteractor) GetFixedAssetsRequests(filters models.FixedAssetsRequestsFilters) models.Responser {
+	fixedAssetsRequests, err := interactor.FixedAssetsRequestsDataSource.GetFixedAssetsRequests(filters)
 	if err != nil {
 		return models.Responser{
 			StatusCode: iris.StatusInternalServerError,

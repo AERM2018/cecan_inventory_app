@@ -39,7 +39,7 @@ func (dataSrc PharmacyStocksDataSource) GetPharmacyStocks(filters models.Medicin
 	conditionStringFromJson := common.StructJsonSerializer(models.MedicinesFilters{
 		MedicineKey:  filters.MedicineKey,
 		MedicineName: filters.MedicineName,
-	}, "json")
+	}, "json", "OR")
 	dataSrc.DbPsql.Select("key").Table("medicines").Where(conditionStringFromJson).Find(&keysMatched)
 	res := dataSrc.DbPsql.Table("pharmacy_stocks").Where("medicine_key in (?)", keysMatched)
 	res = res.
@@ -68,7 +68,7 @@ func (dataSrc PharmacyStocksDataSource) GetMedicinesWithLessStockQty(filters mod
 	conditionStringFromJson := common.StructJsonSerializer(models.MedicinesFilters{
 		MedicineKey:  filters.MedicineKey,
 		MedicineName: filters.MedicineName,
-	}, "json")
+	}, "json", "OR")
 	// Get the medicines keys that matches the condition
 	dataSrc.DbPsql.Select("key").Table("medicines").Where(conditionStringFromJson).Find(&keysMatched)
 	medicinesWithStocks := make([]models.PharmacyStocksDetailedNoStocks, 0)

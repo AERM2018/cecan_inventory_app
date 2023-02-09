@@ -7,6 +7,7 @@ import (
 	bodyreader "cecan_inventory/infrastructure/external/bodyReader"
 	datasources "cecan_inventory/infrastructure/external/dataSources"
 	"fmt"
+	"strings"
 
 	"github.com/google/uuid"
 	"github.com/kataras/iris/v12"
@@ -35,7 +36,12 @@ func (controller *FixedAssetsRequestsController) New() {
 
 func (controller FixedAssetsRequestsController) GetFixedAssetsRequests(ctx iris.Context) {
 	departmentId := ctx.URLParamDefault("department_id", "")
-	res := controller.Interactor.GetFixedAssetsRequests(departmentId)
+	date := ctx.URLParamDefault("date", "")
+	fixedAssetsRequestsFilters := models.FixedAssetsRequestsFilters{
+		DepartmentId: fmt.Sprintf("%v", departmentId),
+		Date:         strings.ReplaceAll(date, "/", "-"),
+	}
+	res := controller.Interactor.GetFixedAssetsRequests(fixedAssetsRequestsFilters)
 	if res.StatusCode > 300 {
 		helpers.PrepareAndSendMessageResponse(ctx, res)
 		return
