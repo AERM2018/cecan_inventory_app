@@ -1,0 +1,1 @@
+ALTER TABLE storehouse_stocks DROP COLUMN semaforization_color;

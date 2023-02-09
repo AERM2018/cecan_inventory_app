@@ -23,6 +23,7 @@ func (dataSrc StorehouseStocksDataSource) CreateStorehouseStock(stock models.Sto
 		"quantity_presentation_left",
 		"lot_number",
 		"catalog_number",
+		"semaforization_color",
 		"expires_at",
 	).Create(&stock).Error
 	if err != nil {
